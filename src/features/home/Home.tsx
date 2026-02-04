@@ -3,6 +3,7 @@ import sponsore1 from "../../assets/images/home/sponsore1.png";
 import sponsore2 from "../../assets/images/home/sponsore2.png";
 import sponsore3 from "../../assets/images/home/sponsore3.png";
 import guideYou from "../../assets/images/home/guide-you.png";
+import ActionButton from "../../shared/Components/BaseButton.tsx";
 
 const Home = () => {
   return (
@@ -50,10 +51,16 @@ const Home = () => {
               find the <span className="text-orange-500">best policy</span> — just <br />
               answer a few <span className="text-orange-500">quick questions!</span>
             </p>
+            <ActionButton
+              text="Find your policy"
+              className="w-[249px]"
+              onClick={() => console.log("clicked")}
+            />
 
-            <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg w-fit">
-              Get Started
-            </button>
+          </div>
+          <div>
+
+
           </div>
         </div>
       </div>
