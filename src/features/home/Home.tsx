@@ -5,6 +5,11 @@ import sponsore3 from "../../assets/images/home/sponsore3.png";
 import guideYou from "../../assets/images/home/guide-you.png";
 import ActionButton from "../../shared/Components/BaseButton.tsx";
 
+// import solutions from "./Solutions.tsx";
+import Solutions from "./Solutions.tsx";
+import PartnersBanks from "./PartnersBanks.tsx";
+import BusinessPartners from "./BusinessPartners.tsx";
+
 const Home = () => {
   return (
     <div>
@@ -64,6 +69,9 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <Solutions/>
+      <PartnersBanks />
+      <BusinessPartners/>
     </div>
   );
 };

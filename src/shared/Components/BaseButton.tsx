@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight } from "lucide-react"; // you can replace if needed
+import { ArrowRight } from "lucide-react";
 
 type ActionButtonProps = {
   text: string;
