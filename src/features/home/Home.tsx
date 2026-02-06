@@ -9,6 +9,7 @@ import ActionButton from "../../shared/Components/BaseButton.tsx";
 import Solutions from "./Solutions.tsx";
 import PartnersBanks from "./PartnersBanks.tsx";
 import BusinessPartners from "./BusinessPartners.tsx";
+import EmpoweringFamilies from "./components/EmpoweringFamilies.tsx";
 
 const Home = () => {
   return (
@@ -69,9 +70,10 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Solutions/>
+      <Solutions />
       <PartnersBanks />
-      <BusinessPartners/>
+      <BusinessPartners />
+      <EmpoweringFamilies />
     </div>
   );
 };
