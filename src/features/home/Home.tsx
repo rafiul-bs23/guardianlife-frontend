@@ -10,6 +10,8 @@ import Solutions from "./Solutions.tsx";
 import PartnersBanks from "./PartnersBanks.tsx";
 import BusinessPartners from "./BusinessPartners.tsx";
 import EmpoweringFamilies from "./components/EmpoweringFamilies.tsx";
+import AppPromotion from "./components/PromotionSection.tsx";
+import ContactForm from "./components/contact.tsx";
 
 const Home = () => {
   return (
@@ -74,6 +76,8 @@ const Home = () => {
       <PartnersBanks />
       <BusinessPartners />
       <EmpoweringFamilies />
+      <AppPromotion />
+      <ContactForm />
     </div>
   );
 };
