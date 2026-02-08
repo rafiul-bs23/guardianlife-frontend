@@ -34,7 +34,6 @@ const ContactForm = () => {
           />
         </div>
 
-
         <div className="flex-1 flex flex-col py-[62.5px] pl-8 justify-center gap-4 ">
           <div className="p-8 sm:p-12 lg:p-16 flex flex-col justify-center mr-[325px]">
             {/* Header */}
@@ -151,8 +150,6 @@ const ContactForm = () => {
 
         </div>
         <div>
-
-
         </div>
       </div>
     </div>

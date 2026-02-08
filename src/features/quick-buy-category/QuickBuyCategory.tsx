@@ -2,6 +2,7 @@ import Header from "../../shared/Components/Header.tsx";
 import HeaderImage from "../../assets/images/category/headerImage.jpg"
 import ProductCard from "../../shared/Components/ProductCard.tsx";
 import WhyChooseQuickBuyImage from "../../assets/images/quickBuyCategory/whyChooseQuickBuy.png"
+import FAQ from "../../shared/Components/Faq.tsx";
 
 const QuickBuyCategory = () => {
   const apiResponse = {
@@ -134,12 +135,13 @@ const QuickBuyCategory = () => {
           <img
             src={WhyChooseQuickBuyImage}
             alt="image"
-            className="object-cover"
+            className="object-cover w-[903px]"
           />
         </div>
       </div>
-
-
+      <div className="mt-[85px]">
+        <FAQ/>
+      </div>
     </div>
   );
 };
