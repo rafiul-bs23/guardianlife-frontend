@@ -4,8 +4,10 @@ import ProductCard from "../../shared/Components/ProductCard.tsx";
 import ProductCardCompact from "./ProductCardCompact.tsx";
 import WhyChooseQuickBuyImage from "../../assets/images/quickBuyCategory/whyChooseQuickBuy.png";
 import FAQ from "../../shared/Components/Faq.tsx";
+import {useState} from "react";
 
 const Category = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
   const apiResponse = {
     "success": true,
     "transactionId": "GLIL-TXN-ID",
@@ -95,6 +97,13 @@ const Category = () => {
       ]
     }
   };
+
+  const tabs = [
+    { id: 0, title: 'For You'},
+    { id: 1, title: 'For Your Family'},
+    { id: 2, title: 'Retirement'},
+    { id: 3, title: 'Islamic'},
+  ];
   const handleViewDetails = (productCode: string): void => {
     console.log(`View details clicked for: ${productCode}`);
   };
@@ -116,12 +125,32 @@ const Category = () => {
         }
       />
 
-      <div className="flex flex-col items-center mt-[143px]">
+      <div>
+        <div className="flex gap-3 flex-wrap justify-center mt-[14px]">
+          {tabs.map((solution, index) => (
+            <button
+              key={solution.id}
+              onClick={() => setActiveIndex(index)}
+              className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
+                activeIndex === index
+                  ? 'bg-blue-900 text-white'
+                  : 'bg-white text-gray-700 border border-gray-300 hover:border-blue-900'
+              }`}
+            >
+              {solution.title}
+            </button>
+          ))}
+
+        </div>
+      </div>
+
+      <div className="flex flex-col items-center mt-[73px]">
         <p className="font-bold text-[36px] leading-[32px] text-center tracking-[0.02em] uppercase">
           for your insurance solutions
         </p>
         <p className="font-normal text-[24px] leading-[32px] text-center tracking-[0.02em] text-black w-[1039px] mt-8">
-          Comprehensive protection plans tailored to your needs. Submit your application and let our experts guide you through the process.
+          Comprehensive protection plans tailored to your needs. Submit your application and let our experts guide you
+          through the process.
         </p>
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center mt-[84px]">
           {apiResponse.data.products.map((product) => (
