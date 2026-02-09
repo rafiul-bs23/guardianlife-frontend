@@ -32,7 +32,7 @@ const ProductCardWithActionButton = ({
             <img
               src={thumbnailUrl}
               alt={title}
-              className="relative z-10 w-full h-56 object-cover"
+              className="relative z-10 w-full h-[324px] object-cover"
             />
           )}
         </div>
