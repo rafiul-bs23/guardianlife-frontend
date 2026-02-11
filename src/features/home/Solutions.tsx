@@ -38,7 +38,7 @@ const SolutionsComponent = () => {
             <button
               key={solution.id}
               onClick={() => setActiveIndex(index)}
-              className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
+              className={`px-6 py-2 rounded-full  font-medium transition-all duration-300 ${
                 activeIndex === index
                   ? 'bg-blue-900 text-white'
                   : 'bg-white text-gray-700 border border-gray-300 hover:border-blue-900'
