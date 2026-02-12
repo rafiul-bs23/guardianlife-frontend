@@ -1,14 +1,10 @@
-
-export interface ContentItem {
-  title: string;
-  description: string;
-}
-
-export interface CardItem {
-  title: string;
-  description: string;
-  image?: string;
-}
+import type {
+  ContentItem,
+  CardItem,
+  PlanBenefitsSection,
+  ProductDocumentsSection,
+  LearnMoreSection,
+} from '../../shared/types/product';
 
 
 
@@ -32,11 +28,7 @@ export interface KeyHighlightsSection {
   cards: CardItem[];
 }
 
-export interface PlanBenefitsSection {
-  description: string;
-  cards: CardItem[];
-  points: ContentItem[];
-}
+// PlanBenefitsSection is now imported from shared
 
 export interface SupplementaryBenefitsSection {
   content: ContentItem[];
@@ -57,20 +49,9 @@ export interface PlanBreakdownSection {
   content: BreakdownItem[];
 }
 
-export interface DocumentItem {
-  type: 'file' | string;
-  title: string;
-  url: string;
-}
+// DocumentItem & ProductDocumentsSection are now imported from shared
 
-export interface ProductDocumentsSection {
-  content: DocumentItem[];
-}
-
-export interface VideoItem {
-  title: string;
-  videoUrl: string;
-}
+// VideoItem is now imported from shared
 
 export interface WhyChooseCoverageSection {
   title: string;
@@ -80,9 +61,7 @@ export interface WhyChooseCoverageSection {
 }
 
 
-export interface LearnMoreSection {
-  content: VideoItem[];
-}
+// LearnMoreSection is now imported from shared
 
 
 export interface ProductData {
