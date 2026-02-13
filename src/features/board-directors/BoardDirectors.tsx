@@ -1,12 +1,13 @@
-const About = () => {
+import React from 'react';
+import BoardDirectorsList from './components/BoardDirectorsList';
+import { mockBoardDirectorsData } from './api/mockData';
+
+const BoardDirectors = () => {
   return (
-    <section>
-      <h1>About</h1>
-      <p>
-        Welcome to GuardianLife. This is the About page.
-      </p>
-    </section>
+    <main className="min-h-screen bg-gray-50 pt-20">
+      <BoardDirectorsList data={mockBoardDirectorsData} />
+    </main>
   );
 };
 
-export default About;
+export default BoardDirectors;
