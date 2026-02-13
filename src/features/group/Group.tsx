@@ -1,9 +1,11 @@
 import HeaderImage from "../../assets/images/category/headerImage.jpg";
 import Header from "../../shared/Components/Header.tsx";
+import Contentheader from "../../shared/Components/Contentheader.tsx";
+import BenefitsList from "./Benefits.tsx";
 
 const Group = () => {
   return (
-    <section>
+    <div>
       <Header
         backgroundImage={HeaderImage}
         title={
@@ -15,11 +17,29 @@ const Group = () => {
           </h1>
         }
       />
-      <h1>Group</h1>
-      <p>
-        Welcome to GuardianLife. This is the Group page.
-      </p>
-    </section>
+      <div className="mt-[84px]">
+        <Contentheader
+          title="Why Group Insurance Matters for Your Organization"
+          description="A Smarter Way to Care for Your Employees"
+        />
+      </div>
+
+      <div className="flex mt-[90px]">
+        <div className="w-1/2 pl-[211px] pr-8 ">
+          <div className="max-w-[696px]">
+            <BenefitsList/>
+          </div>
+        </div>
+        <div className="w-1/2 pl-8">
+          <img
+            src="https://img.freepik.com/free-photo/businesspeople-having-good-time-meeting_1098-1786.jpg?semt=ais_hybrid"
+            alt="Header background"
+            className="inset-0 h-[554px] w-[712px] object-cover rounded-[35px]"
+          />
+        </div>
+      </div>
+
+    </div>
   );
 };
 
