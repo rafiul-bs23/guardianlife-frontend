@@ -1,7 +1,9 @@
 import React from 'react';
-import type { ProductDocumentsSection, LearnMoreSection } from '../types';
+
 import videoOverlay from '../../../assets/images/productDetails/videoOvarlay.png';
+import VideoSection from '../../../shared/Components/VideoSection';
 import { FileText, ClipboardCheck, Search } from 'lucide-react';
+import type { LearnMoreSection, ProductDocumentsSection } from '../../../shared/types/product';
 
 interface ProductSupportProps {
     documents: ProductDocumentsSection;
@@ -48,14 +50,11 @@ const ProductSupport: React.FC<ProductSupportProps> = ({ documents, learnMore })
                     <div className="flex flex-wrap gap-6">
                         {learnMore.content.map((video, index) => (
                             <div key={index} className="flex flex-col gap-3 group cursor-pointer w-[240px]">
-                                <div className="relative aspect-video rounded-2xl overflow-hidden bg-gray-200">
-                                    {/* Placeholder for video thumbnail - normally would come from data */}
-                                    <div className="w-full h-full bg-[#E5E7EB] flex items-center justify-center">
-                                        <img src={videoOverlay} alt="" className="w-full h-full object-cover" />
-                                    </div>
-
-
-                                </div>
+                                <VideoSection
+                                    thumbnail={videoOverlay}
+                                    title={video.title}
+                                    rounded="rounded-2xl"
+                                />
                                 <span className="text-sm font-bold text-gray-900 leading-tight">
                                     {video.title}
                                 </span>

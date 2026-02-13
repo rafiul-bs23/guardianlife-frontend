@@ -1,10 +1,10 @@
 import React from 'react';
-import type { PlanBenefitsSection as PlanBenefitsSectionType } from '../types';
 import Button from '../../../shared/Components/Button';
 import { ShieldCheck } from 'lucide-react';
+import type { PlanBenefitsSection } from '../../../shared/types/product';
 
 interface PlanBenefitsSectionProps {
-    data: PlanBenefitsSectionType;
+    data: PlanBenefitsSection;
 }
 
 const PlanBenefitsSection: React.FC<PlanBenefitsSectionProps> = ({ data }) => {
