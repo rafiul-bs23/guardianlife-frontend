@@ -2,12 +2,12 @@ import HeaderImage from "../../assets/images/category/headerImage.jpg";
 import Header from "../../shared/Components/Header.tsx";
 import Contentheader from "../../shared/Components/Contentheader.tsx";
 import BenefitsList from "./Benefits.tsx";
-// import { CoverageList } from "./CoverageList";
 import { ShieldIcon, HeartIcon, StarIcon } from "lucide-react";
 import {CoverageList} from "./CoverageList.tsx";
+import {LifeCoverage} from "./LifeCoverage.tsx";
 
 const Group = () => {
-  const data = [
+  const comprehensiveData = [
     {
       id: 1,
       icon: <ShieldIcon size={18} color="#4A90D9" />,
@@ -25,6 +25,33 @@ const Group = () => {
       icon: <StarIcon size={18} color="#9B6FD4" />,
       title: "Specialized Benefits",
       description: "Additional coverage for dental and optical care, ensuring comprehensive healthcare support for all aspects of employee well-being.",
+    },
+  ];
+  type LifeCoverageType = {
+    id: number;
+    title: string;
+    description: string;
+  };
+  const lifeCoveragedata: LifeCoverageType[] = [
+    {
+      id: 1,
+      title: "Death Benefit (Natural Death)",
+      description: "If an insured employee passes away due to natural causes during the policy period, Guardian Life Insurance, upon receiving written proof of death, will pay the sum insured to the organization or the nominated beneficiary of the employee.",
+    },
+    {
+      id: 2,
+      title: "Accidental Death Benefit (ADB)",
+      description: "In the event of an insured employee's death caused directly by an accident involving external and violent means, the Accidental Death Benefit provides an additional sum insured over and above the standard death benefit.",
+    },
+    {
+      id: 3,
+      title: "Permanent & Total Disability (PTD)",
+      description: "If an insured employee becomes permanently and totally disabled due to an accident resulting in bodily injury, Guardian Life will pay the full sum insured to the organization, offering financial support during a life-changing situation.",
+    },
+    {
+      id: 4,
+      title: "Permanent Partial Disability (PPD)",
+      description: "When an accident results in permanent partial disability, Guardian Life provides fixed financial benefits to the employer or employee in accordance with the Labor Law of Bangladesh, ensuring continued financial stability.",
     },
   ];
   return (
@@ -67,7 +94,7 @@ const Group = () => {
           description="Guardian Life offers a complete range of group insurance coverages that can be tailored to your organization's size, industry, and budget."
         />
       </div>
-      <div className="flex mt-[90px] h-[1000px]">
+      <div className="flex mt-[90px]">
         <div className="w-1/2 pl-[211px] pr-8">
           <img
             src="https://glilapi.guardianlife.com.bd/images/1725268980177-483331562-Guardian%20Health%20Insurance.png"
@@ -76,7 +103,7 @@ const Group = () => {
           />
         </div>
         <div className="w-1/2 pl-8">
-          <CoverageList items={data} />
+          <CoverageList items={comprehensiveData} />
         </div>
       </div>
       <div className="mt-[124px]">
@@ -87,7 +114,7 @@ const Group = () => {
       </div>
       <div className="flex mt-[90px] h-[1000px]">
         <div className="w-1/2 pl-[211px] pr-8">
-          <CoverageList items={data} />
+          <LifeCoverage items={lifeCoveragedata} />
         </div>
         <div className="w-1/2 pl-8">
           <img
