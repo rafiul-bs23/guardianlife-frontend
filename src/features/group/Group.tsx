@@ -1,13 +1,14 @@
 import HeaderImage from "../../assets/images/category/headerImage.jpg";
 import Header from "../../shared/Components/Header.tsx";
 import Contentheader from "../../shared/Components/Contentheader.tsx";
-import BenefitsList from "./Benefits.tsx";
+import BenefitsList from "./component/Benefits.tsx";
 import { ShieldIcon, HeartIcon, StarIcon } from "lucide-react";
-import {CoverageList} from "./CoverageList.tsx";
-import {LifeCoverage} from "./LifeCoverage.tsx";
-import {CriticalIllnessList} from "./CriticalillnessList.tsx";
+import {CoverageList} from "./component/CoverageList.tsx";
+import {LifeCoverage} from "./component/LifeCoverage.tsx";
+import {CriticalIllnessList} from "./component/CriticalillnessList.tsx";
 import {TreatmentPlanList} from "./component/TreatmentPlanList.tsx";
 import {MaternityBenefits} from "./component/MaternityBenefits.tsx";
+import OutPatientCard from "./component/OutPatientCard.tsx";
 
 const Group = () => {
   const comprehensiveData = [
@@ -57,6 +58,49 @@ const Group = () => {
       description: "When an accident results in permanent partial disability, Guardian Life provides fixed financial benefits to the employer or employee in accordance with the Labor Law of Bangladesh, ensuring continued financial stability.",
     },
   ];
+
+  const apiResponse = {
+    "success": true,
+    "transactionId": "GLIL-TXN-ID",
+    "data": {
+      "channel": "retail",
+      "category": null,
+      "subcategory": null,
+      "products": [
+        {
+          "title": "Dental Out-Patient Treatment Benefit",
+          "description": "Dental OPD coverage provides access to essential dental care without hospitalization.",
+          "productCode": "NRB-SP",
+          "logoUrl": null,
+          "thumbnailUrl": "https://i.ibb.co/hV3q6K9/term-life-insurance-2.png",
+          "footer": null,
+          "points": [
+            "Doctor Consultation Fees",
+            "Amalgam, Resin Plastic & Temporary/Permanent Fillings",
+            "Routine Extraction",
+            "Medication",
+            "X-rays & Investigations",
+            "Root Canal Treatment (including bridging and capping)",
+            "Scaling & Polishing (once per year per member)"
+          ]
+        },
+        {
+          "title": "Optical Out-Patient Treatment Benefit",
+          "description": "Optical OPD benefits cover eye care and vision correction needs on an outpatient basis.",
+          "productCode": "JAYA-01",
+          "logoUrl": "https://guardian-life-website-example.com/assets/images/nrb-savingslogo.png",
+          "thumbnailUrl": "https://i.ibb.co/hV3q6K9/term-life-insurance-2.png",
+          "footer": "Ideal for digital buyers",
+          "points": [
+            "Consultation",
+            "Vision Tests for Refractive Errors",
+            "Medication",
+            "Lenses & Spectacles"
+          ]
+        }
+      ]
+    }
+  };
   return (
     <div>
       <Header
@@ -177,11 +221,16 @@ const Group = () => {
           />
         </div>
       </div>
-      <div>
-        two card
-      </div>
-      <div>
-        cashless hospital network
+      <div className="grid grid-cols-1 lg:grid-cols-[643px_643px] gap-8 justify-center mt-[84px]">
+        {apiResponse.data.products.map((product) => (
+          <OutPatientCard
+            key={product.productCode}
+            thumbnailUrl={product.thumbnailUrl}
+            title={product.title}
+            description={product.description}
+            points={product.points}
+          />
+        ))}
       </div>
     </div>
   );
