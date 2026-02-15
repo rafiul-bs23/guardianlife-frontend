@@ -46,7 +46,7 @@ export function TreatmentPlanList() {
                   key={index}
                   className="flex items-center gap-[10px] text-[20px]"
                 >
-                  <span className="w-[10px] h-[10px] rounded-full bg-[#E8823A] flex-shrink-0" />
+                  <span className="w-[20px] h-[20px] rounded-full bg-[#E8823A] flex-shrink-0" />
                   {point}
                 </li>
               ))}

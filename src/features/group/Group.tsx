@@ -7,6 +7,7 @@ import {CoverageList} from "./CoverageList.tsx";
 import {LifeCoverage} from "./LifeCoverage.tsx";
 import {CriticalIllnessList} from "./CriticalillnessList.tsx";
 import {TreatmentPlanList} from "./component/TreatmentPlanList.tsx";
+import {MaternityBenefits} from "./component/MaternityBenefits.tsx";
 
 const Group = () => {
   const comprehensiveData = [
@@ -164,14 +165,23 @@ const Group = () => {
           <TreatmentPlanList />
         </div>
       </div>
-      <div className="bg-orange-200 rounded-[50px] h-[500px]">
-        left right section
+      <div className="flex bg-[#F5DBCB] rounded-[50px] mt-[94px] mx-[200px] py-[65px]">
+        <div className="w-1/2 pl-[43px]">
+          <MaternityBenefits />
+        </div>
+        <div className="w-1/2 mx-[40px]">
+          <img
+            src="https://glilapi.guardianlife.com.bd/images/1725268160788-397856237-Children.jpg"
+            alt="image"
+            className="inset-0 w-[688px] h-[507px] object-cover rounded-[35px]"
+          />
+        </div>
       </div>
       <div>
         two card
       </div>
       <div>
-      cashless hospital network
+        cashless hospital network
       </div>
     </div>
   );
