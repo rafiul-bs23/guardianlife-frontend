@@ -6,6 +6,7 @@ import { ShieldIcon, HeartIcon, StarIcon } from "lucide-react";
 import {CoverageList} from "./CoverageList.tsx";
 import {LifeCoverage} from "./LifeCoverage.tsx";
 import {CriticalIllnessList} from "./CriticalillnessList.tsx";
+import {TreatmentPlanList} from "./component/TreatmentPlanList.tsx";
 
 const Group = () => {
   const comprehensiveData = [
@@ -151,9 +152,17 @@ const Group = () => {
           description="With rising healthcare costs and evolving family responsibilities, Guardian Life's Group Health Insurance plans are designed to provide extensive medical coverage—both for hospitalization and routine medical expenses."
         />
       </div>
-      <div className="flex mt-[90px] h-[1000px]">
-        <div className="w-1/2 pl-[211px] pr-8">left(image)</div>
-        <div className="w-1/2 pl-8">right(list)</div>
+      <div className="flex mt-[90px]">
+        <div className="w-1/2 pl-[211px] pr-8">
+          <img
+            src="https://glilapi.guardianlife.com.bd/images/1725268160788-397856237-Children.jpg"
+            alt="image"
+            className="inset-0 w-[688px] h-[507px] object-cover rounded-[35px]"
+          />
+        </div>
+        <div className="w-1/2 pl-8 pr-[212px]">
+          <TreatmentPlanList />
+        </div>
       </div>
       <div className="bg-orange-200 rounded-[50px] h-[500px]">
         left right section
@@ -162,7 +171,7 @@ const Group = () => {
         two card
       </div>
       <div>
-        cashless hospital network
+      cashless hospital network
       </div>
     </div>
   );
