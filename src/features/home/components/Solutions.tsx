@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
 // Import your images
-import image1 from '../../assets/images/home/Solutions/solutions1.png';
-import image2 from '../../assets/images/home/Solutions/solutions2.png';
-import image3 from '../../assets/images/home/Solutions/solutions3.png';
-import image4 from '../../assets/images/home/Solutions/solutions4.png';
+import image1 from '../../../assets/images/home/Solutions/solutions1.png';
+import image2 from '../../../assets/images/home/Solutions/solutions2.png';
+import image3 from '../../../assets/images/home/Solutions/solutions3.png';
+import image4 from '../../../assets/images/home/Solutions/solutions4.png';
 
 const SolutionsComponent = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -38,7 +38,7 @@ const SolutionsComponent = () => {
             <button
               key={solution.id}
               onClick={() => setActiveIndex(index)}
-              className={`px-6 py-2 rounded-full  font-medium transition-all duration-300 ${
+              className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
                 activeIndex === index
                   ? 'bg-blue-900 text-white'
                   : 'bg-white text-gray-700 border border-gray-300 hover:border-blue-900'
