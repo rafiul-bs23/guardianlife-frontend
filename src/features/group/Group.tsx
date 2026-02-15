@@ -5,6 +5,7 @@ import BenefitsList from "./Benefits.tsx";
 import { ShieldIcon, HeartIcon, StarIcon } from "lucide-react";
 import {CoverageList} from "./CoverageList.tsx";
 import {LifeCoverage} from "./LifeCoverage.tsx";
+import {CriticalIllnessList} from "./CriticalillnessList.tsx";
 
 const Group = () => {
   const comprehensiveData = [
@@ -112,7 +113,7 @@ const Group = () => {
           description="Group Life Insurance ensures financial security for employees and their families while reinforcing an organization's commitment to long-term employee welfare. This coverage helps mitigate uncertainty and provides assurance during life-altering events"
         />
       </div>
-      <div className="flex mt-[90px] h-[1000px]">
+      <div className="flex mt-[90px]">
         <div className="w-1/2 pl-[211px] pr-8">
           <LifeCoverage items={lifeCoveragedata} />
         </div>
@@ -124,16 +125,24 @@ const Group = () => {
           />
         </div>
       </div>
-      <div className="bg-orange-200 rounded-[50px] mx-[211px]">
-        <div className="mt-[124px]">
+      <div className="bg-[#F5DBCB] rounded-[50px] mx-[211px] mt-[111px] pb-[56px]">
+        <div className="pt-[124px]">
           <Contentheader
             title="Protection Against Major Life-Threatening Diseases"
             description="The Critical Illness Benefit is a supplementary coverage designed to support employees and their families financially if diagnosed with any of the specified critical illnesses. This benefit helps manage high treatment costs and income disruption."
           />
         </div>
-        <div className="flex mt-[90px] h-[1000px]">
-          <div className="w-1/2 pl-[211px] pr-8">left(list)</div>
-          <div className="w-1/2 pl-8">right(image)</div>
+        <div className="flex mt-[90px]">
+          <div className="w-1/2 pl-[28px] pr-8">
+            <CriticalIllnessList />
+          </div>
+          <div className="w-1/2 pl-8">
+            <img
+              src="https://glilapi.guardianlife.com.bd/images/1725268160788-397856237-Children.jpg"
+              alt="image"
+              className="inset-0 h-[638px] w-[638px] object-cover rounded-[35px]"
+            />
+          </div>
         </div>
       </div>
       <div className="mt-[124px]">
