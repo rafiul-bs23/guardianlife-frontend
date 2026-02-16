@@ -45,7 +45,7 @@ const Footer: React.FC = () => {
   }
 
   return (
-    <footer className="bg-[var(--color-primary)] text-white px-[200px] py-[64px] rounded-tl-[32px] rounded-tr-[32px]]">
+    <footer className="bg-[var(--color-primary)] text-white px-[200px] py-[64px] rounded-tl-[32px] rounded-tr-[32px]">
       <div className="max-w-7xl mx-auto">
         <div className="flex">
 
