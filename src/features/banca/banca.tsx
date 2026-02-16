@@ -3,6 +3,8 @@ import Header from "../../shared/Components/Header.tsx";
 import {StatsBar} from "./components/StatsBar.tsx";
 import Contentheader from "../../shared/Components/Contentheader.tsx";
 import {WhatIsBancassurance} from "./components/WhatIsBancassurance.tsx";
+import {FacilitiesOfBancassurance} from "./components/FacilitiesOfBancassurance.tsx";
+import {BenefitsOfBancassurance} from "./components/BenefitsOfBancassurance.tsx";
 
 const Banca = () => {
   return (
@@ -35,6 +37,24 @@ const Banca = () => {
               className="inset-0 w-[649px] h-[505px] object-cover rounded-[35px]"
             />
           </div>
+        </div>
+      </div>
+      <div className="mt-[117px]">
+        <Contentheader
+          title="Facilities of Bancassurance with Guardian Life"
+          description="We provide end-to-end Bancassurance support to ensure seamless integration and long-term success"
+        />
+        <div className="mt-[82px]">
+          <FacilitiesOfBancassurance />
+        </div>
+      </div>
+      <div className="mt-[129px]">
+        <Contentheader
+          title="Benefits of Bancassurance"
+          description="Discover how Guardian Life's Bancassurance solutions create value for both customers and banking partners"
+        />
+        <div className="mt-[43px]">
+          <BenefitsOfBancassurance />
         </div>
       </div>
     </section>
