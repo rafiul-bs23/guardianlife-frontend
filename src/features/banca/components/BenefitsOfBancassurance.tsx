@@ -56,34 +56,34 @@ const sections: BenefitSection[] = [
 
 export function BenefitsOfBancassurance() {
   return (
-    <div className=" items-stretch gap-[24px]">
+    <div className="flex items-stretch justify-center gap-[24px]">
       {sections.map((section) => (
         <div
           key={section.id}
-          className={`w-[730px] h-[856px] ${section.bgColor} rounded-[35px] px-[24px] py-[24px] flex flex-col gap-[20px]`}
+          className={`w-[730px] h-[856px] ${section.bgColor} rounded-[35px] px-[42px] py-[48px] flex flex-col`}
         >
-          <div className="flex items-center gap-[10px]">
-            <div className="w-[32px] h-[32px] rounded-full bg-white flex items-center justify-center flex-shrink-0">
+          <div className="flex items-center gap-[10px] mb-[37px]">
+            <div className="w-[56px] h-[56px] rounded-full bg-white flex items-center justify-center flex-shrink-0">
               {section.icon}
             </div>
-            <h3 className="m-0 text-[18px] font-bold text-[#1a1a2e]">
+            <p className="font-bold text-[36px] leading-[32px] tracking-[0.02em]">
               {section.title}
-            </h3>
+            </p>
           </div>
 
           <img
             src={section.image}
             alt={section.title}
-            className="w-[645px] h-[368px] object-cover rounded-[35px] mx-[42px]"
+            className="h-[368px] object-cover rounded-[35px]"
           />
 
-          <div className="flex flex-col gap-[12px]">
+          <div className="flex flex-col gap-[12px] mt-[23px]">
             {section.points.map((point, index) => (
               <div key={index} className="flex items-start gap-[10px]">
                 <span
-                  className={`w-[10px] h-[10px] rounded-full ${section.dotColor} flex-shrink-0 mt-[5px]`}
+                  className={`mt-2 w-[20px] h-[20px] rounded-full ${section.dotColor} flex-shrink-0 mt-[5px]`}
                 />
-                <span className="text-[13px] text-[#333333] leading-[1.6]">
+                <span className="font-normal text-[20px] leading-[32px] tracking-[0.02em]">
                   {point}
                 </span>
               </div>
