@@ -69,9 +69,56 @@ const Banca = () => {
           description="Comprehensive protection solutions designed for diverse banking needs"
         />
         <div className="mt-[60px]">
-          <BancassuranceProductSolutions />
+          <BancassuranceProductSolutions/>
         </div>
       </div>
+
+      <div className="flex flex-col gap-[40px] w-full px-[214px] mt-[80px]">
+        <div className="flex gap-[40px]">
+
+          <div
+            className="flex-1 min-w-0 bg-white rounded-[12px] px-[20px] py-[20px] shadow-[0_1px_6px_rgba(0,0,0,0.06)]">
+            <p className="font-bold text-[24px] leading-[32px] tracking-[0.02em]">
+              SME Loan
+            </p>
+            <p className="font-normal text-[16px] leading-[32px] tracking-[0.02em]">
+              Settlement of outstanding liabilities in case of life casualties
+            </p>
+          </div>
+
+          <div
+            className="flex-1 min-w-0 bg-white rounded-[12px] px-[20px] py-[20px] shadow-[0_1px_6px_rgba(0,0,0,0.06)]">
+            <p className="font-bold text-[24px] leading-[32px] tracking-[0.02em]">
+              Employee Insurance
+            </p>
+            <p className="font-normal text-[16px] leading-[32px] tracking-[0.02em]">
+              Customized insurance solutions bundled with salary or employee accounts
+            </p>
+            <p className="font-normal text-[16px] leading-[32px] tracking-[0.02em]">
+              Comprehensive coverage at minimal cost
+            </p>
+          </div>
+
+        </div>
+        <div className="flex gap-[12px]">
+          <div className="w-full bg-[#EEF1F8] rounded-[12px] px-[20px] py-[20px] flex gap-[24px]">
+            <div className="flex-1">
+              <p className="font-bold text-[24px] leading-[32px] tracking-[0.02em]">
+                Depository Insurance Products
+              </p>
+              <p className="font-normal text-[16px] leading-[32px] tracking-[0.02em]">
+                Cash assurance for current and savings accounts
+              </p>
+            </div>
+            <div className="flex-1 flex items-center">
+              <p className="font-normal text-[16px] leading-[32px] tracking-[0.02em]">
+                Customized insurance solutions for DPS and Fixed Deposits
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </section>
   );
 };
