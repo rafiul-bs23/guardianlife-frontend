@@ -1,4 +1,33 @@
 import type { MicroData } from '../types';
+import type { HeaderResponse } from "../../../shared/types/header";
+
+export const MOCK_HEADER_DATA: HeaderResponse = {
+    "success": true,
+    "transaction_id": "GLIL-TXN-ID",
+    "data": {
+        "badge": null,
+        "title": [
+            {
+                "text": "PROTECTION THAT",
+                "color": "#FFFFFF"
+            },
+            {
+                "text": "STANDS BESIDE EVERY",
+                "color": "#FFFFFF"
+            },
+            {
+                "text": "FAMILY",
+                "color": "#2E3192"
+            }
+        ],
+        "description": "LIFE IS UNPREDICTABLE - AND FOR MILLIONS OF FAMILIES IN BANGLADESH, ONE UNEXPECTED LOSS CAN MEAN FINANCIAL HARDSHIP.",
+        "background_image_url": "https://as1.ftcdn.net/jpg/04/12/00/82/1000_F_412008272_JbmChYI2x40ck61qcTNW43uIdDNNCR0M.jpg",
+        "media": {
+            "type": "image",
+            "url": "https://as1.ftcdn.net/jpg/04/12/00/82/1000_F_412008272_JbmChYI2x40ck61qcTNW43uIdDNNCR0M.jpg"
+        }
+    }
+};
 
 export const mockMicroData: MicroData = {
     whyMicroMatters: {

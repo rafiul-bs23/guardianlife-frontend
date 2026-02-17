@@ -1,4 +1,25 @@
 import type { DirectorsData } from '../types';
+import type { HeaderData } from '../../../shared/types/header';
+
+export const HEADER_DATA: HeaderData = {
+    badge: null,
+    title: [
+        {
+            text: "MEET OUR",
+            color: "#FFFFFF"
+        },
+        {
+            text: "GUARDIANS",
+            color: "#EB6925"
+        }
+    ],
+    description: undefined,
+    background_image_url: "https://t3.ftcdn.net/jpg/04/12/00/82/1000_F_412008272_JbmChYI2x40ck61qcTNW43uIdDNNCR0M.jpg",
+    media: {
+        type: "image",
+        url: "https://t3.ftcdn.net/jpg/04/12/00/82/1000_F_412008272_JbmChYI2x40ck61qcTNW43uIdDNNCR0M.jpg"
+    }
+};
 
 export const mockDirectorsData: DirectorsData = {
     directors: [

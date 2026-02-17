@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChevronRight, type LucideIcon } from 'lucide-react';
 
-export type ButtonVariant = 'outline-orange' | 'solid-orange' | 'solid-black' | 'ghost-orange' | 'solid-white' | 'solid-orange-with-icon';
+export type ButtonVariant = 'base' | 'outline-orange' | 'solid-orange' | 'outline-white' | 'solid-white';
 
 interface BaseButtonProps {
     label: string;
@@ -14,7 +14,7 @@ interface BaseButtonProps {
     labelClass?: string;
 }
 
-const BaseButton: React.FC<BaseButtonProps> = ({
+const Button: React.FC<BaseButtonProps> = ({
     label,
     variant,
     onClick,
@@ -26,35 +26,30 @@ const BaseButton: React.FC<BaseButtonProps> = ({
 }) => {
     const getVariantStyles = () => {
         switch (variant) {
+            case 'base':
+                return {
+                    button: 'bg-primary text-white hover:bg-[#FF7D35] px-8 py-2.5 shadow-md',
+                    iconCircle: null
+                };
             case 'outline-orange':
                 return {
-                    button: 'bg-white border-2 border-[#FF8D4D] text-[#FF8D4D] hover:bg-orange-50 pl-8 pr-1.5 py-1.5 shadow-md',
-                    iconCircle: 'bg-[#FF8D4D] text-white',
+                    button: ' border-2 border-primary text-primary hover:bg-primary/20 pl-8 pr-1.5 py-1.5 shadow-md',
+                    iconCircle: 'bg-primary text-white',
+                };
+            case 'outline-white':
+                return {
+                    button: ' border-2 border-white text-white hover:bg-white/20 pl-8 pr-1.5 py-1.5 shadow-md',
+                    iconCircle: 'bg-white text-primary',
                 };
             case 'solid-orange':
                 return {
-                    button: 'bg-primary text-white hover:bg-[#FF7D35] px-12 py-4 shadow-lg active:shadow-inner',
-                    iconCircle: null,
-                };
-            case 'solid-orange-with-icon':
-                return {
                     button: 'bg-primary text-white hover:bg-primary/60 pl-8 pr-1.5 py-1.5 shadow-md',
-                    iconCircle: 'bg-white text-[#2A2B68]',
-                };
-            case 'solid-black':
-                return {
-                    button: 'bg-[#0F1115] border-2 border-white text-white hover:bg-black pl-8 pr-2 py-2 shadow-lg',
-                    iconCircle: 'bg-white text-[#2A2B68]',
-                };
-            case 'ghost-orange':
-                return {
-                    button: 'bg-white text-[#FF8D4D] border border-gray-100 shadow-sm hover:shadow-md pl-8 pr-1.5 py-1.5',
-                    iconCircle: 'bg-[#FF8D4D] text-white',
+                    iconCircle: 'bg-white text-primary',
                 };
             case 'solid-white':
                 return {
-                    button: 'bg-white text-gray-900 hover:bg-gray-50 px-8 py-4 shadow-lg active:shadow-inner',
-                    iconCircle: null,
+                    button: 'bg-white text-primary border border-gray-100 shadow-sm hover:shadow-md pl-8 pr-1.5 py-1.5',
+                    iconCircle: 'bg-primary text-white',
                 };
             default:
                 return { button: '', iconCircle: '', labelClass: '' };
@@ -85,4 +80,4 @@ const BaseButton: React.FC<BaseButtonProps> = ({
     );
 };
 
-export default BaseButton;
+export default Button;

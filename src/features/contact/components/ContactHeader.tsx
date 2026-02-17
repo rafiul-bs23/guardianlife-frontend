@@ -1,20 +1,18 @@
 import React from 'react';
-import type { ContactHeaderData } from '../types';
+import type { HeaderData } from '../../../shared/types/header';
+import GenericHeader from '../../../shared/Components/GenericHeader';
 
 interface ContactHeaderProps {
-    data: ContactHeaderData;
+    data: HeaderData;
 }
 
 const ContactHeader: React.FC<ContactHeaderProps> = ({ data }) => {
     return (
-        <div className="text-center max-w-4xl mx-auto py-16 px-4">
-            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6 uppercase tracking-wider">
-                {data.title}
-            </h1>
-            <p className="text-gray-600 text-base md:text-lg leading-relaxed">
-                {data.description}
-            </p>
-        </div>
+        <GenericHeader
+            data={data}
+            variant="immersive"
+            mediaClassName="md:rounded-tr-[120px] md:rounded-bl-[120px] rounded-[10px]"
+        />
     );
 };
 

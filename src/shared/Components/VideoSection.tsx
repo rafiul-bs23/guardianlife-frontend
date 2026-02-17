@@ -2,7 +2,7 @@ import React from 'react';
 import { Play } from 'lucide-react';
 
 interface VideoThumbnailProps {
-    thumbnail: string;
+    thumbnail?: string;
     title?: string;
     onClick?: () => void;
     className?: string;
@@ -11,7 +11,7 @@ interface VideoThumbnailProps {
 }
 
 const VideoThumbnail: React.FC<VideoThumbnailProps> = ({
-    thumbnail,
+    thumbnail = "https://as1.ftcdn.net/jpg/04/12/00/82/1000_F_412008272_JbmChYI2x40ck61qcTNW43uIdDNNCR0M.jpg",
     title,
     onClick,
     className = '',

@@ -1,4 +1,41 @@
 import type { ContactData } from '../types';
+import type { HeaderResponse } from "../../../shared/types/header";
+
+export const MOCK_HEADER_DATA: HeaderResponse = {
+    "success": true,
+    "transaction_id": "GLIL-TXN-ID",
+    "data": {
+        "badge": null,
+        "title": [
+            {
+                "text": "SECURE YOUR",
+                "color": "#FFFFFF"
+            },
+            {
+                "text": "FAMILY'S FUTURE,",
+                "color": "#2E3192"
+            },
+            {
+                "text": "PLAN YOUR RETIREMENT,",
+                "color": "#FFFFFF"
+            },
+            {
+                "text": "OR PROTECT YOUR HEALTH—",
+                "color": "#FFFFFF"
+            },
+            {
+                "text": "WE'VE GOT YOU COVERED.",
+                "color": "#2E3192"
+            }
+        ],
+        "description": undefined,
+        "background_image_url": "https://as1.ftcdn.net/jpg/04/12/00/82/1000_F_412008272_JbmChYI2x40ck61qcTNW43uIdDNNCR0M.jpg",
+        "media": {
+            "type": "image",
+            "url": "https://as1.ftcdn.net/jpg/04/12/00/82/1000_F_412008272_JbmChYI2x40ck61qcTNW43uIdDNNCR0M.jpg"
+        }
+    }
+};
 
 export const mockContactData: ContactData = {
     header: {

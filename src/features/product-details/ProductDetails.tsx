@@ -8,15 +8,16 @@ import ProductSupport from '../../shared/Components/ProductSupport';
 import LocalAgent from './components/LocalAgent';
 import { useProduct } from './hooks/useProduct';
 import PlanBenefitsSection from '../../shared/Components/PlanBenefitsSection';
+import ProductHeader from './components/ProductHeader';
+import { useHeader } from './hooks/useHeader';
 
 const ProductDetails = () => {
+  const { data: headerData, isLoading: isHeaderLoading } = useHeader('1');
   const { data } = useProduct('1');
 
   return (
     <>
-      <header className='bg-red-500 text-white p-4 text-center'>
-        <h1>Header</h1>
-      </header>
+      {!isHeaderLoading && headerData && <ProductHeader data={headerData} />}
       <section>
         {data && <QuickProductView data={data.quickProductSection} />}
         {data && <ProductJourney data={data.productJourneySection} />}

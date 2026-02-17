@@ -1,4 +1,28 @@
-import type { AboutData } from '../types';
+import type { AboutData, HeaderResponse } from '../types';
+
+export const mockHeaderData: HeaderResponse = {
+    "success": true,
+    "transaction_id": "GLIL-TXN-ID",
+    "data": {
+        "badge": null,
+        "title": [
+            {
+                "text": "GUARDIAN LIFE ",
+                "color": "#FFFFFF"
+            },
+            {
+                "text": "INSURANCE LIMITED",
+                "color": "#FFFFFF"
+            }
+        ],
+        "description": "SINCE 2014, GUARDIAN LIFE INSURANCE LIMITED HAS BEEN COMMITTED TO RESHAPING THE INSURANCE LANDSCAPE OF BANGLADESH THROUGH TRUST, INNOVATION, AND PEOPLE-FIRST PROTECTION.",
+        "background_image_url": "https://as1.ftcdn.net/jpg/04/12/00/82/1000_F_412008272_JbmChYI2x40ck61qcTNW43uIdDNNCR0M.jpg",
+        "media": {
+            "type": "image",
+            "url": "https://as1.ftcdn.net/jpg/04/12/00/82/1000_F_412008272_JbmChYI2x40ck61qcTNW43uIdDNNCR0M.jpg"
+        }
+    }
+};
 
 export const mockAboutData: AboutData = {
     whoWeAre: {

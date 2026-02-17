@@ -60,8 +60,8 @@ const ClaimDocuments: React.FC<ClaimDocumentsProps> = ({ data }) => {
                                                 <div className="flex justify-center">
                                                     <Button
                                                         label="Download"
-                                                        variant="solid-orange"
-                                                        className="py-2 px-8  min-w-[110px] rounded-lg"
+                                                        variant="base"
+                                                        className=" min-w-[110px] rounded-lg"
                                                         onClick={() => window.open(doc.pdfDownloadLink, '_blank')}
                                                         labelClass="text-sm"
                                                     />

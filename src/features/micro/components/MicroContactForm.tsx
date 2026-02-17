@@ -90,7 +90,7 @@ const MicroContactForm: React.FC<MicroContactFormProps> = ({ data }) => {
                         <div className="pt-4">
                             <Button
                                 label={data.submitButton}
-                                variant="solid-orange-with-icon"
+                                variant="solid-orange"
                                 className="rounded-full shadow-lg shadow-orange-500/20"
                                 labelClass="text-base font-bold"
                                 type="submit"

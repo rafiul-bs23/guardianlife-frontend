@@ -1,11 +1,11 @@
+import ChairmanHeader from './components/ChairmanHeader';
+
 const Chairman = () => {
   return (
-    <section>
-      <h1>Chairman</h1>
-      <p>
-        Welcome to GuardianLife. This is the Chairman page.
-      </p>
-    </section>
+    <main className="min-h-screen bg-white">
+      <ChairmanHeader data={null} />
+      {/* Additional sections can be added here */}
+    </main>
   );
 };
 

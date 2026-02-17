@@ -1,3 +1,4 @@
+import type { HeaderData } from '../../about/types';
 import type { BoardDirectorsData } from '../types';
 
 export const mockBoardDirectorsData: BoardDirectorsData = {
@@ -41,3 +42,9 @@ export const mockBoardDirectorsData: BoardDirectorsData = {
         }
     ]
 };
+
+export const HEADER_DATA: HeaderData = {
+    badge: null,
+    title: [],
+    background_image_url: "src/assets/images/headers/boardDirectors.png",
+}

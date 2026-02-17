@@ -1,3 +1,5 @@
+import QuickBuyHeader from './components/QuickBuyHeader';
+import { useHeader } from './hooks/useHeader';
 import { useProductBuyDetails } from './hooks/useProductBuyDetails';
 import PlanBenefitsSection from '../../shared/Components/PlanBenefitsSection';
 import ProductSupport from '../../shared/Components/ProductSupport';
@@ -5,9 +7,10 @@ import QuickProductView from '../../shared/Components/QuickProductView';
 import ProductCalculator from './components/ProductCalculator';
 
 const QuickBuyDetails = () => {
+  const { data: headerData, isLoading: isHeaderLoading } = useHeader('quick-buy-1');
   const { data, isLoading, error } = useProductBuyDetails('quick-buy-1');
 
-  if (isLoading) {
+  if (isLoading || isHeaderLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#EB6925]"></div>
@@ -26,9 +29,7 @@ const QuickBuyDetails = () => {
 
   return (
     <section>
-      <header className='bg-red-500 text-white p-4 text-center'>
-        <h1>Quick Buy Details</h1>
-      </header>
+      {!isHeaderLoading && headerData && <QuickBuyHeader data={headerData} />}
 
       {/* Quick Product View - Use shared component with design-specific props */}
       {data && (

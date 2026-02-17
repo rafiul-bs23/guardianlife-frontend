@@ -72,8 +72,8 @@ const ContactForm = () => {
                 {/* Submit Button */}
                 <div className="pt-4">
                     <Button
-                        label="Google Play"
-                        variant="solid-orange-with-icon"
+                        label="Send Message"
+                        variant="solid-orange"
                         onClick={() => { }}
                         icon={ArrowRight}
                     />

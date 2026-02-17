@@ -4,11 +4,16 @@ import MissionVision from './components/MissionVision';
 import OurAchievements from './components/OurAchievements';
 import Milestones from './components/Milestones';
 import GovernanceTrust from './components/GovernanceTrust';
+import AboutHeader from './components/AboutHeader';
+import { useAboutHeader } from './hooks/useAboutHeader';
 import { mockAboutData } from './api/mockData';
 
 const About = () => {
+  const { data: headerData, isLoading } = useAboutHeader('about');
+
   return (
-    <main className="min-h-screen bg-white pt-20">
+    <main className="min-h-screen bg-white">
+      {!isLoading && headerData && <AboutHeader data={headerData} />}
       <WhoWeAre data={mockAboutData.whoWeAre} />
       <OurJourney data={mockAboutData.ourJourney} />
       <MissionVision data={mockAboutData.missionVision} />

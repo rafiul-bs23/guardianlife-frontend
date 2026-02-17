@@ -82,3 +82,10 @@ export interface AboutData {
     milestones: MilestonesData;
     governanceTrust: GovernanceTrustData;
 }
+
+export type {
+    TitleItem,
+    HeaderMediaData as HeaderImageData,
+    HeaderData,
+    HeaderResponse
+} from '../../shared/types/header';

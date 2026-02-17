@@ -1,4 +1,28 @@
-import type { ClaimData, ClaimDocumentsData } from '../types';
+import type { ClaimData, ClaimDocumentsData } from '../types'; import type { HeaderResponse } from "../../../shared/types/header";
+
+export const MOCK_HEADER_DATA: HeaderResponse = {
+    "success": true,
+    "transaction_id": "GLIL-TXN-ID",
+    "data": {
+        "badge": null,
+        "title": [
+            {
+                "text": "CLAIMS SETTLED",
+                "color": "#FFFFFF"
+            },
+            {
+                "text": "WITH 98% SUCCESS RATE",
+                "color": "#2E3192"
+            }
+        ],
+        "description": "FAST, TRANSPARENT, AND RELIABLE CLAIM PROCESSING.",
+        "background_image_url": "https://as1.ftcdn.net/jpg/04/12/00/82/1000_F_412008272_JbmChYI2x40ck61qcTNW43uIdDNNCR0M.jpg",
+        "media": {
+            "type": "image",
+            "url": "https://as1.ftcdn.net/jpg/04/12/00/82/1000_F_412008272_JbmChYI2x40ck61qcTNW43uIdDNNCR0M.jpg"
+        }
+    }
+};
 
 export const mockClaimData: ClaimData = {
     featuresSection: {

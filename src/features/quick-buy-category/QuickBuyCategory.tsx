@@ -52,7 +52,7 @@ const QuickBuyCategory = () => {
 
   return (
     <div>
-      <Header
+      {/* <Header
         backgroundImage={HeaderImage}
         title={
           <h1 className="text-4xl font-bold leading-tight">
@@ -62,7 +62,7 @@ const QuickBuyCategory = () => {
             <span className="text-[#1E3161]">WE’VE GOT YOU COVERED.</span>
           </h1>
         }
-      />
+      /> */}
 
       <div className="flex flex-col items-center mt-[84px]">
         <p className="font-bold text-[36px] leading-[32px] text-center tracking-[0.02em] uppercase">
@@ -140,7 +140,7 @@ const QuickBuyCategory = () => {
         </div>
       </div>
       <div className="mt-[85px]">
-        <FAQ/>
+        <FAQ />
       </div>
     </div>
   );
