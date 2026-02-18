@@ -6,6 +6,8 @@ import {WhatIsBancassurance} from "./components/WhatIsBancassurance.tsx";
 import {FacilitiesOfBancassurance} from "./components/FacilitiesOfBancassurance.tsx";
 import {BenefitsOfBancassurance} from "./components/BenefitsOfBancassurance.tsx";
 import {BancassuranceProductSolutions} from "./components/BancassuranceProductSolutions.tsx";
+import {BankPartners} from "./components/BankPartners.tsx";
+import FAQ from "../../shared/Components/Faq.tsx";
 
 const Banca = () => {
   return (
@@ -117,6 +119,20 @@ const Banca = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="mt-[100px] pt-[96px] bg-[#F6F6F6]">
+        <Contentheader
+          title="Our Bancassurance Partners"
+          description="We are proud to collaborate with leading banks in Bangladesh"
+        />
+        <div className="mt-[199px]">
+          <BankPartners/>
+        </div>
+      </div>
+
+      <div className="mt-[300px]">
+        <FAQ/>
       </div>
 
     </section>

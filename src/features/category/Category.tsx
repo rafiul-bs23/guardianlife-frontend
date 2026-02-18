@@ -194,7 +194,7 @@ const Category = () => {
           />
         </div>
       </div>
-      <div className="mt-[85px]">
+      <div className="mt-[300px]">
         <FAQ/>
       </div>
     </div>
