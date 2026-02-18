@@ -1,11 +1,13 @@
+
+import { MOCK_EMPLOYEES_HEADER_DATA } from './api/mockData';
+import EmployeesHeader from './components/EmployeesHeader';
+
 const Employees = () => {
   return (
-    <section>
-      <h1>Employees</h1>
-      <p>
-        Welcome to GuardianLife. This is the Employees page.
-      </p>
-    </section>
+    <main className="min-h-screen bg-white">
+      <EmployeesHeader data={MOCK_EMPLOYEES_HEADER_DATA} />
+      {/* Additional content can go here */}
+    </main>
   );
 };
 

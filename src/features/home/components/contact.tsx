@@ -11,7 +11,7 @@ const ContactForm = () => {
     agreeToPolicy: false
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
       ...prev,

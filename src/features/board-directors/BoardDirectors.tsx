@@ -1,12 +1,16 @@
-const About = () => {
+
+import BoardDirectorsList from './components/BoardDirectorsList';
+import { mockBoardDirectorsData } from './api/mockData';
+import BoardDirectoraHeader from './components/BoardDirectoraHeader';
+import { HEADER_DATA } from './api/mockData';
+
+const BoardDirectors = () => {
   return (
-    <section>
-      <h1>About</h1>
-      <p>
-        Welcome to GuardianLife. This is the About page.
-      </p>
-    </section>
+    <main className="min-h-screen bg-gray-50 pt-20">
+      <BoardDirectoraHeader data={HEADER_DATA} />
+      <BoardDirectorsList data={mockBoardDirectorsData} />
+    </main>
   );
 };
 
-export default About;
+export default BoardDirectors;

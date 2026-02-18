@@ -1,11 +1,11 @@
+import MancomHeader from './components/MancomHeader';
+import { HEADER_DATA } from './api/mockData';
+
 const Mancom = () => {
   return (
-    <section>
-      <h1>Mancom</h1>
-      <p>
-        Welcome to GuardianLife. This is the Mancom page.
-      </p>
-    </section>
+    <main className="min-h-screen bg-white">
+      <MancomHeader data={HEADER_DATA} />
+    </main>
   );
 };
 
