@@ -1,30 +1,31 @@
-import HeaderImage from "../../assets/images/category/headerImage.jpg";
-import Header from "../../shared/Components/Header.tsx";
-import {StatsBar} from "./components/StatsBar.tsx";
+import { useState } from "react";
+import { StatsBar } from "./components/StatsBar.tsx";
 import Contentheader from "../../shared/Components/Contentheader.tsx";
-import {WhatIsBancassurance} from "./components/WhatIsBancassurance.tsx";
-import {FacilitiesOfBancassurance} from "./components/FacilitiesOfBancassurance.tsx";
-import {BenefitsOfBancassurance} from "./components/BenefitsOfBancassurance.tsx";
-import {BancassuranceProductSolutions} from "./components/BancassuranceProductSolutions.tsx";
-import {BankPartners} from "./components/BankPartners.tsx";
+import { WhatIsBancassurance } from "./components/WhatIsBancassurance.tsx";
+import { FacilitiesOfBancassurance } from "./components/FacilitiesOfBancassurance.tsx";
+import { BenefitsOfBancassurance } from "./components/BenefitsOfBancassurance.tsx";
+import { BancassuranceProductSolutions } from "./components/BancassuranceProductSolutions.tsx";
+import { BankPartners } from "./components/BankPartners.tsx";
 import FAQ from "../../shared/Components/Faq.tsx";
+import BancaHeader from "./components/BancaHeader.tsx";
+import { useHeader } from "./hooks/useHeader.ts";
 
 const Banca = () => {
-  return (
-    <section>
-      <Header
-        backgroundImage={HeaderImage}
-        title={
-          <h1 className="text-4xl font-bold leading-tight">
-            SECURE YOUR <span className="text-[#1E3161]">FAMILY’S FUTURE</span>, <br/>
-            PLAN YOUR RETIREMENT, OR <br/>
-            PROTECT YOUR HEALTH — <br/>
-            <span className="text-[#1E3161]">WE’VE GOT YOU COVERED.</span>
-          </h1>
-        }
-      />
+  const { data: headerData, isLoading: isHeaderLoading } = useHeader();
 
-      <StatsBar/>
+  if (isHeaderLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#EB6925]"></div>
+      </div>
+    );
+  }
+
+  return (
+    <main className="min-h-screen bg-white">
+      {headerData && <BancaHeader data={headerData} />}
+
+      <StatsBar />
 
       <div className="mt-[77px]">
         <Contentheader
@@ -33,7 +34,7 @@ const Banca = () => {
         />
         <div className="flex mt-[90px]">
           <div className="w-1/2 pl-[210px] pr-8">
-            <WhatIsBancassurance/>
+            <WhatIsBancassurance />
           </div>
           <div className="w-1/2 pl-8">
             <img
@@ -51,7 +52,7 @@ const Banca = () => {
           description="We provide end-to-end Bancassurance support to ensure seamless integration and long-term success"
         />
         <div className="mt-[82px]">
-          <FacilitiesOfBancassurance/>
+          <FacilitiesOfBancassurance />
         </div>
       </div>
 
@@ -61,7 +62,7 @@ const Banca = () => {
           description="Discover how Guardian Life's Bancassurance solutions create value for both customers and banking partners"
         />
         <div className="mt-[43px]">
-          <BenefitsOfBancassurance/>
+          <BenefitsOfBancassurance />
         </div>
       </div>
 
@@ -71,7 +72,7 @@ const Banca = () => {
           description="Comprehensive protection solutions designed for diverse banking needs"
         />
         <div className="mt-[60px]">
-          <BancassuranceProductSolutions/>
+          <BancassuranceProductSolutions />
         </div>
       </div>
 
@@ -127,16 +128,17 @@ const Banca = () => {
           description="We are proud to collaborate with leading banks in Bangladesh"
         />
         <div className="mt-[199px]">
-          <BankPartners/>
+          <BankPartners />
         </div>
       </div>
 
       <div className="mt-[300px]">
-        <FAQ/>
+        <FAQ />
       </div>
 
-    </section>
+    </main>
   );
 };
 
 export default Banca;
+

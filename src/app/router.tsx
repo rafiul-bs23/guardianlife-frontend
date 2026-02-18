@@ -20,29 +20,46 @@ import BoardDirectors from "../features/board-directors/BoardDirectors.tsx";
 import BancaCity from "../features/banca-city/BancaCity.tsx";
 import Banca from "../features/banca/banca.tsx";
 
+export const NAV_ROUTES = [
+  { path: "/", label: "Home", element: <Home /> },
+  { path: "/category", label: "Category", element: <Category /> },
+  { path: "/product-details", label: "Product Details", element: <ProductDetails /> },
+  { path: "/quick-buy-category", label: "Quick Buy Category", element: <QuickBuyCategory /> },
+  { path: "/quick-buy-details", label: "Quick Buy Details", element: <QuickBuyDetails /> },
+  { path: "/group", label: "Group", element: <Group /> },
+  { path: "/claim", label: "Claim", element: <Claim /> },
+  { path: "/micro", label: "Micro", element: <Micro /> },
+  { path: "/banca", label: "Banca", element: <Banca /> },
+  { path: "/banca-city", label: "Banca City", element: <BancaCity /> },
+  { path: "/about", label: "About", element: <About /> },
+  { path: "/chairman", label: "Chairman", element: <Chairman /> },
+  { path: "/contact", label: "Contact", element: <Contact /> },
+  { path: "/employees", label: "Employees", element: <Employees /> },
+  { path: "/emc", label: "Emc", element: <Emc /> },
+  { path: "/mancom", label: "Mancom", element: <Mancom /> },
+  { path: "/board-directors", label: "Board Directors", element: <BoardDirectors /> },
+  { path: "/directors", label: "Directors", element: <Directors /> },
+
+];
+
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    errorElement: <NotFound/>,
+    errorElement: <NotFound />,
     children: [
       { index: true, element: <Home /> },
-      { path: "about", element: <About /> },
-      { path: "contact", element: <Contact /> },
+      ...NAV_ROUTES.filter(r => r.path !== "/").map(r => ({
+        path: r.path.startsWith("/") ? r.path.slice(1) : r.path,
+        element: r.element
+      })),
       { path: "category", element: <Category /> },
-      { path: "quick-buy-category", element: <QuickBuyCategory/> },
+      { path: "quick-buy-category", element: <QuickBuyCategory /> },
       { path: "quick-buy-details", element: <QuickBuyDetails /> },
       { path: "product-details", element: <ProductDetails /> },
-      { path: "micro", element: <Micro /> },
-      { path: "mancom", element: <Mancom /> },
       { path: "group", element: <Group /> },
-      { path: "employees", element: <Employees /> },
       { path: "emc", element: <Emc /> },
-      { path: "directors", element: <Directors /> },
-      { path: "claim", element: <Claim /> },
-      { path: "chairman", element: <Chairman /> },
       { path: "board-directors", element: <BoardDirectors /> },
-      { path: "banca", element: <Banca /> },
       { path: "banca-city", element: <BancaCity /> },
     ],
   },

@@ -16,10 +16,10 @@ export const MOCK_HEADER_DATA: HeaderResponse = {
             }
         ],
         "description": "FAST, TRANSPARENT, AND RELIABLE CLAIM PROCESSING.",
-        "background_image_url": "https://as1.ftcdn.net/jpg/04/12/00/82/1000_F_412008272_JbmChYI2x40ck61qcTNW43uIdDNNCR0M.jpg",
+        "background_image_url": "/src/assets/images/category/headerImage.jpg",
         "media": {
             "type": "image",
-            "url": "https://as1.ftcdn.net/jpg/04/12/00/82/1000_F_412008272_JbmChYI2x40ck61qcTNW43uIdDNNCR0M.jpg"
+            "url": "/src/assets/images/category/headerImage.jpg"
         }
     }
 };

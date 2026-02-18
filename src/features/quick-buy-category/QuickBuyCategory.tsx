@@ -1,10 +1,11 @@
-import Header from "../../shared/Components/Header.tsx";
-import HeaderImage from "../../assets/images/category/headerImage.jpg"
+import QuickBuyHeader from "./components/QuickBuyHeader.tsx";
+import { useHeader } from "./hooks/useHeader.ts";
 import ProductCard from "../../shared/Components/ProductCard.tsx";
 import WhyChooseQuickBuyImage from "../../assets/images/quickBuyCategory/whyChooseQuickBuy.png"
 import FAQ from "../../shared/Components/Faq.tsx";
 
 const QuickBuyCategory = () => {
+  const { data: headerData, isLoading: isHeaderLoading } = useHeader();
   const apiResponse = {
     "success": true,
     "transactionId": "GLIL-TXN-ID",
@@ -50,19 +51,17 @@ const QuickBuyCategory = () => {
     console.log(`Buy now clicked for: ${productCode}`);
   };
 
+  if (isHeaderLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#EB6925]"></div>
+      </div>
+    );
+  }
+
   return (
-    <div>
-      {/* <Header
-        backgroundImage={HeaderImage}
-        title={
-          <h1 className="text-4xl font-bold leading-tight">
-            SECURE YOUR <span className="text-[#1E3161]">FAMILY’S FUTURE</span>, <br/>
-            PLAN YOUR RETIREMENT, OR <br/>
-            PROTECT YOUR HEALTH — <br/>
-            <span className="text-[#1E3161]">WE’VE GOT YOU COVERED.</span>
-          </h1>
-        }
-      /> */}
+    <main className="min-h-screen bg-white">
+      {headerData && <QuickBuyHeader data={headerData} />}
 
       <div className="flex flex-col items-center mt-[84px]">
         <p className="font-bold text-[36px] leading-[32px] text-center tracking-[0.02em] uppercase">
@@ -142,7 +141,7 @@ const QuickBuyCategory = () => {
       <div className="mt-[85px]">
         <FAQ />
       </div>
-    </div>
+    </main>
   );
 };
 
