@@ -32,7 +32,7 @@ const SolutionsComponent = () => {
   const stackOrder = getStackOrder();
 
   return (
-    <section className="bg-white py-24 overflow-hidden">
+    <section className="bg-white py-24 overflow-hidden my-24 md:my-0">
       <div className="max-w-[1440px] mx-auto px-6 lg:px-[100px] flex flex-col lg:flex-row items-center gap-12 lg:gap-0">
 
         {/* Left Content Section */}
@@ -49,24 +49,26 @@ const SolutionsComponent = () => {
           </h2>
 
           {/* Tab Navigation */}
-          <div className="flex items-center gap-4 lg:gap-4 flex-wrap">
-            <div className="w-10 h-[2px] bg-[#1E3161]" />
-            {solutions.map((solution, index) => (
-              <button
-                key={solution.id}
-                onClick={() => setActiveIndex(index)}
-                className={`text-lg font-semibold transition-all duration-500 px-4 py-2 rounded-full ${activeIndex === index
-                  ? 'bg-[#2E3192] text-white shadow-lg'
-                  : 'text-[#1E3161]/60 hover:text-[#1E3161]'
-                  }`}
-              >
-                {solution.title}
-              </button>
-            ))}
+          <div className="flex items-center  gap-4 lg:gap-4 flex-wrap">
+            <div className="w-[10%] lg:w-10 h-[2px] bg-[#1E3161]" />
+            <div className="flex items-center gap-4 lg:gap-4 flex-wrap w-[80%] lg:w-full">
+              {solutions.map((solution, index) => (
+                <button
+                  key={solution.id}
+                  onClick={() => setActiveIndex(index)}
+                  className={`text-lg font-semibold transition-all duration-500 px-4 py-2 rounded-full ${activeIndex === index
+                    ? 'bg-[#2E3192] text-white shadow-lg'
+                    : 'text-[#1E3161]/60 hover:text-[#1E3161]'
+                    }`}
+                >
+                  {solution.title}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="w-full lg:w-1/2 relative h-[500px] md:h-[600px] flex items-center justify-center lg:justify-center pr-0 lg:pr-2 lg:mr-[-100px] mt-12 lg:mt-0">
+        <div className="w-full lg:w-1/2 relative h-[500px] md:h-[600px] flex items-center justify-center lg:justify-center pr-0 lg:pr-2 lg:mr-[-100px] ">
           <div className="relative w-[320px] h-[400px] md:w-[420px] md:h-[520px]">
             {solutions.map((solution, index) => {
               // Calculate position in the visible stack (0 is front)
