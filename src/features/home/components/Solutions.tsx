@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
 // Import your images
-import image1 from '../../assets/images/home/Solutions/solutions1.png';
-import image2 from '../../assets/images/home/Solutions/solutions2.png';
-import image3 from '../../assets/images/home/Solutions/solutions3.png';
-import image4 from '../../assets/images/home/Solutions/solutions4.png';
+import image1 from '../../../assets/images/home/Solutions/solutions1.png';
+import image2 from '../../../assets/images/home/Solutions/solutions2.png';
+import image3 from '../../../assets/images/home/Solutions/solutions3.png';
+import image4 from '../../../assets/images/home/Solutions/solutions4.png';
 
 const SolutionsComponent = () => {
   const [activeIndex, setActiveIndex] = useState(0);

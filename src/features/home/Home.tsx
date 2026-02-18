@@ -6,9 +6,9 @@ import guideYou from "../../assets/images/home/guide-you.png";
 import ActionButton from "../../shared/Components/BaseButton.tsx";
 
 // import solutions from "./Solutions.tsx";
-import Solutions from "./Solutions.tsx";
-import PartnersBanks from "./PartnersBanks.tsx";
-import BusinessPartners from "./BusinessPartners.tsx";
+import Solutions from "./components/Solutions.tsx";
+import PartnersBanks from "./components/PartnersBanks.tsx";
+import BusinessPartners from "./components/BusinessPartners.tsx";
 import EmpoweringFamilies from "./components/EmpoweringFamilies.tsx";
 import AppPromotion from "./components/PromotionSection.tsx";
 import ContactForm from "./components/contact.tsx";

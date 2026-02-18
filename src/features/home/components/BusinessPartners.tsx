@@ -1,6 +1,6 @@
-import MainImage from "../../assets/images/home/BusinessPartners/MainImage.jpg";
-import BusinessPastner1 from "../../assets/images/home/BusinessPartners/BusinessPartner1.png";
-import ActionButton from "../../shared/Components/BaseButton.tsx";
+import MainImage from "../../../assets/images/home/BusinessPartners/MainImage.jpg";
+import BusinessPastner1 from "../../../assets/images/home/BusinessPartners/BusinessPartner1.png";
+import ActionButton from "../../../shared/Components/BaseButton.tsx";
 import { useLayoutEffect, useRef, useState } from "react";
 
 const BusinessPartners = () => {

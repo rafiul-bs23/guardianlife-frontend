@@ -2,9 +2,9 @@
 import { ArrowUpRight } from 'lucide-react'; // or you can use any icon library
 
 // Import bank logos
-import partner1 from '../../assets/images/home/PartnersBanks/partner1.jpg';
-import partner2 from '../../assets/images/home/PartnersBanks/partner2.jpg';
-import partner3 from '../../assets/images/home/PartnersBanks/partner3.jpg';
+import partner1 from '../../../assets/images/home/PartnersBanks/partner1.jpg';
+import partner2 from '../../../assets/images/home/PartnersBanks/partner2.jpg';
+import partner3 from '../../../assets/images/home/PartnersBanks/partner3.jpg';
 
 const PartnerBanks = () => {
   const partners = [

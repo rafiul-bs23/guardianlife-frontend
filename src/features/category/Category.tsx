@@ -5,6 +5,7 @@ import ProductCardCompact from "./ProductCardCompact.tsx";
 import WhyChooseQuickBuyImage from "../../assets/images/quickBuyCategory/whyChooseQuickBuy.png";
 import FAQ from "../../shared/Components/Faq.tsx";
 import {useState} from "react";
+import Contentheader from "../../shared/Components/Contentheader.tsx";
 
 const Category = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -145,13 +146,11 @@ const Category = () => {
       </div>
 
       <div className="flex flex-col items-center mt-[73px]">
-        <p className="font-bold text-[36px] leading-[32px] text-center tracking-[0.02em] uppercase">
-          for your insurance solutions
-        </p>
-        <p className="font-normal text-[24px] leading-[32px] text-center tracking-[0.02em] text-black w-[1039px] mt-8">
-          Comprehensive protection plans tailored to your needs. Submit your application and let our experts guide you
-          through the process.
-        </p>
+        <Contentheader
+          title="for your insurance solutions"
+          description="Working on guardianlife project:
+          working on group page."
+        />
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center mt-[84px]">
           {apiResponse.data.products.map((product) => (
             <ProductCardCompact
@@ -166,13 +165,12 @@ const Category = () => {
       </div>
 
       <div className="flex flex-col items-center mt-[143px]">
-        <p className="font-bold text-[36px] leading-[32px] text-center tracking-[0.02em] uppercase">
-          Buy Policy Instantly – No Waiting, No Hassle
-        </p>
-        <p className="font-normal text-[24px] leading-[32px] text-center tracking-[0.02em] text-black w-[1039px] mt-8">
-          Get instant coverage with our digital-first policies. Complete your purchase online in minutes with immediate
-          policy issuance.
-        </p>
+        <Contentheader
+          title="Buy Policy Instantly – No Waiting, No Hassle"
+          description="Get instant coverage with our digital-first policies. Complete your purchase online in minutes with immediate
+          policy issuance."
+          isUpperCase={false}
+        />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 justify-items-center mt-[84px]">
           {apiResponse.data.products.map((product) => (
             <ProductCard
@@ -196,7 +194,7 @@ const Category = () => {
           />
         </div>
       </div>
-      <div className="mt-[85px]">
+      <div className="mt-[300px]">
         <FAQ/>
       </div>
     </div>
