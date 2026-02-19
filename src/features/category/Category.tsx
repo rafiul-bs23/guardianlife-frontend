@@ -2,10 +2,10 @@ import Header from "../../shared/Components/Header.tsx";
 import HeaderImage from "../../assets/images/category/headerImage.jpg"
 import ProductCard from "../../shared/Components/ProductCard.tsx";
 import ProductCardCompact from "./ProductCardCompact.tsx";
-import WhyChooseQuickBuyImage from "../../assets/images/quickBuyCategory/whyChooseQuickBuy.png";
 import FAQ from "../../shared/Components/Faq.tsx";
 import {useState} from "react";
 import Contentheader from "../../shared/Components/Contentheader.tsx";
+import {WhyChooseQuickBuy} from "../../shared/Components/WhyChooseQuickBuy.tsx";
 
 const Category = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -185,16 +185,10 @@ const Category = () => {
           ))}
         </div>
       </div>
-      <div className="flex justify-center">
-        <div className="h-[257px] w-[903px] mt-[83px]">
-          <img
-            src={WhyChooseQuickBuyImage}
-            alt="image"
-            className="object-cover w-[903px]"
-          />
-        </div>
+      <div className="flex justify-center mt-[83px]">
+        <WhyChooseQuickBuy />
       </div>
-      <div className="mt-[300px]">
+      <div className="mt-[80px]">
         <FAQ/>
       </div>
     </div>

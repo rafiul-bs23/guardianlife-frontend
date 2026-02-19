@@ -1,8 +1,6 @@
-import Header from "../../shared/Components/Header.tsx";
-import HeaderImage from "../../assets/images/category/headerImage.jpg"
 import ProductCard from "../../shared/Components/ProductCard.tsx";
-import WhyChooseQuickBuyImage from "../../assets/images/quickBuyCategory/whyChooseQuickBuy.png"
 import FAQ from "../../shared/Components/Faq.tsx";
+import {WhyChooseQuickBuy} from "../../shared/Components/WhyChooseQuickBuy.tsx";
 
 const QuickBuyCategory = () => {
   const apiResponse = {
@@ -52,17 +50,6 @@ const QuickBuyCategory = () => {
 
   return (
     <div>
-      {/* <Header
-        backgroundImage={HeaderImage}
-        title={
-          <h1 className="text-4xl font-bold leading-tight">
-            SECURE YOUR <span className="text-[#1E3161]">FAMILY’S FUTURE</span>, <br/>
-            PLAN YOUR RETIREMENT, OR <br/>
-            PROTECT YOUR HEALTH — <br/>
-            <span className="text-[#1E3161]">WE’VE GOT YOU COVERED.</span>
-          </h1>
-        }
-      /> */}
 
       <div className="flex flex-col items-center mt-[84px]">
         <p className="font-bold text-[36px] leading-[32px] text-center tracking-[0.02em] uppercase">
@@ -130,17 +117,11 @@ const QuickBuyCategory = () => {
           ))}
         </div>
       </div>
-      <div className="flex justify-center">
-        <div className="h-[257px] w-[903px] mt-[83px]">
-          <img
-            src={WhyChooseQuickBuyImage}
-            alt="image"
-            className="object-cover w-[903px]"
-          />
-        </div>
+      <div className="flex justify-center mt-[83px]">
+        <WhyChooseQuickBuy/>
       </div>
       <div className="mt-[85px]">
-        <FAQ />
+        <FAQ/>
       </div>
     </div>
   );
