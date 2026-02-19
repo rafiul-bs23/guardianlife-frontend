@@ -5,7 +5,6 @@ import sponsore3 from "../../assets/images/home/sponsore3.png";
 import guideYou from "../../assets/images/home/guide-you.png";
 import ActionButton from "../../shared/Components/BaseButton.tsx";
 
-// import solutions from "./Solutions.tsx";
 import Solutions from "./components/Solutions.tsx";
 import PartnersBanks from "./components/PartnersBanks.tsx";
 import BusinessPartners from "./components/BusinessPartners.tsx";
@@ -41,9 +40,6 @@ const Home = () => {
           />
         </div>
 
-
-
-
         <div className="flex gap-8 h-[437px] w-full mt-[140px]">
           <div className="flex-1 rounded-tr-[32px] rounded-br-[32px]">
             <img
@@ -64,10 +60,6 @@ const Home = () => {
               className="w-[249px]"
               onClick={() => console.log("clicked")}
             />
-
-          </div>
-          <div>
-
 
           </div>
         </div>

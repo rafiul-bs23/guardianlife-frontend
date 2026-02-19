@@ -3,8 +3,10 @@ import BusinessPastner1 from "../../../assets/images/home/BusinessPartners/Busin
 import ActionButton from "../../../shared/Components/BaseButton.tsx";
 import { useLayoutEffect, useRef, useState } from "react";
 
+import type { Partner, LogoGridProps, LogoCardProps } from "./../types.ts";
+
 const EmpoweringFamilies = () => {
-  const partners = [
+  const partners: Partner[] = [
     { id: 1, name: "Shanta", logo: BusinessPastner1 },
     { id: 2, name: "The Palace", logo: BusinessPastner1 },
     { id: 3, name: "BRAC", logo: BusinessPastner1 },
@@ -31,7 +33,7 @@ const EmpoweringFamilies = () => {
   console.log("row height:", rowHeight);
 
   return (
-    <div className="flex gap-8 bg-gray-50 min-h-screen">
+    <div className="flex gap-8 bg-gray-50 min-h-screen mt-[84px]">
       {/* Left Section */}
       <div ref={rightSectionRef} className="w-1/2 h-screen pl-[200px]">
         <LogoGrid partners={partners} rowHeight={rowHeight} />
@@ -65,13 +67,7 @@ const EmpoweringFamilies = () => {
   );
 };
 
-const LogoGrid = ({
-                    partners,
-                    rowHeight,
-                  }: {
-  partners: any[];
-  rowHeight: number | null;
-}) => {
+const LogoGrid = ({ partners, rowHeight }: LogoGridProps) => {
   const spanPattern = [
     2, 1,
     1, 1, 1,
@@ -100,7 +96,7 @@ const LogoGrid = ({
   );
 };
 
-const LogoCard = ({ logo, name }: { logo: string; name: string }) => {
+const LogoCard = ({ logo, name }: LogoCardProps) => {
   return (
     <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 flex items-center justify-center h-full">
       <img

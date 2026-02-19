@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react'; // or you can use any icon library
 
 // Import bank logos

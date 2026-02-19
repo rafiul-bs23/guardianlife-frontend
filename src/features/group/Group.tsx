@@ -15,6 +15,8 @@ import MicroContactForm from "../micro/components/MicroContactForm.tsx";
 import {mockMicroData} from "../micro/api/mockData.ts";
 import AppDownloadSection from "../../shared/Components/AppDownloadSection.tsx";
 
+import type { LifeCoverageType } from "./types.ts";
+
 const Group = () => {
   const comprehensiveData = [
     {
@@ -36,11 +38,7 @@ const Group = () => {
       description: "Additional coverage for dental and optical care, ensuring comprehensive healthcare support for all aspects of employee well-being.",
     },
   ];
-  type LifeCoverageType = {
-    id: number;
-    title: string;
-    description: string;
-  };
+
   const lifeCoveragedata: LifeCoverageType[] = [
     {
       id: 1,
