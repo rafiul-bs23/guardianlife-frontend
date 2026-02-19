@@ -9,6 +9,11 @@ import {CriticalIllnessList} from "./component/CriticalillnessList.tsx";
 import {TreatmentPlanList} from "./component/TreatmentPlanList.tsx";
 import {MaternityBenefits} from "./component/MaternityBenefits.tsx";
 import OutPatientCard from "./component/OutPatientCard.tsx";
+import CashlessNetwork from "../../shared/Components/CashlessNetwork.tsx";
+import MicroPartners from "../micro/components/MicroPartners.tsx";
+import MicroContactForm from "../micro/components/MicroContactForm.tsx";
+import {mockMicroData} from "../micro/api/mockData.ts";
+import AppDownloadSection from "../../shared/Components/AppDownloadSection.tsx";
 
 const Group = () => {
   const comprehensiveData = [
@@ -232,6 +237,12 @@ const Group = () => {
           />
         ))}
       </div>
+
+      <CashlessNetwork />
+      <MicroPartners />
+      <MicroContactForm data={mockMicroData.contactForm} />
+      <AppDownloadSection />
+
     </div>
   );
 };
