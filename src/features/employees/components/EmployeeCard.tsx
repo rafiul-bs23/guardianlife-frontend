@@ -10,7 +10,7 @@ const EmployeeCard: React.FC<EmployeeCardProps> = ({ employee }) => {
         <div className="bg-[#F8F9FA] rounded-[30px] p-4 flex gap-4 items-center h-full">
             <div className="w-1/3 aspect-square overflow-hidden rounded-2xl">
                 <img
-                    src={employee.imageUrl}
+                    src={employee.image_url}
                     alt={employee.name}
                     className="w-full h-full object-cover"
                 />

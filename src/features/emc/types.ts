@@ -1,14 +1,13 @@
-export interface Employee {
+export interface EmcMember {
     name: string;
     designation: string;
-    department: string;
     image_url: string;
 }
 
-export interface EmployeeApiResponse {
+export interface EmcApiResponse {
     success: boolean;
     transaction_id: string;
-    data: Employee[];
+    data: EmcMember[];
     message?: string;
     errors?: ValidationError[];
 }
@@ -18,8 +17,8 @@ export interface ValidationError {
     message: string;
 }
 
-export interface UseEmployeesResult {
-    data: Employee[] | null;
+export interface UseEmcResult {
+    data: EmcMember[] | null;
     isLoading: boolean;
     error: string | null;
     fieldErrors: ValidationError[];

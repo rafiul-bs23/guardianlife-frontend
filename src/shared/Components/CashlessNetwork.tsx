@@ -47,7 +47,7 @@ const CashlessNetwork: React.FC = () => {
                         <div className="pt-4">
                             <Button
                                 label="Cashless"
-                                variant="solid-orange-with-icon"
+                                variant="solid-orange"
                                 className="px-8 py-3 rounded-full"
                                 labelClass="text-sm font-bold"
                             />
