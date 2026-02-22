@@ -44,9 +44,9 @@ export const NAV_ROUTES = [
   { path: "/board-directors", label: "Board Directors", element: <BoardDirectors /> },
   { path: "/directors", label: "Directors", element: <Directors /> },
   { path: "/tax-rebate", label: "Tax Rebate", element: <TaxRebate /> },
-  { path: "/payment", label: "Payment", element: <Payment /> },
-  { path: "/form-library", label: "Form Library", element: <FormLibrary /> },
-  { path: "/shareholders", label: "Shareholders", element: <Shareholders /> },
+  // { path: "/payment", label: "Payment", element: <Payment /> },
+  // { path: "/form-library", label: "Form Library", element: <FormLibrary /> },
+  // { path: "/shareholders", label: "Shareholders", element: <Shareholders /> },
 ];
 
 export const router = createBrowserRouter([
