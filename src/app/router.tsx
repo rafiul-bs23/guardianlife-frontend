@@ -20,6 +20,9 @@ import BoardDirectors from "../features/board-directors/BoardDirectors.tsx";
 import BancaCity from "../features/banca-city/BancaCity.tsx";
 import Banca from "../features/banca/banca.tsx";
 import TaxRebate from "../features/tax-rebate/TaxRebate.tsx";
+import Payment from "../features/payment/Payment.tsx";
+import FormLibrary from "../features/form-library/FormLibrary.tsx";
+import Shareholders from "../features/shareholders/Shareholders.tsx";
 
 export const NAV_ROUTES = [
   { path: "/", label: "Home", element: <Home /> },
@@ -41,6 +44,9 @@ export const NAV_ROUTES = [
   { path: "/board-directors", label: "Board Directors", element: <BoardDirectors /> },
   { path: "/directors", label: "Directors", element: <Directors /> },
   { path: "/tax-rebate", label: "Tax Rebate", element: <TaxRebate /> },
+  { path: "/payment", label: "Payment", element: <Payment /> },
+  { path: "/form-library", label: "Form Library", element: <FormLibrary /> },
+  { path: "/shareholders", label: "Shareholders", element: <Shareholders /> },
 ];
 
 export const router = createBrowserRouter([
