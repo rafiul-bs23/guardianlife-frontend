@@ -10,15 +10,15 @@ export interface ProductCardProps {
 }
 
 const ProductCardWithActionButton = ({
-                                       thumbnailUrl,
-                                       title,
-                                       points = [],
-                                       description,
-                                       onViewDetails,
-                                       onBuyNow
-                                     }: ProductCardProps) => {
+  thumbnailUrl,
+  title,
+  points = [],
+  description,
+  onViewDetails,
+  onBuyNow
+}: ProductCardProps) => {
   return (
-    <div className="w-[643px] h-[788px] bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl shadow-lg overflow-hidden flex flex-col">
+    <div className="w-full max-w-[643px] h-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl shadow-lg overflow-hidden flex flex-col">
       {/* Header Section with Quick Buy badge */}
       <div className="relative">
         <div className="absolute top-8 right-8 z-20">

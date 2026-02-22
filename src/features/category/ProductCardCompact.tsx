@@ -8,13 +8,13 @@ export interface ProductCardProps {
 }
 
 const ProductCardCompact = ({
-                              thumbnailUrl,
-                              title,
-                              points = [],
-                              onViewDetails,
-                            }: ProductCardProps) => {
+  thumbnailUrl,
+  title,
+  points = [],
+  onViewDetails,
+}: ProductCardProps) => {
   return (
-    <div className="w-[471px] h-[502px] bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl shadow-lg overflow-hidden flex flex-col">
+    <div className="w-full max-w-[471px] h-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl shadow-lg overflow-hidden flex flex-col">
 
       <div className="relative">
         {thumbnailUrl && (
