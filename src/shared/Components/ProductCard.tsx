@@ -65,7 +65,7 @@ const ProductCardWithActionButton = ({
         )}
 
         {/* Action Buttons - Using your ActionButton component */}
-        <div className="flex gap-4 mt-auto">
+        <div className="flex flex-col sm:flex-row gap-4 mt-auto">
           <div className="flex-1">
             <ActionButton
               text="View Details"
