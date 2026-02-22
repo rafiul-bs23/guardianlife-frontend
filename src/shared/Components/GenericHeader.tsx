@@ -8,6 +8,10 @@ interface GenericHeaderProps {
     variant?: 'boxed' | 'immersive';
     className?: string;
     mediaClassName?: string;
+    mediaContainerClassName?: string;
+    contentWrapperClassName?: string;
+    innerWrapperClassName?: string;
+    imgClassName?: string;
     descriptionClassName?: string;
     titleClassName?: string;
     actions?: React.ReactNode;
@@ -21,6 +25,10 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
     className = "",
     titleClassName = "",
     mediaClassName = "",
+    mediaContainerClassName = "",
+    contentWrapperClassName = "",
+    innerWrapperClassName = "",
+    imgClassName = "",
     descriptionClassName = "",
     customBgStyles = {},
     actions,
@@ -36,7 +44,7 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
     } : customBgStyles;
 
     const headerContent = data ? (
-        <div className="w-full px-8 md:px-16 lg:px-24 py-16 flex flex-col lg:flex-row items-center justify-between gap-12">
+        <div className={`w-full px-8 md:px-16 lg:px-24 py-16 flex flex-col lg:flex-row items-center justify-between gap-12 ${contentWrapperClassName}`}>
             {/* Text Section */}
             <div className="w-full lg:w-[55%]">
                 {data.badge && (
@@ -72,7 +80,7 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
 
             {/* Media Section (Image or Video) */}
             <div className="w-full lg:w-[45%] flex justify-center lg:justify-end">
-                <div className="relative w-full max-w-[550px] aspect-[1.5/1]">
+                <div className={`relative w-full max-w-[550px] aspect-[1.5/1] ${mediaContainerClassName}`}>
                     <div className={`w-full h-full overflow-hidden shadow-xl group relative ${mediaClassName}`}>
                         {isVideo ? (
                             <VideoThumbnail
@@ -84,7 +92,7 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
                             <img
                                 src={data.media?.url}
                                 alt="Header Media"
-                                className="w-full h-full object-cover"
+                                className={`w-full h-full object-cover ${imgClassName}`}
                             />
                         )}
                     </div>
@@ -99,10 +107,10 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
                 className={`relative w-full min-h-[600px] flex flex-col ${className} bg-primary`}
                 style={bgStyles}
             >
-                <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/40 to-primary/80 z-0" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/70 to-primary/10 z-0" />
                 <div className="relative z-10 flex flex-col w-full h-full">
                     <Navbar transparent />
-                    <div className="flex-grow flex items-center">
+                    <div className={`flex-grow flex items-center ${innerWrapperClassName}`}>
                         {children || headerContent}
                     </div>
                 </div>

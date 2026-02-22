@@ -1,16 +1,18 @@
-import HeaderImage from "../../assets/images/category/headerImage.jpg";
-import Header from "../../shared/Components/Header.tsx";
+import { useState } from "react";
 import Contentheader from "../../shared/Components/Contentheader.tsx";
 import BenefitsList from "./component/Benefits.tsx";
 import { ShieldIcon, HeartIcon, StarIcon } from "lucide-react";
-import {CoverageList} from "./component/CoverageList.tsx";
-import {LifeCoverage} from "./component/LifeCoverage.tsx";
-import {CriticalIllnessList} from "./component/CriticalillnessList.tsx";
-import {TreatmentPlanList} from "./component/TreatmentPlanList.tsx";
-import {MaternityBenefits} from "./component/MaternityBenefits.tsx";
+import { CoverageList } from "./component/CoverageList.tsx";
+import { LifeCoverage } from "./component/LifeCoverage.tsx";
+import { CriticalIllnessList } from "./component/CriticalillnessList.tsx";
+import { TreatmentPlanList } from "./component/TreatmentPlanList.tsx";
+import { MaternityBenefits } from "./component/MaternityBenefits.tsx";
 import OutPatientCard from "./component/OutPatientCard.tsx";
+import GroupHeader from "./components/GroupHeader.tsx";
+import { useHeader } from "./hooks/useHeader.ts";
 
 const Group = () => {
+  const { data: headerData, isLoading: isHeaderLoading } = useHeader();
   const comprehensiveData = [
     {
       id: 1,
@@ -101,19 +103,19 @@ const Group = () => {
       ]
     }
   };
+
+  if (isHeaderLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#EB6925]"></div>
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <Header
-        backgroundImage={HeaderImage}
-        title={
-          <h1 className="text-4xl font-bold leading-tight">
-            SECURE YOUR <span className="text-[#1E3161]">FAMILY’S FUTURE</span>, <br/>
-            PLAN YOUR RETIREMENT, OR <br/>
-            PROTECT YOUR HEALTH — <br/>
-            <span className="text-[#1E3161]">WE’VE GOT YOU COVERED.</span>
-          </h1>
-        }
-      />
+    <main className="min-h-screen bg-white">
+      {headerData && <GroupHeader data={headerData} />}
+
       <div className="mt-[84px]">
         <Contentheader
           title="Why Group Insurance Matters for Your Organization"
@@ -124,7 +126,7 @@ const Group = () => {
       <div className="flex mt-[90px]">
         <div className="w-1/2 pl-[211px] pr-8 ">
           <div className="max-w-[696px]">
-            <BenefitsList/>
+            <BenefitsList />
           </div>
         </div>
         <div className="w-1/2 pl-8">
@@ -232,8 +234,9 @@ const Group = () => {
           />
         ))}
       </div>
-    </div>
+    </main>
   );
 };
 
 export default Group;
+

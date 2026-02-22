@@ -17,7 +17,7 @@ export const MOCK_HEADER_DATA: HeaderResponse = {
             }
         ],
         "description": "Enjoy your money today without compromising their tomorrow. Even if you've already withdrawn 50% of your funds, your family is still guaranteed 100% of the protection plus bonuses.",
-        "background_image_url": "https://as1.ftcdn.net/jpg/04/12/00/82/1000_F_412008272_JbmChYI2x40ck61qcTNW43uIdDNNCR0M.jpg",
+        "background_image_url": "/src/assets/images/category/headerImage.jpg",
         "media": {
             "type": "video",
             "url": "https://guardian-life-website-example.com/assets/videos/guardian-3-stage-planheader.mp4"

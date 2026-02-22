@@ -36,14 +36,14 @@ const AppDownloadSection: React.FC = () => {
                     <div className="flex flex-col sm:flex-row gap-6">
                         <Button
                             label="Google Play"
-                            variant="solid-orange-with-icon"
+                            variant="solid-orange"
                             onClick={() => window.open(data.playStoreUrl, '_blank')}
                             icon={ArrowRight}
                         />
 
                         <Button
                             label="App Store"
-                            variant="solid-orange-with-icon"
+                            variant="solid-orange"
                             onClick={() => window.open(data.appStoreUrl, '_blank')}
                             icon={ArrowRight}
                         />
