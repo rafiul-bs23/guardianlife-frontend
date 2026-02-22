@@ -2,6 +2,7 @@ import type { HeaderResponse } from "../../../shared/types/header";
 import type { TaxRebateDataResponse } from "../types";
 import taxImage from "../../../assets/images/tax-rebate/tax.png";
 
+
 export const MOCK_TAX_REBATE_HEADER_DATA: HeaderResponse = {
     "success": true,
     "transaction_id": "GLIL-TR-TXN-ID",

@@ -36,7 +36,7 @@ const SolutionsComponent = () => {
       <div className="max-w-[1440px] mx-auto px-6 lg:px-[100px] flex flex-col lg:flex-row items-center gap-12 lg:gap-0">
 
         {/* Left Content Section */}
-        <div className="w-full lg:w-1/2 flex flex-col items-start text-left z-10">
+        <div className="w-full lg:w-1/2 flex flex-col items-start text-left ">
           <h5 className="text-[#1E3161] text-lg font-bold tracking-[.2em] mb-8 uppercase">
             OUR SOLUTIONS
           </h5>
@@ -49,9 +49,9 @@ const SolutionsComponent = () => {
           </h2>
 
           {/* Tab Navigation */}
-          <div className="flex items-center  gap-4 lg:gap-4 flex-wrap">
-            <div className="w-[10%] lg:w-10 h-[2px] bg-[#1E3161]" />
-            <div className="flex items-center gap-4 lg:gap-4 flex-wrap w-[80%] lg:w-full">
+          <div className="flex flex-row items-center  gap-4 lg:gap-4 flex-wrap">
+            <div className="w-[10%] lg:w-8 h-[2px] bg-[#1E3161]" />
+            <div className="flex items-center gap-4 lg:gap-4 flex-wrap w-[80%] lg:w-auto  ">
               {solutions.map((solution, index) => (
                 <button
                   key={solution.id}
@@ -114,13 +114,13 @@ const SolutionsComponent = () => {
                       {position === 0 ? (
                         <Link
                           to="/category"
-                          className="absolute top-6 right-6 w-12 h-12 rounded-full border border-white/40 flex items-center justify-center text-white backdrop-blur-sm hover:bg-white/20 transition-colors z-50"
+                          className="absolute top-6 right-6 w-12 h-12 rounded-full border border-white/40 flex items-center justify-center text-white backdrop-blur-sm hover:bg-white/20 transition-colors "
                           onClick={(e) => e.stopPropagation()}
                         >
                           <ArrowUpRight size={20} />
                         </Link>
                       ) : (
-                        <div className="absolute top-6 right-6 w-12 h-12 rounded-full border border-white/40 flex items-center justify-center text-white backdrop-blur-sm transition-colors z-50">
+                        <div className="absolute top-6 right-6 w-12 h-12 rounded-full border border-white/40 flex items-center justify-center text-white backdrop-blur-sm transition-colors">
                           <ArrowUpRight size={20} />
                         </div>
                       )}

@@ -62,15 +62,15 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
 
                 {/* Drawer Content */}
                 <div
-                    className={`absolute top-0 left-0 h-full w-full md:w-[450px] bg-white/95 backdrop-blur-xl shadow-2xl transition-transform duration-500 ease-out border-r border-white/20 flex flex-col ${isOpened ? 'translate-x-0' : '-translate-x-full'}`}
+                    className={`absolute top-0 left-0 h-full w-full md:w-[400px] bg-white/95 backdrop-blur-xl shadow-2xl transition-transform duration-500 ease-out border-r border-white/20 flex flex-col ${isOpened ? 'translate-x-0' : '-translate-x-full'}`}
                 >
                     {/* Drawer Header */}
                     <div className="flex items-center justify-between p-8 border-b border-gray-100">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20">
-                                <img src={logo} alt="Logo" className="w-8 h-8 object-contain" />
+                            <div className="w-32 h-12 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20">
+                                <img src={logo} alt="Logo" className="w-28 h-6 object-contain" />
                             </div>
-                            <span className="font-black text-xl tracking-tight text-gray-900">MENU</span>
+                            {/* <span className="font-black text-xl tracking-tight text-gray-900">MENU</span> */}
                         </div>
                         <button
                             onClick={toggleDrawer}
@@ -82,7 +82,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
                     </div>
 
                     {/* Navigation Items */}
-                    <div className="flex-grow overflow-y-auto px-6 py-8 no-scrollbar">
+                    <div className="flex-grow overflow-y-auto px-6 pt-2 pb-10 no-scrollbar">
                         <div className="grid gap-3">
                             {NAV_ROUTES.map((route) => (
                                 <NavLink
@@ -90,7 +90,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
                                     to={route.path}
                                     onClick={toggleDrawer}
                                     className={({ isActive }) => `
-                                        flex items-center justify-between p-5 rounded-2xl text-lg font-black uppercase tracking-wide transition-all duration-300 group
+                                        flex items-center justify-between p-2 rounded-xl text-xs font-bold uppercase tracking-wide transition-all duration-300 group
                                         ${isActive
                                             ? 'bg-primary text-white shadow-lg shadow-orange-500/20'
                                             : 'hover:bg-orange-50 text-gray-700 hover:text-primary'
