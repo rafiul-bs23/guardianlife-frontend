@@ -23,7 +23,7 @@ const AppPromotion = () => {
           </p>
         </div>
 
-        <div className="flex gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <ActionButton
             text="Google Play"
             onClick={() => console.log("Google play clicked")}
