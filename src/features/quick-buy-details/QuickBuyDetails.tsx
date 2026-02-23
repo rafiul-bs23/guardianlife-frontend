@@ -32,25 +32,25 @@ const QuickBuyDetails = () => {
       {!isHeaderLoading && headerData && <QuickBuyHeader data={headerData} />}
 
       {/* Quick Product View - Use shared component with design-specific props */}
-      {data && (
+      {data?.quick_product_section && (
         <QuickProductView
-          data={data.quickProductSection}
+          data={data?.quick_product_section}
           title="QUICK PRODUCT VIEW"
           subtitle="Key Plan Details at a glance"
         />
       )}
 
       {/* Product Calculator - Interactive section from screenshot */}
-      {data && <ProductCalculator data={data.productCalculatorSection} />}
+      {data?.product_calculator_section && <ProductCalculator data={data?.product_calculator_section} />}
 
       {/* Plan Benefits - Reused from product-details if structure matches */}
-      {data && <PlanBenefitsSection data={data.planBenefitsSection as any} />}
+      {data?.plan_benefits_section && <PlanBenefitsSection data={data?.plan_benefits_section as any} />}
 
       {/* Support & Learn More - Reused from product-details */}
-      {data && (
+      {data?.product_documents_section && data?.learn_more_section && (
         <ProductSupport
-          documents={data.productDocumentsSection as any}
-          learnMore={data.learnMoreSection as any}
+          documents={data?.product_documents_section as any}
+          learnMore={data?.learn_more_section as any}
         />
       )}
 

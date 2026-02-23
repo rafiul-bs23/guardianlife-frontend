@@ -23,7 +23,7 @@ const QuickProduct: React.FC<QuickProductProps> = ({ data }) => {
 
                     <div className="px-4 pb-8 md:px-8">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                            {data.content.map((item, index) => (
+                            {data?.content?.map((item, index) => (
                                 <div
                                     key={index}
                                     className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex flex-col items-start gap-4 transition-transform hover:-translate-y-1 duration-300"
@@ -36,10 +36,10 @@ const QuickProduct: React.FC<QuickProductProps> = ({ data }) => {
                                     {/* Text Content */}
                                     <div className="flex flex-col gap-1">
                                         <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                                            {item.title}
+                                            {item?.title}
                                         </span>
                                         <span className="text-lg font-bold text-gray-900 leading-tight">
-                                            {item.description}
+                                            {item?.description}
                                         </span>
                                     </div>
                                 </div>

@@ -6,7 +6,7 @@ import { HEADER_DATA } from './api/mockData';
 
 const BoardDirectors = () => {
   return (
-    <main className="min-h-screen bg-gray-50 pt-20">
+    <main className="min-h-screen bg-gray-50 ">
       <BoardDirectoraHeader data={HEADER_DATA} />
       <BoardDirectorsList data={mockBoardDirectorsData} />
     </main>

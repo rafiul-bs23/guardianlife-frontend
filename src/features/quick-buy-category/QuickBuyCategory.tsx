@@ -7,7 +7,7 @@ import FAQ from "../../shared/Components/Faq.tsx";
 const QuickBuyCategory = () => {
   const { data: headerData, isLoading: isHeaderLoading } = useHeader();
   const apiResponse = {
-    "success": true,
+    "status": true,
     "transactionId": "GLIL-TXN-ID",
     "data": {
       "channel": "retail",

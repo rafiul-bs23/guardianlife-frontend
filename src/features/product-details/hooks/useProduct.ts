@@ -17,8 +17,9 @@ export const useProduct = (productId: string): UseProductResult => {
 
     try {
       const response: ProductApiResponse = await getProductData(productId);
+      console.log("response:", response);
 
-      if (response.success) {
+      if (response.status) {
         setData(response.data);
       } else {
         console.warn('API Business Error:', response.message);

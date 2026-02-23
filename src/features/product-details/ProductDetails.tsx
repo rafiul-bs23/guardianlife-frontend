@@ -11,27 +11,32 @@ import PlanBenefitsSection from '../../shared/Components/PlanBenefitsSection';
 import ProductHeader from './components/ProductHeader';
 import { useHeader } from './hooks/useHeader';
 
+import { useParams } from 'react-router-dom';
+
 const ProductDetails = () => {
+  const { product_code } = useParams();
+  console.log("product_code:", product_code);
+
   const { data: headerData, isLoading: isHeaderLoading } = useHeader('1');
-  const { data } = useProduct('1');
+  const { data } = useProduct(product_code as string);
 
   return (
     <>
       {!isHeaderLoading && headerData && <ProductHeader data={headerData} />}
       <section>
-        {data && <QuickProductView data={data.quickProductSection} />}
-        {data && <ProductJourney data={data.productJourneySection} />}
-        {data && <KeyHighlights data={data.keyHighlightsSection} />}
-        {data && <PlanBenefitsSection data={data.planBenefitsSection} />}
-        {data && <SupplementaryBenefits data={data.supplementaryBenefitsSection} />}
-        {data && <PlanBreakdown data={data.planBreakdownSection} />}
-        {data && (
+        {data?.quick_product_section && <QuickProductView data={data.quick_product_section} />}
+        {data?.product_journey_section && <ProductJourney data={data.product_journey_section} />}
+        {data?.key_highlights_section && <KeyHighlights data={data.key_highlights_section} />}
+        {data?.plan_benefits_section && <PlanBenefitsSection data={data.plan_benefits_section} />}
+        {data?.supplementary_benefits_section && <SupplementaryBenefits data={data.supplementary_benefits_section} />}
+        {data?.plan_breakdown_section && <PlanBreakdown data={data.plan_breakdown_section} />}
+        {data?.product_documents_section && data?.learn_more_section && (
           <ProductSupport
-            documents={data.productDocumentsSection}
-            learnMore={data.learnMoreSection}
+            documents={data.product_documents_section}
+            learnMore={data.learn_more_section}
           />
         )}
-        {data && <WhyChooseCoverage data={data.whyChooseCoverageSection} />}
+        {data?.why_choose_coverage_section && <WhyChooseCoverage data={data.why_choose_coverage_section} />}
         <LocalAgent />
       </section>
     </>

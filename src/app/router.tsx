@@ -27,7 +27,7 @@ import Shareholders from "../features/shareholders/Shareholders.tsx";
 export const NAV_ROUTES = [
   { path: "/", label: "Home", element: <Home /> },
   { path: "/category", label: "Category", element: <Category /> },
-  { path: "/product-details", label: "Product Details", element: <ProductDetails /> },
+  { path: "/products/:product_code", label: "Product Details", element: <ProductDetails /> },
   { path: "/quick-buy-category", label: "Quick Buy Category", element: <QuickBuyCategory /> },
   { path: "/quick-buy-details", label: "Quick Buy Details", element: <QuickBuyDetails /> },
   { path: "/group", label: "Group", element: <Group /> },

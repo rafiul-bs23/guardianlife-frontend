@@ -6,7 +6,7 @@ export interface Employee {
 }
 
 export interface EmployeeApiResponse {
-    success: boolean;
+    status: boolean;
     transaction_id: string;
     data: Employee[];
     message?: string;

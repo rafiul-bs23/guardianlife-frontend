@@ -17,7 +17,7 @@ export const useEmc = (): UseEmcResult => {
         try {
             const response: EmcApiResponse = await getEmcData();
 
-            if (response.success) {
+            if (response.status) {
                 setData(response.data);
             } else {
                 console.warn('API Business Error:', response.message);

@@ -12,7 +12,7 @@ const Category = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const apiResponse = {
-    "success": true,
+    "status": true,
     "transactionId": "GLIL-TXN-ID",
     "data": {
       "channel": "retail",

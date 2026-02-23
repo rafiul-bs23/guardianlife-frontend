@@ -4,7 +4,7 @@ export interface FormLibraryItem {
 }
 
 export interface FormLibraryResponse {
-    success: boolean;
+    status: boolean;
     transaction_id: string;
     data: FormLibraryItem[];
 }

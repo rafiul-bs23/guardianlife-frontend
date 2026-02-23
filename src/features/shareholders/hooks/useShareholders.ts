@@ -11,7 +11,7 @@ export const useShareholders = () => {
         const fetchShareholders = async () => {
             try {
                 const response = await getShareholders();
-                if (response.success) {
+                if (response.status) {
                     setShareholders(response.data);
                 } else {
                     setError('Failed to fetch shareholders');

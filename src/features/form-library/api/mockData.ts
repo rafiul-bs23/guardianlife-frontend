@@ -1,7 +1,7 @@
 import type { FormLibraryResponse } from '../types';
 
 export const mockFormLibraryResponse: FormLibraryResponse = {
-    "success": true,
+    "status": true,
     "transaction_id": "GLIL-TXN-ID",
     "data": [
         {

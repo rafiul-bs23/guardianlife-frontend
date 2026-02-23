@@ -22,7 +22,7 @@ const PlanBreakdown: React.FC<PlanBreakdownProps> = ({ data }) => {
 
             {/* Breakdown Blocks */}
             <div className="flex flex-col gap-6  mx-auto">
-                {data.content.map((item, index) => (
+                {data?.content?.map((item, index) => (
                     <BreakdownBlock key={index} item={item} />
                 ))}
             </div>
@@ -31,21 +31,21 @@ const PlanBreakdown: React.FC<PlanBreakdownProps> = ({ data }) => {
 };
 
 const BreakdownBlock: React.FC<{ item: BreakdownItem }> = ({ item }) => {
-    const isEligibilityItem = item.title.includes('Eligibility');
+    const isEligibilityItem = item?.title?.includes('Eligibility');
 
     return (
         <div className="flex flex-col rounded-2xl overflow-hidden shadow-sm border border-gray-100">
             {/* Block Header */}
             <div className="bg-[#FFEEE5] px-6 py-4">
                 <h3 className="text-lg font-bold text-gray-900">
-                    {item.title}
+                    {item?.title}
                 </h3>
             </div>
 
             {/* Block Body */}
             <div className="bg-white p-6 flex flex-col gap-4">
                 <div className="flex flex-col gap-3">
-                    {item.points.map((point, idx) => (
+                    {item?.points?.map((point, idx) => (
                         <p key={idx} className="text-gray-700 text-sm md:text-base leading-relaxed">
                             {point}
                         </p>
@@ -53,8 +53,8 @@ const BreakdownBlock: React.FC<{ item: BreakdownItem }> = ({ item }) => {
                 </div>
 
                 {/* Dynamic Content for Eligibility Scale */}
-                {isEligibilityItem && item.additionalData && (
-                    <EligibilityScale min={item.additionalData.min} max={item.additionalData.max} />
+                {isEligibilityItem && item?.additional_data && (
+                    <EligibilityScale min={item?.additional_data?.min} max={item?.additional_data?.max} />
                 )}
             </div>
         </div>

@@ -20,11 +20,11 @@ const KeyHighlights: React.FC<KeyHighlightsProps> = ({ data }) => {
                 {/* Left Column: Description and Points */}
                 <div className="flex flex-col gap-8">
                     <p className="text-gray-700 leading-relaxed text-sm md:text-base">
-                        {data.description}
+                        {data?.description}
                     </p>
 
                     <div className="flex flex-col gap-3">
-                        {data.points.map((point, index) => (
+                        {data?.points?.map((point, index) => (
                             <div
                                 key={index}
                                 className="bg-[#FFEEE5] px-4 py-2 rounded-full text-sm font-medium text-gray-800 flex items-baseline gap-2"
@@ -38,7 +38,7 @@ const KeyHighlights: React.FC<KeyHighlightsProps> = ({ data }) => {
 
                 {/* Right Column: Cards Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {data.cards.map((card, index) => (
+                    {data?.cards?.map((card, index) => (
                         <div
                             key={index}
                             className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 flex items-start gap-4"
@@ -51,10 +51,10 @@ const KeyHighlights: React.FC<KeyHighlightsProps> = ({ data }) => {
                             {/* Content */}
                             <div className="flex flex-col">
                                 <h3 className="text-lg font-bold text-gray-900 leading-tight mb-1">
-                                    {card.title}
+                                    {card?.title}
                                 </h3>
                                 <p className="text-xs text-gray-500">
-                                    {card.description}
+                                    {card?.description}
                                 </p>
                             </div>
                         </div>

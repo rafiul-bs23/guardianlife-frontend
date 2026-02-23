@@ -5,7 +5,7 @@ export interface ShareholderItem {
 }
 
 export interface ShareholdersResponse {
-    success: boolean;
+    status: boolean;
     transaction_id: string;
     data: ShareholderItem[];
 }

@@ -2,7 +2,7 @@ import type { QuickBuySuccessResponse, QuickBuyErrorResponse } from "../types";
 import type { HeaderResponse } from "../../../shared/types/header";
 
 export const MOCK_HEADER_DATA: HeaderResponse = {
-    "success": true,
+    "status": true,
     "transaction_id": "GLIL-TXN-ID",
     "data": {
         "badge": "TERM LIFE INSURANCE",
@@ -26,34 +26,34 @@ export const MOCK_HEADER_DATA: HeaderResponse = {
 };
 
 export const MOCK_SUCCESS_DATA: QuickBuySuccessResponse = {
-    success: true,
+    status: true,
     transactionId: "GLIL-TXN-ID-SUCCESS-001",
     data: {
-        quickProductSection: {
+        quick_product_section: {
             content: [
                 { title: "COVERAGE", description: "1 to 10 Lac" },
                 { title: "POLICY TERM", description: "10 - 25 Years" },
                 { title: "ENTRY AGE", description: "18 - 45 Years" }
             ]
         },
-        productCalculatorSection: {
-            productName: "Easylife Special",
-            sumAssured: 500000,
+        product_calculator_section: {
+            product_name: "Easylife Special",
+            sum_assured: 500000,
             term: 20,
-            yearlyPremium: 1766,
-            stampFee: 500,
+            yearly_premium: 1766,
+            stamp_fee: 500,
             total: 2266,
-            lifeCoverageFromDayOne: true,
-            premiumPaymentMode: "Yearly",
-            minAge: 18,
-            maxAge: 45,
-            medicalTest: "No need",
-            maturityBenefit: false,
-            surrenderOption: false
+            life_coverage_from_day_one: true,
+            premium_payment_mode: "Yearly",
+            min_age: 18,
+            max_age: 45,
+            medical_test: "No need",
+            maturity_benefit: false,
+            surrender_option: false
         },
 
 
-        planBenefitsSection: {
+        plan_benefits_section: {
             description: "Meet your priorities: A liquid savings plan that will give back a partial sum assured",
             cards: [
                 {
@@ -94,7 +94,7 @@ export const MOCK_SUCCESS_DATA: QuickBuySuccessResponse = {
         },
 
 
-        productDocumentsSection: {
+        product_documents_section: {
             content: [
                 {
                     type: "file",
@@ -114,15 +114,15 @@ export const MOCK_SUCCESS_DATA: QuickBuySuccessResponse = {
             ]
         },
 
-        learnMoreSection: {
+        learn_more_section: {
             content: [
                 {
                     title: "Product Overview",
-                    videoUrl: "https://guardian-life-website-example.com/assets/videos/product-overview.mp4"
+                    video_url: "https://guardian-life-website-example.com/assets/videos/product-overview.mp4"
                 },
                 {
                     title: "How Claims Work",
-                    videoUrl: "https://guardian-life-website-example.com/assets/videos/how-claims-work.mp4"
+                    video_url: "https://guardian-life-website-example.com/assets/videos/how-claims-work.mp4"
                 }
             ]
         }
@@ -131,7 +131,7 @@ export const MOCK_SUCCESS_DATA: QuickBuySuccessResponse = {
 
 
 export const MOCK_ERROR_DATA: QuickBuyErrorResponse = {
-    success: false,
+    status: false,
     transactionId: "GLIL-TXN-ID-ERROR-001",
     message: "Failed to fetch quick buy details.",
     errors: [

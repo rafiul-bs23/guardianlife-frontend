@@ -62,7 +62,7 @@ const Group = () => {
   ];
 
   const apiResponse = {
-    "success": true,
+    "status": true,
     "transactionId": "GLIL-TXN-ID",
     "data": {
       "channel": "retail",

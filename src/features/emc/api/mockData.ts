@@ -9,7 +9,7 @@ export const MOCK_EMC_HEADER_DATA: HeaderData = {
 };
 
 export const MOCK_EMC_DATA: EmcApiResponse = {
-    success: true,
+    status: true,
     transaction_id: "GLIL-TXN-ID",
     data: [
         {

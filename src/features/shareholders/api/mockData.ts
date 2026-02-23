@@ -1,7 +1,7 @@
 import type { ShareholdersResponse } from '../types';
 
 export const mockShareholdersResponse: ShareholdersResponse = {
-    "success": true,
+    "status": true,
     "transaction_id": "GLIL-TXN-ID",
     "data": [
         {

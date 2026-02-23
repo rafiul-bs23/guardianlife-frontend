@@ -1,7 +1,7 @@
 import type { AboutData, HeaderResponse } from '../types';
 
 export const mockHeaderData: HeaderResponse = {
-    "success": true,
+    "status": true,
     "transaction_id": "GLIL-TXN-ID",
     "data": {
         "badge": null,

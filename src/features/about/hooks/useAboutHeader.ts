@@ -12,7 +12,7 @@ export const useAboutHeader = (section: string = 'about') => {
             try {
                 setIsLoading(true);
                 const response = await fetchHeaderData(section);
-                if (response.success) {
+                if (response.status) {
                     setData(response.data);
                 } else {
                     setError('Failed to fetch header data');

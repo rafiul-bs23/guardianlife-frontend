@@ -27,7 +27,7 @@ export interface TaxRebateDetails {
 }
 
 export interface TaxRebateDataResponse {
-    success: boolean;
+    status: boolean;
     transaction_id: string;
     data: TaxRebateDetails;
 }

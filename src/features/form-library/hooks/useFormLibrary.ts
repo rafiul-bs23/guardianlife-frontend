@@ -11,7 +11,7 @@ export const useFormLibrary = () => {
         const fetchForms = async () => {
             try {
                 const response = await getFormLibrary();
-                if (response.success) {
+                if (response.status) {
                     setForms(response.data);
                 } else {
                     setError('Failed to fetch forms');
