@@ -21,10 +21,10 @@ export const MOCK_HEADER_DATA: HeaderResponse = {
             }
         ],
         "description": "LIFE IS UNPREDICTABLE - AND FOR MILLIONS OF FAMILIES IN BANGLADESH, ONE UNEXPECTED LOSS CAN MEAN FINANCIAL HARDSHIP.",
-        "background_image_url": "https://as1.ftcdn.net/jpg/04/12/00/82/1000_F_412008272_JbmChYI2x40ck61qcTNW43uIdDNNCR0M.jpg",
+        "background_image_url": "/src/assets/images/category/headerImage.jpg",
         "media": {
             "type": "image",
-            "url": "https://as1.ftcdn.net/jpg/04/12/00/82/1000_F_412008272_JbmChYI2x40ck61qcTNW43uIdDNNCR0M.jpg"
+            "url": "/src/assets/images/category/headerImage.jpg"
         }
     }
 };

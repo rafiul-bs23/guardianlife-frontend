@@ -1,3 +1,12 @@
+import type { HeaderData } from "../../../shared/types/header";
+
+export const MOCK_HOME_HEADER_DATA: HeaderData = {
+    badge: null,
+    title: [],
+    description: undefined,
+    background_image_url: "src/assets/images/headers/home.png", // Beach sunset background
+
+};
 import image1 from '../../../assets/images/home/Solutions/solutions1.png';
 import image2 from '../../../assets/images/home/Solutions/solutions2.png';
 import image3 from '../../../assets/images/home/Solutions/solutions3.png';

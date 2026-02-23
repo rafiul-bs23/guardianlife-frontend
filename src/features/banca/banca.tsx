@@ -1,5 +1,4 @@
-import HeaderImage from "../../assets/images/category/headerImage.jpg";
-import Header from "../../shared/Components/Header.tsx";
+import { useState } from "react";
 import { StatsBar } from "./components/StatsBar.tsx";
 import Contentheader from "../../shared/Components/Contentheader.tsx";
 import { WhatIsBancassurance } from "./components/WhatIsBancassurance.tsx";
@@ -8,21 +7,23 @@ import { BenefitsOfBancassurance } from "./components/BenefitsOfBancassurance.ts
 import { BancassuranceProductSolutions } from "./components/BancassuranceProductSolutions.tsx";
 import { BankPartners } from "./components/BankPartners.tsx";
 import FAQ from "../../shared/Components/Faq.tsx";
+import BancaHeader from "./components/BancaHeader.tsx";
+import { useHeader } from "./hooks/useHeader.ts";
 
 const Banca = () => {
+  const { data: headerData, isLoading: isHeaderLoading } = useHeader();
+
+  if (isHeaderLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#EB6925]"></div>
+      </div>
+    );
+  }
+
   return (
-    <section>
-      <Header
-        backgroundImage={HeaderImage}
-        title={
-          <h1 className="text-4xl font-bold leading-tight">
-            SECURE YOUR <span className="text-[#1E3161]">FAMILY’S FUTURE</span>, <br />
-            PLAN YOUR RETIREMENT, OR <br />
-            PROTECT YOUR HEALTH — <br />
-            <span className="text-[#1E3161]">WE’VE GOT YOU COVERED.</span>
-          </h1>
-        }
-      />
+    <main className="min-h-screen bg-white">
+      {headerData && <BancaHeader data={headerData} />}
 
       <StatsBar />
 
@@ -135,8 +136,9 @@ const Banca = () => {
         <FAQ />
       </div>
 
-    </section>
+    </main>
   );
 };
 
 export default Banca;
+

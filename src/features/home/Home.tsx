@@ -1,9 +1,10 @@
-import bannerVideo from "../../assets/video/watermarked_preview.mp4";
 import sponsore1 from "../../assets/images/home/sponsore1.png";
 import sponsore2 from "../../assets/images/home/sponsore2.png";
 import sponsore3 from "../../assets/images/home/sponsore3.png";
 import guideYou from "../../assets/images/home/guide-you.png";
 import ActionButton from "../../shared/Components/BaseButton.tsx";
+import HomeHeader from "./components/HomeHeader";
+import { MOCK_HOME_HEADER_DATA } from "./api/mockData";
 
 import Solutions from "./components/Solutions.tsx";
 import PartnersBanks from "./components/PartnersBanks.tsx";
@@ -14,10 +15,8 @@ import ContactForm from "./components/contact.tsx";
 
 const Home = () => {
   return (
-    <div>
-      <div className="h-[1080px]">
-        <video src={bannerVideo} autoPlay muted loop playsInline={true} className="inset-0 h-full w-full object-cover text-transparent"></video>
-      </div>
+    <div className="min-h-screen bg-white">
+      <HomeHeader data={MOCK_HOME_HEADER_DATA} />
       <div className="flex flex-col items-center">
         <div className="mt-16 lg:mt-[98px] mb-[60px]">
           <p className="not-italic font-black text-[24px] leading-[24px] tracking-[0.2em] text-center lg:text-left uppercase text-[#1E3161]">sponsored by</p>
