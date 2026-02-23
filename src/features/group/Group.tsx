@@ -119,7 +119,7 @@ const Group = () => {
   }
 
   return (
-    <div className="overflow-hidden">
+    <main className="overflow-hidden">
       {headerData && <GroupHeader data={headerData} />}
       <div className="mt-16 lg:mt-[84px] px-4">
         <Contentheader
@@ -255,7 +255,6 @@ const Group = () => {
       <MicroPartners />
       <MicroContactForm data={mockMicroData.contactForm} />
       <AppDownloadSection />
-
     </main>
   );
 };
