@@ -14,7 +14,7 @@ const stats: StatItem[] = [
 
 export function StatsBar() {
   return (
-    <div className="w-full bg-[#EAF0FB] rounded-[12px] px-[32px] py-[20px] flex items-center justify-evenly">
+    <div className="w-full bg-[#EAF0FB] rounded-[12px] px-4 lg:px-[32px] py-[20px] flex flex-col md:flex-row flex-wrap items-center justify-center gap-6 md:gap-4 md:justify-evenly">
       {stats.map((item) => (
         <div key={item.id} className="flex items-center gap-[0px]">
           <div className="flex flex-col items-center text-center px-[24px]">

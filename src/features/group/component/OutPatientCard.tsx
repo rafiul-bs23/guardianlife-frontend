@@ -6,14 +6,14 @@ export interface ProductCardProps {
 }
 
 const ProductCardWithActionButton = ({
-                                       thumbnailUrl,
-                                       title,
-                                       points = [],
-                                       description,
-                                     }: ProductCardProps) => {
+  thumbnailUrl,
+  title,
+  points = [],
+  description,
+}: ProductCardProps) => {
   return (
     <div
-      className="w-[643px] h-[788px] bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl shadow-lg overflow-hidden flex flex-col">
+      className="w-full max-w-[643px] h-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl shadow-lg overflow-hidden flex flex-col">
       {/* Header Section with Quick Buy badge */}
       <div className="relative">
 
@@ -46,7 +46,7 @@ const ProductCardWithActionButton = ({
               <li key={index} className="flex items-start">
                 <span className="mr-3 mt-3">
                   <svg width="8" height="13" viewBox="0 0 8 13" fill="none">
-                    <path d="M0 0L8 6.5L0 13V0Z" fill="#F97316"/>
+                    <path d="M0 0L8 6.5L0 13V0Z" fill="#F97316" />
                   </svg>
                 </span>
                 <span className="font-normal text-[16px] leading-[32px] tracking-[0.02em]">{point}</span>

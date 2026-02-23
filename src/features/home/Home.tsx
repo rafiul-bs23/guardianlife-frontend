@@ -6,7 +6,6 @@ import ActionButton from "../../shared/Components/BaseButton.tsx";
 import HomeHeader from "./components/HomeHeader";
 import { MOCK_HOME_HEADER_DATA } from "./api/mockData";
 
-// import solutions from "./Solutions.tsx";
 import Solutions from "./components/Solutions.tsx";
 import PartnersBanks from "./components/PartnersBanks.tsx";
 import BusinessPartners from "./components/BusinessPartners.tsx";
@@ -19,10 +18,10 @@ const Home = () => {
     <div className="min-h-screen bg-white">
       <HomeHeader data={MOCK_HOME_HEADER_DATA} />
       <div className="flex flex-col items-center">
-        <div className="mt-[98px] mb-[60px]">
-          <p className="not-italic font-black text-[24px] leading-[24px] tracking-[0.2em] uppercase text-[#1E3161]">sponsored by</p>
+        <div className="mt-16 lg:mt-[98px] mb-[60px]">
+          <p className="not-italic font-black text-[24px] leading-[24px] tracking-[0.2em] text-center lg:text-left uppercase text-[#1E3161]">sponsored by</p>
         </div>
-        <div className="flex justify-center gap-[200px] h-[223px]">
+        <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-[200px] min-h-[223px] px-4">
           <img
             src={sponsore1}
             alt="sponsore-1"
@@ -40,33 +39,26 @@ const Home = () => {
           />
         </div>
 
-
-
-
-        <div className="flex gap-8 h-[437px] w-full mt-[140px]">
-          <div className="flex-1 rounded-tr-[32px] rounded-br-[32px]">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-8 h-auto lg:h-[437px] w-full mt-16 lg:mt-[140px] px-4 lg:px-0">
+          <div className="flex-1 rounded-tr-[32px] rounded-br-[32px] rounded-[32px] lg:rounded-none lg:rounded-tr-[32px] lg:rounded-br-[32px] overflow-hidden hidden md:block">
             <img
               src={guideYou}
               alt="Sample"
-              className="w-full h-full object-cover rounded-tr-[32px] rounded-br-[32px]"
+              className="w-full h-[500px] lg:h-full object-cover"
             />
           </div>
-          <div className="flex-1 flex flex-col py-[62.5px] pl-8 justify-center gap-4">
+          <div className="flex-1 flex flex-col py-12 lg:py-[62.5px] lg:pl-8 justify-center gap-4 px-4 text-center lg:text-left items-center lg:items-start">
             <p className="font-black text-[24px] leading-[24px] tracking-[0.2em] uppercase text-[#1E3161]">May i guide you</p>
-            <p className="text-[#464646] uppercase text-[40px] leading-[60px] tracking-[0.02em]">
-              Let our <span className="text-orange-500">AI Assistant</span> help you <br />
-              find the <span className="text-orange-500">best policy</span> — just <br />
+            <p className="text-[#464646] uppercase text-[28px] lg:text-[40px] leading-[40px] lg:leading-[60px] tracking-[0.02em]">
+              Let our <span className="text-orange-500">AI Assistant</span> help you <br className="hidden lg:block" />
+              find the <span className="text-orange-500">best policy</span> — just <br className="hidden lg:block" />
               answer a few <span className="text-orange-500">quick questions!</span>
             </p>
             <ActionButton
               text="Find your policy"
-              className="w-[249px]"
+              className="w-full max-w-[249px]"
               onClick={() => console.log("clicked")}
             />
-
-          </div>
-          <div>
-
 
           </div>
         </div>

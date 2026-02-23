@@ -7,7 +7,7 @@ type CoverageItem = {
 
 export function CoverageList({ items }: { items: CoverageItem[] }) {
   return (
-    <div className="flex flex-col gap-[16px] w-full pr-[211px]">
+    <div className="flex flex-col gap-[16px] w-full lg:pr-[211px]">
       {items.map((item) => (
         <div
           key={item.id}
