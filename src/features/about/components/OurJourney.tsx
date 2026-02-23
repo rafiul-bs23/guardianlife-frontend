@@ -12,10 +12,10 @@ const OurJourney: React.FC<OurJourneyProps> = ({ data }) => {
                 {/* Header Section */}
                 <div className="text-center mb-16 space-y-4">
                     <h2 className="text-[28px] md:text-[32px] font-black text-[#111827] uppercase tracking-wide">
-                        {data.title}
+                        {data?.title}
                     </h2>
                     <p className="text-[#4B5563] text-sm md:text-base leading-relaxed max-w-[800px] mx-auto opacity-90">
-                        {data.description}
+                        {data?.description}
                     </p>
                 </div>
 
@@ -25,7 +25,7 @@ const OurJourney: React.FC<OurJourneyProps> = ({ data }) => {
                     <div className="w-full lg:w-[45%] relative">
                         <div className="rounded-[40px] overflow-hidden shadow-xl h-full border border-gray-100">
                             <img
-                                src={`/${data.image}`}
+                                src={data?.image ? `/${data.image}` : ''}
                                 alt="Our Journey Timeline"
                                 className="w-full h-full object-cover"
                             />
@@ -34,16 +34,16 @@ const OurJourney: React.FC<OurJourneyProps> = ({ data }) => {
 
                     {/* Right side: Journey Cards */}
                     <div className="w-full lg:w-[55%] flex flex-col justify-center gap-6">
-                        {data.cards.map((card, index) => (
+                        {data?.cards?.map((card, index) => (
                             <div
                                 key={index}
                                 className="bg-white rounded-[24px] p-8 border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-lg hover:border-primary/10 group"
                             >
                                 <h4 className="text-[20px] font-black text-[#111827] mb-3 transition-colors group-hover:text-primary">
-                                    {card.title}
+                                    {card?.title}
                                 </h4>
                                 <p className="text-[#4B5563] text-sm md:text-base leading-relaxed opacity-80">
-                                    {card.description}
+                                    {card?.description}
                                 </p>
                             </div>
                         ))}
