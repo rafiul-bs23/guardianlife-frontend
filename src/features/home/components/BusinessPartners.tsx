@@ -1,23 +1,10 @@
 import MainImage from "../../../assets/images/home/BusinessPartners/MainImage.jpg";
-import BusinessPastner1 from "../../../assets/images/home/BusinessPartners/BusinessPartner1.png";
 import ActionButton from "../../../shared/Components/BaseButton.tsx";
 import { useLayoutEffect, useRef, useState } from "react";
-
-import type { Partner, LogoGridProps, LogoCardProps } from "./../types.ts";
+import { partners } from "../api/mockData";
+import type { LogoGridProps, LogoCardProps } from "./../types.ts";
 
 const BusinessPartners = () => {
-  const partners : Partner[] = [
-    { id: 1, name: "Shanta", logo: BusinessPastner1 },
-    { id: 2, name: "The Palace", logo: BusinessPastner1 },
-    { id: 3, name: "BRAC", logo: BusinessPastner1 },
-    { id: 4, name: "ICMAB", logo: BusinessPastner1 },
-    { id: 5, name: "Meridian", logo: BusinessPastner1 },
-    { id: 6, name: "BRAC", logo: BusinessPastner1 },
-    { id: 7, name: "Shanta", logo: BusinessPastner1 },
-    { id: 8, name: "BRAC", logo: BusinessPastner1 },
-    { id: 9, name: "Meridian", logo: BusinessPastner1 },
-    { id: 10, name: "Meridian2", logo: BusinessPastner1 },
-  ];
 
   const rightSectionRef = useRef<HTMLDivElement | null>(null);
   const [rowHeight, setRowHeight] = useState<number | null>(null);
@@ -26,23 +13,23 @@ const BusinessPartners = () => {
     if (rightSectionRef.current) {
       const height = rightSectionRef.current.getBoundingClientRect().height;
       console.log("Right section height:", height);
-      setRowHeight((height-64) / 4);
+      setRowHeight((height - 64) / 4);
     }
   }, []);
 
   return (
-    <div className="flex gap-8 bg-gray-50 min-h-screen">
+    <div className="flex flex-col lg:flex-row gap-8 bg-gray-50 min-h-screen">
       {/* Left Section */}
-      <div className="w-1/2">
-        <div className="mb-8 rounded-tr-[32px] rounded-br-[32px]">
+      <div className="w-full lg:w-1/2 px-4 lg:px-0 lg:pl-[200px]">
+        <div className="mb-8 rounded-[32px] lg:rounded-none lg:rounded-tr-[32px] lg:rounded-br-[32px] overflow-hidden">
           <img
             src={MainImage}
             alt="Business Partnership"
-            className="w-full h-[445px] object-cover rounded-tr-[32px] rounded-br-[32px]"
+            className="w-full h-[445px] object-cover rounded-[32px] lg:rounded-none lg:rounded-tr-[32px] lg:rounded-br-[32px]"
           />
         </div>
 
-        <div className="space-y-6 pl-[350px]">
+        <div className="space-y-6 text-center lg:text-left flex flex-col items-center lg:items-start lg:pl-[150px]">
           <p className="font-bold text-[36px] leading-[54px] tracking-[0.02em] uppercase text-[var(--color-primary)]">
             POWER UP YOUR BUSINESS WITH GUARDIAN LIFE INSURANCE.
           </p>
@@ -62,7 +49,7 @@ const BusinessPartners = () => {
       </div>
 
       {/* Right Section */}
-      <div ref={rightSectionRef} className="w-1/2 h-screen pr-[200px]">
+      <div ref={rightSectionRef} className="w-full lg:w-1/2 h-screen px-4 lg:pr-[200px]">
         <LogoGrid partners={partners} rowHeight={rowHeight} />
       </div>
     </div>

@@ -1,23 +1,20 @@
 import EmpoweringFamiliesImage from "../../../assets/images/home/EmpoweringFamilies/empoweringFamilies.jpg";
-import BusinessPastner1 from "../../../assets/images/home/BusinessPartners/BusinessPartner1.png";
 import ActionButton from "../../../shared/Components/BaseButton.tsx";
 import { useLayoutEffect, useRef, useState } from "react";
+import { partners } from "../api/mockData";
+import type { Partner } from "../api/mockData";
 
-import type { Partner, LogoGridProps, LogoCardProps } from "./../types.ts";
+type LogoGridProps = {
+  partners: Partner[];
+  rowHeight: number | null;
+};
+
+type LogoCardProps = {
+  logo: string;
+  name: string;
+};
 
 const EmpoweringFamilies = () => {
-  const partners: Partner[] = [
-    { id: 1, name: "Shanta", logo: BusinessPastner1 },
-    { id: 2, name: "The Palace", logo: BusinessPastner1 },
-    { id: 3, name: "BRAC", logo: BusinessPastner1 },
-    { id: 4, name: "ICMAB", logo: BusinessPastner1 },
-    { id: 5, name: "Meridian", logo: BusinessPastner1 },
-    { id: 6, name: "BRAC", logo: BusinessPastner1 },
-    { id: 7, name: "Shanta", logo: BusinessPastner1 },
-    { id: 8, name: "BRAC", logo: BusinessPastner1 },
-    { id: 9, name: "Meridian", logo: BusinessPastner1 },
-    { id: 10, name: "Meridian2", logo: BusinessPastner1 },
-  ];
 
   const rightSectionRef = useRef<HTMLDivElement | null>(null);
   const [rowHeight, setRowHeight] = useState<number | null>(null);
@@ -26,21 +23,21 @@ const EmpoweringFamilies = () => {
     if (rightSectionRef.current) {
       const height = rightSectionRef.current.getBoundingClientRect().height;
       console.log("Right section height:", height);
-      setRowHeight((height-64) / 4);
+      setRowHeight((height - 64) / 4);
     }
   }, []);
 
   console.log("row height:", rowHeight);
 
   return (
-    <div className="flex gap-8 bg-gray-50 min-h-screen mt-[84px]">
+    <div className="flex flex-col-reverse lg:flex-row gap-8 bg-gray-50 lg:min-h-screen mt-[84px] px-4 xl:px-0">
       {/* Left Section */}
-      <div ref={rightSectionRef} className="w-1/2 h-screen pl-[200px]">
+      <div ref={rightSectionRef} className="w-full lg:w-1/2 h-screen lg:pl-[200px]">
         <LogoGrid partners={partners} rowHeight={rowHeight} />
       </div>
       {/* Right Section */}
-      <div className="w-1/2 pr-[180px]">
-        <div className="mb-8 rounded-tr-[32px] rounded-br-[32px]">
+      <div className="w-full lg:w-1/2 lg:pr-[180px]">
+        <div className="mb-8 rounded-[32px] lg:rounded-none lg:rounded-tr-[32px] lg:rounded-br-[32px] overflow-hidden">
           <img
             src={EmpoweringFamiliesImage}
             alt="Empowering families"
@@ -48,20 +45,6 @@ const EmpoweringFamilies = () => {
           />
         </div>
 
-        <div className="space-y-6 pr-[170px]">
-          <p className="font-bold text-[36px] leading-[54px] tracking-[0.02em] uppercase text-[var(--color-primary)]">
-            Empowering Families with Guardian Life Insurance
-          </p>
-
-          <p className="text-[var(--color-text-secondary)] font-normal text-[28.8px] leading-[54px] tracking-[0.02em] uppercase">
-            Affordable protection for all — Our microinsurance partners with trusted NGOs to bring financial security to underserved communities.
-          </p>
-
-          <ActionButton
-            text="Check Services"
-            onClick={() => console.log("Check Services clicked")}
-          />
-        </div>
       </div>
     </div>
   );

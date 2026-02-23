@@ -25,17 +25,17 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="flex gap-8  w-full mt-[140px]">
-      <div className="flex-1 rounded-tr-[32px] rounded-br-[32px] h-[567px] my-auto">
+    <div className="flex flex-col lg:flex-row gap-8 w-full mt-16 lg:mt-[140px] px-4 xl:px-0">
+      <div className="w-full lg:flex-1 rounded-[32px] lg:rounded-tr-[32px] lg:rounded-br-[32px] lg:rounded-tl-none lg:rounded-bl-none h-64 lg:h-[567px] my-auto overflow-hidden">
         <img
           src={GetInTouch}
           alt="GetInTouch"
-          className="w-full h-full object-cover rounded-tr-[32px] rounded-br-[32px]"
+          className="w-full h-full object-cover"
         />
       </div>
 
-      <div className="flex-1 flex flex-col py-[62.5px] pl-8 justify-center gap-4 ">
-        <div className="p-8 sm:p-12 lg:p-16 flex flex-col justify-center mr-[325px]">
+      <div className="w-full lg:flex-1 flex flex-col py-8 lg:py-[62.5px] lg:pl-8 justify-center gap-4">
+        <div className="p-6 sm:p-12 lg:p-16 flex flex-col justify-center lg:mr-16 xl:mr-[325px]">
           {/* Header */}
           <div className="mb-8">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">

@@ -1,72 +1,12 @@
-import { Dock, House, Banknote } from 'lucide-react';
-
-type SolutionsSection = {
-  id: number;
-  icon: React.ReactNode;
-  title: string;
-  image: string;
-  points: string[];
-};
-
-const sections: SolutionsSection[] = [
-  {
-    id: 1,
-    icon: (
-      <Dock
-        size={30}
-        className="text-[var(--color-primary)]"
-      />
-    ),
-    title: "Credit Shield Products",
-    image:
-      "https://glilapi.guardianlife.com.bd/images/1725268173315-560204496-Early%20Cash.jpg",
-    points: [
-      "Coverage up to 200% of outstanding credit card balance",
-      "Protection against natural death and permanent total disability",
-      "Critical illness coverage",
-      "Optional IPD and OPD health benefit",
-    ],
-  },
-  {
-    id: 2,
-    icon: (
-      <House
-        size={30}
-        className="text-[var(--color-primary)]"
-      />
-    ),
-    title: "Mortgage / Home Loan",
-    image:
-      "https://glilapi.guardianlife.com.bd/images/1725268160788-397856237-Children.jpg",
-    points: [
-      "Protection of outstanding loan principal",
-      "Coverage for natural death, accidental death and permanent total disability",
-    ],
-  },
-  {
-    id: 3,
-    icon: (
-      <Banknote
-        size={30}
-        className="text-[var(--color-primary)]"
-      />
-    ),
-    title: "Personal Loan",
-    image:
-      "https://glilapi.guardianlife.com.bd/images/1725268173315-560204496-Early%20Cash.jpg",
-    points: [
-      "Loan repayment assurance in case of death or disability of the borrower",
-    ],
-  },
-];
+import { bancassuranceProductSections } from "../api/mockData";
 
 export function BancassuranceProductSolutions() {
   return (
-    <div className="flex items-stretch justify-center gap-[24px]">
-      {sections.map((section) => (
+    <div className="flex flex-col lg:flex-row flex-wrap items-center justify-center gap-8 lg:gap-[24px]">
+      {bancassuranceProductSections.map((section) => (
         <div
           key={section.id}
-          className="w-[470px] h-[785px] bg-white rounded-[35px] px-[42px] py-[40px] flex flex-col
+          className="w-full max-w-[470px] h-auto lg:h-[785px] bg-white rounded-[35px] px-6 lg:px-[42px] py-10 lg:py-[40px] flex flex-col
           border border-amber-300
           transition-all duration-300 ease-in-out
           hover:border-amber-500

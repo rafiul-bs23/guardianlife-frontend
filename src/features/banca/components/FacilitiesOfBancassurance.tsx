@@ -1,39 +1,4 @@
-type ServiceCard = {
-  id: number;
-  image: string;
-  title: string;
-  points: string[];
-};
-
-const serviceCards: ServiceCard[] = [
-  {
-    id: 1,
-    image: "https://glilapi.guardianlife.com.bd/images/1725268160788-397856237-Children.jpg",
-    title: "Customized Solutions",
-    points: [
-      "Customized insurance product design",
-      "Integration with banking products and processes",
-    ],
-  },
-  {
-    id: 2,
-    image: "https://glilapi.guardianlife.com.bd/images/1725268160788-397856237-Children.jpg",
-    title: "Training & Support",
-    points: [
-      "Training and sales support for bank staff",
-      "Marketing and customer communication assistance",
-    ],
-  },
-  {
-    id: 3,
-    image: "https://glilapi.guardianlife.com.bd/images/1725268160788-397856237-Children.jpg",
-    title: "Complete Management",
-    points: [
-      "Policy administration and claims management",
-      "Dedicated relationship and support teams",
-    ],
-  },
-];
+import { serviceCards } from "../api/mockData";
 
 const CheckIcon = () => (
   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -49,16 +14,16 @@ const CheckIcon = () => (
 
 export function FacilitiesOfBancassurance() {
   return (
-    <div className="flex items-stretch justify-center gap-[35px] w-full">
+    <div className="flex flex-col lg:flex-row flex-wrap items-center lg:items-stretch justify-center gap-8 lg:gap-[35px] w-full px-4 lg:px-0">
       {serviceCards.map((card) => (
         <div
           key={card.id}
-          className="w-[480px] h-[519px] bg-white rounded-[35px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col"
+          className="w-full max-w-[480px] h-auto lg:h-[519px] bg-white rounded-[35px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col"
         >
           <img
             src={card.image}
             alt={card.title}
-            className="w-[394px] h-[225px] object-cover rounded-[35px] mx-[43px] my-[22px]"
+            className="w-[calc(100%-48px)] lg:w-[394px] h-[225px] object-cover rounded-[35px] mx-6 lg:mx-[43px] my-[22px]"
           />
           <div className="px-[21px] py-[20px] flex flex-col gap-[14px]">
             <p className="font-bold text-[24px] leading-[32px] tracking-[0.02em]">
