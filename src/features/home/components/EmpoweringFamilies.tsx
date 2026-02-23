@@ -45,7 +45,7 @@ const EmpoweringFamilies = () => {
           />
         </div>
 
-        <div className="space-y-6 lg:pr-[170px] text-center lg:text-left flex flex-col items-center lg:items-start pb-12 lg:pb-0">
+        <div className="space-y-6 text-center lg:text-left flex flex-col items-center lg:items-start pb-12 lg:pb-0">
           <p className="font-bold text-[28px] lg:text-[36px] leading-[40px] lg:leading-[54px] tracking-[0.02em] uppercase text-[var(--color-primary)]">
             Empowering Families with Guardian Life Insurance
           </p>

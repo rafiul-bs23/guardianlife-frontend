@@ -35,7 +35,7 @@ const ContactForm = () => {
       </div>
 
       <div className="w-full lg:flex-1 flex flex-col py-8 lg:py-[62.5px] lg:pl-8 justify-center gap-4">
-        <div className="p-6 sm:p-12 lg:p-16 flex flex-col justify-center lg:mr-16 xl:mr-[325px]">
+        <div className="p-6 sm:p-12 lg:p-16 flex flex-col justify-center lg:mr-16">
           {/* Header */}
           <div className="mb-8">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">

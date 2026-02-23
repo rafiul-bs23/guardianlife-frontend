@@ -20,7 +20,7 @@ const BusinessPartners = () => {
   return (
     <div className="flex flex-col lg:flex-row gap-8 bg-gray-50 min-h-screen">
       {/* Left Section */}
-      <div className="w-full lg:w-1/2 px-4 lg:px-0 lg:pl-[200px]">
+      <div className="w-full lg:w-1/2 px-4 lg:px-0">
         <div className="mb-8 rounded-[32px] lg:rounded-none lg:rounded-tr-[32px] lg:rounded-br-[32px] overflow-hidden">
           <img
             src={MainImage}
