@@ -3,7 +3,7 @@ import type { BancaBankInfoResponse, BancaBranchResponse } from "../types";
 
 
 export const MOCK_HEADER_DATA: HeaderResponse = {
-    "success": true,
+    "status": true,
     "transaction_id": "GLIL-BNC-TXN-ID",
     "data": {
         "badge": null,

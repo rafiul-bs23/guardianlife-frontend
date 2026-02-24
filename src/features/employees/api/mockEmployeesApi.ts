@@ -16,7 +16,7 @@ export const getMockEmployeesData = async (query?: string): Promise<EmployeeApiR
     await new Promise(resolve => setTimeout(resolve, 800));
 
     return {
-        success: true,
+        status: true,
         transaction_id: "MOCK-TXN-ID",
         data: filteredEmployees
     };

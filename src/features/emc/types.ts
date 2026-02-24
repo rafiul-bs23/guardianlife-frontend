@@ -5,7 +5,7 @@ export interface EmcMember {
 }
 
 export interface EmcApiResponse {
-    success: boolean;
+    status: boolean;
     transaction_id: string;
     data: EmcMember[];
     message?: string;

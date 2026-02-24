@@ -17,7 +17,7 @@ export const useEmployees = (query?: string): UseEmployeesResult => {
         try {
             const response: EmployeeApiResponse = await getEmployeesData(query);
 
-            if (response.success) {
+            if (response.status) {
                 setData(response.data);
             } else {
                 console.warn('API Business Error:', response.message);

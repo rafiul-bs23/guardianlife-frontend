@@ -13,10 +13,10 @@ const OurAchievements: React.FC<OurAchievementsProps> = ({ data }) => {
                 {/* Header Section */}
                 <div className="text-center mb-16 space-y-4">
                     <h2 className="text-[28px] md:text-[32px] font-black text-[#111827] uppercase tracking-wide">
-                        {data.title}
+                        {data?.title}
                     </h2>
                     <p className="text-[#4B5563] text-sm md:text-base leading-relaxed max-w-[800px] mx-auto opacity-90">
-                        {data.description}
+                        {data?.description}
                     </p>
                 </div>
 
@@ -24,7 +24,7 @@ const OurAchievements: React.FC<OurAchievementsProps> = ({ data }) => {
                 <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
                     {/* Left side: Achievement Cards */}
                     <div className="w-full lg:w-1/2 space-y-4">
-                        {data.achievements.map((achievement, index) => (
+                        {data?.achievements?.map((achievement, index) => (
                             <div
                                 key={index}
                                 className="bg-white rounded-[24px] p-6 pr-10 border border-transparent shadow-sm flex items-center gap-6 transition-all duration-300 hover:shadow-lg hover:border-primary/10 group"
@@ -34,10 +34,10 @@ const OurAchievements: React.FC<OurAchievementsProps> = ({ data }) => {
                                 </div>
                                 <div className="flex flex-col">
                                     <h4 className="text-[18px] md:text-[20px] font-black text-[#111827] leading-tight">
-                                        {achievement.title}
+                                        {achievement?.title}
                                     </h4>
                                     <span className="text-[#4B5563] text-sm md:text-base font-bold opacity-70 mt-1">
-                                        {achievement.subtitle}
+                                        {achievement?.subtitle}
                                     </span>
                                 </div>
                             </div>
@@ -48,7 +48,7 @@ const OurAchievements: React.FC<OurAchievementsProps> = ({ data }) => {
                     <div className="w-full lg:w-1/2 relative">
                         <div className="rounded-[40px] overflow-hidden shadow-2xl">
                             <img
-                                src={`/${data.image}`}
+                                src={data?.image ? `/${data.image}` : ''}
                                 alt="Our Achievements Trophies"
                                 className="w-full h-auto object-cover aspect-[4/3] lg:aspect-auto"
                             />

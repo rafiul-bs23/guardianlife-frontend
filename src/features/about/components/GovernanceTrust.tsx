@@ -7,7 +7,7 @@ interface GovernanceTrustProps {
 }
 
 const GovernanceTrust: React.FC<GovernanceTrustProps> = ({ data }) => {
-    const getIcon = (iconName: string, color: string) => {
+    const getIcon = (iconName: string) => {
         const props = { size: 24, className: "text-white" };
         switch (iconName) {
             case 'Shield': return <Shield {...props} />;
@@ -37,30 +37,30 @@ const GovernanceTrust: React.FC<GovernanceTrustProps> = ({ data }) => {
                         <div className="w-full lg:w-3/5 space-y-10">
                             <div className="space-y-4">
                                 <h2 className="text-[28px] md:text-[36px] font-black text-[#111827] leading-tight">
-                                    {data.title}
+                                    {data?.title}
                                 </h2>
                                 <p className="text-[#4B5563] text-sm md:text-base leading-relaxed opacity-90 max-w-2xl">
-                                    {data.description}
+                                    {data?.description}
                                 </p>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {data.points.map((point, index) => {
-                                    const classes = getColorClasses(point.color);
+                                {data?.points?.map((point, index) => {
+                                    const classes = getColorClasses(point?.color || '');
                                     return (
                                         <div
                                             key={index}
                                             className={`${classes.bg} rounded-[32px] p-8 space-y-4 transition-all duration-300 hover:shadow-md border border-transparent hover:border-black/5`}
                                         >
                                             <div className={`${classes.icon} w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg shadow-black/5`}>
-                                                {getIcon(point.icon, point.color)}
+                                                {getIcon(point?.icon || '')}
                                             </div>
                                             <div className="space-y-2">
                                                 <h4 className="text-[18px] font-black text-[#111827]">
-                                                    {point.title}
+                                                    {point?.title}
                                                 </h4>
                                                 <p className="text-[#4B5563] text-sm leading-relaxed opacity-80">
-                                                    {point.description}
+                                                    {point?.description}
                                                 </p>
                                             </div>
                                         </div>
@@ -73,7 +73,7 @@ const GovernanceTrust: React.FC<GovernanceTrustProps> = ({ data }) => {
                         <div className="w-full lg:w-2/5">
                             <div className="rounded-[40px] overflow-hidden h-full shadow-2xl border border-gray-100">
                                 <img
-                                    src={`/${data.image}`}
+                                    src={data?.image ? `/${data.image}` : ''}
                                     alt="Governance and Trust"
                                     className="w-full h-full object-cover aspect-[4/5] lg:aspect-auto"
                                 />

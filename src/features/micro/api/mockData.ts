@@ -2,7 +2,7 @@ import type { MicroData } from '../types';
 import type { HeaderResponse } from "../../../shared/types/header";
 
 export const MOCK_HEADER_DATA: HeaderResponse = {
-    "success": true,
+    "status": true,
     "transaction_id": "GLIL-TXN-ID",
     "data": {
         "badge": null,

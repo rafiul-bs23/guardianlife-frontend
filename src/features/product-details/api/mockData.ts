@@ -2,7 +2,7 @@ import type { ProductSuccessResponse, ProductErrorResponse } from "../types";
 import type { HeaderResponse } from "../../../shared/types/header";
 
 export const MOCK_HEADER_DATA: HeaderResponse = {
-    "success": true,
+    "status": true,
     "transaction_id": "GLIL-TXN-ID",
     "data": {
         "badge": "ANTICIPATED ENDOWMENT (THREE STAGE PAYMENT) INSURANCE PLAN - WITH PROFIT",
@@ -20,7 +20,7 @@ export const MOCK_HEADER_DATA: HeaderResponse = {
         "background_image_url": "/src/assets/images/category/headerImage.jpg",
         "media": {
             "type": "video",
-            "url": "https://guardian-life-website-example.com/assets/videos/guardian-3-stage-planheader.mp4"
+            "url": "https://www.youtube.com/watch?v=YBI6Y6uF2jM&pp=ygUXZ3VhcmRpYW4gbGlmZSBpbnN1cmFuY2U%3D"
         }
     }
 };
@@ -28,10 +28,10 @@ export const MOCK_HEADER_DATA: HeaderResponse = {
 
 
 export const MOCK_SUCCESS_DATA: ProductSuccessResponse = {
-    success: true,
+    status: true,
     transactionId: "GLIL-TXN-ID-SUCCESS-001",
     data: {
-        quickProductSection: {
+        quick_product_section: {
             content: [
                 { title: "COVERAGE", description: "Up to 10 Lac" },
                 { title: "POLICY TERM", description: "10 - 30 Years" },
@@ -39,14 +39,14 @@ export const MOCK_SUCCESS_DATA: ProductSuccessResponse = {
                 { title: "SUITABILITY", description: "Three Interim Payouts" }
             ]
         },
-        productJourneySection: {
+        product_journey_section: {
             content: [
-                { percentage: 25, bottomLabel: "25% Received", topLabel: null },
-                { percentage: 50, bottomLabel: "25% Received", topLabel: null },
-                { percentage: 75, bottomLabel: "50% Received", topLabel: "Bonus" }
+                { percentage: 25, bottom_label: "25% Received", top_label: null },
+                { percentage: 50, bottom_label: "25% Received", top_label: null },
+                { percentage: 75, bottom_label: "50% Received", top_label: "Bonus" }
             ]
         },
-        keyHighlightsSection: {
+        key_highlights_section: {
             description: "Meet your priorities: A liquid savings plan that will give back a partial sum assured in three different time periods for attaining your precious dreams at various stages of life. Now, you can have insurance, and savings and also cherish those major milestones of life.",
             points: [
                 "Secure your family's future financially.",
@@ -73,7 +73,7 @@ export const MOCK_SUCCESS_DATA: ProductSuccessResponse = {
                 }
             ]
         },
-        planBenefitsSection: {
+        plan_benefits_section: {
             description: "Meet your priorities: A liquid savings plan that will give back a partial sum assured",
             cards: [
                 {
@@ -112,7 +112,7 @@ export const MOCK_SUCCESS_DATA: ProductSuccessResponse = {
                 }
             ]
         },
-        supplementaryBenefitsSection: {
+        supplementary_benefits_section: {
             content: [
                 {
                     title: "PDAB",
@@ -132,7 +132,7 @@ export const MOCK_SUCCESS_DATA: ProductSuccessResponse = {
                 }
             ]
         },
-        planBreakdownSection: {
+        plan_breakdown_section: {
             content: [
                 {
                     title: "1. Choose Your Timeline (Flexible Terms)",
@@ -140,7 +140,7 @@ export const MOCK_SUCCESS_DATA: ProductSuccessResponse = {
                         "Pick a duration that aligns with your life goals, whether it's a short-term project or long-term security.",
                         "Available Terms: 12, 15, 18, 21, or 24 years."
                     ],
-                    additionalData: null
+                    additional_data: null
                 },
                 {
                     title: "2. Investment That Fits Your Budget",
@@ -149,7 +149,7 @@ export const MOCK_SUCCESS_DATA: ProductSuccessResponse = {
                         "Minimum Entry: Start with a Sum Assured of just BDT 1,00,000.",
                         "Maximum: Tailored to your needs."
                     ],
-                    additionalData: null
+                    additional_data: null
                 },
                 {
                     title: "3. Eligibility at a Glance",
@@ -157,7 +157,7 @@ export const MOCK_SUCCESS_DATA: ProductSuccessResponse = {
                         "Designed for young professionals and established providers alike.",
                         "Entry Age: 20 to 53 years."
                     ],
-                    additionalData: { min: 20, max: 53 }
+                    additional_data: { min: 20, max: 53 }
                 },
                 {
                     title: "4. Payments on Your Schedule",
@@ -166,11 +166,11 @@ export const MOCK_SUCCESS_DATA: ProductSuccessResponse = {
                         "Payment Modes: Monthly, Quarterly, Half-Yearly, or Yearly.",
                         "Easy Conversion: We offer simple multipliers to help you switch between payment frequencies at any time."
                     ],
-                    additionalData: null
+                    additional_data: null
                 }
             ]
         },
-        productDocumentsSection: {
+        product_documents_section: {
             content: [
                 {
                     type: "file",
@@ -189,10 +189,10 @@ export const MOCK_SUCCESS_DATA: ProductSuccessResponse = {
                 }
             ]
         },
-        whyChooseCoverageSection: {
+        why_choose_coverage_section: {
             title: "WHY CHOOSE THIS COVERAGE",
             description: "Built for people who value their time",
-            mainCard: {
+            main_card: {
                 title: "Claims settled in three days",
                 description: "No waiting around. No endless paperwork. Money reaches your family when they need it most",
                 image: "https://t3.ftcdn.net/jpg/04/20/44/28/240_F_420442840_Ou3yjU6FXpJBFTz2kRqrDblP1TCtTXUi.jpg"
@@ -220,15 +220,15 @@ export const MOCK_SUCCESS_DATA: ProductSuccessResponse = {
                 }
             ]
         },
-        learnMoreSection: {
+        learn_more_section: {
             content: [
                 {
                     title: "Product Overview",
-                    videoUrl: "https://guardian-life-website-example.com/assets/videos/product-overview.mp4"
+                    video_url: "https://guardian-life-website-example.com/assets/videos/product-overview.mp4"
                 },
                 {
                     title: "How Claims Work",
-                    videoUrl: "https://guardian-life-website-example.com/assets/videos/how-claims-work.mp4"
+                    video_url: "https://guardian-life-website-example.com/assets/videos/how-claims-work.mp4"
                 }
             ]
         }
@@ -237,7 +237,7 @@ export const MOCK_SUCCESS_DATA: ProductSuccessResponse = {
 
 
 export const MOCK_ERROR_DATA: ProductErrorResponse = {
-    success: false,
+    status: false,
     transactionId: "GLIL-TXN-ID-ERROR-001",
     message: "Failed to fetch product details.",
     errors: [

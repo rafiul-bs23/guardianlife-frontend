@@ -98,7 +98,7 @@ export interface MicroData {
 
 // API Response Types
 export interface MicroSuccessResponse<T> {
-    success: true;
+    status: true;
     transactionId: string;
     message: string;
     data: T;
@@ -110,7 +110,7 @@ export interface ValidationError {
 }
 
 export interface MicroErrorResponse {
-    success: false;
+    status: false;
     transactionId: string;
     message: string;
     errors: ValidationError[];

@@ -14,8 +14,8 @@ export interface QuickProductSection {
 
 export interface JourneyStep {
   percentage: number;
-  bottomLabel: string;
-  topLabel: string | null;
+  bottom_label: string;
+  top_label: string | null;
 }
 
 export interface ProductJourneySection {
@@ -42,7 +42,7 @@ export interface BreakdownAdditionalData {
 export interface BreakdownItem {
   title: string;
   points: string[];
-  additionalData: BreakdownAdditionalData | null;
+  additional_data: BreakdownAdditionalData | null;
 }
 
 export interface PlanBreakdownSection {
@@ -56,7 +56,7 @@ export interface PlanBreakdownSection {
 export interface WhyChooseCoverageSection {
   title: string;
   description: string;
-  mainCard: CardItem;
+  main_card: CardItem;
   cards: CardItem[];
 }
 
@@ -65,19 +65,19 @@ export interface WhyChooseCoverageSection {
 
 
 export interface ProductData {
-  quickProductSection: QuickProductSection;
-  productJourneySection: ProductJourneySection;
-  keyHighlightsSection: KeyHighlightsSection;
-  planBenefitsSection: PlanBenefitsSection;
-  supplementaryBenefitsSection: SupplementaryBenefitsSection;
-  planBreakdownSection: PlanBreakdownSection;
-  productDocumentsSection: ProductDocumentsSection;
-  whyChooseCoverageSection: WhyChooseCoverageSection;
-  learnMoreSection: LearnMoreSection;
+  quick_product_section: QuickProductSection;
+  product_journey_section: ProductJourneySection;
+  key_highlights_section: KeyHighlightsSection;
+  plan_benefits_section: PlanBenefitsSection;
+  supplementary_benefits_section: SupplementaryBenefitsSection;
+  plan_breakdown_section: PlanBreakdownSection;
+  product_documents_section: ProductDocumentsSection;
+  why_choose_coverage_section: WhyChooseCoverageSection;
+  learn_more_section: LearnMoreSection;
 }
 
 export interface ProductSuccessResponse {
-  success: true;
+  status: true;
   transactionId: string;
   data: ProductData;
 }
@@ -89,7 +89,7 @@ export interface ValidationError {
 }
 
 export interface ProductErrorResponse {
-  success: false;
+  status: false;
   transactionId: string;
   message: string;
   errors: ValidationError[];

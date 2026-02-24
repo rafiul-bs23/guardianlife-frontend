@@ -13,10 +13,10 @@ const MissionVision: React.FC<MissionVisionProps> = ({ data }) => {
                 {/* Header Section */}
                 <div className="text-center mb-16 space-y-4">
                     <h2 className="text-[28px] md:text-[32px] font-black text-[#111827] uppercase tracking-wide">
-                        {data.title}
+                        {data?.title}
                     </h2>
                     <p className="text-[#4B5563] text-sm md:text-base leading-relaxed max-w-[800px] mx-auto opacity-90">
-                        {data.description}
+                        {data?.description}
                     </p>
                 </div>
 
@@ -29,16 +29,16 @@ const MissionVision: React.FC<MissionVisionProps> = ({ data }) => {
                                 <Zap size={24} fill="currentColor" />
                             </div>
                             <h3 className="text-2xl font-black text-[#111827]">
-                                {data.mission.title}
+                                {data?.mission?.title}
                             </h3>
                         </div>
 
                         <p className="text-[#111827] font-bold text-lg mb-8 leading-snug">
-                            {data.mission.description}
+                            {data?.mission?.description}
                         </p>
 
                         <ul className="space-y-4">
-                            {data.mission.points.map((point, index) => (
+                            {data?.mission?.points?.map((point, index) => (
                                 <li key={index} className="flex items-start gap-3">
                                     <div className="min-w-[10px] h-[10px] rounded-full bg-[#EB6925] mt-1.5 shrink-0" />
                                     <span className="text-[#4B5563] text-sm md:text-base leading-relaxed opacity-90">
@@ -56,16 +56,16 @@ const MissionVision: React.FC<MissionVisionProps> = ({ data }) => {
                                 <Eye size={24} />
                             </div>
                             <h3 className="text-2xl font-black text-[#111827]">
-                                {data.vision.title}
+                                {data?.vision?.title}
                             </h3>
                         </div>
 
                         <p className="text-[#111827] font-bold text-lg mb-8 leading-snug">
-                            {data.vision.description}
+                            {data?.vision?.description}
                         </p>
 
                         <ul className="space-y-4">
-                            {data.vision.points.map((point, index) => (
+                            {data?.vision?.points?.map((point, index) => (
                                 <li key={index} className="flex items-start gap-3">
                                     <div className="min-w-[10px] h-[10px] rounded-full bg-[#4B4897] mt-1.5 shrink-0" />
                                     <span className="text-[#4B5563] text-sm md:text-base leading-relaxed opacity-90">
@@ -80,7 +80,7 @@ const MissionVision: React.FC<MissionVisionProps> = ({ data }) => {
                 {/* Bottom Illustration */}
                 <div className="max-w-[1000px] mx-auto rounded-[40px] overflow-hidden shadow-2xl">
                     <img
-                        src={`/${data.image}`}
+                        src={data?.image ? `/${data.image}` : ''}
                         alt="Mission and Vision Illustration"
                         className="w-full h-auto object-cover"
                     />

@@ -1,7 +1,7 @@
-import type { AboutData, HeaderResponse } from '../types';
+import type { AboutData, AboutDynamicResponse, HeaderResponse } from '../types';
 
 export const mockHeaderData: HeaderResponse = {
-    "success": true,
+    "status": true,
     "transaction_id": "GLIL-TXN-ID",
     "data": {
         "badge": null,
@@ -25,7 +25,7 @@ export const mockHeaderData: HeaderResponse = {
 };
 
 export const mockAboutData: AboutData = {
-    whoWeAre: {
+    who_we_are: {
         title: "WHO WE ARE",
         paragraphs: [
             "Guardian Life Insurance Limited commenced its business operations on 1st January 2014 with a clear purpose — to help build a safer and more secure future for the people of Bangladesh.",
@@ -45,7 +45,7 @@ export const mockAboutData: AboutData = {
             }
         ]
     },
-    ourJourney: {
+    our_journey: {
         title: "OUR JOURNEY",
         description: "Since inception, Guardian Life Insurance Limited has grown steadily to become a respected name in Bangladesh's life insurance industry. Over the years, we have expanded our product portfolio, strengthened our operational capabilities, and embraced digital transformation to serve customers more efficiently.",
         image: "src/assets/images/about/2.png",
@@ -64,7 +64,7 @@ export const mockAboutData: AboutData = {
             }
         ]
     },
-    missionVision: {
+    mission_vision: {
         title: "OUR MISSION & VISION",
         description: "See how we've helped thousands of families during their most challenging times. These are real experiences from real customers.",
         mission: {
@@ -88,90 +88,19 @@ export const mockAboutData: AboutData = {
         },
         image: "src/assets/images/about/3.png"
     },
-    ourAchievements: {
+    our_achievements: {
         title: "OUR ACHIEVEMENTS",
         description: "Each recognition reflects our commitment to excellence, innovation, and customer trust.",
         image: "src/assets/images/about/4.png",
-        achievements: [
-            {
-                title: "Bangladesh FinTech Award",
-                subtitle: "2023"
-            },
-            {
-                title: "Innovation Award",
-                subtitle: "2023"
-            },
-            {
-                title: "CRAB Rating Recognition",
-                subtitle: "AA3 Rating"
-            },
-            {
-                title: "ISO Certification",
-                subtitle: "Quality Standards"
-            },
-            {
-                title: "LEED Certification",
-                subtitle: "Environmental Excellence"
-            },
-            {
-                title: "Industry Leadership Awards",
-                subtitle: "Multiple Recognitions"
-            }
-        ]
+
     },
     milestones: {
         title: "MILESTONES WE ACHIEVED",
         description: "Since inception, Guardian Life Insurance Limited has consistently progressed through innovation, expansion, and customer-centric transformation. Each milestone represents our dedication to growth, governance, and service excellence.",
         image: "src/assets/images/about/5.png",
-        milestones: [
-            {
-                year: "2023",
-                items: [
-                    "Expanded hospital network to 300+ partners",
-                    "Declaration of Cash Dividend",
-                    "Launch of Omnichannel AI-Based Chatbot",
-                    "Extended Head Office (7,000 SFT)",
-                    "AA3 Rating by CRAB",
-                    "Celebration of 10 Years of Journey"
-                ]
-            },
-            {
-                year: "2022",
-                items: [
-                    "Automated Claim Processing System (ACPS)",
-                    "24/7 In-House Customer Service",
-                    "54 Regional & Branch Offices",
-                    "Coverage across 64 Districts"
-                ]
-            },
-            {
-                year: "2021",
-                items: [
-                    "ISO Certification",
-                    "A1 Rating by CRAB",
-                    "LEED Certification",
-                    "eKYC Launch"
-                ]
-            },
-            {
-                year: "2019-2020",
-                items: [
-                    "Launch of MyGuardian Portal & App",
-                    "Inauguration of Own Head Office",
-                    "24/7 Call Center Operations"
-                ]
-            },
-            {
-                year: "2014-2018",
-                items: [
-                    "Date of Inception: 1st January 2014",
-                    "First Policy Bonus Offered",
-                    "Ranked #1 among 4th Generation Life Insurance Companies"
-                ]
-            }
-        ]
+
     },
-    governanceTrust: {
+    governance_trust: {
         title: "Governance & Trust",
         description: "Guardian Life Insurance Limited operates under strong regulatory compliance and ethical governance frameworks. Regulated by the appropriate authorities, we emphasize transparency, accountability, and responsible risk management to safeguard the interests of our policyholders and stakeholders.",
         image: "src/assets/images/about/6.png",
@@ -199,6 +128,73 @@ export const mockAboutData: AboutData = {
                 title: "Strong Capital Base",
                 description: "BDT 33.67 Crores paid-up capital with BDT 200 Crores authorized capital",
                 color: "orange"
+            }
+        ]
+    }
+};
+
+
+export const MOCK_DYNAMIC_DATA: AboutDynamicResponse = {
+    "transaction_id": "YOBDOZYUNZXC5Z",
+    "status": true,
+    "data": {
+        "awards": [
+            {
+                "name": "Best Life Insurer 2022",
+                "description": "Recognized as the best life insurance provider in Bangladesh."
+            },
+            {
+                "name": "Customer Service Excellence",
+                "description": "Awarded for exceptional customer service and support."
+            },
+            {
+                "name": "Innovation in Insurance",
+                "description": "Recognized for introducing innovative insurance products."
+            },
+            {
+                "name": "Top Bancassurance Partner",
+                "description": "Awarded for outstanding bancassurance partnerships."
+            },
+            {
+                "name": "Best Digital Insurance Experience",
+                "description": "Recognized for excellence in digital insurance solutions."
+            }
+        ],
+        "milestones": [
+            {
+                "year": 2024,
+                "points": [
+                    "Adjustable premium options to suit your budget and coverage needs.",
+                    "Dedicated support for all your insurance and policy inquiries."
+                ]
+            },
+            {
+                "year": 2023,
+                "points": [
+                    "Protection for your spouse and children under the same plan.",
+                    "Dedicated support for all your insurance and policy inquiries."
+                ]
+            },
+            {
+                "year": 2022,
+                "points": [
+                    "Fast and reliable claim settlement for your convenience.",
+                    "Dedicated support for all your insurance and policy inquiries."
+                ]
+            },
+            {
+                "year": 2021,
+                "points": [
+                    "Adjustable premium options to suit your budget and coverage needs.",
+                    "Protection for your spouse and children under the same plan."
+                ]
+            },
+            {
+                "year": 2020,
+                "points": [
+                    "Manage your policy online with ease through our digital platform.",
+                    "Fast and reliable claim settlement for your convenience."
+                ]
             }
         ]
     }

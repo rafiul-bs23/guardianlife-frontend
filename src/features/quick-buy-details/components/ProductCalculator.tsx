@@ -8,12 +8,12 @@ interface ProductCalculatorProps {
 
 const ProductCalculator: React.FC<ProductCalculatorProps> = ({ data }) => {
     const [dob, setDob] = useState<string>('2002-01-10');
-    const [term, setTerm] = useState<number>(data.term);
-    const [coverage, setCoverage] = useState<number>(data.sumAssured / 100000); // In Lakhs
+    const [term, setTerm] = useState<number>(data?.term || 10);
+    const [coverage, setCoverage] = useState<number>((data?.sum_assured || 100000) / 100000); // In Lakhs
 
     // Calculation states (simulated)
-    const [yearlyPremium, setYearlyPremium] = useState<number>(data.yearlyPremium);
-    const [total, setTotal] = useState<number>(data.total);
+    const [yearlyPremium, setYearlyPremium] = useState<number>(data?.yearly_premium || 0);
+    const [total, setTotal] = useState<number>(data?.total || 0);
 
     // Dynamic calculation simulation
     useEffect(() => {
@@ -23,8 +23,8 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ data }) => {
         const calculatedPremium = Math.round(coverage * 100000 * baseRate * termFactor);
 
         setYearlyPremium(calculatedPremium);
-        setTotal(calculatedPremium + data.stampFee);
-    }, [term, coverage, data.stampFee]);
+        setTotal(calculatedPremium + (data?.stamp_fee || 0));
+    }, [term, coverage, data?.stamp_fee]);
 
     const formatCurrency = (val: number) => {
         return `BDT ${val.toLocaleString()}`;
@@ -141,22 +141,22 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ data }) => {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-4">
                         {/* Left Column */}
                         <div className="flex flex-col gap-4 border-r-0 lg:border-r border-gray-100 pr-0 lg:pr-12">
-                            <DetailRow label="Product Name" value={data.productName} />
+                            <DetailRow label="Product Name" value={data?.product_name || ''} />
                             <DetailRow label="Sum Assured" value={`BDT ${coverage} Lac`} />
                             <DetailRow label="Term" value={`${term} years`} />
                             <DetailRow label="Yearly Premium" value={formatCurrency(yearlyPremium)} />
-                            <DetailRow label="Stamp Fee (One Time Payment)" value={formatCurrency(data.stampFee)} />
+                            <DetailRow label="Stamp Fee (One Time Payment)" value={formatCurrency(data?.stamp_fee || 0)} />
                             <DetailRow label="Total" value={formatCurrency(total)} bold />
                         </div>
 
                         {/* Right Column */}
                         <div className="flex flex-col gap-4">
-                            <DetailRow label="Life Coverage From Day One" value={data.lifeCoverageFromDayOne ? 'Yes' : 'No'} />
-                            <DetailRow label="Premium Payment Mode" value={data.premiumPaymentMode} />
-                            <DetailRow label="Age" value={`${data.minAge} to ${data.maxAge} years nearest birthday`} />
-                            <DetailRow label="Medical Test" value={data.medicalTest} />
-                            <DetailRow label="Maturity Benefit" value={data.maturityBenefit ? 'Yes' : 'No'} />
-                            <DetailRow label="Surrender Option" value={data.surrenderOption ? 'Yes' : 'No'} />
+                            <DetailRow label="Life Coverage From Day One" value={data?.life_coverage_from_day_one ? 'Yes' : 'No'} />
+                            <DetailRow label="Premium Payment Mode" value={data?.premium_payment_mode || ''} />
+                            <DetailRow label="Age" value={`${data?.min_age} to ${data?.max_age} years nearest birthday`} />
+                            <DetailRow label="Medical Test" value={data?.medical_test || ''} />
+                            <DetailRow label="Maturity Benefit" value={data?.maturity_benefit ? 'Yes' : 'No'} />
+                            <DetailRow label="Surrender Option" value={data?.surrender_option ? 'Yes' : 'No'} />
                         </div>
                     </div>
                 </div>
@@ -179,7 +179,7 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ data }) => {
                         <Button
                             label="Buy Now"
                             variant="solid-orange"
-                            className="min-w-[200px] lg:min-w-[400px] py-4 text-xl rounded-lg"
+                            className=" py-2 text-xl rounded-lg"
                             onClick={() => console.log('Buy Now clicked')}
                         />
                     </div>

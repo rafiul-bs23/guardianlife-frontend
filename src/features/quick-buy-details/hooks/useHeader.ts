@@ -12,8 +12,8 @@ export const useHeader = (productId: string = '1') => {
             try {
                 setIsLoading(true);
                 const response = await fetchHeaderData(productId);
-                if (response.success) {
-                    setData(response.data);
+                if (response?.status) {
+                    setData(response?.data);
                 } else {
                     setError('Failed to fetch header data');
                 }

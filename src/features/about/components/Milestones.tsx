@@ -12,10 +12,10 @@ const Milestones: React.FC<MilestonesProps> = ({ data }) => {
                 {/* Header Section */}
                 <div className="text-center mb-16 space-y-4">
                     <h2 className="text-[28px] md:text-[32px] font-black text-[#111827] uppercase tracking-wide">
-                        {data.title}
+                        {data?.title}
                     </h2>
                     <p className="text-[#4B5563] text-sm md:text-base leading-relaxed max-w-[800px] mx-auto opacity-90">
-                        {data.description}
+                        {data?.description}
                     </p>
                 </div>
 
@@ -25,7 +25,7 @@ const Milestones: React.FC<MilestonesProps> = ({ data }) => {
                     <div className="w-full lg:w-[45%] lg:sticky lg:top-32">
                         <div className="rounded-[40px] overflow-hidden shadow-2xl bg-[#0F172A]">
                             <img
-                                src={`/${data.image}`}
+                                src={data?.image ? `/${data.image}` : ''}
                                 alt="Timeline Illustration"
                                 className="w-full h-auto object-cover"
                             />
@@ -37,33 +37,37 @@ const Milestones: React.FC<MilestonesProps> = ({ data }) => {
                         {/* Vertical line connector */}
                         <div className="absolute left-[35px] top-2 bottom-12 w-0.5 bg-blue-200 hidden md:block" />
 
-                        {data.milestones.map((milestone, index) => (
-                            <div key={index} className="relative pl-0 md:pl-20">
-                                {/* Year Marker */}
-                                <div className="hidden md:flex absolute left-0 top-0 w-[70px] h-8 bg-blue-600 text-white rounded-full items-center justify-center font-semibold text-xs shadow-lg shadow-blue-200 z-10">
-                                    {milestone.year}
-                                </div>
+                        {data?.milestones?.map((milestone, index) => {
+                            const milestoneItems = milestone?.items || milestone?.points || [];
 
-                                {/* Mobile Year Marker */}
-                                <div className="md:hidden inline-flex px-6 py-2 bg-blue-600 text-white rounded-full font-semibold text-sm mb-6">
-                                    {milestone.year}
-                                </div>
+                            return (
+                                <div key={index} className="relative pl-0 md:pl-20">
+                                    {/* Year Marker */}
+                                    <div className="hidden md:flex absolute left-0 top-0 w-[70px] h-8 bg-blue-600 text-white rounded-full items-center justify-center font-semibold text-xs shadow-lg shadow-blue-200 z-10">
+                                        {milestone?.year}
+                                    </div>
 
-                                {/* Content Card */}
-                                <div className="bg-transparent space-y-4 pt-8">
-                                    <ul className="space-y-4">
-                                        {milestone.items.map((item, itemIndex) => (
-                                            <li key={itemIndex} className="flex items-start gap-4">
-                                                <div className="min-w-[10px] h-[10px] rounded-full bg-blue-600 mt-1.5 shrink-0" />
-                                                <span className="text-[#4B5563] text-sm md:text-base leading-relaxed font-medium opacity-90">
-                                                    {item}
-                                                </span>
-                                            </li>
-                                        ))}
-                                    </ul>
+                                    {/* Mobile Year Marker */}
+                                    <div className="md:hidden inline-flex px-6 py-2 bg-blue-600 text-white rounded-full font-semibold text-sm mb-6">
+                                        {milestone?.year}
+                                    </div>
+
+                                    {/* Content Card */}
+                                    <div className="bg-transparent space-y-4 pt-8">
+                                        <ul className="space-y-4">
+                                            {milestoneItems.map((item, itemIndex) => (
+                                                <li key={itemIndex} className="flex items-start gap-4">
+                                                    <div className="min-w-[10px] h-[10px] rounded-full bg-blue-600 mt-1.5 shrink-0" />
+                                                    <span className="text-[#4B5563] text-sm md:text-base leading-relaxed font-medium opacity-90">
+                                                        {item}
+                                                    </span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
             </div>

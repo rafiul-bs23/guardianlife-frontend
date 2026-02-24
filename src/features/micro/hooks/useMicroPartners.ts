@@ -17,7 +17,7 @@ export const useMicroPartners = (): UseMicroDataResult<MicroPartner[]> => {
         try {
             const response = await getMicroPartners();
 
-            if (response.success) {
+            if (response.status) {
                 setData(response.data);
             } else {
                 setError(response.message);

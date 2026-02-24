@@ -22,7 +22,7 @@ const SupplementaryBenefits: React.FC<SupplementaryBenefitsProps> = ({ data }) =
 
                 {/* Cards Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {data.content.map((item, index) => (
+                    {data?.content?.map((item, index) => (
                         <div
                             key={index}
                             className="bg-white rounded-2xl p-6 shadow-sm flex flex-col items-start gap-4 relative hover:shadow-md transition-shadow duration-300 min-h-[160px]"
@@ -40,10 +40,10 @@ const SupplementaryBenefits: React.FC<SupplementaryBenefitsProps> = ({ data }) =
                             {/* Text Content */}
                             <div className="text-left flex flex-col gap-1">
                                 <h3 className="text-lg font-bold text-gray-900 leading-tight">
-                                    {item.title}
+                                    {item?.title}
                                 </h3>
                                 <p className="text-xs text-gray-500 leading-normal">
-                                    {item.description}
+                                    {item?.description}
                                 </p>
                             </div>
                         </div>
