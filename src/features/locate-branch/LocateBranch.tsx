@@ -19,7 +19,7 @@ const LocateBranch = () => {
         <main className="min-h-screen bg-white">
             <LocateBranchHeader />
 
-            <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <section className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
                 {/* Section Title */}
                 <div className="mb-6">
                     <h2 className="text-2xl font-bold text-gray-800 uppercase tracking-tight">
