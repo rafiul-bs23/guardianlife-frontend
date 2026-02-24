@@ -34,11 +34,11 @@ const ActionButton: React.FC<ActionButtonProps> = ({
       {icon && <span className="flex items-center">{icon}</span>}
 
       {/* Text */}
-      <span className="whitespace-nowrap font-medium text-[20px] leading-[24px] my-2">{text}</span>
+      <span className="whitespace-nowrap font-medium text-[20px] leading-[24px] my-4">{text}</span>
 
       {/* Arrow */}
       <span
-        className={`ml-2 mr-[4px] flex h-8 w-8 items-center justify-center rounded-full
+        className={`ml-2 mr-[4px] flex h-12 w-12 items-center justify-center rounded-full
           ${isOrange ? "bg-white text-orange-500" : "bg-orange-500 text-white"}
         `}
       >
