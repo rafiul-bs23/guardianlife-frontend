@@ -1,7 +1,7 @@
 import type { ClaimData, ClaimDocumentsData } from '../types'; import type { HeaderResponse } from "../../../shared/types/header";
 
 export const MOCK_HEADER_DATA: HeaderResponse = {
-    "success": true,
+    "status": true,
     "transaction_id": "GLIL-TXN-ID",
     "data": {
         "badge": null,
@@ -91,8 +91,8 @@ export const mockClaimData: ClaimData = {
     }
 };
 
-export const mockDocumentsData: { success: boolean; data: ClaimDocumentsData } = {
-    success: true,
+export const mockDocumentsData: { status: boolean; data: ClaimDocumentsData } = {
+    status: true,
     data: {
         category: [
             {

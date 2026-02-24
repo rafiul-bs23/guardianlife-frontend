@@ -87,6 +87,7 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
                                 aspectRatio="auto"
                                 rounded="rounded-none"
                                 className="w-full h-full"
+                                url={data.media?.url || ""}
                             />
                         ) : (
                             <img

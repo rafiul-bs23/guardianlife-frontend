@@ -16,31 +16,31 @@ export interface QuickProductSection {
 // LearnMoreSection is now imported from shared
 
 export interface ProductCalculatorSection {
-    productName: string;
-    sumAssured: number;
+    product_name: string;
+    sum_assured: number;
     term: number;
-    yearlyPremium: number;
-    stampFee: number;
+    yearly_premium: number;
+    stamp_fee: number;
     total: number;
-    lifeCoverageFromDayOne: boolean;
-    premiumPaymentMode: string;
-    minAge: number;
-    maxAge: number;
-    medicalTest: string;
-    maturityBenefit: boolean;
-    surrenderOption: boolean;
+    life_coverage_from_day_one: boolean;
+    premium_payment_mode: string;
+    min_age: number;
+    max_age: number;
+    medical_test: string;
+    maturity_benefit: boolean;
+    surrender_option: boolean;
 }
 
 export interface QuickBuyData {
-    quickProductSection: QuickProductSection;
-    productCalculatorSection: ProductCalculatorSection;
-    planBenefitsSection: PlanBenefitsSection;
-    productDocumentsSection: ProductDocumentsSection;
-    learnMoreSection: LearnMoreSection;
+    quick_product_section: QuickProductSection;
+    product_calculator_section: ProductCalculatorSection;
+    plan_benefits_section: PlanBenefitsSection;
+    product_documents_section: ProductDocumentsSection;
+    learn_more_section: LearnMoreSection;
 }
 
 export interface QuickBuySuccessResponse {
-    success: true;
+    status: true;
     transactionId: string;
     data: QuickBuyData;
 }
@@ -52,7 +52,7 @@ export interface ValidationError {
 }
 
 export interface QuickBuyErrorResponse {
-    success: false;
+    status: false;
     transactionId: string;
     message: string;
     errors: ValidationError[];

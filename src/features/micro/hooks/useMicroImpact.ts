@@ -17,7 +17,7 @@ export const useMicroImpact = (): UseMicroDataResult<MicroImpactMetric[]> => {
         try {
             const response = await getMicroImpact();
 
-            if (response.success) {
+            if (response.status) {
                 setData(response.data);
             } else {
                 setError(response.message);

@@ -44,20 +44,21 @@ export interface AchievementCard {
 export interface OurAchievementsData {
     title: string;
     description: string;
-    achievements: AchievementCard[];
+    achievements?: AchievementCard[];
     image: string;
 }
 
 export interface Milestone {
-    year: string;
-    items: string[];
+    year: string | number;
+    items?: string[];
+    points?: string[]; // Adding points to accommodate the user's new JSON payload structure
 }
 
 export interface MilestonesData {
     title: string;
     description: string;
     image: string;
-    milestones: Milestone[];
+    milestones?: Milestone[];
 }
 
 export interface GovernancePoint {
@@ -75,12 +76,28 @@ export interface GovernanceTrustData {
 }
 
 export interface AboutData {
-    whoWeAre: WhoWeAreData;
-    ourJourney: OurJourneyData;
-    missionVision: MissionVisionData;
-    ourAchievements: OurAchievementsData;
+    who_we_are: WhoWeAreData;
+    our_journey: OurJourneyData;
+    mission_vision: MissionVisionData;
+    our_achievements: OurAchievementsData;
     milestones: MilestonesData;
-    governanceTrust: GovernanceTrustData;
+    governance_trust: GovernanceTrustData;
+}
+
+export interface DynamicAward {
+    name: string;
+    description: string;
+}
+
+export interface DynamicAboutData {
+    awards: DynamicAward[];
+    milestones: Milestone[];
+}
+
+export interface AboutDynamicResponse {
+    status: boolean;
+    transaction_id: string;
+    data: DynamicAboutData;
 }
 
 export type {

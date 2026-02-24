@@ -17,7 +17,7 @@ export interface HeaderData {
 }
 
 export interface HeaderResponse {
-    success: boolean;
+    status: boolean;
     transaction_id: string;
     data: HeaderData;
 }

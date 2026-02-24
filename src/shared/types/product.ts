@@ -32,7 +32,7 @@ export interface ProductDocumentsSection {
 
 export interface VideoItem {
     title: string;
-    videoUrl: string;
+    video_url: string;
 }
 
 export interface LearnMoreSection {

@@ -17,7 +17,7 @@ export const useMicroSolutions = (): UseMicroDataResult<MicroSolutionsData> => {
         try {
             const response = await getMicroSolutions();
 
-            if (response.success) {
+            if (response.status) {
                 setData(response.data);
             } else {
                 setError(response.message);

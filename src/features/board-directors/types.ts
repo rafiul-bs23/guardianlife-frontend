@@ -1,11 +1,16 @@
 export interface Director {
-    id: string;
+    id?: string;
     name: string;
     designation: string;
-    image: string;
+    image_url?: string;
 }
 
 export interface BoardDirectorsData {
-    title: string;
     directors: Director[];
+}
+
+export interface BoardDirectorApiResponse {
+    transaction_id: string;
+    status: boolean;
+    data: Director[];
 }

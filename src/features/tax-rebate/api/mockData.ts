@@ -4,7 +4,7 @@ import taxImage from "../../../assets/images/tax-rebate/tax.png";
 
 
 export const MOCK_TAX_REBATE_HEADER_DATA: HeaderResponse = {
-    "success": true,
+    "status": true,
     "transaction_id": "GLIL-TR-TXN-ID",
     "data": {
         "badge": null,
@@ -24,7 +24,7 @@ export const MOCK_TAX_REBATE_HEADER_DATA: HeaderResponse = {
 };
 
 export const MOCK_TAX_REBATE_DETAILS: TaxRebateDataResponse = {
-    "success": true,
+    "status": true,
     "transaction_id": "GLIL-TR-DETAILS-TXN-ID",
     "data": {
         "thingsToRemember": {

@@ -10,7 +10,7 @@ export const MOCK_EMPLOYEES_HEADER_DATA: HeaderData = {
 
 
 export const MOCK_EMPLOYEES_DATA: EmployeeApiResponse = {
-    success: true,
+    status: true,
     transaction_id: "MOCK-TXN-ID",
     data: [
         {

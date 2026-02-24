@@ -12,7 +12,7 @@ export const useHeader = () => {
         setError(null);
         try {
             const response = await getTaxRebateHeaderData();
-            if (response.success) {
+            if (response.status) {
                 setData(response.data);
             }
         } catch (err) {

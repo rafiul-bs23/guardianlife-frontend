@@ -2,6 +2,7 @@ import React from 'react';
 import type { ProductDocumentsSection, LearnMoreSection } from '../types/product';
 import videoOverlay from '../../assets/images/productDetails/videoOvarlay.png';
 import { FileText, ClipboardCheck, Search } from 'lucide-react';
+import VideoThumbnail from './VideoSection';
 
 interface ProductSupportProps {
     documents: ProductDocumentsSection;
@@ -25,17 +26,17 @@ const ProductSupport: React.FC<ProductSupportProps> = ({ documents, learnMore })
                 <div className="flex-1">
                     <h2 className="text-2xl font-bold text-gray-900 mb-8">Product Documents</h2>
                     <div className="flex flex-wrap gap-4">
-                        {documents.content.map((doc, index) => (
+                        {documents?.content?.map((doc, index) => (
                             <a
                                 key={index}
-                                href={doc.url}
+                                href={doc?.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center gap-3 px-6 py-3 border border-[#FF8D4D] rounded-xl hover:bg-orange-50 transition-colors bg-white shadow-sm"
                             >
-                                {getDocIcon(doc.title)}
+                                {getDocIcon(doc?.title)}
                                 <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">
-                                    {doc.title}
+                                    {doc?.title}
                                 </span>
                             </a>
                         ))}
@@ -46,18 +47,17 @@ const ProductSupport: React.FC<ProductSupportProps> = ({ documents, learnMore })
                 <div className="flex-1">
                     <h2 className="text-2xl font-bold text-gray-900 mb-8">Learn More</h2>
                     <div className="flex flex-wrap gap-6">
-                        {learnMore.content.map((video, index) => (
+                        {learnMore?.content?.map((video, index) => (
                             <div key={index} className="flex flex-col gap-3 group cursor-pointer w-[240px]">
-                                <div className="relative aspect-video rounded-2xl overflow-hidden bg-gray-200">
-                                    {/* Placeholder for video thumbnail - normally would come from data */}
-                                    <div className="w-full h-full bg-[#E5E7EB] flex items-center justify-center">
-                                        <img src={videoOverlay} alt="" className="w-full h-full object-cover" />
-                                    </div>
-
-
-                                </div>
+                                <VideoThumbnail
+                                    thumbnail={videoOverlay}
+                                    title={video?.title}
+                                    aspectRatio="video"
+                                    rounded="rounded-2xl"
+                                    url={video?.video_url || ""}
+                                />
                                 <span className="text-sm font-bold text-gray-900 leading-tight">
-                                    {video.title}
+                                    {video?.title}
                                 </span>
                             </div>
                         ))}

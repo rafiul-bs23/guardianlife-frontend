@@ -38,16 +38,16 @@ const ProductJourney: React.FC<ProductJourneyProps> = ({ data }) => {
                     </div>
 
                     {/* Intermediate Points */}
-                    {data.content.map((step, index) => (
+                    {data?.content?.map((step, index) => (
                         <div
                             key={index}
                             className="absolute top-1/2 -translate-y-1/2 flex flex-col items-center"
-                            style={{ left: `${step.percentage}%` }}
+                            style={{ left: `${step?.percentage}%` }}
                         >
                             {/* Top Label */}
-                            {step.topLabel && (
+                            {step?.top_label && (
                                 <div className="absolute bottom-full mb-6 whitespace-nowrap">
-                                    <span className="text-sm font-bold text-gray-900">{step.topLabel}</span>
+                                    <span className="text-sm font-bold text-gray-900">{step?.top_label}</span>
                                 </div>
                             )}
 
@@ -56,15 +56,15 @@ const ProductJourney: React.FC<ProductJourneyProps> = ({ data }) => {
 
                                 <div className="absolute top-full left-1/2 -translate-x-1/2 w-0.5 h-4 bg-[#2A2B68]"></div>
 
-                                {step.topLabel && (
+                                {step?.top_label && (
                                     <div className="absolute bottom-full left-1/2 -translate-x-1/2 w-0.5 h-4 bg-[#2A2B68]"></div>
                                 )}
                             </div>
 
                             {/* Bottom Label */}
-                            {step.bottomLabel && (
+                            {step?.bottom_label && (
                                 <div className="absolute top-full mt-6 whitespace-nowrap">
-                                    <span className="text-sm font-bold text-gray-900">{step.bottomLabel}</span>
+                                    <span className="text-sm font-bold text-gray-900">{step?.bottom_label}</span>
                                 </div>
                             )}
                         </div>

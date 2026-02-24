@@ -16,15 +16,14 @@ export const useProductBuyDetails = (productId: string): UseQuickBuyResult => {
 
         try {
             const response: QuickBuyApiResponse = await getProductBuyDetailsData(productId);
-
-            if (response.success) {
-                setData(response.data);
+            if (response?.status) {
+                setData(response?.data);
             } else {
-                console.warn('API Business Error:', response.message);
-                setError(response.message);
+                console.warn('API Business Error:', response?.message);
+                setError(response?.message);
 
-                if (response.errors) {
-                    setFieldErrors(response.errors);
+                if (response?.errors) {
+                    setFieldErrors(response?.errors);
                 }
             }
 

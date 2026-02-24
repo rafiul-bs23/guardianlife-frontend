@@ -12,7 +12,7 @@ export const useHeader = () => {
             try {
                 setIsLoading(true);
                 const response = await fetchHeaderData();
-                if (response.success) {
+                if (response.status) {
                     setData(response.data);
                 } else {
                     setError('Failed to fetch header data');

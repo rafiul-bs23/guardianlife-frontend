@@ -6,7 +6,7 @@ export const getMockMicroSolutions = async (): Promise<MicroApiResult<MicroSolut
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({
-                success: true,
+                status: true,
                 transactionId: `tx-${Math.random().toString(36).substring(2, 11)}`,
                 message: "Solutions fetched successfully (Mock)",
                 data: mockMicroData.solutions
@@ -20,7 +20,7 @@ export const getMockMicroImpact = async (): Promise<MicroApiResult<MicroImpactMe
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({
-                success: true,
+                status: true,
                 transactionId: "GLIL-TXN-ID",
                 message: "Impact data fetched successfully (Mock)",
                 data: mockMicroData.impactMetrics
@@ -34,7 +34,7 @@ export const getMockMicroPartners = async (): Promise<MicroApiResult<MicroPartne
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({
-                success: true,
+                status: true,
                 transactionId: "GLIL-TXN-ID",
                 message: "Partners fetched successfully (Mock)",
                 data: mockMicroData.partnersDynamic
