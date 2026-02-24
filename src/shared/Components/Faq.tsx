@@ -49,10 +49,10 @@ const defaultFAQData: FAQItem[] = [
 
 // FAQ Component
 const FAQ: React.FC<FAQProps> = ({
-                                   title = "FREQUENTLY ASKED QUESTIONS",
-                                   subtitle = "Get answers to common questions about Guardian Life insurance products and services.",
-                                   faqs = defaultFAQData
-                                 }) => {
+  title = "FREQUENTLY ASKED QUESTIONS",
+  subtitle = "Get answers to common questions about Guardian Life insurance products and services.",
+  faqs = defaultFAQData
+}) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleAccordion = (index: number) => {
@@ -76,7 +76,7 @@ const FAQ: React.FC<FAQProps> = ({
         {faqs.map((faq, index) => (
           <div
             key={faq.id}
-            className="bg-white rounded-lg shadow-sm overflow-hidden transition-all duration-200 hover:shadow-md w-[1138px]"
+            className="bg-white rounded-lg shadow-sm overflow-hidden transition-all duration-200 hover:shadow-md w-full max-w-[1138px]"
           >
             {/* Question Button */}
             <button
@@ -89,9 +89,8 @@ const FAQ: React.FC<FAQProps> = ({
 
               {/* Chevron Icon */}
               <svg
-                className={`w-6 h-6 text-gray-600 flex-shrink-0 transition-transform duration-200 ${
-                  openIndex === index ? 'rotate-180' : ''
-                }`}
+                className={`w-6 h-6 text-gray-600 flex-shrink-0 transition-transform duration-200 ${openIndex === index ? 'rotate-180' : ''
+                  }`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -107,9 +106,8 @@ const FAQ: React.FC<FAQProps> = ({
 
             {/* Answer Panel */}
             <div
-              className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-              }`}
+              className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                }`}
             >
               <div className="px-6 pb-5 pt-2">
                 <p className="text-gray-600 leading-relaxed">

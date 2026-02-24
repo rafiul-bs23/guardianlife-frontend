@@ -18,12 +18,12 @@ const AppPromotion = () => {
 
           <p className="text-gray-700 text-lg max-w-3xl mx-auto leading-relaxed">
             THE GUARDIAN LIFE APP PUTS HASSLE-FREE COVERAGE IN YOUR HANDS.
-            <br/>
+            <br />
             DOWNLOAD NOW ON ANDROID & IOS TO MANAGE YOUR INSURANCE ANYTIME, ANYWHERE.
           </p>
         </div>
 
-        <div className="flex gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <ActionButton
             text="Google Play"
             onClick={() => console.log("Google play clicked")}
@@ -34,9 +34,9 @@ const AppPromotion = () => {
           />
         </div>
 
-        <div className="relative mt-8 flex">
+        <div className="relative mt-8 flex justify-center px-4 md:px-0">
           <div
-            className="overflow-hidden mx-auto"
+            className="overflow-hidden mx-auto w-full max-w-7xl relative"
             style={{
               clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%)',
               borderRadius: '24px'
@@ -45,13 +45,13 @@ const AppPromotion = () => {
             <img
               src={AppPromotionImage}
               alt="Guardian Life App"
-              className="w-[1520px] h-[579px] object-cover"
+              className="w-full h-auto aspect-[16/9] md:aspect-auto md:max-h-[579px] object-cover"
             />
 
             {/* Top-right circle icon (optional) */}
             <div
-              className="absolute top-6 right-6 w-12 h-12 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center">
-              <ArrowRight className="w-6 h-6 text-gray-700"/>
+              className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center">
+              <ArrowRight className="w-5 h-5 md:w-6 md:h-6 text-gray-700" />
             </div>
           </div>
         </div>
@@ -59,6 +59,7 @@ const AppPromotion = () => {
 
       {/* Phone Image with rounded corners */}
     </div>
-)};
+  )
+};
 
 export default AppPromotion;

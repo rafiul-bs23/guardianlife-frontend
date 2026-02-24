@@ -22,7 +22,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
     <button
       onClick={onClick}
       className={`
-        flex items-center gap-3 rounded-full px-5 py-2 font-medium transition
+        flex items-center gap-3 rounded-full pl-5 font-medium transition
         ${isOrange
           ? "bg-orange-500 text-white"
           : "bg-white text-orange-500 border border-orange-500"
@@ -34,11 +34,11 @@ const ActionButton: React.FC<ActionButtonProps> = ({
       {icon && <span className="flex items-center">{icon}</span>}
 
       {/* Text */}
-      <span className="whitespace-nowrap font-medium text-[20px] leading-[24px]">{text}</span>
+      <span className="whitespace-nowrap font-medium text-[20px] leading-[24px] my-4">{text}</span>
 
       {/* Arrow */}
       <span
-        className={`ml-2 flex h-8 w-8 items-center justify-center rounded-full
+        className={`ml-2 mr-[4px] flex h-12 w-12 items-center justify-center rounded-full
           ${isOrange ? "bg-white text-orange-500" : "bg-orange-500 text-white"}
         `}
       >
