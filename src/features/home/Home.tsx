@@ -56,7 +56,7 @@ const Home = () => {
             </p>
             <ActionButton
               text="Find your policy"
-              className="w-full max-w-[249px]"
+              className=""
               onClick={() => console.log("clicked")}
             />
 

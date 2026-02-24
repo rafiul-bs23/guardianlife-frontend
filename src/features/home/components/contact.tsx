@@ -139,7 +139,7 @@ const ContactForm = () => {
             <div className="pt-2">
               <ActionButton
                 text="send message"
-                className="w-[249px]"
+                className=""
                 onClick={handleSubmit}
               />
             </div>
