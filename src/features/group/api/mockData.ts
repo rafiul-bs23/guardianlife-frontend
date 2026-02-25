@@ -119,3 +119,56 @@ export const MOCK_LIFE_COVERAGE_DATA = {
         },
     ]
 };
+
+export const MOCK_CRITICAL_ILLNESS_DATA = {
+    header: {
+        title: "Protection Against Major Life-Threatening Diseases",
+        description: "The Critical Illness Benefit is a supplementary coverage designed to support employees and their families financially if diagnosed with any of the specified critical illnesses. This benefit helps manage high treatment costs and income disruption."
+    },
+    imgUrl: "https://glilapi.guardianlife.com.bd/images/1725268160788-397856237-Children.jpg",
+    illnesses: [
+        { id: 1, name: "Cancer" },
+        { id: 2, name: "Heart Attack (Myocardial Infarction)" },
+        { id: 3, name: "Stroke" },
+        { id: 4, name: "Coronary Artery Bypass Surgery" },
+        { id: 5, name: "Kidney Failure (End Stage Renal Disease)" },
+        { id: 6, name: "Major Organ Transplantation" },
+        { id: 7, name: "Paralysis" },
+        { id: 8, name: "Multiple Sclerosis" },
+        { id: 9, name: "Loss of Limbs" },
+        { id: 10, name: "Blindness / Loss of Sight" },
+        { id: 11, name: "Heart Valve Replacement" },
+        { id: 12, name: "Surgery of Aorta" },
+        { id: 13, name: "Aplastic Anemia" },
+        { id: 14, name: "Benign Brain Tumor" },
+        { id: 15, name: "Chronic Lung Disease / End Stage Lung Disease" },
+        { id: 16, name: "Deafness / Loss of Hearing" },
+        { id: 17, name: "Major Head Trauma" },
+        { id: 18, name: "Loss of Speech" },
+    ]
+};
+
+export const MOCK_TREATMENT_PLAN_DATA = {
+    header: {
+        title: "Health Coverage That Supports Everyday Medical Needs",
+        description: "With rising healthcare costs and evolving family responsibilities, Guardian Life's Group Health Insurance plans are designed to provide extensive medical coverage—both for hospitalization and routine medical expenses."
+    },
+    imgUrl: "https://glilapi.guardianlife.com.bd/images/1725268160788-397856237-Children.jpg",
+    plans: [
+        {
+            id: 1,
+            title: "In-Patient Treatment (IPD) Plan",
+            description: "The In-Patient Treatment plan provides financial protection for medical expenses incurred during hospitalization of at least 24 hours due to illness or accidental injury within the policy period.",
+        },
+        {
+            id: 2,
+            title: "General Out-Patient Treatment (OPD) Plan",
+            description: "The OPD plan covers medical expenses that do not require hospitalization, allowing employees to claim for routine healthcare costs.",
+            bulletPoints: [
+                "Doctor Consultation Fees",
+                "Medicine Costs",
+                "Diagnostic & Investigation Expenses",
+            ],
+        },
+    ]
+};
