@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { StatsBar } from "./components/StatsBar.tsx";
 import Contentheader from "../../shared/Components/Contentheader.tsx";
 import { WhatIsBancassurance } from "./components/WhatIsBancassurance.tsx";
