@@ -89,3 +89,33 @@ export const MOCK_COVERAGE_DATA = {
         },
     ]
 };
+
+export const MOCK_LIFE_COVERAGE_DATA = {
+    header: {
+        title: "Life Coverage for Financial Protection & Peace of Mind",
+        description: "Group Life Insurance ensures financial security for employees and their families while reinforcing an organization's commitment to long-term employee welfare. This coverage helps mitigate uncertainty and provides assurance during life-altering events"
+    },
+    imgUrl: "https://glilapi.guardianlife.com.bd/images/1725268980177-483331562-Guardian%20Health%20Insurance.png",
+    coverages: [
+        {
+            id: 1,
+            title: "Death Benefit (Natural Death)",
+            description: "If an insured employee passes away due to natural causes during the policy period, Guardian Life Insurance, upon receiving written proof of death, will pay the sum insured to the organization or the nominated beneficiary of the employee.",
+        },
+        {
+            id: 2,
+            title: "Accidental Death Benefit (ADB)",
+            description: "In the event of an insured employee's death caused directly by an accident involving external and violent means, the Accidental Death Benefit provides an additional sum insured over and above the standard death benefit.",
+        },
+        {
+            id: 3,
+            title: "Permanent & Total Disability (PTD)",
+            description: "If an insured employee becomes permanently and totally disabled due to an accident resulting in bodily injury, Guardian Life will pay the full sum insured to the organization, offering financial support during a life-changing situation.",
+        },
+        {
+            id: 4,
+            title: "Permanent Partial Disability (PPD)",
+            description: "When an accident results in permanent partial disability, Guardian Life provides fixed financial benefits to the employer or employee in accordance with the Labor Law of Bangladesh, ensuring continued financial stability.",
+        },
+    ]
+};

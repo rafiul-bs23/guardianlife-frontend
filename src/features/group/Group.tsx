@@ -1,7 +1,7 @@
 import Contentheader from "../../shared/Components/Contentheader.tsx";
 import { BenefitsSection } from "./component/BenefitsSection";
 import { CoverageSection } from "./component/CoverageSection";
-import { LifeCoverage } from "./component/LifeCoverage.tsx";
+import { LifeCoverageSection } from "./component/LifeCoverageSection";
 import { CriticalIllnessList } from "./component/CriticalillnessList.tsx";
 import { TreatmentPlanList } from "./component/TreatmentPlanList.tsx";
 import { MaternityBenefits } from "./component/MaternityBenefits.tsx";
@@ -18,34 +18,6 @@ import AppDownloadSection from "../../shared/Components/AppDownloadSection.tsx";
 
 const Group = () => {
   const { data: headerData, isLoading: isHeaderLoading } = useHeader();
-
-  type LifeCoverageType = {
-    id: number;
-    title: string;
-    description: string;
-  };
-  const lifeCoveragedata: LifeCoverageType[] = [
-    {
-      id: 1,
-      title: "Death Benefit (Natural Death)",
-      description: "If an insured employee passes away due to natural causes during the policy period, Guardian Life Insurance, upon receiving written proof of death, will pay the sum insured to the organization or the nominated beneficiary of the employee.",
-    },
-    {
-      id: 2,
-      title: "Accidental Death Benefit (ADB)",
-      description: "In the event of an insured employee's death caused directly by an accident involving external and violent means, the Accidental Death Benefit provides an additional sum insured over and above the standard death benefit.",
-    },
-    {
-      id: 3,
-      title: "Permanent & Total Disability (PTD)",
-      description: "If an insured employee becomes permanently and totally disabled due to an accident resulting in bodily injury, Guardian Life will pay the full sum insured to the organization, offering financial support during a life-changing situation.",
-    },
-    {
-      id: 4,
-      title: "Permanent Partial Disability (PPD)",
-      description: "When an accident results in permanent partial disability, Guardian Life provides fixed financial benefits to the employer or employee in accordance with the Labor Law of Bangladesh, ensuring continued financial stability.",
-    },
-  ];
 
   const apiResponse = {
     "status": true,
@@ -109,24 +81,8 @@ const Group = () => {
         <CoverageSection />
       </div>
 
-      <div className="mt-16 lg:mt-[124px] px-4">
-        <Contentheader
-          title="Life Coverage for Financial Protection & Peace of Mind"
-          description="Group Life Insurance ensures financial security for employees and their families while reinforcing an organization's commitment to long-term employee welfare. This coverage helps mitigate uncertainty and provides assurance during life-altering events"
-        />
-      </div>
-
-      <div className="flex flex-col lg:flex-row mt-12 lg:mt-[90px] gap-8 lg:gap-0 px-4 lg:px-0">
-        <div className="w-full lg:w-1/2 lg:pl-[211px] lg:pr-8">
-          <LifeCoverage items={lifeCoveragedata} />
-        </div>
-        <div className="w-full lg:w-1/2 lg:pl-8 lg:pr-[211px]">
-          <img
-            src="https://glilapi.guardianlife.com.bd/images/1725268980177-483331562-Guardian%20Health%20Insurance.png"
-            alt="image"
-            className="w-full h-auto lg:h-[554px] lg:w-[712px] object-cover rounded-[35px]"
-          />
-        </div>
+      <div className="mx-[auto]">
+        <LifeCoverageSection />
       </div>
 
       <div className="bg-[#F5DBCB] rounded-[30px] lg:rounded-[50px] mx-4 lg:mx-[211px] mt-16 lg:mt-[111px] pb-12 lg:pb-[56px] overflow-hidden">
