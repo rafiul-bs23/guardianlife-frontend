@@ -4,7 +4,7 @@ import { LifeCoverageSection } from "./component/LifeCoverageSection";
 import { CriticalIllnessSection } from "./component/CriticalIllnessSection";
 import { TreatmentPlanSection } from "./component/TreatmentPlanSection";
 import { MaternityBenefitsSection } from "./component/MaternityBenefitsSection.tsx";
-import OutPatientCard from "./component/OutPatientCard.tsx";
+import { OutPatientCardsSection } from "./component/OutPatientCardsSection.tsx";
 import GroupHeader from "./components/GroupHeader.tsx";
 import { useHeader } from "./hooks/useHeader.ts";
 import CashlessNetwork from "../../shared/Components/CashlessNetwork.tsx";
@@ -18,48 +18,7 @@ import AppDownloadSection from "../../shared/Components/AppDownloadSection.tsx";
 const Group = () => {
   const { data: headerData, isLoading: isHeaderLoading } = useHeader();
 
-  const apiResponse = {
-    "status": true,
-    "transactionId": "GLIL-TXN-ID",
-    "data": {
-      "channel": "retail",
-      "category": null,
-      "subcategory": null,
-      "products": [
-        {
-          "title": "Dental Out-Patient Treatment Benefit",
-          "description": "Dental OPD coverage provides access to essential dental care without hospitalization.",
-          "productCode": "NRB-SP",
-          "logoUrl": null,
-          "thumbnailUrl": "https://i.ibb.co/hV3q6K9/term-life-insurance-2.png",
-          "footer": null,
-          "points": [
-            "Doctor Consultation Fees",
-            "Amalgam, Resin Plastic & Temporary/Permanent Fillings",
-            "Routine Extraction",
-            "Medication",
-            "X-rays & Investigations",
-            "Root Canal Treatment (including bridging and capping)",
-            "Scaling & Polishing (once per year per member)"
-          ]
-        },
-        {
-          "title": "Optical Out-Patient Treatment Benefit",
-          "description": "Optical OPD benefits cover eye care and vision correction needs on an outpatient basis.",
-          "productCode": "JAYA-01",
-          "logoUrl": "https://guardian-life-website-example.com/assets/images/nrb-savingslogo.png",
-          "thumbnailUrl": "https://i.ibb.co/hV3q6K9/term-life-insurance-2.png",
-          "footer": "Ideal for digital buyers",
-          "points": [
-            "Consultation",
-            "Vision Tests for Refractive Errors",
-            "Medication",
-            "Lenses & Spectacles"
-          ]
-        }
-      ]
-    }
-  };
+
 
   if (isHeaderLoading) {
     return (
@@ -96,17 +55,7 @@ const Group = () => {
         <MaternityBenefitsSection />
       </div>
 
-      <div className="flex flex-wrap lg:grid lg:grid-cols-2 gap-8 justify-center mt-16 lg:mt-[84px] px-4 lg:px-[100px] xl:px-[200px]">
-        {apiResponse.data.products.map((product) => (
-          <OutPatientCard
-            key={product.productCode}
-            thumbnailUrl={product.thumbnailUrl}
-            title={product.title}
-            description={product.description}
-            points={product.points}
-          />
-        ))}
-      </div>
+      <OutPatientCardsSection />
 
       <div className="mt-16">
         <CashlessNetwork />

@@ -183,3 +183,37 @@ export const MOCK_MATERNITY_DATA = {
         { id: 3, label: "Legal Abortion or Miscarriage" },
     ]
 };
+
+export const MOCK_OUTPATIENT_DATA = [
+    {
+        "title": "Dental Out-Patient Treatment Benefit",
+        "description": "Dental OPD coverage provides access to essential dental care without hospitalization.",
+        "productCode": "NRB-SP",
+        "logoUrl": null,
+        "thumbnailUrl": "https://i.ibb.co/hV3q6K9/term-life-insurance-2.png",
+        "footer": null,
+        "points": [
+            "Doctor Consultation Fees",
+            "Amalgam, Resin Plastic & Temporary/Permanent Fillings",
+            "Routine Extraction",
+            "Medication",
+            "X-rays & Investigations",
+            "Root Canal Treatment (including bridging and capping)",
+            "Scaling & Polishing (once per year per member)"
+        ]
+    },
+    {
+        "title": "Optical Out-Patient Treatment Benefit",
+        "description": "Optical OPD benefits cover eye care and vision correction needs on an outpatient basis.",
+        "productCode": "JAYA-01",
+        "logoUrl": "https://guardian-life-website-example.com/assets/images/nrb-savingslogo.png",
+        "thumbnailUrl": "https://i.ibb.co/hV3q6K9/term-life-insurance-2.png",
+        "footer": "Ideal for digital buyers",
+        "points": [
+            "Consultation",
+            "Vision Tests for Refractive Errors",
+            "Medication",
+            "Lenses & Spectacles"
+        ]
+    }
+];
