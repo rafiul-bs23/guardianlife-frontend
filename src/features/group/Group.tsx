@@ -3,7 +3,7 @@ import { CoverageSection } from "./component/CoverageSection";
 import { LifeCoverageSection } from "./component/LifeCoverageSection";
 import { CriticalIllnessSection } from "./component/CriticalIllnessSection";
 import { TreatmentPlanSection } from "./component/TreatmentPlanSection";
-import { MaternityBenefits } from "./component/MaternityBenefits.tsx";
+import { MaternityBenefitsSection } from "./component/MaternityBenefitsSection.tsx";
 import OutPatientCard from "./component/OutPatientCard.tsx";
 import GroupHeader from "./components/GroupHeader.tsx";
 import { useHeader } from "./hooks/useHeader.ts";
@@ -92,17 +92,8 @@ const Group = () => {
         <TreatmentPlanSection />
       </div>
 
-      <div className="flex flex-col lg:flex-row bg-[#F5DBCB] rounded-[30px] lg:rounded-[50px] mt-16 lg:mt-[94px] mx-4 lg:mx-[150px] xl:mx-[200px] py-12 lg:py-[65px] gap-8 lg:gap-0 px-4 lg:px-0">
-        <div className="w-full lg:w-1/2 lg:px-[43px]">
-          <MaternityBenefits />
-        </div>
-        <div className="w-full lg:w-1/2 lg:px-[40px]">
-          <img
-            src="https://glilapi.guardianlife.com.bd/images/1725268160788-397856237-Children.jpg"
-            alt="image"
-            className="w-full h-auto lg:w-[688px] lg:h-[507px] object-cover rounded-[35px]"
-          />
-        </div>
+      <div className="mx-[auto]">
+        <MaternityBenefitsSection />
       </div>
 
       <div className="flex flex-wrap lg:grid lg:grid-cols-2 gap-8 justify-center mt-16 lg:mt-[84px] px-4 lg:px-[100px] xl:px-[200px]">

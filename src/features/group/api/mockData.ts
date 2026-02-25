@@ -172,3 +172,14 @@ export const MOCK_TREATMENT_PLAN_DATA = {
         },
     ]
 };
+
+export const MOCK_MATERNITY_DATA = {
+    title: "Supporting Employees During Life's Important Moments",
+    description: "Maternity benefits offer financial assistance and peace of mind for female married employees or spouses up to 45 years of age",
+    imgUrl: "https://glilapi.guardianlife.com.bd/images/1725268160788-397856237-Children.jpg",
+    items: [
+        { id: 1, label: "Normal Delivery" },
+        { id: 2, label: "Caesarean / Ectopic / Extra-uterine Pregnancy" },
+        { id: 3, label: "Legal Abortion or Miscarriage" },
+    ]
+};
