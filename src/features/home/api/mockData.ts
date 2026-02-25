@@ -20,12 +20,24 @@ export type Partner = {
     logo: string;
 };
 
-export const solutions = [
-    { id: 0, title: 'For You', image: image1 },
-    { id: 1, title: 'For Your Family', image: image2 },
-    { id: 2, title: 'Retirement', image: image3 },
-    { id: 3, title: 'Islamic', image: image4 },
-];
+export const MOCK_OUR_SOLUTIONS_DATA = {
+    title: "OUR SOLUTIONS",
+    heading: [
+        { text: "SECURE YOUR ", color: "#333333" },
+        { text: "FAMILY'S FUTURE", color: "#f97316" },
+        { text: ", ", color: "#333333", lineBreak: true },
+        { text: "PLAN YOUR RETIREMENT, OR ", color: "#333333", lineBreak: true },
+        { text: "PROTECT YOUR HEALTH—", color: "#333333" },
+        { text: "WE'VE ", color: "#f97316", lineBreak: true },
+        { text: "GOT YOU COVERED.", color: "#f97316" }
+    ],
+    solutions: [
+        { id: 0, title: 'For You', image: image1 },
+        { id: 1, title: 'For Your Family', image: image2 },
+        { id: 2, title: 'Retirement', image: image3 },
+        { id: 3, title: 'Islamic', image: image4 },
+    ]
+};
 
 export const partners: Partner[] = [
     { id: 1, name: "Shanta", logo: BusinessPastner1 },

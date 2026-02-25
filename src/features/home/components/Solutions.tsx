@@ -2,28 +2,19 @@ import { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-// Import your images
-import image1 from '../../../assets/images/home/Solutions/solutions1.png';
-import image2 from '../../../assets/images/home/Solutions/solutions2.png';
-import image3 from '../../../assets/images/home/Solutions/solutions3.png';
-import image4 from '../../../assets/images/home/Solutions/solutions4.png';
+import { MOCK_OUR_SOLUTIONS_DATA } from '../api/mockData';
 
 const SolutionsComponent = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const solutions = [
-    { id: 0, title: 'For You', image: image1 },
-    { id: 1, title: 'For Your Family', image: image2 },
-    { id: 2, title: 'Retirement', image: image3 },
-    { id: 3, title: 'Islamic', image: image4 },
-  ];
+
 
   // Get the display order for the stack
   // The active index should be at the front, others behind it
   const getStackOrder = () => {
     const order = [];
-    for (let i = 0; i < solutions.length; i++) {
-      const index = (activeIndex + i) % solutions.length;
+    for (let i = 0; i < MOCK_OUR_SOLUTIONS_DATA.solutions.length; i++) {
+      const index = (activeIndex + i) % MOCK_OUR_SOLUTIONS_DATA.solutions.length;
       order.push(index);
     }
     return order;
@@ -38,21 +29,23 @@ const SolutionsComponent = () => {
         {/* Left Content Section */}
         <div className="w-full lg:w-1/2 flex flex-col items-start text-left ">
           <h5 className="text-[#1E3161] text-lg font-bold tracking-[.2em] mb-8 uppercase">
-            OUR SOLUTIONS
+            {MOCK_OUR_SOLUTIONS_DATA.title}
           </h5>
 
           <h2 className="text-[40px] lg:text-[40px] font-semibold leading-[1.2] text-[#333333] mb-12 max-w-[600px]">
-            SECURE YOUR <span className="text-primary">FAMILY'S FUTURE</span>, <br />
-            PLAN YOUR RETIREMENT, OR <br />
-            PROTECT YOUR HEALTH—<span className="text-primary">WE'VE <br />
-              GOT YOU COVERED.</span>
+            {MOCK_OUR_SOLUTIONS_DATA.heading.map((item, index) => (
+              <span key={index} style={{ color: item.color }} className={item.color === '#f97316' ? 'text-primary' : ''}>
+                {item.text}
+                {item.lineBreak && <br />}
+              </span>
+            ))}
           </h2>
 
           {/* Tab Navigation */}
           <div className="flex flex-row items-center  gap-4 lg:gap-4 flex-wrap">
             <div className="w-[10%] lg:w-8 h-[2px] bg-[#1E3161]" />
             <div className="flex items-center gap-4 lg:gap-4 flex-wrap w-[80%] lg:w-auto  ">
-              {solutions.map((solution, index) => (
+              {MOCK_OUR_SOLUTIONS_DATA.solutions.map((solution, index) => (
                 <button
                   key={solution.id}
                   onClick={() => setActiveIndex(index)}
@@ -70,7 +63,7 @@ const SolutionsComponent = () => {
 
         <div className="w-full lg:w-1/2 relative h-[500px] md:h-[600px] flex items-center justify-center lg:justify-center pr-0 lg:pr-2 lg:mr-[-100px] ">
           <div className="relative w-[320px] h-[400px] md:w-[420px] md:h-[520px]">
-            {solutions.map((solution, index) => {
+            {MOCK_OUR_SOLUTIONS_DATA.solutions.map((solution, index) => {
               // Calculate position in the visible stack (0 is front)
               const position = stackOrder.indexOf(index);
 
