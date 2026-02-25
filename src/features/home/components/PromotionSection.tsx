@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import ActionButton from "../../../shared/Components/BaseButton.tsx"; // or custom SVG
-import AppPromotionImage from "../../../assets/images/home/AppPromotion/AppPromotion.png"
+import { MOCK_APP_PROMOTION_DATA } from '../api/mockData';
 
 const AppPromotion = () => {
   return (
@@ -9,29 +9,30 @@ const AppPromotion = () => {
         {/* Header Section */}
         <div className="text-center mb-8">
           <h3 className="text-sm font-semibold text-gray-600 tracking-wide mb-3">
-            OUR AMAZING NEW APP
+            {MOCK_APP_PROMOTION_DATA.title}
           </h3>
 
           <h2 className="text-4xl font-bold mb-4">
-            <span className="text-orange-500">SEAMLESS INSURANCE AT YOUR FINGERTIPS</span>
+            {MOCK_APP_PROMOTION_DATA.heading.map((item, index) => (
+              <span key={index} style={{ color: item.color }} className={item.color === '#f97316' ? 'text-orange-500' : ''}>
+                {item.text}
+              </span>
+            ))}
           </h2>
 
-          <p className="text-gray-700 text-lg max-w-3xl mx-auto leading-relaxed">
-            THE GUARDIAN LIFE APP PUTS HASSLE-FREE COVERAGE IN YOUR HANDS.
-            <br />
-            DOWNLOAD NOW ON ANDROID & IOS TO MANAGE YOUR INSURANCE ANYTIME, ANYWHERE.
+          <p className="text-gray-700 text-lg max-w-3xl mx-auto leading-relaxed whitespace-pre-line">
+            {MOCK_APP_PROMOTION_DATA.description}
           </p>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <ActionButton
-            text="Google Play"
-            onClick={() => console.log("Google play clicked")}
-          />
-          <ActionButton
-            text="App Store"
-            onClick={() => console.log("App store clicked")}
-          />
+          {MOCK_APP_PROMOTION_DATA.buttons.map((button, index) => (
+            <ActionButton
+              key={index}
+              text={button.text}
+              onClick={() => console.log(`${button.action} clicked`)}
+            />
+          ))}
         </div>
 
         <div className="relative mt-8 flex justify-center px-4 md:px-0">
@@ -43,7 +44,7 @@ const AppPromotion = () => {
             }}
           >
             <img
-              src={AppPromotionImage}
+              src={MOCK_APP_PROMOTION_DATA.image}
               alt="Guardian Life App"
               className="w-full h-auto aspect-[16/9] md:aspect-auto md:max-h-[579px] object-cover"
             />
