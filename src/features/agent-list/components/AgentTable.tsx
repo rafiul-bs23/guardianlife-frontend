@@ -67,7 +67,7 @@ const AgentTable = ({
             {/* Table */}
             <div className="overflow-x-auto">
                 <table className="min-w-full text-sm text-left">
-                    <thead className="bg-[#2E3192] text-white">
+                    <thead className="bg-primary text-white">
                         <tr>
                             {TABLE_COLUMNS.map((col) => (
                                 <th
@@ -106,7 +106,7 @@ const AgentTable = ({
                                 return (
                                     <tr
                                         key={index}
-                                        className="hover:bg-blue-50 transition-colors even:bg-gray-50"
+                                        className="hover:bg-primary/10 transition-colors even:bg-gray-50"
                                     >
                                         {/* SL */}
                                         <td className="px-4 py-3.5 font-medium text-gray-500 whitespace-nowrap">
@@ -130,7 +130,7 @@ const AgentTable = ({
 
                                         {/* FA Code */}
                                         <td className="px-4 py-3.5 whitespace-nowrap">
-                                            <span className="inline-block px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+                                            <span className="inline-block px-2.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">
                                                 {agent?.fa_code ?? '—'}
                                             </span>
                                         </td>
@@ -159,9 +159,8 @@ const AgentTable = ({
                                         {/* Expiry Date */}
                                         <td className="px-4 py-3.5 whitespace-nowrap">
                                             <span
-                                                className={`text-sm font-medium ${
-                                                    expired ? 'text-red-500' : 'text-green-600'
-                                                }`}
+                                                className={`text-sm font-medium ${expired ? 'text-red-500' : 'text-green-600'
+                                                    }`}
                                             >
                                                 {format_date(agent?.license_expiry_date)}
                                             </span>
@@ -223,11 +222,10 @@ const AgentTable = ({
                             <button
                                 key={p}
                                 onClick={() => on_page_change(p)}
-                                className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition ${
-                                    p === current_page
-                                        ? 'bg-[#2E3192] text-white border-[#2E3192]'
+                                className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition ${p === current_page
+                                        ? 'bg-primary text-white border-primary'
                                         : 'border-gray-300 text-gray-600 bg-white hover:bg-gray-100'
-                                }`}
+                                    }`}
                             >
                                 {p}
                             </button>

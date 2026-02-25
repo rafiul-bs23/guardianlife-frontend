@@ -32,7 +32,7 @@ const BranchFilter = ({ filters, onFilterChange, onReset }: BranchFilterProps) =
                     <select
                         value={filters.office_category ?? ''}
                         onChange={(e) => handleChange('office_category', e.target.value)}
-                        className="border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                        className="border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
                     >
                         <option value="">All Categories</option>
                         {OFFICE_CATEGORIES.map((cat) => (
@@ -51,7 +51,7 @@ const BranchFilter = ({ filters, onFilterChange, onReset }: BranchFilterProps) =
                     <select
                         value={filters.division_name ?? ''}
                         onChange={(e) => handleChange('division_name', e.target.value)}
-                        className="border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                        className="border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
                     >
                         <option value="">All Divisions</option>
                         {DIVISIONS.map((div) => (
@@ -70,7 +70,7 @@ const BranchFilter = ({ filters, onFilterChange, onReset }: BranchFilterProps) =
                     <select
                         value={filters.district_name ?? ''}
                         onChange={(e) => handleChange('district_name', e.target.value)}
-                        className="border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                        className="border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
                     >
                         <option value="">All Districts</option>
                         {DISTRICTS.map((dist) => (
@@ -89,7 +89,7 @@ const BranchFilter = ({ filters, onFilterChange, onReset }: BranchFilterProps) =
                     <select
                         value={filters.area_name ?? ''}
                         onChange={(e) => handleChange('area_name', e.target.value)}
-                        className="border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                        className="border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
                     >
                         <option value="">All Areas</option>
                         {AREAS.map((area) => (

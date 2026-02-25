@@ -17,7 +17,7 @@ const ShareholdersList = () => {
             <div className="w-full max-w-full overflow-x-auto bg-white border border-gray-100 rounded-sm shadow-sm">
                 <div className="min-w-[800px]">
                     {/* Table Header */}
-                    <div className="grid grid-cols-[80px_1fr_250px_250px] bg-[#221c5f] text-white py-4 px-6">
+                    <div className="grid grid-cols-[80px_1fr_250px_250px] bg-primary text-white py-4 px-6">
                         <div className="font-semibold text-center text-sm">SL</div>
                         <div className="font-semibold text-center text-sm">Name Of Shareholders</div>
                         <div className="font-semibold text-center text-sm">No Of Shares</div>
