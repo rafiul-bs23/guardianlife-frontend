@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Shield, Check, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // Import your images

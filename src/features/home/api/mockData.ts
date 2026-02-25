@@ -12,6 +12,7 @@ import image2 from '../../../assets/images/home/Solutions/solutions2.png';
 import image3 from '../../../assets/images/home/Solutions/solutions3.png';
 import image4 from '../../../assets/images/home/Solutions/solutions4.png';
 import BusinessPastner1 from "../../../assets/images/home/BusinessPartners/BusinessPartner1.png";
+import guideYouImage from "../../../assets/images/home/guide-you.png";
 
 export type Partner = {
     id: number;
@@ -38,3 +39,19 @@ export const partners: Partner[] = [
     { id: 9, name: "Meridian", logo: BusinessPastner1 },
     { id: 10, name: "Meridian2", logo: BusinessPastner1 },
 ];
+
+export const MOCK_GUIDE_YOU_DATA = {
+    title: "May i guide you",
+    description: [
+        { text: "Let our ", color: "#464646" },
+        { text: "AI Assistant", color: "#f97316" },
+        { text: " help you ", color: "#464646", lineBreak: true },
+        { text: "find the ", color: "#464646" },
+        { text: "best policy", color: "#f97316" },
+        { text: " — just ", color: "#464646", lineBreak: true },
+        { text: "answer a few ", color: "#464646" },
+        { text: "quick questions!", color: "#f97316" }
+    ],
+    image: guideYouImage,
+    buttonText: "AI ASSISTANT"
+};
