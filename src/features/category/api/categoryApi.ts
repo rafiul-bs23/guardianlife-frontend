@@ -13,7 +13,7 @@ export const getRealCategoryProducts = async (
     if (subcategory) params.append('subcategory', subcategory);
 
     const queryString = params.toString();
-    const url = `/products${queryString ? `?${queryString}` : ''}`;
+    const url = `/products/${queryString ? `?${queryString}` : ''}`;
 
     const { data } = await axiosClient.get<CategoryApiResponse>(url);
     return data;
