@@ -1,5 +1,5 @@
 import Contentheader from "../../shared/Components/Contentheader.tsx";
-import BenefitsList from "./component/Benefits.tsx";
+import { BenefitsSection } from "./component/BenefitsSection";
 import { ShieldIcon, HeartIcon, StarIcon } from "lucide-react";
 import { CoverageList } from "./component/CoverageList.tsx";
 import { LifeCoverage } from "./component/LifeCoverage.tsx";
@@ -121,26 +121,8 @@ const Group = () => {
   return (
     <main className="overflow-hidden">
       {headerData && <GroupHeader data={headerData} />}
-      <div className="mt-16 lg:mt-[84px] px-4">
-        <Contentheader
-          title="Why Group Insurance Matters for Your Organization"
-          description="A Smarter Way to Care for Your Employees"
-        />
-      </div>
-
-      <div className="flex flex-col lg:flex-row mt-12 lg:mt-[90px] gap-8 lg:gap-0 px-4 lg:px-0">
-        <div className="w-full lg:w-1/2 lg:pl-[211px] lg:pr-8">
-          <div className="max-w-[696px] mx-auto lg:mx-0">
-            <BenefitsList />
-          </div>
-        </div>
-        <div className="w-full lg:w-1/2 lg:pl-8 lg:pr-[211px]">
-          <img
-            src="https://img.freepik.com/free-photo/businesspeople-having-good-time-meeting_1098-1786.jpg?semt=ais_hybrid"
-            alt="Header background"
-            className="w-full h-auto lg:h-[554px] lg:w-[712px] object-cover rounded-[35px]"
-          />
-        </div>
+      <div className="mx-[auto]">
+        <BenefitsSection />
       </div>
 
       <div className="mt-16 lg:mt-[124px] px-4">
