@@ -58,3 +58,34 @@ export const MOCK_BENEFITS_DATA = {
         },
     ]
 };
+
+export const MOCK_COVERAGE_DATA = {
+    header: {
+        title: "Comprehensive Coverage Under One Group Policy",
+        description: "Guardian Life offers a complete range of group insurance coverages that can be tailored to your organization's size, industry, and budget."
+    },
+    imgUrl: "https://glilapi.guardianlife.com.bd/images/1725268980177-483331562-Guardian%20Health%20Insurance.png",
+    coverages: [
+        {
+            id: 1,
+            iconName: "ShieldIcon",
+            iconColor: "#4A90D9",
+            title: "Life Coverage",
+            description: "Comprehensive life insurance including death benefits, accidental death, disability coverage, and critical illness protection for complete financial security.",
+        },
+        {
+            id: 2,
+            iconName: "HeartIcon",
+            iconColor: "#4CAF82",
+            title: "Health Coverage",
+            description: "Extensive medical coverage including in-patient treatment, maternity benefits, and out-patient care for everyday medical needs.",
+        },
+        {
+            id: 3,
+            iconName: "StarIcon",
+            iconColor: "#9B6FD4",
+            title: "Specialized Benefits",
+            description: "Additional coverage for dental and optical care, ensuring comprehensive healthcare support for all aspects of employee well-being.",
+        },
+    ]
+};

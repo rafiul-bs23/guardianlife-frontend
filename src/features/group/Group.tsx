@@ -1,7 +1,6 @@
 import Contentheader from "../../shared/Components/Contentheader.tsx";
 import { BenefitsSection } from "./component/BenefitsSection";
-import { ShieldIcon, HeartIcon, StarIcon } from "lucide-react";
-import { CoverageList } from "./component/CoverageList.tsx";
+import { CoverageSection } from "./component/CoverageSection";
 import { LifeCoverage } from "./component/LifeCoverage.tsx";
 import { CriticalIllnessList } from "./component/CriticalillnessList.tsx";
 import { TreatmentPlanList } from "./component/TreatmentPlanList.tsx";
@@ -19,26 +18,7 @@ import AppDownloadSection from "../../shared/Components/AppDownloadSection.tsx";
 
 const Group = () => {
   const { data: headerData, isLoading: isHeaderLoading } = useHeader();
-  const comprehensiveData = [
-    {
-      id: 1,
-      icon: <ShieldIcon size={18} color="#4A90D9" />,
-      title: "Life Coverage",
-      description: "Comprehensive life insurance including death benefits, accidental death, disability coverage, and critical illness protection for complete financial security.",
-    },
-    {
-      id: 2,
-      icon: <HeartIcon size={18} color="#4CAF82" />,
-      title: "Health Coverage",
-      description: "Extensive medical coverage including in-patient treatment, maternity benefits, and out-patient care for everyday medical needs.",
-    },
-    {
-      id: 3,
-      icon: <StarIcon size={18} color="#9B6FD4" />,
-      title: "Specialized Benefits",
-      description: "Additional coverage for dental and optical care, ensuring comprehensive healthcare support for all aspects of employee well-being.",
-    },
-  ];
+
   type LifeCoverageType = {
     id: number;
     title: string;
@@ -125,24 +105,8 @@ const Group = () => {
         <BenefitsSection />
       </div>
 
-      <div className="mt-16 lg:mt-[124px] px-4">
-        <Contentheader
-          title="Comprehensive Coverage Under One Group Policy"
-          description="Guardian Life offers a complete range of group insurance coverages that can be tailored to your organization's size, industry, and budget."
-        />
-      </div>
-
-      <div className="flex flex-col-reverse lg:flex-row mt-12 lg:mt-[90px] gap-8 lg:gap-0 px-4 lg:px-0">
-        <div className="w-full lg:w-1/2 lg:pl-[211px] lg:pr-8">
-          <img
-            src="https://glilapi.guardianlife.com.bd/images/1725268980177-483331562-Guardian%20Health%20Insurance.png"
-            alt="image"
-            className="w-full h-auto lg:h-[554px] lg:w-[712px] object-cover rounded-[35px]"
-          />
-        </div>
-        <div className="w-full lg:w-1/2 lg:pl-8">
-          <CoverageList items={comprehensiveData} />
-        </div>
+      <div className="mx-[auto]">
+        <CoverageSection />
       </div>
 
       <div className="mt-16 lg:mt-[124px] px-4">
