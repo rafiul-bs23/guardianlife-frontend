@@ -261,3 +261,11 @@ export const MOCK_BANK_PARTNERS_DATA = {
         description: "We are proud to collaborate with leading banks in Bangladesh"
     }
 };
+
+export const MOCK_STATS_DATA = [
+    { id: 1, value: "1,000+", label: "Life Coverage Policies Issued" },
+    { id: 2, value: "500+", label: "Claims Successfully Settled" },
+    { id: 3, value: "Trusted", label: "by Leading Banks & FIs" },
+    { id: 4, value: "Fast", label: "& Transparent Claim Process" },
+    { id: 5, value: "Dedicated", label: "Bancassurance Support Team" },
+];
