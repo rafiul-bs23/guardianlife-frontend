@@ -5,6 +5,7 @@ import FAQ from "../../shared/Components/Faq.tsx";
 import { WhyChooseQuickBuy } from "../../shared/Components/WhyChooseQuickBuy.tsx";
 
 import { useCategoryProducts } from "../category/hooks/useCategoryProducts.ts";
+import Contentheader from "../../shared/Components/Contentheader.tsx";
 
 const QuickBuyCategory = () => {
   const { data: headerData, isLoading: isHeaderLoading } = useHeader();
@@ -36,13 +37,10 @@ const QuickBuyCategory = () => {
 
       {/* Term Life Section */}
       <div className="flex flex-col items-center mt-12 lg:mt-[84px] px-4 lg:px-0">
-        <p className="font-bold text-[28px] lg:text-[36px] leading-[32px] text-center tracking-[0.02em] uppercase">
-          term life insurance
-        </p>
-        <p className="font-normal text-[18px] lg:text-[24px] leading-[32px] text-center tracking-[0.02em] text-black w-full max-w-[1039px] mt-8">
-          Get instant coverage with our digital-first policies. Complete your purchase online in minutes with immediate
-          policy issuance.
-        </p>
+        <Contentheader
+          title="term life insurance"
+          description="Get instant coverage with our digital-first policies. Complete your purchase online in minutes with immediate policy issuance."
+        />
 
         {isTermLifeLoading ? (
           <div className="flex justify-center items-center py-20 w-full">
@@ -70,12 +68,10 @@ const QuickBuyCategory = () => {
 
       {/* Savings Plan Section */}
       <div className="flex flex-col items-center mt-16 lg:mt-[143px] px-4 lg:px-0">
-        <p className="font-bold text-[28px] lg:text-[36px] leading-[32px] text-center tracking-[0.02em] uppercase">
-          savings plan
-        </p>
-        <p className="font-normal text-[18px] lg:text-[24px] leading-[32px] text-center tracking-[0.02em] text-black w-full max-w-[1039px] mt-8">
-          Offers a dual benefit of life insurance protection and a savings component. Typically, a policyholder pays monthly premiums.
-        </p>
+        <Contentheader
+          title="savings plan"
+          description="Offers a dual benefit of life insurance protection and a savings component. Typically, a policyholder pays monthly premiums."
+        />
 
         {isSavingsLoading ? (
           <div className="flex justify-center items-center py-20 w-full">
@@ -103,12 +99,10 @@ const QuickBuyCategory = () => {
 
       {/* Special Plans Section */}
       <div className="flex flex-col items-center mt-16 lg:mt-[143px] px-4 lg:px-0">
-        <p className="font-bold text-[28px] lg:text-[36px] leading-[32px] text-center tracking-[0.02em] uppercase">
-          special insurance plans
-        </p>
-        <p className="font-normal text-[18px] lg:text-[24px] leading-[32px] text-center tracking-[0.02em] text-black w-full max-w-[1039px] mt-8">
-          Special insurance plans are designed to cover the financial risks in accidental indemnity, personal accident coverage, critical illnesses like Cancer Care, Cardiac Insurance etc.
-        </p>
+        <Contentheader
+          title="special insurance plans"
+          description="Special insurance plans are designed to cover the financial risks in accidental indemnity, personal accident coverage, critical illnesses like Cancer Care, Cardiac Insurance etc."
+        />
 
         {isSpecialPlansLoading ? (
           <div className="flex justify-center items-center py-20 w-full">
