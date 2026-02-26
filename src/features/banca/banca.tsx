@@ -1,9 +1,9 @@
 import { StatsBar } from "./components/StatsBar.tsx";
 import Contentheader from "../../shared/Components/Contentheader.tsx";
 import { WhyBancassuranceMattersSection } from "./components/WhyBancassuranceMattersSection.tsx";
-import { FacilitiesOfBancassurance } from "./components/FacilitiesOfBancassurance.tsx";
-import { BenefitsOfBancassurance } from "./components/BenefitsOfBancassurance.tsx";
-import { BancassuranceProductSolutions } from "./components/BancassuranceProductSolutions.tsx";
+import { FacilitiesOfBancassuranceSection } from "./components/FacilitiesOfBancassuranceSection.tsx";
+import { BenefitsOfBancassuranceSection } from "./components/BenefitsOfBancassuranceSection.tsx";
+import { BancassuranceProductSolutionsSection } from "./components/BancassuranceProductSolutionsSection.tsx";
 import { BankPartners } from "./components/BankPartners.tsx";
 import FAQ from "../../shared/Components/Faq.tsx";
 import BancaHeader from "./components/BancaHeader.tsx";
@@ -28,35 +28,11 @@ const Banca = () => {
 
       <WhyBancassuranceMattersSection />
 
-      <div className="mt-16 lg:mt-[117px] px-4 lg:px-0">
-        <Contentheader
-          title="Facilities of Bancassurance with Guardian Life"
-          description="We provide end-to-end Bancassurance support to ensure seamless integration and long-term success"
-        />
-        <div className="mt-12 lg:mt-[82px]">
-          <FacilitiesOfBancassurance />
-        </div>
-      </div>
+      <FacilitiesOfBancassuranceSection />
 
-      <div className="mt-16 lg:mt-[129px] px-4 lg:px-0">
-        <Contentheader
-          title="Benefits of Bancassurance"
-          description="Discover how Guardian Life's Bancassurance solutions create value for both customers and banking partners"
-        />
-        <div className="mt-12 lg:mt-[43px]">
-          <BenefitsOfBancassurance />
-        </div>
-      </div>
+      <BenefitsOfBancassuranceSection />
 
-      <div className="mt-16 lg:mt-[199px] px-4 lg:px-0">
-        <Contentheader
-          title="Bancassurance Product Solutions"
-          description="Comprehensive protection solutions designed for diverse banking needs"
-        />
-        <div className="mt-12 lg:mt-[60px]">
-          <BancassuranceProductSolutions />
-        </div>
-      </div>
+      <BancassuranceProductSolutionsSection />
 
       <div className="flex flex-col gap-[40px] w-full px-4 lg:px-[100px] xl:px-[214px] mt-16 md:mt-[80px]">
         <div className="flex flex-col lg:flex-row gap-[40px]">

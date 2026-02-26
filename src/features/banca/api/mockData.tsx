@@ -214,3 +214,24 @@ export const MOCK_WHY_BANCASSURANCE_DATA = {
         footer: "When Implemented With The Right Strategy And Operational Excellence, Bancassurance Creates A Win-Win Ecosystem For Customers, Banks, And Insurers Alike."
     }
 };
+
+export const MOCK_FACILITIES_DATA = {
+    header: {
+        title: "Facilities of Bancassurance with Guardian Life",
+        description: "We provide end-to-end Bancassurance support to ensure seamless integration and long-term success"
+    }
+};
+
+export const MOCK_BANCA_BENEFITS_DATA = {
+    header: {
+        title: "Benefits of Bancassurance",
+        description: "Discover how Guardian Life's Bancassurance solutions create value for both customers and banking partners"
+    }
+};
+
+export const MOCK_PRODUCT_SOLUTIONS_DATA = {
+    header: {
+        title: "Bancassurance Product Solutions",
+        description: "Comprehensive protection solutions designed for diverse banking needs"
+    }
+};
