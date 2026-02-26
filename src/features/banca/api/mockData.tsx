@@ -235,3 +235,29 @@ export const MOCK_PRODUCT_SOLUTIONS_DATA = {
         description: "Comprehensive protection solutions designed for diverse banking needs"
     }
 };
+
+export const MOCK_ADDITIONAL_PRODUCTS_DATA = [
+    {
+        title: "SME Loan",
+        description1: "Settlement of outstanding liabilities in case of life casualties",
+        description2: null
+    },
+    {
+        title: "Employee Insurance",
+        description1: "Customized insurance solutions bundled with salary or employee accounts",
+        description2: "Comprehensive coverage at minimal cost"
+    }
+];
+
+export const MOCK_DEPOSITORY_INSURANCE_DATA = {
+    title: "Depository Insurance Products",
+    description1: "Cash assurance for current and savings accounts",
+    description2: "Customized insurance solutions for DPS and Fixed Deposits"
+};
+
+export const MOCK_BANK_PARTNERS_DATA = {
+    header: {
+        title: "Our Bancassurance Partners",
+        description: "We are proud to collaborate with leading banks in Bangladesh"
+    }
+};

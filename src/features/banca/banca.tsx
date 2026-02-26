@@ -1,10 +1,10 @@
 import { StatsBar } from "./components/StatsBar.tsx";
-import Contentheader from "../../shared/Components/Contentheader.tsx";
 import { WhyBancassuranceMattersSection } from "./components/WhyBancassuranceMattersSection.tsx";
 import { FacilitiesOfBancassuranceSection } from "./components/FacilitiesOfBancassuranceSection.tsx";
 import { BenefitsOfBancassuranceSection } from "./components/BenefitsOfBancassuranceSection.tsx";
 import { BancassuranceProductSolutionsSection } from "./components/BancassuranceProductSolutionsSection.tsx";
-import { BankPartners } from "./components/BankPartners.tsx";
+import { AdditionalProductsSection } from "./components/AdditionalProductsSection.tsx";
+import { BankPartnersSection } from "./components/BankPartnersSection.tsx";
 import FAQ from "../../shared/Components/Faq.tsx";
 import BancaHeader from "./components/BancaHeader.tsx";
 import { useHeader } from "./hooks/useHeader.ts";
@@ -34,61 +34,9 @@ const Banca = () => {
 
       <BancassuranceProductSolutionsSection />
 
-      <div className="flex flex-col gap-[40px] w-full px-4 lg:px-[100px] xl:px-[214px] mt-16 md:mt-[80px]">
-        <div className="flex flex-col lg:flex-row gap-[40px]">
+      <AdditionalProductsSection />
 
-          <div
-            className="flex-1 min-w-0 bg-white rounded-[12px] px-[20px] py-[20px] shadow-[0_1px_6px_rgba(0,0,0,0.06)]">
-            <p className="font-bold text-[24px] leading-[32px] tracking-[0.02em]">
-              SME Loan
-            </p>
-            <p className="font-normal text-[16px] leading-[32px] tracking-[0.02em]">
-              Settlement of outstanding liabilities in case of life casualties
-            </p>
-          </div>
-
-          <div
-            className="flex-1 min-w-0 bg-white rounded-[12px] px-[20px] py-[20px] shadow-[0_1px_6px_rgba(0,0,0,0.06)]">
-            <p className="font-bold text-[24px] leading-[32px] tracking-[0.02em]">
-              Employee Insurance
-            </p>
-            <p className="font-normal text-[16px] leading-[32px] tracking-[0.02em]">
-              Customized insurance solutions bundled with salary or employee accounts
-            </p>
-            <p className="font-normal text-[16px] leading-[32px] tracking-[0.02em]">
-              Comprehensive coverage at minimal cost
-            </p>
-          </div>
-
-        </div>
-        <div className="flex gap-[12px]">
-          <div className="w-full bg-[#EEF1F8] rounded-[12px] px-6 py-6 flex flex-col lg:flex-row gap-6 lg:gap-[24px]">
-            <div className="flex-1">
-              <p className="font-bold text-[24px] leading-[32px] tracking-[0.02em]">
-                Depository Insurance Products
-              </p>
-              <p className="font-normal text-[16px] leading-[32px] tracking-[0.02em] mt-2">
-                Cash assurance for current and savings accounts
-              </p>
-            </div>
-            <div className="flex-1 flex items-start lg:items-center">
-              <p className="font-normal text-[16px] leading-[32px] tracking-[0.02em]">
-                Customized insurance solutions for DPS and Fixed Deposits
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-20 lg:mt-[100px] pt-16 lg:pt-[96px] bg-[#F6F6F6] px-4 lg:px-0">
-        <Contentheader
-          title="Our Bancassurance Partners"
-          description="We are proud to collaborate with leading banks in Bangladesh"
-        />
-        <div className="mt-12 lg:mt-[199px] pb-12">
-          <BankPartners />
-        </div>
-      </div>
+      <BankPartnersSection />
 
       <div className="mt-16 lg:mt-[300px] px-4 lg:px-0">
         <FAQ />
