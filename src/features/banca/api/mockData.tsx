@@ -195,3 +195,22 @@ export const bankPartners: BankPartner[] = [
     { id: 2, logo: image2, alt: "Bank 2" },
     { id: 3, logo: image3, alt: "Bank 3" },
 ];
+
+export const MOCK_WHY_BANCASSURANCE_DATA = {
+    header: {
+        title: "Why Bancassurance Matters",
+        description: "In an evolving financial landscape, banks are increasingly exposed to credit risk while customers seek greater financial security. Bancassurance bridges this gap by integrating life insurance protection directly into banking products—ensuring continuity, protection, and long-term value for all stakeholders."
+    },
+    imgUrl: "https://glilapi.guardianlife.com.bd/images/1725268160788-397856237-Children.jpg",
+    whatIsBancassurance: {
+        title: "What Is Bancassurance?",
+        subtitle1: "Bancassurance Is A Strategic Collaboration Between Banks And Life Insurance Companies That Enables Banks To Offer Insurance Solutions Through Their Existing Distribution Channels.",
+        subtitle2: "This Partnership Enhances Traditional Banking Products By Embedding Life Insurance Coverage, Helping To:",
+        bulletPoints: [
+            "Protect Customers And Their Families Against Financial Uncertainty",
+            "Mitigate Credit Risk Arising From Death, Disability, Or Critical Illness",
+            "Strengthen Long-Term Customer Relationships",
+        ],
+        footer: "When Implemented With The Right Strategy And Operational Excellence, Bancassurance Creates A Win-Win Ecosystem For Customers, Banks, And Insurers Alike."
+    }
+};

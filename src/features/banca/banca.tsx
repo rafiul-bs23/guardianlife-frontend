@@ -1,6 +1,6 @@
 import { StatsBar } from "./components/StatsBar.tsx";
 import Contentheader from "../../shared/Components/Contentheader.tsx";
-import { WhatIsBancassurance } from "./components/WhatIsBancassurance.tsx";
+import { WhyBancassuranceMattersSection } from "./components/WhyBancassuranceMattersSection.tsx";
 import { FacilitiesOfBancassurance } from "./components/FacilitiesOfBancassurance.tsx";
 import { BenefitsOfBancassurance } from "./components/BenefitsOfBancassurance.tsx";
 import { BancassuranceProductSolutions } from "./components/BancassuranceProductSolutions.tsx";
@@ -26,24 +26,7 @@ const Banca = () => {
 
       <StatsBar />
 
-      <div className="mt-16 lg:mt-[77px] px-4 lg:px-0">
-        <Contentheader
-          title="Why Bancassurance Matters"
-          description="In an evolving financial landscape, banks are increasingly exposed to credit risk while customers seek greater financial security. Bancassurance bridges this gap by integrating life insurance protection directly into banking products—ensuring continuity, protection, and long-term value for all stakeholders."
-        />
-        <div className="flex flex-col-reverse lg:flex-row mt-12 mb-12 lg:mt-[90px] gap-8 lg:gap-0 max-w-7xl mx-auto">
-          <div className="w-full lg:w-1/2 lg:pl-[50px] xl:pl-[210px] lg:pr-8">
-            <WhatIsBancassurance />
-          </div>
-          <div className="w-full lg:w-1/2 lg:pl-8 flex justify-center">
-            <img
-              src="https://glilapi.guardianlife.com.bd/images/1725268160788-397856237-Children.jpg"
-              alt="image"
-              className="w-full max-w-[649px] h-auto lg:h-[505px] object-cover rounded-[35px]"
-            />
-          </div>
-        </div>
-      </div>
+      <WhyBancassuranceMattersSection />
 
       <div className="mt-16 lg:mt-[117px] px-4 lg:px-0">
         <Contentheader
