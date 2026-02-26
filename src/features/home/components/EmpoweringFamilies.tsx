@@ -3,6 +3,8 @@ import ActionButton from "../../../shared/Components/BaseButton.tsx";
 import { useLayoutEffect, useRef, useState } from "react";
 import { partners } from "../api/mockData";
 import type { Partner } from "../api/mockData";
+import Button from "../../../shared/Components/Button.tsx";
+import { Link } from "react-router-dom";
 
 type LogoGridProps = {
   partners: Partner[];
@@ -54,10 +56,12 @@ const EmpoweringFamilies = () => {
             Affordable protection for all — Our microinsurance partners with trusted NGOs to bring financial security to underserved communities.
           </p>
 
-          <ActionButton
-            text="Check Services"
-            onClick={() => console.log("Check Services clicked")}
-          />
+          <Link to={'/micro'}>
+            <Button
+              label="Check Services"
+              variant="solid-orange"
+            />
+          </Link>
         </div>
       </div>
     </div>

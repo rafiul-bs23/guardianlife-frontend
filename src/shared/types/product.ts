@@ -2,6 +2,7 @@
 export interface ContentItem {
     title: string;
     description: string;
+    show_popup?: boolean;
 }
 
 export interface QuickProductSection {

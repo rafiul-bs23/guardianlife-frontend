@@ -116,19 +116,21 @@ export const MOCK_SUCCESS_DATA: ProductSuccessResponse = {
             content: [
                 {
                     title: "PDAB",
-                    description: "Permanent Disability Accidental Benefit"
+                    description: "Permanent Disability Accidental Benefit",
                 },
                 {
                     title: "DIAB",
-                    description: "Double Indemnity Accidental Benefit"
+                    description: "Double Indemnity Accidental Benefit",
                 },
                 {
                     title: "HI",
-                    description: "Health Insurance"
+                    description: "Health Insurance",
+                    show_popup: true
                 },
                 {
                     title: "CI",
-                    description: "Critical Illness"
+                    description: "Critical Illness",
+                    show_popup: true
                 }
             ]
         },
@@ -189,37 +191,7 @@ export const MOCK_SUCCESS_DATA: ProductSuccessResponse = {
                 }
             ]
         },
-        why_choose_coverage_section: {
-            title: "WHY CHOOSE THIS COVERAGE",
-            description: "Built for people who value their time",
-            main_card: {
-                title: "Claims settled in three days",
-                description: "No waiting around. No endless paperwork. Money reaches your family when they need it most",
-                image: "https://t3.ftcdn.net/jpg/04/20/44/28/240_F_420442840_Ou3yjU6FXpJBFTz2kRqrDblP1TCtTXUi.jpg"
-            },
-            cards: [
-                {
-                    title: "Flexibility in how you pay",
-                    description: "Monthly, quarterly or annual options",
-                    image: "https://t3.ftcdn.net/jpg/04/20/44/28/240_F_420442840_Ou3yjU6FXpJBFTz2kRqrDblP1TCtTXUi.jpg"
-                },
-                {
-                    title: "Digital policy from start to finish",
-                    description: "Everything online, nothing in the mail",
-                    image: "https://t3.ftcdn.net/jpg/04/20/44/28/240_F_420442840_Ou3yjU6FXpJBFTz2kRqrDblP1TCtTXUi.jpg"
-                },
-                {
-                    title: "Coverage you can adjust later",
-                    description: "Life changes. Your policy can too",
-                    image: "https://t3.ftcdn.net/jpg/04/20/44/28/240_F_420442840_Ou3yjU6FXpJBFTz2kRqrDblP1TCtTXUi.jpg"
-                },
-                {
-                    title: "Tax benefits built in",
-                    description: "Deductions available under section",
-                    image: "https://t3.ftcdn.net/jpg/04/20/44/28/240_F_420442840_Ou3yjU6FXpJBFTz2kRqrDblP1TCtTXUi.jpg"
-                }
-            ]
-        },
+
         learn_more_section: {
             content: [
                 {
@@ -247,3 +219,57 @@ export const MOCK_ERROR_DATA: ProductErrorResponse = {
         }
     ]
 };
+
+export const BOOST_YOUR_COVERAGE = {
+    "hi": {
+        "title": "Health Insurance",
+        "description": "Comprehensive health insurance plans designed to protect you and your family with flexible payment options, maternity benefits, extended hospital stay facilities, and access to an extensive partner hospital network.",
+        "highlights": [
+            "Wide range of plans for your suitability",
+            "Convenient premium payment options (same as base plan)",
+            "Coverage up to 5 lac",
+            "Opportunity to cover family (Spouse & Child)",
+            "Options to choose maternity benefit",
+            "Long-term hospital stay benefits",
+            "Facilities for stay in ICU/CCU/HDU",
+            "Premium discount facility",
+            "Attractive discounts at partner hospitals & clinical labs with Guardian Life Card and Digital Loyalty Card",
+            "Access to a network of more than 345 partner hospitals & clinical labs"
+        ],
+        "plans": [
+            { "name": "Bronze", "limit_per_year": 50000 },
+            { "name": "Bronze+", "limit_per_year": 100000 },
+            { "name": "Silver", "limit_per_year": 150000 },
+            { "name": "Silver+", "limit_per_year": 200000 },
+            { "name": "Gold", "limit_per_year": 300000 },
+            { "name": "Gold+", "limit_per_year": 400000 },
+            { "name": "Platinum", "limit_per_year": 500000 }
+        ],
+        "brochure_pdf": "https://example.com/brochures/health-insurance.pdf"
+    },
+    "ci": {
+        "title": "Critical Illness",
+        "description": "Comprehensive health insurance plans designed to protect you and your family with flexible payment options, maternity benefits, extended hospital stay facilities, and access to an extensive partner hospital network.",
+        "highlights": [
+            "Wide range of plans for your suitability",
+            "Convenient premium payment options (same as base plan)",
+            "Coverage up to 5 lac",
+            "Opportunity to cover family (Spouse & Child)",
+            "Options to choose maternity benefit",
+            "Long-term hospital stay benefits",
+            "Facilities for stay in ICU/CCU/HDU",
+            "Premium discount facility",
+            "Attractive discounts at partner hospitals & clinical labs with Guardian Life Card and Digital Loyalty Card",
+            "Access to a network of more than 345 partner hospitals & clinical labs"
+        ],
+        "plans": [
+            { "name": "Bronze", "limit_per_year": 50000 },
+            { "name": "Bronze+", "limit_per_year": 100000 },
+            { "name": "Silver", "limit_per_year": 150000 },
+            { "name": "Silver+", "limit_per_year": 200000 },
+            { "name": "Gold+", "limit_per_year": 400000 },
+            { "name": "Platinum", "limit_per_year": 500000 }
+        ],
+        "brochure_pdf": "https://example.com/brochures/health-insurance.pdf"
+    }
+}

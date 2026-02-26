@@ -2,23 +2,25 @@ import React from 'react';
 import type { HeaderData } from '../../../shared/types/header';
 import GenericHeader from '../../../shared/Components/GenericHeader';
 import Button from '../../../shared/Components/Button';
+import { usePopup } from '../../../shared/context/PopupContext';
 
 interface ProductHeaderProps {
     data: HeaderData;
 }
 
 const ProductHeader: React.FC<ProductHeaderProps> = ({ data }) => {
+    const { showPopup } = usePopup();
     const actions = (
         <>
             <Button
                 label="Calculate Premium"
                 variant="outline-white"
-                onClick={() => console.log('Calculate Premium clicked')}
+                onClick={() => showPopup({ title: "Calculate Premium", badge: "Coming Soon", })}
             />
             <Button
                 label="AI Assistant"
                 variant="solid-white"
-                onClick={() => console.log('AI Assistant clicked')}
+                onClick={() => showPopup({ title: "AI Assistant", badge: "Coming Soon", })}
             />
         </>
     );

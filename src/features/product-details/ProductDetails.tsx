@@ -3,7 +3,6 @@ import ProductJourney from './components/ProductJourney';
 import KeyHighlights from './components/KeyHighlights';
 import SupplementaryBenefits from './components/SupplementaryBenefits';
 import PlanBreakdown from './components/PlanBreakdown';
-import WhyChooseCoverage from './components/WhyChooseCoverage';
 import ProductSupport from '../../shared/Components/ProductSupport';
 import LocalAgent from './components/LocalAgent';
 import { useProduct } from './hooks/useProduct';
@@ -36,7 +35,6 @@ const ProductDetails = () => {
             learnMore={data.learn_more_section}
           />
         )}
-        {data?.why_choose_coverage_section && <WhyChooseCoverage data={data.why_choose_coverage_section} />}
         <LocalAgent />
       </section>
     </>

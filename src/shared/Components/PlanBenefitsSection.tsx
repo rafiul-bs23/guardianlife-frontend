@@ -2,6 +2,7 @@ import React from 'react';
 import type { PlanBenefitsSection as PlanBenefitsSectionType } from '../types/product';
 import Button from './Button';
 import { ShieldCheck } from 'lucide-react';
+import { usePopup } from '../context/PopupContext';
 
 interface PlanBenefitsSectionProps {
     data: PlanBenefitsSectionType;
@@ -9,7 +10,7 @@ interface PlanBenefitsSectionProps {
 
 const PlanBenefitsSection: React.FC<PlanBenefitsSectionProps> = ({ data }) => {
     if (!data) return null;
-
+    const { showPopup } = usePopup();
     return (
         <section className="w-full bg-[#F4F7F9]">
             <div className="max-w-[1514px] mx-auto px-4 py-20 md:px-8">
@@ -65,7 +66,7 @@ const PlanBenefitsSection: React.FC<PlanBenefitsSectionProps> = ({ data }) => {
                             <Button
                                 label="Calculate Tax"
                                 variant="outline-orange"
-                                onClick={() => console.log('Calculate Tax clicked')}
+                                onClick={() => showPopup({ title: "Calculate Tax", badge: "Coming Soon", })}
                             />
                         </div>
                     </div>

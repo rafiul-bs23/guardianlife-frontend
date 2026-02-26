@@ -1,11 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronRight, type LucideIcon } from 'lucide-react';
 
 export type ButtonVariant = 'base' | 'outline-orange' | 'solid-orange' | 'outline-white' | 'solid-white';
 
 interface BaseButtonProps {
-    label: string;
-    variant: ButtonVariant;
+    label?: string;
+    variant?: ButtonVariant;
+    to?: string;
+    href?: string;
+    target?: '_blank' | '_self' | '_parent' | '_top';
     onClick?: () => void;
     className?: string;
     icon?: LucideIcon;
@@ -16,7 +20,10 @@ interface BaseButtonProps {
 
 const Button: React.FC<BaseButtonProps> = ({
     label,
-    variant,
+    variant = 'solid-orange',
+    to,
+    href,
+    target = '_blank',
     onClick,
     className = '',
     icon: Icon = ChevronRight,
@@ -58,24 +65,48 @@ const Button: React.FC<BaseButtonProps> = ({
 
     const styles = getVariantStyles();
 
-    return (
-        <button
-            type={type}
-            onClick={onClick}
-            disabled={disabled}
-            className={`
-                group flex items-center justify-center rounded-full transition-all active:scale-[0.98]
-                ${styles.button}
-                ${disabled ? 'opacity-50 cursor-not-allowed grayscale' : ''}
-                ${className}
-            `}
-        >
+    const sharedClassName = `
+        group flex items-center justify-center rounded-full transition-all active:scale-[0.98]
+        ${styles.button}
+        ${disabled ? 'opacity-50 cursor-not-allowed grayscale' : ''}
+        ${className}
+    `;
+
+    const content = (
+        <>
             <span className={`tracking-tight leading-none text-lg font-semibold ${labelClass}`}>{label}</span>
             {styles.iconCircle && (
                 <div className={`ml-8 w-11 h-11 rounded-full flex items-center justify-center transition-colors ${styles.iconCircle}`}>
                     <Icon className="w-6 h-6" />
                 </div>
             )}
+        </>
+    );
+
+    if (to) {
+        return (
+            <Link to={to} className={sharedClassName}>
+                {content}
+            </Link>
+        );
+    }
+
+    if (href) {
+        return (
+            <a href={href} target={target} rel={target === '_blank' ? 'noopener noreferrer' : undefined} className={sharedClassName}>
+                {content}
+            </a>
+        );
+    }
+
+    return (
+        <button
+            type={type}
+            onClick={onClick}
+            disabled={disabled}
+            className={sharedClassName}
+        >
+            {content}
         </button>
     );
 };

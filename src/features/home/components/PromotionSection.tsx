@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react';
-import ActionButton from "../../../shared/Components/BaseButton.tsx"; // or custom SVG
 import AppPromotionImage from "../../../assets/images/home/AppPromotion/AppPromotion.png"
+import AppStoreButtons from '../../../shared/Components/AppStoreButtons';
 
 const AppPromotion = () => {
   return (
@@ -22,17 +22,8 @@ const AppPromotion = () => {
             DOWNLOAD NOW ON ANDROID & IOS TO MANAGE YOUR INSURANCE ANYTIME, ANYWHERE.
           </p>
         </div>
+        <AppStoreButtons className='flex flex-col sm:flex-row gap-4 justify-center items-center' />
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <ActionButton
-            text="Google Play"
-            onClick={() => console.log("Google play clicked")}
-          />
-          <ActionButton
-            text="App Store"
-            onClick={() => console.log("App store clicked")}
-          />
-        </div>
 
         <div className="relative mt-8 flex justify-center px-4 md:px-0">
           <div

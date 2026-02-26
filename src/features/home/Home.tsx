@@ -2,7 +2,6 @@ import sponsore1 from "../../assets/images/home/sponsore1.png";
 import sponsore2 from "../../assets/images/home/sponsore2.png";
 import sponsore3 from "../../assets/images/home/sponsore3.png";
 import guideYou from "../../assets/images/home/guide-you.png";
-import ActionButton from "../../shared/Components/BaseButton.tsx";
 import HomeHeader from "./components/HomeHeader";
 import { MOCK_HOME_HEADER_DATA } from "./api/mockData";
 
@@ -12,8 +11,12 @@ import BusinessPartners from "./components/BusinessPartners.tsx";
 import EmpoweringFamilies from "./components/EmpoweringFamilies.tsx";
 import AppPromotion from "./components/PromotionSection.tsx";
 import ContactForm from "./components/contact.tsx";
+import Button from "../../shared/Components/Button.tsx";
+import { usePopup } from "../../shared/context/PopupContext";
 
 const Home = () => {
+  const { showPopup } = usePopup();
+
   return (
     <div className="min-h-screen bg-white">
       <HomeHeader data={MOCK_HOME_HEADER_DATA} />
@@ -54,10 +57,10 @@ const Home = () => {
               find the <span className="text-orange-500">best policy</span> — just <br className="hidden lg:block" />
               answer a few <span className="text-orange-500">quick questions!</span>
             </p>
-            <ActionButton
-              text="Find your policy"
-              className=""
-              onClick={() => console.log("clicked")}
+            <Button
+              label="AI Assistant"
+              variant="solid-orange"
+              onClick={() => showPopup({ title: "AI Assistant", badge: "Coming Soon", })}
             />
 
           </div>

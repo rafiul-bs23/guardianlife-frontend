@@ -2,6 +2,7 @@ import React from 'react';
 import { Search, ShieldCheck, Wallet, Zap, ShieldAlert, ChevronDown } from 'lucide-react';
 import type { HeaderData } from '../../../shared/types/header';
 import GenericHeader from '../../../shared/Components/GenericHeader';
+import { Link } from 'react-router-dom';
 
 interface MetricBadgeProps {
     icon: React.ReactNode;
@@ -83,7 +84,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                         />
 
                         {/* Middle Right: Quick Buy (Large) */}
-                        <button onClick={() => { }}>
+                        <Link to="/quick-buy-category" className=" pointer-events-auto">
                             <MetricBadge
                                 icon={<Zap size={32} className="md:size-10 lg:size-14" />}
                                 value="Quick"
@@ -91,7 +92,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                                 size="lg"
                                 className="absolute md:top-[10%] top-[-0%] right-[0%] md:right-[6%] !text-[#FFD700]"
                             />
-                        </button>
+                        </Link>
 
                         {/* Bottom Right: 3 Days Claim Settlement */}
                         <MetricBadge
