@@ -1,29 +1,30 @@
-const checkItems: string[] = [
-  "Protect Customers And Their Families Against Financial Uncertainty",
-  "Mitigate Credit Risk Arising From Death, Disability, Or Critical Illness",
-  "Strengthen Long-Term Customer Relationships",
-];
+type WhatIsBancassuranceProps = {
+  data: {
+    title: string;
+    subtitle1: string;
+    subtitle2: string;
+    bulletPoints: string[];
+    footer: string;
+  };
+};
 
-export function WhatIsBancassurance() {
+export function WhatIsBancassurance({ data }: WhatIsBancassuranceProps) {
   return (
     <div className="flex flex-col w-full text-[#534E4E]">
       <p className="font-bold text-[24px] leading-[32px] tracking-[0.02em]">
-        What Is Bancassurance?
+        {data.title}
       </p>
 
       <p className="font-medium text-[24px] leading-[29px] text-[#534E4E] mt-[14px]">
-        Bancassurance Is A Strategic Collaboration Between Banks And Life
-        Insurance Companies That Enables Banks To Offer Insurance Solutions
-        Through Their Existing Distribution Channels.
+        {data.subtitle1}
       </p>
 
       <p className="font-medium text-[24px] leading-[29px] text-[#534E4E] mt-[20px]">
-        This Partnership Enhances Traditional Banking Products By Embedding Life
-        Insurance Coverage, Helping To:
+        {data.subtitle2}
       </p>
 
       <div className="flex flex-col gap-[35px] mt-[30px]">
-        {checkItems.map((item, index) => (
+        {data.bulletPoints.map((item, index) => (
           <div key={index} className="flex items-center gap-[12px]">
             <div className="w-[26px] h-[26px] rounded-full bg-[#E8823A] flex items-center justify-center flex-shrink-0">
               <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
@@ -44,9 +45,7 @@ export function WhatIsBancassurance() {
       </div>
 
       <p className="font-medium text-[24px] leading-[29px] text-[#534E4E] mt-[40px]">
-        When Implemented With The Right Strategy And Operational Excellence,
-        Bancassurance Creates A Win-Win Ecosystem For Customers, Banks, And
-        Insurers Alike.
+        {data.footer}
       </p>
     </div>
   );
