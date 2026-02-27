@@ -107,9 +107,14 @@ export interface BoostCoveragePlan {
 export interface BoostCoverageItem {
   title: string;
   description: string;
-  highlights: string[];
-  plans: BoostCoveragePlan[];
-  brochure_pdf: string;
+  features_title?: string;
+  features_description?: string;
+  highlights?: string[];
+  terms_title?: string;
+  terms_description?: string;
+  terms_highlights?: string[];
+  plans?: BoostCoveragePlan[];
+  brochure_pdf?: string;
 }
 
 export type BoostYourCoverage = Record<string, BoostCoverageItem>;

@@ -117,10 +117,12 @@ export const MOCK_SUCCESS_DATA: ProductSuccessResponse = {
                 {
                     title: "PDAB",
                     description: "Permanent Disability Accidental Benefit",
+                    show_popup: true
                 },
                 {
                     title: "DIAB",
                     description: "Double Indemnity Accidental Benefit",
+                    show_popup: true
                 },
                 {
                     title: "HI",
@@ -222,19 +224,28 @@ export const MOCK_ERROR_DATA: ProductErrorResponse = {
 
 export const BOOST_YOUR_COVERAGE = {
     "hi": {
-        "title": "Health Insurance",
-        "description": "Comprehensive health insurance plans designed to protect you and your family with flexible payment options, maternity benefits, extended hospital stay facilities, and access to an extensive partner hospital network.",
+        "title": "Guardian Health Insurance",
+        "description": "Welcome to Guardian Life Insurance, where we prioritize your health and well-being with our comprehensive range of health insurance plans. With multiple payment options and coverage, our plans are designed to suit your needs. Extend coverage to your family, choose from various maternity benefits, and enjoy additional perks such as long-time hospital stay benefits and facilities for stays in ICU/CCU/HDU. As a Guardian Life Insurance policyholder, you gain access to exclusive discounts at our partner hospitals and clinical labs, with a network of over 350+ facilities. Trust us to provide reliable and affordable coverage for a healthy future.",
         "highlights": [
             "Wide range of plans for your suitability",
-            "Convenient premium payment options (same as base plan)",
+            "Convenient Premium Payment Options (same as base plan)",
             "Coverage up to 5 lac",
             "Opportunity to cover family (Spouse & Child)",
             "Options to choose maternity benefit",
-            "Long-term hospital stay benefits",
+            "Long time hospital stay benefits",
             "Facilities for stay in ICU/CCU/HDU",
-            "Premium discount facility",
-            "Attractive discounts at partner hospitals & clinical labs with Guardian Life Card and Digital Loyalty Card",
-            "Access to a network of more than 345 partner hospitals & clinical labs"
+            "Premium Discount Facility",
+            "Enjoy attractive discounts at partner hospitals & clinical labs with Guardian Life Card and Digital Loyalty Card",
+            "Access to a rich network of more than 345 partner hospitals & clinical labs"
+        ],
+        "terms_title": "Terms and Conditions",
+        "terms_highlights": [
+            "Owner & Spouse Age: Min. 18 years to Max. 55 years. At maturity age cannot exceed 65 years",
+            "Coverage amount cannot exceed 50% of base plan coverage amount and/or max. 5 lac",
+            "Child Age: Min. 6 months to 24 years. At maturity age cannot exceed 25 years",
+            "Waiting period: 30 days",
+            "This is a supplementary contract and/or rider benefit which cannot be purchased as a standalone product",
+            "Discount applicable if no claim is initiated in the 1st year of the policy"
         ],
         "plans": [
             { "name": "Bronze", "limit_per_year": 50000 },
@@ -248,28 +259,58 @@ export const BOOST_YOUR_COVERAGE = {
         "brochure_pdf": "https://example.com/brochures/health-insurance.pdf"
     },
     "ci": {
-        "title": "Critical Illness",
-        "description": "Comprehensive health insurance plans designed to protect you and your family with flexible payment options, maternity benefits, extended hospital stay facilities, and access to an extensive partner hospital network.",
+        "title": "Critical Illness Plan",
+        "description": "Introducing Guardian Life Insurance's comprehensive health insurance plan! With support against 18 critical diseases and coverage up to BDT 10 lac (not exceeding 100% of the Sum Assured), our plan provides you with financial protection and peace of mind. Enjoy the convenience of premium payment options, exclusive discounts at partner hospitals and clinical labs with the Guardian Life Card, and access to our extensive network of over 350 partner hospitals and clinical labs. Choose Guardian Life Insurance for reliable coverage and a healthier future.",
         "highlights": [
-            "Wide range of plans for your suitability",
-            "Convenient premium payment options (same as base plan)",
-            "Coverage up to 5 lac",
-            "Opportunity to cover family (Spouse & Child)",
-            "Options to choose maternity benefit",
-            "Long-term hospital stay benefits",
-            "Facilities for stay in ICU/CCU/HDU",
-            "Premium discount facility",
-            "Attractive discounts at partner hospitals & clinical labs with Guardian Life Card and Digital Loyalty Card",
-            "Access to a network of more than 345 partner hospitals & clinical labs"
+            "Support against 18 critical diseases",
+            "CI benefits 50% or 100% of sum assured",
+            "Convenient Premium Payment Options (same as base plan)",
+            "Enjoy attractive discounts at partner hospitals & clinical labs with Guardian Life Card",
+            "Access to a rich network of more than 350 partner hospitals & clinical labs"
         ],
-        "plans": [
-            { "name": "Bronze", "limit_per_year": 50000 },
-            { "name": "Bronze+", "limit_per_year": 100000 },
-            { "name": "Silver", "limit_per_year": 150000 },
-            { "name": "Silver+", "limit_per_year": 200000 },
-            { "name": "Gold+", "limit_per_year": 400000 },
-            { "name": "Platinum", "limit_per_year": 500000 }
+        "terms_title": "Terms and Conditions",
+        "terms_description": "Guardian Life Insurance's supplementary contract and rider benefit designed for individuals aged 18 to 55 (with a maximum maturity age of 60). This plan offers valuable coverage up to 50% of the base plan coverage amount or a maximum of 10 lac. With a waiting period of 180 days, it provides additional protection to enhance your existing coverage.",
+        "terms_highlights": [
+            "Age: Min. 18 years to Max. 55 years. At maturity age cannot exceed 60 years",
+            "Coverage amount cannot exceed 50% of base plan coverage amount and/or max. 10 lac",
+            "Waiting period: 180 days",
+            "This is a supplementary contract and/or rider benefit which cannot be purchased as a standalone product"
+        ]
+    },
+    "pdab": {
+        "title": "Permanent Disability Accidental Benefit (PDAB)",
+        "description": "Due to an accident, if within 90 days from the date of occurrence an insured dies or suffers from disablement caused directly by an accident that is external, violent, and visible in nature, the Company shall pay the applicable indemnity to the insured. This includes waiver of all future premiums if the insured becomes unable to engage in any employment or occupation due to disablement.",
+        "features_title": "Feature and Benefit",
+        "features_description": "Guardian Life Insurance's comprehensive personal accident insurance plan provides coverage of 100% of the Sum Assured (SA), not exceeding BDT 50 Lac, for Accidental Death and Permanent Total Disablement (PTD). It also covers Proportionate Permanent Partial Disablement (PPD) and includes valuable benefits such as waiver of all future premiums and guaranteed annuity for 10 years. The plan offers convenient premium payment options, attractive discounts at partner hospitals and clinical labs with the Guardian Life Card, and access to a network of over 350 partner hospitals and clinical labs.",
+        "highlights": [
+            "Accidental Death Coverage 100% of the SA but not more than BDT 50 Lac",
+            "Permanent Total Disablement (PTD) Coverage 100% of the SA but not more than BDT 50 Lac",
+            "Proportionate Permanent Partial Disablement (PPD) Coverage",
+            "Waiver of all future premium",
+            "Convenient Premium Payment Options (same as base plan)",
+            "Enjoy attractive discounts at partner hospitals & clinical labs with Guardian Life Card",
+            "Access to a rich network of more than 350 partner hospitals & clinical labs"
         ],
-        "brochure_pdf": "https://example.com/brochures/health-insurance.pdf"
+        "terms_title": "Terms and Conditions",
+        "terms_highlights": [
+            "PDAB & DIAB are mutually exclusive",
+            "This is a supplementary contract and/or rider benefit which cannot be purchased as a standalone product"
+        ]
+    },
+    "diab": {
+        "title": "Double Indemnity Accidental Benefit (DIAB)",
+        "description": "Due to an accident, if within 90 days from the date of occurrence an insured dies directly from such an accident caused through external, violent, and visible means, the Company shall pay the sum assured in addition to the death benefit of the basic policy.",
+        "features_title": "Feature and Benefit",
+        "highlights": [
+            "Benefits up to 2 times of coverage amount",
+            "Convenient Premium Payment Options (same as base plan)",
+            "Enjoy attractive discounts at partner hospitals & clinical labs with Guardian Life Card",
+            "Access to a rich network of more than 270 partner hospitals & clinical labs"
+        ],
+        "terms_title": "Terms and Conditions",
+        "terms_highlights": [
+            "DIAB & PDAB are mutually exclusive",
+            "This is a supplementary contract and/or rider benefit which cannot be purchased as a standalone product"
+        ]
     }
 }
