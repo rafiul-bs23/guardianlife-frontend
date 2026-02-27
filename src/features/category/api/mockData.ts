@@ -32,7 +32,7 @@ export const MOCK_HEADER_DATA: HeaderResponse = {
     }
 };
 export const apiResponse = {
-  success: true,
+  status: true,
   transactionId: "GLIL-TXN-ID",
   data: {
     channel: "retail",

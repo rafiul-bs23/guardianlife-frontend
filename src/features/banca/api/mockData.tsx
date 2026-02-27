@@ -195,3 +195,77 @@ export const bankPartners: BankPartner[] = [
     { id: 2, logo: image2, alt: "Bank 2" },
     { id: 3, logo: image3, alt: "Bank 3" },
 ];
+
+export const MOCK_WHY_BANCASSURANCE_DATA = {
+    header: {
+        title: "Why Bancassurance Matters",
+        description: "In an evolving financial landscape, banks are increasingly exposed to credit risk while customers seek greater financial security. Bancassurance bridges this gap by integrating life insurance protection directly into banking products—ensuring continuity, protection, and long-term value for all stakeholders."
+    },
+    imgUrl: "https://glilapi.guardianlife.com.bd/images/1725268160788-397856237-Children.jpg",
+    whatIsBancassurance: {
+        title: "What Is Bancassurance?",
+        subtitle1: "Bancassurance Is A Strategic Collaboration Between Banks And Life Insurance Companies That Enables Banks To Offer Insurance Solutions Through Their Existing Distribution Channels.",
+        subtitle2: "This Partnership Enhances Traditional Banking Products By Embedding Life Insurance Coverage, Helping To:",
+        bulletPoints: [
+            "Protect Customers And Their Families Against Financial Uncertainty",
+            "Mitigate Credit Risk Arising From Death, Disability, Or Critical Illness",
+            "Strengthen Long-Term Customer Relationships",
+        ],
+        footer: "When Implemented With The Right Strategy And Operational Excellence, Bancassurance Creates A Win-Win Ecosystem For Customers, Banks, And Insurers Alike."
+    }
+};
+
+export const MOCK_FACILITIES_DATA = {
+    header: {
+        title: "Facilities of Bancassurance with Guardian Life",
+        description: "We provide end-to-end Bancassurance support to ensure seamless integration and long-term success"
+    }
+};
+
+export const MOCK_BANCA_BENEFITS_DATA = {
+    header: {
+        title: "Benefits of Bancassurance",
+        description: "Discover how Guardian Life's Bancassurance solutions create value for both customers and banking partners"
+    }
+};
+
+export const MOCK_PRODUCT_SOLUTIONS_DATA = {
+    header: {
+        title: "Bancassurance Product Solutions",
+        description: "Comprehensive protection solutions designed for diverse banking needs"
+    }
+};
+
+export const MOCK_ADDITIONAL_PRODUCTS_DATA = [
+    {
+        title: "SME Loan",
+        description1: "Settlement of outstanding liabilities in case of life casualties",
+        description2: null
+    },
+    {
+        title: "Employee Insurance",
+        description1: "Customized insurance solutions bundled with salary or employee accounts",
+        description2: "Comprehensive coverage at minimal cost"
+    }
+];
+
+export const MOCK_DEPOSITORY_INSURANCE_DATA = {
+    title: "Depository Insurance Products",
+    description1: "Cash assurance for current and savings accounts",
+    description2: "Customized insurance solutions for DPS and Fixed Deposits"
+};
+
+export const MOCK_BANK_PARTNERS_DATA = {
+    header: {
+        title: "Our Bancassurance Partners",
+        description: "We are proud to collaborate with leading banks in Bangladesh"
+    }
+};
+
+export const MOCK_STATS_DATA = [
+    { id: 1, value: "1,000+", label: "Life Coverage Policies Issued" },
+    { id: 2, value: "500+", label: "Claims Successfully Settled" },
+    { id: 3, value: "Trusted", label: "by Leading Banks & FIs" },
+    { id: 4, value: "Fast", label: "& Transparent Claim Process" },
+    { id: 5, value: "Dedicated", label: "Bancassurance Support Team" },
+];

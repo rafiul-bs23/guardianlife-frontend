@@ -11,6 +11,7 @@ import ProductHeader from './components/ProductHeader';
 import { useHeader } from './hooks/useHeader';
 
 import { useParams } from 'react-router-dom';
+import FAQ from '../../shared/Components/Faq';
 
 const ProductDetails = () => {
   const { product_code } = useParams();
@@ -36,6 +37,7 @@ const ProductDetails = () => {
           />
         )}
         <LocalAgent />
+        <FAQ />
       </section>
     </>
   );

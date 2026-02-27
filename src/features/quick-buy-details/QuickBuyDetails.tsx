@@ -5,6 +5,7 @@ import PlanBenefitsSection from '../../shared/Components/PlanBenefitsSection';
 import ProductSupport from '../../shared/Components/ProductSupport';
 import QuickProductView from '../../shared/Components/QuickProductView';
 import ProductCalculator from './components/ProductCalculator';
+import FAQ from '../../shared/Components/Faq';
 
 const QuickBuyDetails = () => {
   const { data: headerData, isLoading: isHeaderLoading } = useHeader('quick-buy-1');
@@ -53,6 +54,8 @@ const QuickBuyDetails = () => {
           learnMore={data?.learn_more_section as any}
         />
       )}
+
+      <FAQ />
 
 
     </section>

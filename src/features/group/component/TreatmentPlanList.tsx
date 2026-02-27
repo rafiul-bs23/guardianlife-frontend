@@ -5,30 +5,12 @@ type TreatmentPlan = {
   bulletPoints?: string[];
 };
 
-const treatmentPlans: TreatmentPlan[] = [
-  {
-    id: 1,
-    title: "In-Patient Treatment (IPD) Plan",
-    description:
-      "The In-Patient Treatment plan provides financial protection for medical expenses incurred during hospitalization of at least 24 hours due to illness or accidental injury within the policy period.",
-  },
-  {
-    id: 2,
-    title: "General Out-Patient Treatment (OPD) Plan",
-    description:
-      "The OPD plan covers medical expenses that do not require hospitalization, allowing employees to claim for routine healthcare costs.",
-    bulletPoints: [
-      "Doctor Consultation Fees",
-      "Medicine Costs",
-      "Diagnostic & Investigation Expenses",
-    ],
-  },
-];
 
-export function TreatmentPlanList() {
+
+export function TreatmentPlanList({ items }: { items: TreatmentPlan[] }) {
   return (
     <div className="flex flex-col gap-[12px] w-full">
-      {treatmentPlans.map((plan) => (
+      {items.map((plan) => (
         <div
           key={plan.id}
           className="bg-white rounded-[12px] px-[20px] py-[20px] shadow-[0_1px_6px_rgba(0,0,0,0.08)]"

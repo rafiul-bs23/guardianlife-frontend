@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import type { ProductCalculatorSection } from '../types';
 import Button from '../../../shared/Components/Button';
+import { usePopup } from '../../../shared/context/PopupContext';
 
 interface ProductCalculatorProps {
     data: ProductCalculatorSection;
@@ -29,7 +30,7 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ data }) => {
     const formatCurrency = (val: number) => {
         return `BDT ${val.toLocaleString()}`;
     };
-
+    const { showPopup } = usePopup();
     return (
         <section className="w-full bg-[#F8F9FA] py-16">
             <div className="max-w-[1000px] mx-auto px-4">
@@ -179,8 +180,8 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ data }) => {
                         <Button
                             label="Buy Now"
                             variant="solid-orange"
-                            className=" py-2 text-xl rounded-lg"
-                            onClick={() => console.log('Buy Now clicked')}
+                            className="  rounded-lg"
+                            onClick={() => showPopup({ title: "", message: "Log in to your profile and grab your QuickBuy products in seconds. Fast, simple, and hassle-free." })}
                         />
                     </div>
                 </div>

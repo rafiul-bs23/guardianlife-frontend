@@ -66,7 +66,7 @@ const PlanBenefitsSection: React.FC<PlanBenefitsSectionProps> = ({ data }) => {
                             <Button
                                 label="Calculate Tax"
                                 variant="outline-orange"
-                                onClick={() => showPopup({ title: "Calculate Tax", badge: "Coming Soon", })}
+                                onClick={() => showPopup()}
                             />
                         </div>
                     </div>

@@ -4,10 +4,16 @@ import ProductCard from "../../shared/Components/ProductCard.tsx";
 import FAQ from "../../shared/Components/Faq.tsx";
 import { WhyChooseQuickBuy } from "../../shared/Components/WhyChooseQuickBuy.tsx";
 
-import { apiResponse } from "./api/mockData";
+import { useCategoryProducts } from "../category/hooks/useCategoryProducts.ts";
+import Contentheader from "../../shared/Components/Contentheader.tsx";
 
 const QuickBuyCategory = () => {
   const { data: headerData, isLoading: isHeaderLoading } = useHeader();
+
+  // Fetching products for the three specific categories without passing channel since it breaks the endpoint
+  const { data: termLifeProducts, isLoading: isTermLifeLoading } = useCategoryProducts(null, 'term-life', null);
+  const { data: savingsProducts, isLoading: isSavingsLoading } = useCategoryProducts(null, 'savings', null);
+  const { data: specialPlansProducts, isLoading: isSpecialPlansLoading } = useCategoryProducts(null, 'special-plans', null);
 
   const handleViewDetails = (productCode: string): void => {
     console.log(`View details clicked for: ${productCode}`);
@@ -29,16 +35,15 @@ const QuickBuyCategory = () => {
     <main className="min-h-screen bg-white overflow-hidden">
       {headerData && <QuickBuyHeader data={headerData} />}
 
+      {/* Term Life Section */}
+      {!isTermLifeLoading && termLifeProducts && termLifeProducts.length > 0 && (
       <div className="flex flex-col items-center mt-12 lg:mt-[84px] px-4 lg:px-0">
-        <p className="font-bold text-[28px] lg:text-[36px] leading-[32px] text-center tracking-[0.02em] uppercase">
-          term life insurance
-        </p>
-        <p className="font-normal text-[18px] lg:text-[24px] leading-[32px] text-center tracking-[0.02em] text-black w-full max-w-[1039px] mt-8">
-          Get instant coverage with our digital-first policies. Complete your purchase online in minutes with immediate
-          policy issuance.
-        </p>
+        <Contentheader
+          title="term life insurance"
+          description="Get instant coverage with our digital-first policies. Complete your purchase online in minutes with immediate policy issuance."
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center mt-12 lg:mt-[84px] w-full max-w-7xl">
-          {apiResponse.data.products.map((product) => (
+          {termLifeProducts?.map((product) => (
             <ProductCard
               key={product.productCode}
               thumbnailUrl={product.thumbnailUrl}
@@ -49,18 +54,22 @@ const QuickBuyCategory = () => {
               onBuyNow={() => handleBuyNow(product.productCode)}
             />
           ))}
+          {(!termLifeProducts || termLifeProducts.length === 0) && (
+            <p className="col-span-1 md:col-span-2 text-gray-500 text-center py-10">No term life products found.</p>
+          )}
         </div>
       </div>
+      )}
 
+      {/* Savings Plan Section */}
+      {!isSavingsLoading && savingsProducts && savingsProducts.length > 0 && (
       <div className="flex flex-col items-center mt-16 lg:mt-[143px] px-4 lg:px-0">
-        <p className="font-bold text-[28px] lg:text-[36px] leading-[32px] text-center tracking-[0.02em] uppercase">
-          savings plan
-        </p>
-        <p className="font-normal text-[18px] lg:text-[24px] leading-[32px] text-center tracking-[0.02em] text-black w-full max-w-[1039px] mt-8">
-          Offers a dual benefit of life insurance protection and a savings component. Typically, a policyholder pays monthly premiums.
-        </p>
+        <Contentheader
+          title="savings plan"
+          description="Offers a dual benefit of life insurance protection and a savings component. Typically, a policyholder pays monthly premiums."
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center mt-12 lg:mt-[84px] w-full max-w-7xl">
-          {apiResponse.data.products.map((product) => (
+          {savingsProducts?.map((product) => (
             <ProductCard
               key={product.productCode}
               thumbnailUrl={product.thumbnailUrl}
@@ -71,18 +80,22 @@ const QuickBuyCategory = () => {
               onBuyNow={() => handleBuyNow(product.productCode)}
             />
           ))}
+          {(!savingsProducts || savingsProducts.length === 0) && (
+            <p className="col-span-1 md:col-span-2 text-gray-500 text-center py-10">No savings products found.</p>
+          )}
         </div>
       </div>
+      )}
 
+      {/* Special Plans Section */}
+      {!isSpecialPlansLoading && specialPlansProducts && specialPlansProducts.length > 0 && (
       <div className="flex flex-col items-center mt-16 lg:mt-[143px] px-4 lg:px-0">
-        <p className="font-bold text-[28px] lg:text-[36px] leading-[32px] text-center tracking-[0.02em] uppercase">
-          special insurance plans
-        </p>
-        <p className="font-normal text-[18px] lg:text-[24px] leading-[32px] text-center tracking-[0.02em] text-black w-full max-w-[1039px] mt-8">
-          Special insurance plans are designed to cover the financial risks in accidental indemnity, personal accident coverage, critical illnesses like Cancer Care, Cardiac Insurance etc.
-        </p>
+        <Contentheader
+          title="special insurance plans"
+          description="Special insurance plans are designed to cover the financial risks in accidental indemnity, personal accident coverage, critical illnesses like Cancer Care, Cardiac Insurance etc."
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center mt-12 lg:mt-[84px] w-full max-w-7xl">
-          {apiResponse.data.products.map((product) => (
+          {specialPlansProducts?.map((product) => (
             <ProductCard
               key={product.productCode}
               thumbnailUrl={product.thumbnailUrl}
@@ -93,8 +106,13 @@ const QuickBuyCategory = () => {
               onBuyNow={() => handleBuyNow(product.productCode)}
             />
           ))}
+          {(!specialPlansProducts || specialPlansProducts.length === 0) && (
+            <p className="col-span-1 md:col-span-2 text-gray-500 text-center py-10">No special insurance plans found.</p>
+          )}
         </div>
       </div>
+      )}
+
       <div className="flex justify-center mt-16 lg:mt-[83px] px-4">
         <WhyChooseQuickBuy />
       </div>

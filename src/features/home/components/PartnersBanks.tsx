@@ -1,16 +1,9 @@
 import { ArrowUpRight } from 'lucide-react'; // or you can use any icon library
 
-// Import bank logos
-import partner1 from '../../../assets/images/home/PartnersBanks/partner1.jpg';
-import partner2 from '../../../assets/images/home/PartnersBanks/partner2.jpg';
-import partner3 from '../../../assets/images/home/PartnersBanks/partner3.jpg';
+import { MOCK_PARTNER_BANKS_DATA } from '../api/mockData';
 
 const PartnerBanks = () => {
-  const partners = [
-    { id: 1, name: 'City Bank', logo: partner1, link: '#' },
-    { id: 2, name: 'Dutch-Bangla Bank', logo: partner2, link: '#' },
-    { id: 3, name: 'MTB', logo: partner3, link: '#' },
-  ];
+
 
   return (
     <div className="bg-gray-50 py-16 px-8">
@@ -18,20 +11,21 @@ const PartnerBanks = () => {
         {/* Header Section */}
         <div className="text-center mb-12">
           <h3 className="text-sm font-semibold text-gray-600 tracking-wide mb-4">
-            OUR PARTNERS BANK
+            {MOCK_PARTNER_BANKS_DATA.title}
           </h3>
 
           <h2 className="text-3xl font-bold text-gray-800">
-            DROP BY A <span className="text-orange-500">PARTNER BANK</span> OR HOP ONLINE TO{' '}
-            <span className="text-orange-500">EXPLORE AND GRAB</span> YOUR{' '}
-            <span className="text-orange-500">GUARDIAN LIFE INSURANCE</span>{' '}
-            PLAN—SIMPLE AND TAILORED FOR YOU.
+            {MOCK_PARTNER_BANKS_DATA.heading.map((item, index) => (
+              <span key={index} className={item.color === '#f97316' ? 'text-orange-500' : ''}>
+                {item.text}
+              </span>
+            ))}
           </h2>
         </div>
 
         {/* Bank Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {partners.map((partner) => (
+          {MOCK_PARTNER_BANKS_DATA.partners.map((partner) => (
             <div
               key={partner.id}
               className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 relative group cursor-pointer"

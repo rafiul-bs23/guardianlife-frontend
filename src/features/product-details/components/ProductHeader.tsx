@@ -15,12 +15,12 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({ data }) => {
             <Button
                 label="Calculate Premium"
                 variant="outline-white"
-                onClick={() => showPopup({ title: "Calculate Premium", badge: "Coming Soon", })}
+                onClick={() => showPopup()}
             />
             <Button
                 label="AI Assistant"
                 variant="solid-white"
-                onClick={() => showPopup({ title: "AI Assistant", badge: "Coming Soon", })}
+                onClick={() => showPopup()}
             />
         </>
     );
