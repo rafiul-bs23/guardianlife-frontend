@@ -3,6 +3,7 @@ import ActionButton from "../../../shared/Components/BaseButton.tsx";
 import { useLayoutEffect, useRef, useState } from "react";
 import { partners } from "../api/mockData";
 import type { LogoGridProps, LogoCardProps } from "./../types.ts";
+import Button from "../../../shared/Components/Button.tsx";
 
 const BusinessPartners = () => {
 
@@ -41,9 +42,9 @@ const BusinessPartners = () => {
             EMPOWER YOUR EMPLOYEES.
           </p>
 
-          <ActionButton
-            text="Explore Opportunities"
-            onClick={() => console.log("explore opportunities clicked")}
+          <Button
+            label="Explore Opportunities"
+            to="/group"
           />
         </div>
       </div>

@@ -13,6 +13,7 @@ import AppPromotion from "./components/PromotionSection.tsx";
 import ContactForm from "./components/contact.tsx";
 
 const Home = () => {
+
   return (
     <div className="min-h-screen bg-white">
       <HomeHeader data={MOCK_HOME_HEADER_DATA} />

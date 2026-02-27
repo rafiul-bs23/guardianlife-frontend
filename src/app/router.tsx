@@ -27,7 +27,6 @@ import LocateBranch from "../features/locate-branch/LocateBranch.tsx";
 import Faq from "../features/faq/Faq.tsx";
 import PrivacyPolicy from "../features/privacy-policy/PrivacyPolicy.tsx";
 import AgentList from "../features/agent-list/AgentList.tsx";
-import BranchList from "../features/branch-list/BranchList.tsx";
 import PreferredHospital from "../features/preferred-hospital/PreferredHospital.tsx";
 import PartnerChannels from "../features/partner-channels/PartnerChannels.tsx";
 import Career from "../features/career/Career.tsx";
@@ -51,18 +50,17 @@ export const NAV_ROUTES = [
   { path: "/mancom", label: "Mancom", element: <Mancom /> },
   { path: "/board-directors", label: "Board Directors", element: <BoardDirectors /> },
   { path: "/directors", label: "Directors", element: <Directors /> },
-  { path: "/tax-rebate", label: "Tax Rebate", element: <TaxRebate /> },
   { path: "/payment", label: "Payment", element: <Payment /> },
   { path: "/form-library", label: "Form Library", element: <FormLibrary /> },
-  { path: "/shareholders", label: "Shareholders", element: <Shareholders /> },
-  { path: "/locate-branch", label: "Locate Branch", element: <LocateBranch /> },
-  { path: "/faq", label: "FAQ", element: <Faq /> },
-  { path: "/privacy-policy", label: "Privacy Policy", element: <PrivacyPolicy /> },
-  { path: "/agent-list", label: "Agent List", element: <AgentList /> },
-  { path: "/branch-list", label: "Branch List", element: <BranchList /> },
-  { path: "/preferred-hospital", label: "Preferred Hospital", element: <PreferredHospital /> },
-  { path: "/partner-channels", label: "Partner Channels", element: <PartnerChannels /> },
   { path: "/career", label: "Career", element: <Career /> },
+  { path: "/preferred-hospital", label: "Preferred Hospital", element: <PreferredHospital /> },
+  { path: "/locate-branch", label: "Locate Branch", element: <LocateBranch /> },
+  { path: "/partner-channels", label: "Partner Channels", element: <PartnerChannels /> },
+  { path: "/agent-list", label: "Agent List", element: <AgentList /> },
+  { path: "/privacy-policy", label: "Privacy Policy", element: <PrivacyPolicy /> },
+  { path: "/faq", label: "FAQ", element: <Faq /> },
+  { path: "/tax-rebate", label: "Tax Rebate", element: <TaxRebate /> },
+  { path: "/shareholders", label: "Shareholders", element: <Shareholders /> },
 ];
 
 export const router = createBrowserRouter([

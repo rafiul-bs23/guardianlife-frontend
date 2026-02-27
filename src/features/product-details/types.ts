@@ -53,12 +53,6 @@ export interface PlanBreakdownSection {
 
 // VideoItem is now imported from shared
 
-export interface WhyChooseCoverageSection {
-  title: string;
-  description: string;
-  main_card: CardItem;
-  cards: CardItem[];
-}
 
 
 // LearnMoreSection is now imported from shared
@@ -72,7 +66,6 @@ export interface ProductData {
   supplementary_benefits_section: SupplementaryBenefitsSection;
   plan_breakdown_section: PlanBreakdownSection;
   product_documents_section: ProductDocumentsSection;
-  why_choose_coverage_section: WhyChooseCoverageSection;
   learn_more_section: LearnMoreSection;
 }
 
@@ -104,3 +97,19 @@ export interface UseProductResult {
   fieldErrors: ValidationError[];
   refetch: () => void;
 }
+
+// Boost Your Coverage types
+export interface BoostCoveragePlan {
+  name: string;
+  limit_per_year: number;
+}
+
+export interface BoostCoverageItem {
+  title: string;
+  description: string;
+  highlights: string[];
+  plans: BoostCoveragePlan[];
+  brochure_pdf: string;
+}
+
+export type BoostYourCoverage = Record<string, BoostCoverageItem>;

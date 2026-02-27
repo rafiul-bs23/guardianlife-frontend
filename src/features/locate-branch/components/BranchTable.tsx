@@ -34,7 +34,7 @@ const BranchTable = ({
             {/* Table */}
             <div className="overflow-x-auto">
                 <table className="min-w-full text-sm text-left">
-                    <thead className="bg-[#2E3192] text-white">
+                    <thead className="bg-primary text-white">
                         <tr>
                             {[
                                 'SL',
@@ -81,13 +81,13 @@ const BranchTable = ({
                             branches.map((branch, index) => (
                                 <tr
                                     key={index}
-                                    className="hover:bg-blue-50 transition-colors even:bg-gray-50"
+                                    className="hover:bg-primary/10 transition-colors even:bg-gray-50"
                                 >
                                     <td className="px-4 py-3.5 font-medium text-gray-500 whitespace-nowrap">
                                         {startIndex + index + 1}
                                     </td>
                                     <td className="px-4 py-3.5 whitespace-nowrap">
-                                        <span className="inline-block px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+                                        <span className="inline-block px-2.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">
                                             {branch.office_category}
                                         </span>
                                     </td>
@@ -115,7 +115,7 @@ const BranchTable = ({
                                                 {branch.contact_person_phone_number}
                                             </span>
                                             {branch.contact_person_email && (
-                                                <span className="text-xs text-blue-500">
+                                                <span className="text-xs text-primary">
                                                     {branch.contact_person_email}
                                                 </span>
                                             )}
@@ -126,7 +126,7 @@ const BranchTable = ({
                                             href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(branch.address)}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-[#2E3192] hover:bg-blue-800 px-3 py-1.5 rounded-lg transition"
+                                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-primary hover:bg-primary/80 px-3 py-1.5 rounded-lg transition"
                                         >
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -181,11 +181,10 @@ const BranchTable = ({
                             <button
                                 key={p}
                                 onClick={() => onPageChange(p)}
-                                className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition ${
-                                    p === currentPage
-                                        ? 'bg-[#2E3192] text-white border-[#2E3192]'
-                                        : 'border-gray-300 text-gray-600 bg-white hover:bg-gray-100'
-                                }`}
+                                className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition ${p === currentPage
+                                    ? 'bg-primary text-white border-primary'
+                                    : 'border-gray-300 text-gray-600 bg-white hover:bg-gray-100'
+                                    }`}
                             >
                                 {p}
                             </button>

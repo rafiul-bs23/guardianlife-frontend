@@ -1,28 +1,9 @@
-import { useState } from 'react';
-import ActionButton from "../../../shared/Components/BaseButton.tsx";
 import GetInTouch from "../../../assets/images/home/GetInTouch.png";
+import Button from '../../../shared/Components/Button.tsx';
+import { useLeadForm } from '../hooks/useLeadForm';
 
 const ContactForm = () => {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    phoneNumber: '',
-    message: '',
-    agreeToPolicy: false
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
-    const checked = (e.target as HTMLInputElement).checked;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
-  };
-
-  const handleSubmit = () => {
-    console.log('Form Data:', formData);
-  };
+  const { formData, errors, is_loading, success, error, handleChange, handleSubmit, reset } = useLeadForm();
 
   return (
     <div className="flex flex-col lg:flex-row gap-8 w-full mt-16 lg:mt-[140px] px-4 xl:px-0">
@@ -46,6 +27,25 @@ const ContactForm = () => {
             </p>
           </div>
 
+          {/* Success banner */}
+          {success && (
+            <div className="mb-6 flex items-start gap-3 px-4 py-3 rounded-xl bg-green-50 border border-green-200">
+              <span className="text-green-500 mt-0.5">✓</span>
+              <div>
+                <p className="text-green-800 font-semibold text-sm">Message sent successfully!</p>
+                <p className="text-green-700 text-xs mt-0.5">We'll get back to you as soon as possible.</p>
+              </div>
+              <button onClick={reset} className="ml-auto text-green-500 hover:text-green-700 text-lg leading-none">&times;</button>
+            </div>
+          )}
+
+          {/* API error banner */}
+          {error && (
+            <div className="mb-6 px-4 py-3 rounded-xl bg-red-50 border border-red-200">
+              <p className="text-red-700 text-sm">{error}</p>
+            </div>
+          )}
+
           {/* Form Fields */}
           <div className="space-y-6">
             {/* Full Name */}
@@ -59,8 +59,9 @@ const ContactForm = () => {
                 value={formData.fullName}
                 onChange={handleChange}
                 placeholder="Enter Name Here"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 text-sm"
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 text-sm ${errors.fullName ? 'border-red-400 bg-red-50' : 'border-gray-300'}`}
               />
+              {errors.fullName && <p className="mt-1 text-xs text-red-500">{errors.fullName}</p>}
             </div>
 
             {/* Email */}
@@ -74,8 +75,9 @@ const ContactForm = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="name@company.com"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 text-sm"
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 text-sm ${errors.email ? 'border-red-400 bg-red-50' : 'border-gray-300'}`}
               />
+              {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
             </div>
 
             {/* Phone Number */}
@@ -98,10 +100,11 @@ const ContactForm = () => {
                   name="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={handleChange}
-                  placeholder="+88 (017) 000-0000"
-                  className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 text-sm"
+                  placeholder="01XXXXXXXXX"
+                  className={`flex-1 px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 text-sm ${errors.phoneNumber ? 'border-red-400 bg-red-50' : 'border-gray-300'}`}
                 />
               </div>
+              {errors.phoneNumber && <p className="mt-1 text-xs text-red-500">{errors.phoneNumber}</p>}
             </div>
 
             {/* Message */}
@@ -113,12 +116,13 @@ const ContactForm = () => {
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                // rows="4"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all resize-none placeholder:text-gray-400 text-sm"
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all resize-none placeholder:text-gray-400 text-sm ${errors.message ? 'border-red-400 bg-red-50' : 'border-gray-300'}`}
                 placeholder="Your message..."
-              ></textarea>
+              />
+              {errors.message && <p className="mt-1 text-xs text-red-500">{errors.message}</p>}
             </div>
 
+            {/* Privacy policy */}
             <div className="flex items-start gap-2">
               <input
                 type="checkbox"
@@ -135,20 +139,18 @@ const ContactForm = () => {
                 .
               </label>
             </div>
+            {errors.agreeToPolicy && <p className="-mt-4 text-xs text-red-500">{errors.agreeToPolicy}</p>}
 
-            <div className="pt-2">
-              <ActionButton
-                text="send message"
-                className=""
-                onClick={handleSubmit}
-              />
-            </div>
+            <Button
+              label={is_loading ? 'Sending...' : 'send message'}
+              variant="solid-orange"
+              onClick={handleSubmit}
+              disabled={is_loading}
+            />
           </div>
         </div>
-
       </div>
-      <div>
-      </div>
+      <div></div>
     </div>
   );
 };

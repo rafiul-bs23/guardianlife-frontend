@@ -1,5 +1,7 @@
 import { ArrowRight } from 'lucide-react';
-import ActionButton from "../../../shared/Components/BaseButton.tsx"; // or custom SVG
+
+import AppStoreButtons from '../../../shared/Components/AppStoreButtons';
+
 import { MOCK_APP_PROMOTION_DATA } from '../api/mockData';
 
 const AppPromotion = () => {
@@ -24,16 +26,9 @@ const AppPromotion = () => {
             {MOCK_APP_PROMOTION_DATA.description}
           </p>
         </div>
+        <AppStoreButtons className='flex flex-col sm:flex-row gap-4 justify-center items-center' />
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          {MOCK_APP_PROMOTION_DATA.buttons.map((button, index) => (
-            <ActionButton
-              key={index}
-              text={button.text}
-              onClick={() => console.log(`${button.action} clicked`)}
-            />
-          ))}
-        </div>
+
 
         <div className="relative mt-8 flex justify-center px-4 md:px-0">
           <div

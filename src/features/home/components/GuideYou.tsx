@@ -1,5 +1,6 @@
 import React from 'react';
-import ActionButton from "../../../shared/Components/BaseButton";
+import Button from '../../../shared/Components/Button';
+import { usePopup } from '../../../shared/context/PopupContext';
 
 interface GuideYouProps {
     data: {
@@ -11,6 +12,7 @@ interface GuideYouProps {
 }
 
 const GuideYou: React.FC<GuideYouProps> = ({ data }) => {
+    const { showPopup } = usePopup();
     return (
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-8 h-auto lg:h-[437px] w-full mt-16 lg:mt-[140px] px-4 lg:px-0">
             <div className="flex-1 rounded-tr-[32px] rounded-br-[32px] rounded-[32px] lg:rounded-none lg:rounded-tr-[32px] lg:rounded-br-[32px] overflow-hidden hidden md:block">
@@ -30,10 +32,10 @@ const GuideYou: React.FC<GuideYouProps> = ({ data }) => {
                         </React.Fragment>
                     ))}
                 </p>
-                <ActionButton
-                    text={data.buttonText}
+                <Button
+                    label={data.buttonText}
                     className=""
-                    onClick={() => console.log("clicked")}
+                    onClick={() => showPopup()}
                 />
             </div>
         </div>

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useRef, useMemo } from "react";
 import ProductCard from "../../shared/Components/ProductCard.tsx";
 import ProductCardCompact from "./ProductCardCompact.tsx";
 import FAQ from "../../shared/Components/Faq.tsx";
@@ -12,6 +12,12 @@ import { useCategoryProducts } from "./hooks/useCategoryProducts.ts";
 const Category = () => {
   const { data: headerData, isLoading: isHeaderLoading } = useHeader();
   const [activeIndex, setActiveIndex] = useState(0);
+  const tabsRef = useRef<HTMLDivElement>(null);
+
+  const handleExploreClick = () => {
+    setActiveIndex(0);
+    tabsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   const tabs = [
     { id: 0, title: 'For You', value: 'for-you' },
@@ -53,8 +59,8 @@ const Category = () => {
 
   return (
     <div className="overflow-hidden">
-      {headerData && <CategoryHeader data={headerData} />}
-      <div className="px-4">
+      {headerData && <CategoryHeader data={headerData} onExploreClick={handleExploreClick} />}
+      <div className="px-4" id="tabs" ref={tabsRef}>
         <div className="flex gap-3 flex-wrap justify-center mt-[14px]">
           {tabs.map((tab, index) => (
             <button

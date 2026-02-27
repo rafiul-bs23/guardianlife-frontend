@@ -5,22 +5,23 @@ import Button from '../../../shared/Components/Button';
 
 interface CategoryHeaderProps {
     data: HeaderData;
+    onExploreClick?: () => void;
 }
 
-const CategoryHeader: React.FC<CategoryHeaderProps> = ({ data }) => {
+const CategoryHeader: React.FC<CategoryHeaderProps> = ({ data, onExploreClick }) => {
     const actions = (
         <>
             <Button
                 label="Explore Our Products"
                 variant="outline-white"
                 className="!py-1"
-                onClick={() => console.log('Explore Our Products clicked')}
+                onClick={onExploreClick || (() => console.log('Explore Our Products clicked'))}
             />
             <Button
                 label="Get A Quote"
                 variant="solid-white"
                 className="!py-1"
-                onClick={() => console.log('Get A Quote clicked')}
+                href='https://saleslead.myguardianbd.com/lead-form'
             />
         </>
     );
