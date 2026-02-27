@@ -52,7 +52,7 @@ const BoostCoverageModal: React.FC<BoostCoverageModalProps> = ({
                 <div className="overflow-y-auto flex-1 px-8 sm:px-12 py-8">
 
                     {/* Title row */}
-                    <div className="flex items-center justify-between gap-4 mb-2">
+                    <div className="flex items-center justify-between gap-4 mb-4">
                         <h2 className="text-xl sm:text-2xl font-black text-gray-900 leading-tight">
                             {data.title}
                         </h2>
@@ -66,18 +66,59 @@ const BoostCoverageModal: React.FC<BoostCoverageModalProps> = ({
                     </div>
 
                     {/* Description */}
-                    <p className="text-gray-600 text-sm leading-relaxed text-justify mb-2">
-                        {data.description}
-                    </p>
+                    {data.description && (
+                        <p className="text-gray-600 text-sm leading-relaxed text-justify mb-4">
+                            {data.description}
+                        </p>
+                    )}
 
-                    {/* Highlights: first item as heading, rest as ➤ bullets */}
-                    {data.highlights && (
-                        <div className="mb-2">
+                    {/* Features Section */}
+                    {data.features_title && (
+                        <h3 className="text-lg font-bold text-gray-800 mt-6 mb-3">
+                            {data.features_title}
+                        </h3>
+                    )}
 
-                            <ul >
+                    {data.features_description && (
+                        <p className="text-gray-600 text-sm leading-relaxed text-justify mb-4">
+                            {data.features_description}
+                        </p>
+                    )}
+
+                    {/* General/Feature Highlights */}
+                    {data.highlights && data.highlights.length > 0 && (
+                        <div className="mb-4">
+                            <ul className="space-y-2">
                                 {data.highlights.map((point, i) => (
-                                    <li key={i} className="flex items-start gap-1 text-sm text-gray-600">
-                                        <span className="text-gray-800 text-[10px] mt-1 flex-shrink-0">➤</span>
+                                    <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                                        <span className="text-gray-800 text-[10px] mt-1.5 flex-shrink-0">➤</span>
+                                        <span className="leading-relaxed">{point}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+
+                    {/* Terms Section */}
+                    {data.terms_title && (
+                        <h3 className="text-lg font-bold text-gray-800 mt-6 mb-3">
+                            {data.terms_title}
+                        </h3>
+                    )}
+
+                    {data.terms_description && (
+                        <p className="text-gray-600 text-sm leading-relaxed text-justify mb-4">
+                            {data.terms_description}
+                        </p>
+                    )}
+
+                    {/* Terms Highlights */}
+                    {data.terms_highlights && data.terms_highlights.length > 0 && (
+                        <div className="mb-4">
+                            <ul className="space-y-2">
+                                {data.terms_highlights.map((point, i) => (
+                                    <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                                        <span className="text-gray-800 text-[10px] mt-1.5 flex-shrink-0">➤</span>
                                         <span className="leading-relaxed">{point}</span>
                                     </li>
                                 ))}
@@ -86,8 +127,8 @@ const BoostCoverageModal: React.FC<BoostCoverageModalProps> = ({
                     )}
 
                     {/* Plans table */}
-                    {data.plans.length > 0 && (
-                        <div className="overflow-x-auto rounded-xl border border-orange-200 mb-3">
+                    {data.plans && data.plans.length > 0 && (
+                        <div className="overflow-x-auto rounded-xl border border-orange-200 mt-6 mb-6">
                             <table className="w-full text-sm border-collapse">
                                 <thead>
                                     <tr>
@@ -126,15 +167,17 @@ const BoostCoverageModal: React.FC<BoostCoverageModalProps> = ({
                     )}
 
                     {/* Brochure download — outline style, bottom left */}
-                    <a
-                        href={data.brochure_pdf}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[#F37021] text-[#F37021] text-sm font-medium hover:bg-orange-50 transition-colors"
-                    >
-                        <FileText className="w-4 h-4" />
-                        Brochure
-                    </a>
+                    {data.brochure_pdf && (
+                        <a
+                            href={data.brochure_pdf}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[#F37021] text-[#F37021] text-sm font-medium hover:bg-orange-50 transition-colors mt-2"
+                        >
+                            <FileText className="w-4 h-4" />
+                            Brochure
+                        </a>
+                    )}
                 </div>
             </div>
         </div>
