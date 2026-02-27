@@ -13,12 +13,12 @@ const ClaimHeader: React.FC<ClaimHeaderProps> = ({ data }) => {
             <Button
                 label="Submit Your Claim"
                 variant="outline-white"
-                onClick={() => console.log('Submit Your Claim clicked')}
+                href='https://acps.myguardianbd.com/client_login/'
             />
             <Button
                 label="Track Your Claim"
                 variant="solid-white"
-                onClick={() => console.log('Track Your Claim clicked')}
+                href='https://acps.myguardianbd.com/client_login/'
             />
         </>
     );

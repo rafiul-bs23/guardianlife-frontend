@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
 import { AxiosError } from 'axios';
 import { getMicroSolutions } from '../api/index.ts';
-import type { MicroSolutionsData, UseMicroDataResult, ValidationError } from '../types';
+import type { MicroProductsData, UseMicroDataResult, ValidationError } from '../types';
 
-export const useMicroSolutions = (): UseMicroDataResult<MicroSolutionsData> => {
-    const [data, setData] = useState<MicroSolutionsData | null>(null);
+export const useMicroSolutions = (): UseMicroDataResult<MicroProductsData> => {
+    const [data, setData] = useState<MicroProductsData | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [fieldErrors, setFieldErrors] = useState<ValidationError[]>([]);

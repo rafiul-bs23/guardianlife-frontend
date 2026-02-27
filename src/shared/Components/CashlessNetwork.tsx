@@ -44,12 +44,20 @@ const CashlessNetwork: React.FC = () => {
                         </div>
 
                         {/* CTA */}
-                        <div className="pt-4">
+                        <div className="pt-4 flex gap-4">
                             <Button
                                 label="Cashless"
                                 variant="solid-orange"
-                                className="px-8 py-3 rounded-full"
+                                className="rounded-full "
                                 labelClass="text-sm font-bold"
+                                href='https://acps.myguardianbd.com/claim/online/gop/request/'
+                            />
+                            <Button
+                                label="Hospital List"
+                                variant="outline-orange"
+                                className="rounded-full"
+                                labelClass="text-sm font-bold"
+                                to='/preferred-hospital'
                             />
                         </div>
                     </div>

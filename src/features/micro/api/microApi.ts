@@ -1,17 +1,12 @@
 import axiosClient from '../../../lib/axios';
-import type { MicroSolutionsData, MicroImpactMetric, MicroApiResult, MicroPartner } from '../types';
+import type { MicroProductsData, MicroImpactMetric, MicroApiResult } from '../types';
 
-export const getRealMicroSolutions = async (): Promise<MicroApiResult<MicroSolutionsData>> => {
-    const { data } = await axiosClient.get<MicroApiResult<MicroSolutionsData>>('/micro/solutions');
+export const getRealMicroSolutions = async (): Promise<MicroApiResult<MicroProductsData>> => {
+    const { data } = await axiosClient.get<MicroApiResult<MicroProductsData>>('/products/?channel=micro');
     return data;
 };
 
 export const getRealMicroImpact = async (): Promise<MicroApiResult<MicroImpactMetric[]>> => {
-    const { data } = await axiosClient.get<MicroApiResult<MicroImpactMetric[]>>('/micro/impact-metrics');
-    return data;
-};
-
-export const getRealMicroPartners = async (): Promise<MicroApiResult<MicroPartner[]>> => {
-    const { data } = await axiosClient.get<MicroApiResult<MicroPartner[]>>('/micro/partners');
+    const { data } = await axiosClient.get<MicroApiResult<MicroImpactMetric[]>>('/micro/impact');
     return data;
 };

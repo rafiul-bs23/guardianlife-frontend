@@ -1,17 +1,27 @@
+import { useRef } from 'react';
 import WhyMicroMatters from './components/WhyMicroMatters';
 import MicroSolutions from './components/MicroSolutions';
 import WhyMicroinsurance from './components/WhyMicroinsurance';
 import MicroImpact from './components/MicroImpact';
-import MicroPartners from './components/MicroPartners';
+import PartnersSlider from '../../shared/Components/PartnersSlider';
 import MicroContactForm from './components/MicroContactForm';
 import AppDownloadSection from '../../shared/Components/AppDownloadSection';
 import CashlessNetwork from '../../shared/Components/CashlessNetwork';
 import { mockMicroData } from './api/mockData';
 import MicroHeader from './components/MicroHeader';
 import { useHeader } from './hooks/useHeader';
+import FAQ from '../../shared/Components/Faq';
 
 const Micro = () => {
   const { data: headerData, isLoading: isHeaderLoading } = useHeader();
+  const solutionsRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
+
+  const scrollToSolutions = () =>
+    solutionsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  const scrollToContact = () =>
+    contactRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   if (isHeaderLoading) {
     return (
@@ -23,15 +33,26 @@ const Micro = () => {
 
   return (
     <main className="min-h-screen bg-white">
-      {headerData && <MicroHeader data={headerData} />}
+      {headerData && (
+        <MicroHeader
+          data={headerData}
+          onScrollToSolutions={scrollToSolutions}
+          onScrollToContact={scrollToContact}
+        />
+      )}
       <WhyMicroMatters data={mockMicroData.whyMicroMatters} />
-      <MicroSolutions />
+      <div ref={solutionsRef}>
+        <MicroSolutions />
+      </div>
       <WhyMicroinsurance data={mockMicroData.whyMicroinsurance} />
       <MicroImpact />
       <CashlessNetwork />
-      <MicroPartners />
-      <MicroContactForm data={mockMicroData.contactForm} />
+      <PartnersSlider channel="micro" />
       <AppDownloadSection />
+      <div ref={contactRef}>
+        <MicroContactForm />
+      </div>
+      <FAQ />
     </main>
   );
 };

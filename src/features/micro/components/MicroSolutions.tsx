@@ -27,16 +27,16 @@ const MicroSolutions: React.FC = () => {
                 {/* Header Section */}
                 <div className="text-center mb-16 max-w-[900px] mx-auto">
                     <h2 className="text-3xl font-extrabold text-gray-900 mb-6 uppercase tracking-wider">
-                        {data.title}
+                        MICROINSURANCE SOLUTIONS WE OFFER
                     </h2>
                     <p className="text-gray-600 text-lg font-medium leading-relaxed">
-                        {data.description}
+                        Comprehensive protection designed for real lives and real challenges, with affordable plans that fit your needs.
                     </p>
                 </div>
 
                 {/* Solutions Grid */}
                 <div className="flex flex-wrap justify-center gap-8">
-                    {data.solutions.map((solution, index) => (
+                    {data.products.map((product, index) => (
                         <div
                             key={index}
                             className="w-full md:w-[calc(50%-16px)] lg:w-[calc(33.33%-22px)] bg-white rounded-[32px] p-8 shadow-sm border border-gray-100 flex flex-col hover:shadow-xl transition-all duration-300 group"
@@ -44,8 +44,8 @@ const MicroSolutions: React.FC = () => {
                             {/* Card Image */}
                             <div className="mb-8 rounded-2xl overflow-hidden aspect-[4/3]">
                                 <img
-                                    src={`/${solution.image}`}
-                                    alt={solution.title}
+                                    src={product.thumbnail_url}
+                                    alt={product.title}
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                 />
                             </div>
@@ -53,15 +53,15 @@ const MicroSolutions: React.FC = () => {
                             {/* Card Content */}
                             <div className="flex flex-col flex-grow">
                                 <h3 className="text-[19px] font-black text-gray-900 mb-2 leading-tight">
-                                    {solution.title}
+                                    {product.title}
                                 </h3>
                                 <p className="text-gray-500 font-bold text-[13px] mb-6 leading-relaxed">
-                                    {solution.subtitle}
+                                    {product.description}
                                 </p>
 
                                 {/* Points List */}
                                 <div className="space-y-3 mb-8 flex-grow">
-                                    {solution.points.map((point, pIndex) => (
+                                    {product.points.map((point, pIndex) => (
                                         <div key={pIndex} className="flex gap-2 items-start">
                                             <div className="mt-1 flex-shrink-0">
                                                 <Check className="w-4 h-4 text-primary stroke-[3px]" />
@@ -76,7 +76,7 @@ const MicroSolutions: React.FC = () => {
                                 {/* Highlight Footer */}
                                 <div className="pt-4 mt-auto">
                                     <p className="text-[#EB6925] text-[13px] font-bold leading-relaxed">
-                                        {solution.footerHighlight}
+                                        {product.footer}
                                     </p>
                                 </div>
                             </div>

@@ -8,10 +8,11 @@ import { OutPatientCardsSection } from "./component/OutPatientCardsSection.tsx";
 import GroupHeader from "./components/GroupHeader.tsx";
 import { useHeader } from "./hooks/useHeader.ts";
 import CashlessNetwork from "../../shared/Components/CashlessNetwork.tsx";
-import MicroPartners from "../micro/components/MicroPartners.tsx";
 import MicroContactForm from "../micro/components/MicroContactForm.tsx";
 import { mockMicroData } from "../micro/api/mockData.ts";
 import AppDownloadSection from "../../shared/Components/AppDownloadSection.tsx";
+import PartnersSlider from "../../shared/Components/PartnersSlider.tsx";
+import GroupContactForm from "./components/GroupContactForm.tsx";
 
 // import { comprehensiveData, lifeCoveragedata, mockGroupApiResponse as apiResponse } from "./api/mockData";
 
@@ -60,8 +61,8 @@ const Group = () => {
       <div className="mt-16">
         <CashlessNetwork />
       </div>
-      <MicroPartners />
-      <MicroContactForm data={mockMicroData.contactForm} />
+      <PartnersSlider channel="group" />
+      <GroupContactForm />
       <AppDownloadSection />
     </main>
   );

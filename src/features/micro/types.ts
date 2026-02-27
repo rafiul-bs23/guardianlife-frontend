@@ -11,18 +11,22 @@ export interface WhyMicroMattersData {
     benefits: MicroBenefit[];
 }
 
-export interface MicroSolution {
+
+export interface MicroProduct {
     title: string;
-    subtitle: string;
-    image: string;
+    product_code: string;
+    logo_url: string | null;
+    thumbnail_url: string;
+    description: string;
+    footer: string;
     points: string[];
-    footerHighlight: string;
 }
 
-export interface MicroSolutionsData {
-    title: string;
-    description: string;
-    solutions: MicroSolution[];
+export interface MicroProductsData {
+    channel: string;
+    category: string | null;
+    subcategory: string | null;
+    products: MicroProduct[];
 }
 
 export interface MicroCard {
@@ -62,38 +66,10 @@ export interface MicroImpactStatic {
     bannerSubtitle: string;
 }
 
-export interface MicroPartner {
-    partnerName: string;
-    logoUrl: string;
-    websiteUrl: string | null;
-}
-
-export interface MicroPartnersStatic {
-    title: string;
-    subtitle: string;
-}
-
-export interface MicroContactFormData {
-    title: string;
-    fields: {
-        fullName: { label: string; placeholder: string; required: boolean };
-        email: { label: string; placeholder: string; required: boolean };
-        phone: { label: string; placeholder: string; required: boolean };
-        message: { label: string; placeholder: string; required: boolean };
-    };
-    privacyPolicy: string;
-    submitButton: string;
-}
-
 export interface MicroData {
     whyMicroMatters: WhyMicroMattersData;
-    solutions: MicroSolutionsData;
     whyMicroinsurance: WhyMicroinsuranceData;
     impactStatic: MicroImpactStatic;
-    impactMetrics: MicroImpactMetric[];
-    partnersStatic: MicroPartnersStatic;
-    partnersDynamic: MicroPartner[];
-    contactForm: MicroContactFormData;
 }
 
 // API Response Types

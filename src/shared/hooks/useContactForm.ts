@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { post_lead } from '../api/leadIndex';
+import { post_lead } from '../api';
 
 interface FormData {
     fullName: string;
@@ -17,7 +17,7 @@ interface FormErrors {
     agreeToPolicy?: string;
 }
 
-interface UseLeadFormResult {
+export interface UseContactFormResult {
     formData: FormData;
     errors: FormErrors;
     is_loading: boolean;
@@ -66,7 +66,7 @@ const validate = (formData: FormData): FormErrors => {
     return errors;
 };
 
-export const useLeadForm = (): UseLeadFormResult => {
+export const useContactForm = (channel: string): UseContactFormResult => {
     const [formData, set_form_data] = useState<FormData>(initial_form);
     const [errors, set_errors] = useState<FormErrors>({});
     const [is_loading, set_is_loading] = useState(false);
@@ -81,7 +81,6 @@ export const useLeadForm = (): UseLeadFormResult => {
                 ...prev,
                 [name]: type === 'checkbox' ? checked : value,
             }));
-            // Clear the error for the changed field on user interaction
             set_errors((prev) => ({ ...prev, [name]: undefined }));
         },
         []
@@ -105,7 +104,7 @@ export const useLeadForm = (): UseLeadFormResult => {
                 type: 'lead',
                 applying_position: null,
                 message: formData.message.trim(),
-                channel: "home_page"
+                channel,
             });
 
             if (response.success) {
@@ -115,12 +114,12 @@ export const useLeadForm = (): UseLeadFormResult => {
             } else {
                 set_error(response.message ?? 'Submission failed. Please try again.');
             }
-        } catch (err) {
+        } catch {
             set_error('An unexpected error occurred. Please try again.');
         } finally {
             set_is_loading(false);
         }
-    }, [formData]);
+    }, [formData, channel]);
 
     const reset = useCallback(() => {
         set_form_data(initial_form);

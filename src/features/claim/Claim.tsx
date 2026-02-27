@@ -8,6 +8,7 @@ import { mockClaimData } from './api/mockData';
 import { useClaimDocuments } from './hooks/useClaimDocuments';
 import ClaimHeader from './components/ClaimHeader';
 import { useHeader } from './hooks/useHeader';
+import FAQ from '../../shared/Components/Faq';
 
 const Claim = () => {
   const { data: headerData, isLoading: isHeaderLoading } = useHeader();
@@ -30,6 +31,7 @@ const Claim = () => {
       <CustomerStories data={mockClaimData.customerStories} />
       {data && <ClaimDocuments data={data} />}
       <AppDownloadSection />
+      <FAQ />
     </main>
   );
 };
