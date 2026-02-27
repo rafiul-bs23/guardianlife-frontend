@@ -1,6 +1,7 @@
 import { ArrowUpRight } from 'lucide-react'; // or you can use any icon library
 
 import { MOCK_PARTNER_BANKS_DATA } from '../api/mockData';
+import { Link } from 'react-router-dom';
 
 const PartnerBanks = () => {
 
@@ -31,11 +32,11 @@ const PartnerBanks = () => {
               className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 relative group cursor-pointer"
             >
               {/* Arrow Icon - Top Right */}
-              <div className="absolute top-6 right-6 w-10 h-10 rounded-full border-2 border-gray-300 flex items-center justify-center group-hover:border-orange-500 group-hover:bg-orange-500 transition-all duration-300">
+              <Link to={partner.link} className="absolute top-6 right-6 w-10 h-10 rounded-full border-2 border-gray-300 flex items-center justify-center group-hover:border-orange-500 group-hover:bg-orange-500 transition-all duration-300">
                 <ArrowUpRight
                   className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors duration-300"
                 />
-              </div>
+              </Link>
 
               {/* Bank Logo - Center */}
               <div className="flex items-center justify-center h-32">

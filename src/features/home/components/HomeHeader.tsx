@@ -37,14 +37,14 @@ interface HomeHeaderProps {
 
 const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
     return (
-        <GenericHeader data={data} variant="immersive">
+        <GenericHeader data={data} variant="immersive" backgroundVideoUrl={data?.background_video_url}>
             <div className="relative w-full h-full min-h-[700px] md:min-h-[850px] lg:min-h-[750px] flex flex-col items-center justify-center px-4 overflow-hidden">
 
                 {/* Bottom White Gradient/Fade Area */}
-                <div className="absolute bottom-0 left-0 right-0 h-[30%] bg-gradient-to-t from-white via-white/80 to-transparent z-10" />
+                <div className="absolute bottom-0 left-0 right-0 h-[30%] bg-gradient-to-t from-[#F4F4F4] via-white/80 to-transparent z-10" />
 
                 {/* Central Section: Question and Search */}
-                <div className="absolute top-[25%] md:top-[20%] z-30 flex flex-col items-center gap-8 w-full max-w-4xl text-center mb-12">
+                <div className="hidden absolute top-[25%] md:top-[20%] z-30 flex flex-col items-center gap-8 w-full max-w-4xl text-center mb-12">
                     <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white drop-shadow-lg">
                         How can we help?
                     </h2>

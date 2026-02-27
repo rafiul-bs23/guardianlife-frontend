@@ -107,6 +107,7 @@ const SolutionsComponent = () => {
                       {position === 0 ? (
                         <Link
                           to="/category"
+                          state={{ tabIndex: activeIndex }}
                           className="absolute top-6 right-6 w-12 h-12 rounded-full border border-white/40 flex items-center justify-center text-white backdrop-blur-sm hover:bg-white/20 transition-colors "
                           onClick={(e) => e.stopPropagation()}
                         >

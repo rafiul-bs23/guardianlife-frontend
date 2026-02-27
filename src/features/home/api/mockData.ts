@@ -1,10 +1,12 @@
 import type { HeaderData } from "../../../shared/types/header";
 
+import HomeBackgroundVideo from "../../../assets/video/home.mov";
+
 export const MOCK_HOME_HEADER_DATA: HeaderData = {
     badge: null,
     title: [],
-    description: undefined,
-    background_image_url: "src/assets/images/headers/home.png", // Beach sunset background
+    description: undefined,// Beach sunset background
+    background_video_url: HomeBackgroundVideo,
 };
 import AppPromotionImage from "../../../assets/images/home/AppPromotion/AppPromotion.png";
 import partner1 from '../../../assets/images/home/PartnersBanks/partner1.jpg';
@@ -15,7 +17,26 @@ import image1 from '../../../assets/images/home/Solutions/solutions1.png';
 import image2 from '../../../assets/images/home/Solutions/solutions2.png';
 import image3 from '../../../assets/images/home/Solutions/solutions3.png';
 import image4 from '../../../assets/images/home/Solutions/solutions4.png';
-import BusinessPastner1 from "../../../assets/images/home/BusinessPartners/BusinessPartner1.png";
+import bp1 from "../../../assets/images/partners/Qatar Airways.png";
+import bp2 from "../../../assets/images/partners/Renata.png";
+import bp3 from "../../../assets/images/partners/Robi Logo.png";
+import bp4 from "../../../assets/images/partners/Aramex.png";
+import bp5 from "../../../assets/images/partners/Haier.png";
+import bp6 from "../../../assets/images/partners/Expeditors.png";
+import bp7 from "../../../assets/images/partners/Bureau Veritas.png";
+import bp8 from "../../../assets/images/partners/DBL Ceramic.png";
+import bp9 from "../../../assets/images/partners/Optimizely.png";
+import bp10 from "../../../assets/images/partners/Tesco.png";
+import bp11 from "../../../assets/images/partners/Buro Bangladesh.png";
+import bp12 from "../../../assets/images/partners/Cross World.jpg";
+import bp13 from "../../../assets/images/partners/Dahua.jpg";
+import bp14 from "../../../assets/images/partners/Fiber@Home.png";
+import bp15 from "../../../assets/images/partners/France Embassy.png";
+import bp16 from "../../../assets/images/partners/Grameen Telecom Trust.jpg";
+import bp17 from "../../../assets/images/partners/Next ventures.png";
+import bp18 from "../../../assets/images/partners/Perfetti Van.png";
+import bp19 from "../../../assets/images/partners/Wagely.jpg";
+import bp20 from "../../../assets/images/partners/Welthungerlife.png";
 import guideYouImage from "../../../assets/images/home/guide-you.png";
 
 export type Partner = {
@@ -44,16 +65,29 @@ export const MOCK_OUR_SOLUTIONS_DATA = {
 };
 
 export const partners: Partner[] = [
-    { id: 1, name: "Shanta", logo: BusinessPastner1 },
-    { id: 2, name: "The Palace", logo: BusinessPastner1 },
-    { id: 3, name: "BRAC", logo: BusinessPastner1 },
-    { id: 4, name: "ICMAB", logo: BusinessPastner1 },
-    { id: 5, name: "Meridian", logo: BusinessPastner1 },
-    { id: 6, name: "BRAC", logo: BusinessPastner1 },
-    { id: 7, name: "Shanta", logo: BusinessPastner1 },
-    { id: 8, name: "BRAC", logo: BusinessPastner1 },
-    { id: 9, name: "Meridian", logo: BusinessPastner1 },
-    { id: 10, name: "Meridian2", logo: BusinessPastner1 },
+    { id: 1, name: "Qatar Airways", logo: bp1 },
+    { id: 2, name: "Renata", logo: bp2 },
+    { id: 3, name: "Robi", logo: bp3 },
+    { id: 4, name: "Aramex", logo: bp4 },
+    { id: 5, name: "Haier", logo: bp5 },
+    { id: 6, name: "Expeditors", logo: bp6 },
+    { id: 7, name: "Bureau Veritas", logo: bp7 },
+    { id: 8, name: "DBL Ceramic", logo: bp8 },
+    { id: 9, name: "Optimizely", logo: bp9 },
+    { id: 10, name: "Tesco", logo: bp10 },
+];
+
+export const partners2: Partner[] = [
+    { id: 11, name: "Buro Bangladesh", logo: bp11 },
+    { id: 12, name: "Cross World", logo: bp12 },
+    { id: 13, name: "Dahua", logo: bp13 },
+    { id: 14, name: "Fiber@Home", logo: bp14 },
+    { id: 15, name: "France Embassy", logo: bp15 },
+    { id: 16, name: "Grameen Telecom Trust", logo: bp16 },
+    { id: 17, name: "Next Ventures", logo: bp17 },
+    { id: 18, name: "Perfetti Van", logo: bp18 },
+    { id: 19, name: "Wagely", logo: bp19 },
+    { id: 20, name: "Welthungerlife", logo: bp20 },
 ];
 
 export const MOCK_PARTNER_BANKS_DATA = {
@@ -68,9 +102,9 @@ export const MOCK_PARTNER_BANKS_DATA = {
         { text: " PLAN—SIMPLE AND TAILORED FOR YOU.", color: "#1f2937" }
     ],
     partners: [
-        { id: 1, name: 'City Bank', logo: partner1, link: '#' },
-        { id: 2, name: 'Dutch-Bangla Bank', logo: partner2, link: '#' },
-        { id: 3, name: 'MTB', logo: partner3, link: '#' },
+        { id: 1, name: 'City Bank', logo: partner1, link: '/banca/city-bank' },
+        { id: 2, name: 'Dutch-Bangla Bank', logo: partner2, link: '/banca/dbbl' },
+        { id: 3, name: 'MTB', logo: partner3, link: '/banca/mtb' },
     ]
 };
 

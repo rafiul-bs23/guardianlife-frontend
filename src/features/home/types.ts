@@ -1,15 +1,2 @@
-export interface Partner {
-  id: number;
-  name: string;
-  logo: string;
-}
-
-export interface LogoGridProps {
-  partners: Partner[];
-  rowHeight: number | null;
-}
-
-export interface LogoCardProps {
-  logo: string;
-  name: string;
-}
+// Home feature types
+// Partner and logo grid types are now in src/shared/Components/PartnersBanner.tsx

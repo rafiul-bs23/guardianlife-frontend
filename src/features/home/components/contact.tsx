@@ -3,7 +3,7 @@ import ContactForm from '../../../shared/Components/ContactForm';
 
 const ContactSection = () => {
   return (
-    <div className="flex flex-col lg:flex-row gap-8 w-full mt-16 lg:mt-[140px] px-4 xl:px-0">
+    <div className="flex flex-col lg:flex-row gap-8 w-full  px-4 xl:px-0">
       {/* Left: image */}
       <div className="w-full lg:flex-1 rounded-[32px] lg:rounded-tr-[32px] lg:rounded-br-[32px] lg:rounded-tl-none lg:rounded-bl-none h-64 lg:h-[567px] my-auto overflow-hidden">
         <img

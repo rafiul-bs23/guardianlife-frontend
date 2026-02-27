@@ -16,6 +16,7 @@ interface BaseButtonProps {
     type?: 'button' | 'submit' | 'reset';
     disabled?: boolean;
     labelClass?: string;
+    iconClass?: string;
 }
 
 const Button: React.FC<BaseButtonProps> = ({
@@ -29,7 +30,8 @@ const Button: React.FC<BaseButtonProps> = ({
     icon: Icon = ChevronRight,
     type = 'button',
     disabled = false,
-    labelClass = ''
+    labelClass = '',
+    iconClass = ''
 }) => {
     const getVariantStyles = () => {
         switch (variant) {
@@ -77,7 +79,7 @@ const Button: React.FC<BaseButtonProps> = ({
             <span className={`tracking-tight leading-none text-lg font-semibold ${labelClass}`}>{label}</span>
             {styles.iconCircle && (
                 <div className={`ml-8 w-11 h-11 rounded-full flex items-center justify-center transition-colors ${styles.iconCircle}`}>
-                    <Icon className="w-6 h-6" />
+                    <Icon className={`w-6 h-6 ${iconClass}`} />
                 </div>
             )}
         </>

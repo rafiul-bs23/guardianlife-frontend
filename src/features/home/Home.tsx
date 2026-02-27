@@ -15,9 +15,9 @@ import ContactForm from "./components/contact.tsx";
 const Home = () => {
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#F4F4F4]">
       <HomeHeader data={MOCK_HOME_HEADER_DATA} />
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center mb-20">
         <div className="mt-16 lg:mt-[98px] mb-[60px]">
           <p className="not-italic font-black text-[24px] leading-[24px] tracking-[0.2em] text-center lg:text-left uppercase text-[#1E3161]">sponsored by</p>
         </div>

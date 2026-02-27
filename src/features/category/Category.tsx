@@ -1,4 +1,5 @@
 import { useState, useRef, useMemo } from "react";
+import { useLocation } from "react-router-dom";
 import ProductCard from "../../shared/Components/ProductCard.tsx";
 import ProductCardCompact from "./ProductCardCompact.tsx";
 import FAQ from "../../shared/Components/Faq.tsx";
@@ -11,7 +12,9 @@ import { useCategoryProducts } from "./hooks/useCategoryProducts.ts";
 
 const Category = () => {
   const { data: headerData, isLoading: isHeaderLoading } = useHeader();
-  const [activeIndex, setActiveIndex] = useState(0);
+  const location = useLocation();
+  const initialIndex = (location.state as { tabIndex?: number } | null)?.tabIndex ?? 0;
+  const [activeIndex, setActiveIndex] = useState(initialIndex);
   const tabsRef = useRef<HTMLDivElement>(null);
 
   const handleExploreClick = () => {
