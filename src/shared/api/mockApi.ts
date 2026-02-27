@@ -1,4 +1,7 @@
-import type { FaqApiResult } from './types';
+import type { FaqApiResult } from '../types/faq';
+import type { PartnersApiResult } from '../types/partners';
+import type { LeadRequest, LeadApiResult } from '../types/contact';
+import { mockPartnersResponse } from './mockData';
 
 export const getMockFaqData = async (): Promise<FaqApiResult> => {
     return new Promise((resolve) => {
@@ -59,6 +62,33 @@ export const getMockFaqData = async (): Promise<FaqApiResult> => {
                     }
                 ]
             });
-        }, 500); // Simulate network delay
+        }, 500);
+    });
+};
+
+export const get_mock_partners = async (_channel: string): Promise<PartnersApiResult> => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({
+                success: true,
+                transaction_id: mockPartnersResponse.transaction_id,
+                data: mockPartnersResponse.data,
+            });
+        }, 800);
+    });
+};
+
+export const post_mock_lead = async (_payload: LeadRequest): Promise<LeadApiResult> => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({
+                success: true,
+                transaction_id: 'GLIL-TXN-ID',
+                data: {
+                    status: 'Submitted',
+                    received_at: new Date().toISOString(),
+                },
+            });
+        }, 700);
     });
 };

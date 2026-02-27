@@ -35,27 +35,27 @@ const Button: React.FC<BaseButtonProps> = ({
         switch (variant) {
             case 'base':
                 return {
-                    button: 'bg-primary text-white hover:bg-[#FF7D35] px-8 py-2.5 shadow-md',
+                    button: 'bg-primary text-white hover:bg-[#FF7D35] px-8 py-2.5 shadow-md w-fit',
                     iconCircle: null
                 };
             case 'outline-orange':
                 return {
-                    button: ' border-2 border-primary text-primary hover:bg-primary/20 pl-8 pr-1.5 py-1.5 shadow-md',
+                    button: ' border-2 border-primary text-primary hover:bg-primary/20 pl-8 pr-1.5 py-1.5 shadow-md w-fit',
                     iconCircle: 'bg-primary text-white',
                 };
             case 'outline-white':
                 return {
-                    button: ' border-2 border-white text-white hover:bg-white/20 pl-8 pr-1.5 py-1.5 shadow-md',
+                    button: ' border-2 border-white text-white hover:bg-white/20 pl-8 pr-1.5 py-1.5 shadow-md w-fit',
                     iconCircle: 'bg-white text-primary',
                 };
             case 'solid-orange':
                 return {
-                    button: 'bg-primary text-white hover:bg-primary/60 pl-8 pr-1.5 py-1.5 shadow-md',
+                    button: 'bg-primary text-white hover:bg-primary/60 pl-8 pr-1.5 py-1.5 shadow-md w-fit',
                     iconCircle: 'bg-white text-primary',
                 };
             case 'solid-white':
                 return {
-                    button: 'bg-white text-primary border border-gray-100 shadow-sm hover:shadow-md pl-8 pr-1.5 py-1.5',
+                    button: 'bg-white text-primary border border-gray-100 shadow-sm hover:shadow-md pl-8 pr-1.5 py-1.5 w-fit',
                     iconCircle: 'bg-primary text-white',
                 };
             default:

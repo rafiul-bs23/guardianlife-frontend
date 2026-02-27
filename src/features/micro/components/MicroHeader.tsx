@@ -5,20 +5,22 @@ import Button from '../../../shared/Components/Button';
 
 interface MicroHeaderProps {
     data: HeaderData;
+    onScrollToSolutions?: () => void;
+    onScrollToContact?: () => void;
 }
 
-const MicroHeader: React.FC<MicroHeaderProps> = ({ data }) => {
+const MicroHeader: React.FC<MicroHeaderProps> = ({ data, onScrollToSolutions, onScrollToContact }) => {
     const actions = (
         <>
             <Button
                 label="About Our Solutions"
                 variant="outline-white"
-                onClick={() => console.log('About Our Solutions clicked')}
+                onClick={onScrollToSolutions}
             />
             <Button
                 label="Get Protected Today"
                 variant="solid-white"
-                onClick={() => console.log('Get Protected Today clicked')}
+                onClick={onScrollToContact}
             />
         </>
     );

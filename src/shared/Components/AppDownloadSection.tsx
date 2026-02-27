@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import Button from './Button';
 import { sharedAppDownloadData } from '../api/mockData';
+import AppStoreButtons from './AppStoreButtons';
 
 const AppDownloadSection: React.FC = () => {
     const data = sharedAppDownloadData;
@@ -32,22 +33,8 @@ const AppDownloadSection: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* App Store Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-6">
-                        <Button
-                            label="Google Play"
-                            variant="solid-orange"
-                            onClick={() => window.open(data.playStoreUrl, '_blank')}
-                            icon={ArrowRight}
-                        />
+                    <AppStoreButtons className='flex flex-col sm:flex-row gap-6' />
 
-                        <Button
-                            label="App Store"
-                            variant="solid-orange"
-                            onClick={() => window.open(data.appStoreUrl, '_blank')}
-                            icon={ArrowRight}
-                        />
-                    </div>
                 </div>
             </div>
         </section>

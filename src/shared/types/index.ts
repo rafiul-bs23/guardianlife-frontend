@@ -2,8 +2,6 @@ export interface AppDownloadData {
     title: string;
     subtitle: string;
     image: string;
-    playStoreUrl: string;
-    appStoreUrl: string;
 }
 
 export interface CashlessNetworkData {

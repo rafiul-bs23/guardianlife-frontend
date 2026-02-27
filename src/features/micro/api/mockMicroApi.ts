@@ -1,44 +1,29 @@
-import { mockMicroData } from './mockData';
-import type { MicroSolutionsData, MicroImpactMetric, MicroApiResult, MicroPartner } from '../types';
+import { mockMicroProductsResponse, mockMicroImpactResponse } from './mockData';
+import type { MicroProductsData, MicroImpactMetric, MicroApiResult } from '../types';
 
-export const getMockMicroSolutions = async (): Promise<MicroApiResult<MicroSolutionsData>> => {
+export const getMockMicroSolutions = async (): Promise<MicroApiResult<MicroProductsData>> => {
     // Simulate API delay
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({
                 status: true,
-                transactionId: `tx-${Math.random().toString(36).substring(2, 11)}`,
+                transactionId: mockMicroProductsResponse.transaction_id,
                 message: "Solutions fetched successfully (Mock)",
-                data: mockMicroData.solutions
+                data: mockMicroProductsResponse.data
             });
         }, 800);
     });
 };
 
 export const getMockMicroImpact = async (): Promise<MicroApiResult<MicroImpactMetric[]>> => {
-    // Simulate API delay
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({
                 status: true,
-                transactionId: "GLIL-TXN-ID",
+                transactionId: mockMicroImpactResponse.transaction_id,
                 message: "Impact data fetched successfully (Mock)",
-                data: mockMicroData.impactMetrics
+                data: mockMicroImpactResponse.data
             });
         }, 1000);
-    });
-};
-
-export const getMockMicroPartners = async (): Promise<MicroApiResult<MicroPartner[]>> => {
-    // Simulate API delay
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve({
-                status: true,
-                transactionId: "GLIL-TXN-ID",
-                message: "Partners fetched successfully (Mock)",
-                data: mockMicroData.partnersDynamic
-            });
-        }, 1200);
     });
 };

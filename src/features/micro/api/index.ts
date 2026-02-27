@@ -1,10 +1,10 @@
-import { getMockMicroSolutions, getMockMicroImpact, getMockMicroPartners } from './mockMicroApi';
-import { getRealMicroSolutions, getRealMicroImpact, getRealMicroPartners } from './microApi';
-import type { MicroSolutionsData, MicroImpactMetric, MicroApiResult, MicroPartner } from '../types';
+import { getMockMicroSolutions, getMockMicroImpact } from './mockMicroApi';
+import { getRealMicroSolutions, getRealMicroImpact } from './microApi';
+import type { MicroProductsData, MicroImpactMetric, MicroApiResult } from '../types';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK_API === 'true';
 
-export const getMicroSolutions = async (): Promise<MicroApiResult<MicroSolutionsData>> => {
+export const getMicroSolutions = async (): Promise<MicroApiResult<MicroProductsData>> => {
     if (USE_MOCK) {
         return getMockMicroSolutions();
     }
@@ -18,9 +18,4 @@ export const getMicroImpact = async (): Promise<MicroApiResult<MicroImpactMetric
     return getRealMicroImpact();
 };
 
-export const getMicroPartners = async (): Promise<MicroApiResult<MicroPartner[]>> => {
-    if (USE_MOCK) {
-        return getMockMicroPartners();
-    }
-    return getRealMicroPartners();
-};
+

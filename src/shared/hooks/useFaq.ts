@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { getFaqData } from '../api';
-import type { FaqItem, ValidationError } from '../api/types';
+import type { FaqItem, ValidationError } from '../types/faq';
 
 interface UseFaqResult {
     data: FaqItem[] | null;
