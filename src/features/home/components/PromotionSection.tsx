@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 import AppStoreButtons from '../../../shared/Components/AppStoreButtons';
@@ -5,9 +7,17 @@ import AppStoreButtons from '../../../shared/Components/AppStoreButtons';
 import { MOCK_APP_PROMOTION_DATA } from '../api/mockData';
 
 const AppPromotion = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: true, amount: 0.2 });
+
   return (
-    <div className="bg-gray-50 py-16 px-8">
-      <div className="mx-auto">
+    <div ref={containerRef} className="bg-gray-50 py-16 px-8 overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0, scale: 1.2 }}
+        animate={isInView ? { opacity: 1, scale: 1 } : {}}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="mx-auto"
+      >
         {/* Header Section */}
         <div className="text-center mb-8">
           <h3 className="text-sm font-semibold text-gray-600 tracking-wide mb-3">
@@ -32,16 +42,16 @@ const AppPromotion = () => {
 
         <div className="relative mt-8 flex justify-center px-4 md:px-0">
           <div
-            className="overflow-hidden mx-auto w-full max-w-7xl relative"
+            className="overflow-hidden mx-auto w-full max-w-6xl relative"
             style={{
-              clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%)',
+              clipPath: 'polygon(120px 0, 100% 0, 100% calc(100% - 120px), calc(100% - 120px) 100%, 0 100%, 0 80px)',
               borderRadius: '24px'
             }}
           >
             <img
               src={MOCK_APP_PROMOTION_DATA.image}
               alt="Guardian Life App"
-              className="w-full h-auto aspect-[16/9] md:aspect-auto md:max-h-[579px] object-cover"
+              className="w-full h-auto aspect-[16/10] md:aspect-auto md:max-h-[450px] object-cover"
             />
 
             {/* Top-right circle icon (optional) */}
@@ -51,11 +61,9 @@ const AppPromotion = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Phone Image with rounded corners */}
+      </motion.div>
     </div>
-  )
+  );
 };
 
 export default AppPromotion;

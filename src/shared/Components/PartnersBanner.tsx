@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, useState } from "react";
+import { motion, useInView, type Variants } from "framer-motion";
 import Button from "./Button";
 
 /* ─── span pattern: rows [2,1] [1,1,1] [1,2] [1,1,1] ─── */
@@ -72,8 +73,11 @@ const PartnersBanner = ({
   reversed = false,
   maxWidth,
 }: PartnersBannerProps) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const [rowHeight, setRowHeight] = useState<number | null>(null);
+
+  const isInView = useInView(containerRef, { once: true, amount: 0.5 });
 
   useLayoutEffect(() => {
     const measure = () => {
@@ -87,15 +91,54 @@ const PartnersBanner = ({
     return () => window.removeEventListener("resize", measure);
   }, []);
 
+  const logoSectionVariants: Variants = {
+    hidden: { opacity: 0, x: reversed ? -100 : 100 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  };
+
+  const imageVariants: Variants = {
+    hidden: { opacity: 0, x: reversed ? 50 : -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+        delay: 0.8 // After logo section starts appearing
+      }
+    },
+  };
+
+  const textVariants: Variants = {
+    hidden: { opacity: 0, x: reversed ? 50 : -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+        delay: 1.3 // After image starts appearing
+      }
+    },
+  };
+
   return (
-    <div className={maxWidth ? `mx-auto w-full ${maxWidth} overflow-hidden` : "overflow-hidden"}>
-      <div className={`flex flex-col bg-[#f4f4f4] ${reversed ? "lg:flex-row-reverse" : "lg:flex-row"}`}>
+    <div
+      ref={containerRef}
+      className={maxWidth ? `mx-auto w-full ${maxWidth} overflow-hidden` : "overflow-hidden"}
+    >
+      <motion.div
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        className={`flex flex-col bg-[#f4f4f4] ${reversed ? "lg:flex-row-reverse" : "lg:flex-row"}`}
+      >
 
         {/* ── Content: image + text ── */}
         <div className="w-full lg:w-1/2 flex flex-col">
 
           {/* Image — rounded corners face the grid side */}
-          <div
+          <motion.div
+            variants={imageVariants}
             className={`overflow-hidden rounded-[32px] lg:rounded-none mx-4 lg:mx-0 ${reversed
               ? "lg:rounded-tl-[32px] lg:rounded-bl-[32px] !ml-12"
               : "lg:rounded-tr-[32px] lg:rounded-br-[32px] !mr-12"
@@ -106,10 +149,11 @@ const PartnersBanner = ({
               alt={imageAlt}
               className="w-full h-[300px] lg:h-[360px] object-cover"
             />
-          </div>
+          </motion.div>
 
           {/* Text block — padding mirrors to push text away from the outer edge */}
-          <div
+          <motion.div
+            variants={textVariants}
             className={`flex flex-col gap-5 px-6 pt-8 pb-10 ${reversed ? "lg:pr-[100px] lg:pl-16" : "lg:pl-[100px] lg:pr-16"
               }`}
           >
@@ -124,19 +168,20 @@ const PartnersBanner = ({
             <div>
               <Button label={buttonLabel} variant="solid-orange" to={buttonTo} />
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* ── Grid — flush to outer edge ── */}
-        <div
+        <motion.div
           ref={gridRef}
+          variants={logoSectionVariants}
           className={`w-full lg:w-1/2 p-4 self-stretch ${reversed ? "lg:py-0 lg:pl-0" : "lg:py-0 lg:pr-0"
             }`}
         >
           <LogoGrid partners={partners} rowHeight={rowHeight} />
-        </div>
+        </motion.div>
 
-      </div>
+      </motion.div>
     </div>
   );
 };

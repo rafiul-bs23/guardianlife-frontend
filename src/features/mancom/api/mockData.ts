@@ -11,6 +11,6 @@ export const HEADER_DATA: HeaderData = {
 export const mockMancomData: MancomData = {
     hero: {
         title: "MANAGEMENT COMMITTEE",
-        image: "src/assets/images/mancom/1.png"
+        image: "src/assets/images/mancom/1.jpeg"
     }
 };

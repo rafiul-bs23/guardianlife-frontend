@@ -74,14 +74,6 @@ export const router = createBrowserRouter([
         path: r.path.startsWith("/") ? r.path.slice(1) : r.path,
         element: r.element
       })),
-      { path: "category", element: <Category /> },
-      { path: "quick-buy-category", element: <QuickBuyCategory /> },
-      { path: "quick-buy-details", element: <QuickBuyDetails /> },
-      { path: "product-details", element: <ProductDetails /> },
-      { path: "group", element: <Group /> },
-      { path: "emc", element: <Emc /> },
-      { path: "board-directors", element: <BoardDirectors /> },
-      { path: "banca-city", element: <BancaCity /> },
     ],
   },
 ]);

@@ -4,7 +4,7 @@ import MancomHero from './components/MancomHero';
 
 const Mancom = () => {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen w-full bg-white">
       <MancomHeader data={HEADER_DATA} />
       <MancomHero data={mockMancomData.hero} />
     </main>
