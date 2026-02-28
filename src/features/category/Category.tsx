@@ -1,5 +1,5 @@
 import { useState, useRef, useMemo } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import ProductCard from "../../shared/Components/ProductCard.tsx";
 import ProductCardCompact from "./ProductCardCompact.tsx";
 import FAQ from "../../shared/Components/Faq.tsx";

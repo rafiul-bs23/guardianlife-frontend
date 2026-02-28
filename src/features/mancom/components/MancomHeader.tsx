@@ -1,7 +1,7 @@
 import React from 'react';
 import type { HeaderData } from '../../../shared/types/header';
 import GenericHeader from '../../../shared/Components/GenericHeader';
-import { Compass } from 'lucide-react';
+
 
 interface MancomHeaderProps {
     data: HeaderData;

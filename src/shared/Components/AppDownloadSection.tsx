@@ -1,6 +1,4 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
-import Button from './Button';
 import { sharedAppDownloadData } from '../api/mockData';
 import AppStoreButtons from './AppStoreButtons';
 

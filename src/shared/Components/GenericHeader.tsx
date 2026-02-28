@@ -17,7 +17,6 @@ interface GenericHeaderProps {
     actions?: React.ReactNode;
     children?: React.ReactNode;
     customBgStyles?: React.CSSProperties;
-    backgroundVideoUrl?: string;
 }
 
 const GenericHeader: React.FC<GenericHeaderProps> = ({
@@ -32,7 +31,6 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
     imgClassName = "",
     descriptionClassName = "",
     customBgStyles = {},
-    backgroundVideoUrl,
     actions,
     children
 }) => {
@@ -107,17 +105,17 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
     if (isImmersive) {
         return (
             <section
-                className={`relative w-full min-h-[600px] flex flex-col ${className} ${!backgroundVideoUrl ? 'bg-primary' : ''} overflow-hidden`}
-                style={!backgroundVideoUrl ? bgStyles : {}}
+                className={`relative w-full min-h-[600px] flex flex-col ${className} ${!data?.background_video_url ? 'bg-primary' : ''} overflow-hidden`}
+                style={!data?.background_video_url ? bgStyles : {}}
             >
-                {backgroundVideoUrl && (
+                {data?.background_video_url && (
                     <video
                         autoPlay
                         loop
                         muted
                         playsInline
                         className="absolute inset-0 w-full h-full object-cover z-0"
-                        src={backgroundVideoUrl}
+                        src={data?.background_video_url}
                     />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/70 to-primary/10 z-0 pointer-events-none" />
@@ -137,16 +135,16 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
             <section className={`bg-white px-4 md:px-10 lg:px-20 pb-12 pt-8 ${className}`}>
                 <div
                     className="relative w-full rounded-[10px] md:rounded-[30px] overflow-hidden min-h-[450px] flex items-center shadow-lg bg-primary"
-                    style={!backgroundVideoUrl ? bgStyles : {}}
+                    style={!data?.background_video_url ? bgStyles : {}}
                 >
-                    {backgroundVideoUrl && (
+                    {data?.background_video_url && (
                         <video
                             autoPlay
                             loop
                             muted
                             playsInline
                             className="absolute inset-0 w-full h-full object-cover z-0"
-                            src={backgroundVideoUrl}
+                            src={data?.background_video_url}
                         />
                     )}
                     {/* Brand Orange Gradient Overlay */}

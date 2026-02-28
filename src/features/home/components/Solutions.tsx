@@ -12,7 +12,7 @@ const SolutionsComponent = () => {
   const isMobile = useIsMobile();
 
   // Triggers when 10% (mobile) or 40% (PC) of the section is visible
-  const isInView = useInView(containerRef, { once: true, amount: isMobile ? 0.1 : 0.4 });
+  const isInView = useInView(containerRef, { once: true, amount: isMobile ? 0.1 : 0.3 });
 
   const getStackOrder = () => {
     const order = [];
@@ -28,7 +28,7 @@ const SolutionsComponent = () => {
   return (
     <section
       ref={containerRef}
-      className="bg-[#F4F4F4] py-24 overflow-hidden my-24 md:my-0"
+      className="bg-[#F4F4F4] py-24 overflow-hidden my-2 md:my-0"
     >
       <div className="max-w-[1440px] mx-auto px-6 lg:px-[100px] flex flex-col lg:flex-row items-center gap-12 lg:gap-0">
 

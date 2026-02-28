@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useFaq } from '../hooks/useFaq';
-import type { FaqItem } from '../api/types';
+import type { FaqItem } from '../types/faq';
 
 interface FAQProps {
   title?: string;

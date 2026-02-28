@@ -30,7 +30,7 @@ const Home = () => {
         <div className="mt-16 lg:mt-[98px] mb-[60px]">
           <p className="not-italic font-black text-[24px] leading-[24px] tracking-[0.2em] text-center lg:text-left uppercase text-[#1E3161]">sponsored by</p>
         </div>
-        <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-[200px] min-h-[223px] px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-8 lg:gap-[200px] min-h-[223px] px-4">
           <img
             src={sponsore1}
             alt="sponsore-1"
