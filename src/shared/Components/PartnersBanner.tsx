@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
+import { useIsMobile } from "../hooks/useMediaQuery";
 import Button from "./Button";
 
 /* ─── span pattern: rows [2,1] [1,1,1] [1,2] [1,1,1] ─── */
@@ -76,8 +77,9 @@ const PartnersBanner = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const [rowHeight, setRowHeight] = useState<number | null>(null);
+  const isMobile = useIsMobile();
 
-  const isInView = useInView(containerRef, { once: true, amount: 0.5 });
+  const isInView = useInView(containerRef, { once: true, amount: isMobile ? 0.1 : 0.5 });
 
   useLayoutEffect(() => {
     const measure = () => {

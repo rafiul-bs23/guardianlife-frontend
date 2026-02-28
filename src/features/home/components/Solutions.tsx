@@ -2,15 +2,17 @@ import { useState, useRef } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
+import { useIsMobile } from '../../../shared/hooks/useMediaQuery';
 
 import { MOCK_OUR_SOLUTIONS_DATA } from '../api/mockData';
 
 const SolutionsComponent = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef(null);
+  const isMobile = useIsMobile();
 
-  // Triggers when 20% of the section is visible
-  const isInView = useInView(containerRef, { once: true, amount: 0.4 });
+  // Triggers when 10% (mobile) or 40% (PC) of the section is visible
+  const isInView = useInView(containerRef, { once: true, amount: isMobile ? 0.1 : 0.4 });
 
   const getStackOrder = () => {
     const order = [];

@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { useIsMobile } from '../../../shared/hooks/useMediaQuery';
 import { ArrowRight } from 'lucide-react';
 
 import AppStoreButtons from '../../../shared/Components/AppStoreButtons';
@@ -8,7 +9,8 @@ import { MOCK_APP_PROMOTION_DATA } from '../api/mockData';
 
 const AppPromotion = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: true, amount: 0.2 });
+  const isMobile = useIsMobile();
+  const isInView = useInView(containerRef, { once: true, amount: isMobile ? 0.1 : 0.2 });
 
   return (
     <div ref={containerRef} className="bg-gray-50 py-16 px-8 overflow-hidden">
