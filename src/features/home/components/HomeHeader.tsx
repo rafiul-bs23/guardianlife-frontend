@@ -3,6 +3,7 @@ import { Search, ShieldCheck, Wallet, Zap, ShieldAlert, ChevronDown } from 'luci
 import type { HeaderData } from '../../../shared/types/header';
 import GenericHeader from '../../../shared/Components/GenericHeader';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 interface MetricBadgeProps {
     icon: React.ReactNode;
@@ -37,14 +38,14 @@ interface HomeHeaderProps {
 
 const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
     return (
-        <GenericHeader data={data} variant="immersive">
-            <div className="relative w-full h-full min-h-[700px] md:min-h-[850px] lg:min-h-[750px] flex flex-col items-center justify-center px-4 overflow-hidden">
+        <GenericHeader data={data} variant="immersive" backgroundVideoUrl={data?.background_video_url}>
+            <div className="relative w-full h-full min-h-[600px]  lg:min-h-[620px] flex flex-col items-center justify-center px-4 overflow-hidden">
 
                 {/* Bottom White Gradient/Fade Area */}
-                <div className="absolute bottom-0 left-0 right-0 h-[30%] bg-gradient-to-t from-white via-white/80 to-transparent z-10" />
+                <div className="absolute bottom-0 left-0 right-0 h-[30%] bg-gradient-to-t from-[#F4F4F4] via-white/80 to-transparent z-10" />
 
                 {/* Central Section: Question and Search */}
-                <div className="absolute top-[25%] md:top-[20%] z-30 flex flex-col items-center gap-8 w-full max-w-4xl text-center mb-12">
+                <div className="hidden absolute top-[25%] md:top-[20%] z-30 flex flex-col items-center gap-8 w-full max-w-4xl text-center mb-12">
                     <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white drop-shadow-lg">
                         How can we help?
                     </h2>
@@ -66,61 +67,118 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                     <div className="relative w-full h-full max-w-screen mx-auto">
 
                         {/* Top Left: 98% Pay-Claim Ratio */}
-                        <MetricBadge
-                            icon={<ShieldCheck size={28} className="md:size-8 lg:size-10" />}
-                            value="98%"
-                            label="Pay-Claim Ratio"
-                            className="absolute top-[5%] md:top-[10%] left-[0%] md:left-[0%]"
-                            size="lg"
-                        />
+                        <motion.div
+                            initial={{ x: -100, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                            className="absolute top-[0%] md:top-[0%] left-[0%] md:left-[0%]"
+                        >
+                            <MetricBadge
+                                icon={<ShieldCheck size={28} className="md:size-8 lg:size-10" />}
+                                value="98%"
+                                label="Pay-Claim Ratio"
+                                size="lg"
+                            />
+                        </motion.div>
 
                         {/* Bottom Left: 1.2 Cr Live Coverage */}
-                        <MetricBadge
-                            icon={<Wallet size={28} className="md:size-8 lg:size-10" />}
-                            value="1.2 Cr"
-                            label="Live Coverage"
+                        <motion.div
+                            initial={{ x: -100, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
                             className="absolute bottom-[35%] left-[10%] md:left-[6%]"
-                            size="md"
-                        />
+                        >
+                            <MetricBadge
+                                icon={<Wallet size={28} className="md:size-8 lg:size-10" />}
+                                value="1.2 Cr"
+                                label="Live Coverage"
+                                size="md"
+                            />
+                        </motion.div>
 
                         {/* Middle Right: Quick Buy (Large) */}
-                        <Link to="/quick-buy-category" className=" pointer-events-auto">
-                            <MetricBadge
-                                icon={<Zap size={32} className="md:size-10 lg:size-14" />}
-                                value="Quick"
-                                label="Buy"
-                                size="lg"
-                                className="absolute md:top-[10%] top-[-0%] right-[0%] md:right-[6%] !text-[#FFD700]"
-                            />
-                        </Link>
+                        <motion.div
+                            initial={{ x: 100, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                            className="absolute md:top-[0%] top-[-0%] right-[0%] md:right-[6%]"
+                        >
+                            <Link to="/quick-buy-category" className="pointer-events-auto">
+                                <MetricBadge
+                                    icon={<Zap size={32} className="md:size-10 lg:size-14" />}
+                                    value="Quick"
+                                    label="Buy"
+                                    size="lg"
+                                    className="!text-[#FFD700]"
+                                />
+                            </Link>
+                        </motion.div>
 
                         {/* Bottom Right: 3 Days Claim Settlement */}
-                        <MetricBadge
-                            icon={<ShieldAlert size={28} className="md:size-8 lg:size-10" />}
-                            value="3 Days"
-                            label="Claim Settlement"
+                        <motion.div
+                            initial={{ x: 100, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
                             className="absolute bottom-[35%] right-[0%] md:right-[0%]"
-                            size="md"
-                        />
+                        >
+                            <MetricBadge
+                                icon={<ShieldAlert size={28} className="md:size-8 lg:size-10" />}
+                                value="3 Days"
+                                label="Claim Settlement"
+                                size="md"
+                            />
+                        </motion.div>
                     </div>
                 </div>
 
                 {/* Large Bottom Text: LET'S TALK ABOUT LIFE. MORE! */}
                 <div className="absolute bottom-24 md:bottom-20 lg:bottom-24 w-full text-center px-4 z-30">
                     <h1 className="text-4xl md:text-7xl lg:text-[90px] font-black tracking-tighter leading-none [text-wrap:balance]">
-                        <span className="text-primary block">
-                            LET'S TALK ABOUT LIFE. MORE!
-                        </span>
+                        <motion.span
+                            className="text-primary block flex flex-wrap justify-center overflow-hidden"
+                            initial="hidden"
+                            animate="visible"
+                            variants={{
+                                visible: {
+                                    transition: {
+                                        staggerChildren: 0.05,
+                                        delayChildren: 1.0, // Wait for badges to finish
+                                    },
+                                },
+                            }}
+                        >
+                            {"LET'S TALK ABOUT LIFE. MORE!".split("").map((char, index) => (
+                                <motion.span
+                                    key={index}
+                                    variants={{
+                                        hidden: { y: 50, opacity: 0 },
+                                        visible: {
+                                            y: 0,
+                                            opacity: 1,
+                                            transition: { type: "spring", damping: 12, stiffness: 100 }
+                                        },
+                                    }}
+                                    className={char === " " ? "whitespace-pre" : "inline-block"}
+                                >
+                                    {char}
+                                </motion.span>
+                            ))}
+                        </motion.span>
                     </h1>
                 </div>
 
                 {/* Scroll Indicator */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 z-30">
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1, delay: 2.5 }}
+                    className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 z-30"
+                >
                     <span className="text-[10px] font-bold text-primary uppercase tracking-widest">Scroll</span>
                     <div className="w-10 h-10 rounded-full border border-primary flex items-center justify-center text-primary transition-colors hover:bg-orange-50 cursor-pointer">
                         <ChevronDown size={22} className="animate-bounce mt-1" />
                     </div>
-                </div>
+                </motion.div>
 
             </div>
         </GenericHeader>

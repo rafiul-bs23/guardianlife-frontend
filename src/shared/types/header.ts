@@ -13,6 +13,7 @@ export interface HeaderData {
     title: TitleItem[];
     description?: string;
     background_image_url?: string;
+    background_video_url?: string;
     media?: HeaderMediaData;
 }
 

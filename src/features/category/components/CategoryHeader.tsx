@@ -9,6 +9,7 @@ interface CategoryHeaderProps {
 }
 
 const CategoryHeader: React.FC<CategoryHeaderProps> = ({ data, onExploreClick }) => {
+
     const actions = (
         <>
             <Button

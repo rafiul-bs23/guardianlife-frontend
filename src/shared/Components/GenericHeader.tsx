@@ -17,6 +17,7 @@ interface GenericHeaderProps {
     actions?: React.ReactNode;
     children?: React.ReactNode;
     customBgStyles?: React.CSSProperties;
+    backgroundVideoUrl?: string;
 }
 
 const GenericHeader: React.FC<GenericHeaderProps> = ({
@@ -31,6 +32,7 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
     imgClassName = "",
     descriptionClassName = "",
     customBgStyles = {},
+    backgroundVideoUrl,
     actions,
     children
 }) => {
@@ -105,10 +107,20 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
     if (isImmersive) {
         return (
             <section
-                className={`relative w-full min-h-[600px] flex flex-col ${className} bg-primary`}
-                style={bgStyles}
+                className={`relative w-full min-h-[600px] flex flex-col ${className} ${!backgroundVideoUrl ? 'bg-primary' : ''} overflow-hidden`}
+                style={!backgroundVideoUrl ? bgStyles : {}}
             >
-                <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/70 to-primary/10 z-0" />
+                {backgroundVideoUrl && (
+                    <video
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="absolute inset-0 w-full h-full object-cover z-0"
+                        src={backgroundVideoUrl}
+                    />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/70 to-primary/10 z-0 pointer-events-none" />
                 <div className="relative z-10 flex flex-col w-full h-full">
                     <Navbar transparent />
                     <div className={`flex-grow flex items-center ${innerWrapperClassName}`}>
@@ -125,10 +137,20 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
             <section className={`bg-white px-4 md:px-10 lg:px-20 pb-12 pt-8 ${className}`}>
                 <div
                     className="relative w-full rounded-[10px] md:rounded-[30px] overflow-hidden min-h-[450px] flex items-center shadow-lg bg-primary"
-                    style={bgStyles}
+                    style={!backgroundVideoUrl ? bgStyles : {}}
                 >
+                    {backgroundVideoUrl && (
+                        <video
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="absolute inset-0 w-full h-full object-cover z-0"
+                            src={backgroundVideoUrl}
+                        />
+                    )}
                     {/* Brand Orange Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/40 to-primary/80 z-0" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/40 to-primary/80 z-0 pointer-events-none" />
                     <div className="relative z-10 w-full">
                         {children || headerContent}
                     </div>
