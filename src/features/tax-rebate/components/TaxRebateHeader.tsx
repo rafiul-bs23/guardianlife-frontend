@@ -2,17 +2,19 @@ import React from 'react';
 import type { HeaderData } from '../../../shared/types/header';
 import GenericHeader from '../../../shared/Components/GenericHeader';
 import Button from '../../../shared/Components/Button';
+import { usePopup } from '../../../shared/context/PopupContext';
 
 interface TaxRebateHeaderProps {
     data: HeaderData;
 }
 
 const TaxRebateHeader: React.FC<TaxRebateHeaderProps> = ({ data }) => {
+    const { showPopup } = usePopup();
     const actions = (
         <Button
             label="Tax Rebate Calculator"
             variant="outline-white"
-            onClick={() => console.log('Tax Rebate Calculator clicked')}
+            onClick={() => showPopup()}
         />
     );
 

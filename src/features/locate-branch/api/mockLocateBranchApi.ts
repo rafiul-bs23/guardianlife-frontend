@@ -9,29 +9,16 @@ export const getMockBranches = async (params?: BranchQueryParams): Promise<Branc
             // Apply filters on mock data
             let filtered = [...allBranches];
 
-            if (params?.office_category) {
+            if (params?.query) {
+                const search = params.query.toLowerCase();
                 filtered = filtered.filter(
-                    (b) => b.office_category.toLowerCase() === params.office_category!.toLowerCase()
-                );
-            }
-            if (params?.division_name) {
-                filtered = filtered.filter(
-                    (b) => b.division_name.toLowerCase() === params.division_name!.toLowerCase()
-                );
-            }
-            if (params?.district_name) {
-                filtered = filtered.filter(
-                    (b) => b.district_name.toLowerCase() === params.district_name!.toLowerCase()
-                );
-            }
-            if (params?.area_name) {
-                filtered = filtered.filter(
-                    (b) => b.area_name.toLowerCase() === params.area_name!.toLowerCase()
-                );
-            }
-            if (params?.branch_name) {
-                filtered = filtered.filter((b) =>
-                    b.office_name.toLowerCase().includes(params.branch_name!.toLowerCase())
+                    (b) =>
+                        b.office_name.toLowerCase().includes(search) ||
+                        b.office_category.toLowerCase().includes(search) ||
+                        b.division_name.toLowerCase().includes(search) ||
+                        b.district_name.toLowerCase().includes(search) ||
+                        b.area_name.toLowerCase().includes(search) ||
+                        b.address.toLowerCase().includes(search)
                 );
             }
 

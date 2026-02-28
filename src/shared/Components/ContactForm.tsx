@@ -4,6 +4,7 @@ import { useContactForm } from '../hooks/useContactForm';
 
 interface ContactFormProps {
     channel: string;
+    type?: 'lead' | 'job';
     variant?: 'card' | 'flat';
     title?: string;
     subtitle?: string;
@@ -12,13 +13,14 @@ interface ContactFormProps {
 
 const ContactForm = ({
     channel,
+    type = 'lead',
     variant = 'flat',
     title,
     subtitle,
     className = '',
 }: ContactFormProps) => {
-    const { formData, errors, is_loading, success, error, handleChange, handleSubmit, reset } =
-        useContactForm(channel);
+    const { formData, errors, is_loading, success, error, handleChange, handleFileChange, handleSubmit, reset } =
+        useContactForm(channel, type);
 
     const displayTitle = title ?? (variant === 'card' ? 'Please fill up the form' : 'Get in touch');
 
@@ -144,6 +146,55 @@ const ContactForm = ({
                     )}
                     {errors.phoneNumber && <p className="text-xs text-red-500">{errors.phoneNumber}</p>}
                 </div>
+
+                {/* Applying Position (Job only) */}
+                {type === 'job' && (
+                    <div className="space-y-2">
+                        <label className={`${labelBase} flex gap-1`}>
+                            Applying Position <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            name="applyingPosition"
+                            value={formData.applyingPosition}
+                            onChange={handleChange}
+                            placeholder="Enter Position Here"
+                            className={`${inputBase} ${errors.applyingPosition ? inputError : ''}`}
+                        />
+                        {errors.applyingPosition && <p className="text-xs text-red-500">{errors.applyingPosition}</p>}
+                    </div>
+                )}
+
+                {/* CV Upload (Job only) */}
+                {type === 'job' && (
+                    <div className="space-y-2">
+                        <label className={`${labelBase} flex gap-1`}>
+                            Upload CV <span className="text-red-500">*</span>
+                        </label>
+                        <div className="relative">
+                            <input
+                                type="file"
+                                name="cv"
+                                onChange={handleFileChange}
+                                accept=".pdf,.doc,.docx"
+                                className="hidden"
+                                id="cv-upload"
+                            />
+                            <label
+                                htmlFor="cv-upload"
+                                className={`${inputBase} flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors ${errors.cv ? inputError : ''}`}
+                            >
+                                <span className={formData.cv ? 'text-gray-900' : 'text-gray-400'}>
+                                    {formData.cv ? formData.cv.name : 'Selection CV (PDF, DOC, DOCX)'}
+                                </span>
+                                <div className="bg-orange-100 text-orange-600 px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider">
+                                    Browse
+                                </div>
+                            </label>
+                        </div>
+                        {errors.cv && <p className="text-xs text-red-500">{errors.cv}</p>}
+                    </div>
+                )}
 
                 {/* Message */}
                 <div className="space-y-2">

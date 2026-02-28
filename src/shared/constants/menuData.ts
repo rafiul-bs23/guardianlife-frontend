@@ -8,6 +8,8 @@ export const MENU_DATA: MenuItem[] = [
     { label: "Management Committee", path: "/mancom" },
     { label: "Extended Management Committee", path: "/emc" },
     { label: "Shareholder List", path: "/shareholders" },
+    { label: "Category", path: "/category" },
+    { label: "Quick Buy Category", path: "/quick-buy-category" },
     {
         label: "For You",
         children: [
@@ -124,9 +126,7 @@ export const MENU_DATA: MenuItem[] = [
     { label: "Payment", path: "/payment" },
     { label: "Agent List", path: "/agent-list" },
     { label: "Privacy Policy", path: "/privacy-policy" },
-    { label: "Category", path: "/category" },
-    { label: "Quick Buy Category", path: "/quick-buy-category" },
-    { label: "Quick Buy Details", path: "/quick-buy-details" },
+    { label: "Quick Buy Details", path: "/quick-buy-details/:id" },
 ];
 
 

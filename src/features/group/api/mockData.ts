@@ -1,35 +1,43 @@
 import type { HeaderResponse } from "../../../shared/types/header";
 
-export const MOCK_HEADER_DATA: HeaderResponse = {
+export const MOCK_GROUP_HEADER_DATA: HeaderResponse = {
+    "transaction_id": "ENZNIFR0NRA46N",
     "status": true,
-    "transaction_id": "GLIL-GRP-TXN-ID",
     "data": {
         "badge": null,
         "title": [
             {
-                "text": "GROUP INSURANCE ",
+                "text": "A PROTECTED WORKFORCE",
                 "color": "#FFFFFF"
             },
             {
-                "text": "SOLUTIONS",
+                "text": "IS MORE PRODUCTIVE",
+                "color": "#8B5CF6"
+            },
+            {
+                "text": "SO GIVE YOUR TEAM",
                 "color": "#FFFFFF"
+            },
+            {
+                "text": "THE SECURITY THEY NEED TODAY",
+                "color": "#8B5CF6"
             }
         ],
-        "description": "GROUP INSURANCE IS MORE THAN JUST AN EMPLOYEE BENEFIT—IT IS A STRATEGIC INVESTMENT IN PEOPLE.",
-        "background_image_url": "/src/assets/images/category/headerImage.jpg",
+        "description": null,
+        "background_image_url": "https://glil-website.s3.ap-southeast-1.amazonaws.com/guardian-website/products/shield.jpg",
         "media": {
             "type": "image",
-            "url": "/src/assets/images/category/headerImage.jpg"
+            "url": "https://glil-website.s3.ap-southeast-1.amazonaws.com/guardian-website/products/shield.jpg"
         }
     }
-};
+}
 
 export const MOCK_BENEFITS_DATA = {
     header: {
         title: "Why Group Insurance Matters for Your Organization",
         description: "A Smarter Way to Care for Your Employees"
     },
-    imgUrl: "https://img.freepik.com/free-photo/businesspeople-having-good-time-meeting_1098-1786.jpg?semt=ais_hybrid",
+    image_url: "https://img.freepik.com/free-photo/businesspeople-having-good-time-meeting_1098-1786.jpg?semt=ais_hybrid",
     benefits: [
         {
             id: 1,

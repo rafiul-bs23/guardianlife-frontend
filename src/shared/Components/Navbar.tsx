@@ -10,6 +10,20 @@ interface NavbarProps {
     transparent?: boolean;
 }
 
+const TEXT_SIZES = {
+    NAV_ITEM: 'text-[14px]',
+    LOGIN_BTN: 'text-sm md:text-base',
+    DRAWER_CLOSE: 'text-lg', // Used in the close button if needed, otherwise for future-proofing
+};
+
+const GAPS = {
+    NAV_ITEM_CONTAINER: 'gap-1', // Reduced from gap-2
+    NAV_ITEM_DEPTH_MARGIN: 'mt-1',
+    DRAWER_HEADER: 'gap-2',
+    NAVBAR_LEFT_ITEMS: 'gap-8',
+    NAVBAR_RIGHT_ACTIONS: 'gap-4',
+};
+
 const NavItem: React.FC<{
     item: MenuItem;
     depth?: number;
@@ -39,7 +53,7 @@ const NavItem: React.FC<{
     );
 
     const baseClasses = `
-        flex items-center justify-between p-2.5 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all duration-300 group
+        flex items-center justify-between p-2.5 rounded-xl ${TEXT_SIZES.NAV_ITEM} font-bold uppercase tracking-wider transition-all duration-300 group
         ${isActive
             ? 'bg-primary text-white shadow-lg shadow-orange-500/20'
             : 'hover:bg-orange-50 text-gray-700 hover:text-primary'
@@ -74,9 +88,9 @@ const NavItem: React.FC<{
 
             {hasChildren && (
                 <div
-                    className={`overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-[1000px] opacity-100 mt-1' : 'max-h-0 opacity-0'}`}
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? `max-h-[1000px] opacity-100 ${GAPS.NAV_ITEM_DEPTH_MARGIN}` : 'max-h-0 opacity-0'}`}
                 >
-                    <div className="flex flex-col gap-1 border-l-2 border-orange-100 ml-4">
+                    <div className={`flex flex-col ${GAPS.NAV_ITEM_CONTAINER} border-l-2 border-orange-100 ml-4`}>
                         {item.children?.map((child, index) => (
                             <NavItem
                                 key={`${child.label}-${index}`}
@@ -103,7 +117,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
         <>
             <nav className={`w-full fixed top-0 left-0 ${transparent ? 'bg-transparent' : 'bg-white/80 backdrop-blur-md'} px-4 md:px-10 lg:px-20 md:h-28 h-20 flex items-center justify-between relative z-[900] transition-all duration-300`}>
 
-                <div className="flex items-center gap-8">
+                <div className={`flex items-center ${GAPS.NAVBAR_LEFT_ITEMS}`}>
                     {/* Hamburger Menu Icon */}
                     <button
                         onClick={toggleDrawer}
@@ -126,9 +140,9 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
                 </div>
 
                 {/* Right Side Actions */}
-                <div className="flex items-center gap-4">
+                <div className={`flex items-center ${GAPS.NAVBAR_RIGHT_ACTIONS}`}>
 
-                    <button className=" border border-white/50 bg-primary hover:bg-[#e0661d] text-white px-8 py-2.5 rounded-full font-black text-sm md:text-base transition-all shadow-lg">
+                    <button className={`border border-white/50 bg-primary hover:bg-[#e0661d] text-white px-8 py-2.5 rounded-full font-black ${TEXT_SIZES.LOGIN_BTN} transition-all shadow-lg`}>
                         Login
                     </button>
                 </div>
@@ -150,8 +164,8 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
                         className={`absolute top-0 left-0 h-full w-full md:w-[450px] bg-white/95 backdrop-blur-xl shadow-2xl transition-transform duration-500 ease-out border-r border-white/20 flex flex-col ${isOpened ? 'translate-x-0' : '-translate-x-full'}`}
                     >
                         {/* Drawer Header */}
-                        <div className="flex items-center justify-between p-8 border-b border-gray-100">
-                            <div className="flex items-center gap-4">
+                        <div className={`flex items-center justify-between p-8 border-b border-gray-100 ${GAPS.DRAWER_HEADER}`}>
+                            <div className={`flex items-center ${GAPS.DRAWER_HEADER}`}>
                                 <div className="w-32 h-12 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20">
                                     <img src={logo} alt="Logo" className="w-28 h-6 object-contain" />
                                 </div>
@@ -167,7 +181,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
 
                         {/* Navigation Items */}
                         <div className="flex-grow overflow-y-auto px-6 pt-6 pb-10 no-scrollbar">
-                            <div className="grid gap-2">
+                            <div className={`grid ${GAPS.NAV_ITEM_CONTAINER}`}>
                                 {MENU_DATA.map((item, index) => (
                                     <NavItem
                                         key={`${item.label}-${index}`}

@@ -46,8 +46,12 @@ export const MOCK_TAX_REBATE_DETAILS: TaxRebateDataResponse = {
                     "text": "Tax rebate is applicable on the premium of any revived lapsed policy."
                 },
                 {
-                    "text": "Any type of insurance, whether life or health, provides the highest tax benefits...."
-                }
+                    "text": "Any type of insurance, whether life or health, provides the highest tax benefits and financial protection."
+                },
+                {
+                    "text": "Secure your future today with Guardian Life's diverse range of insurance products tailored to meet your unique needs and financial goals. Our policies are designed to offer maximum value and peace of mind for you and your loved ones."
+                },
+
             ],
             "ctaText": "Read More"
         },

@@ -188,12 +188,13 @@ export type BankPartner = {
     id: number;
     logo: string;
     alt: string;
+    code: string;
 };
 
 export const bankPartners: BankPartner[] = [
-    { id: 1, logo: image1, alt: "Bank 1" },
-    { id: 2, logo: image2, alt: "Bank 2" },
-    { id: 3, logo: image3, alt: "Bank 3" },
+    { id: 1, logo: image1, alt: "MTB", code: "mtb" },
+    { id: 2, logo: image2, alt: "DBBL", code: "dbbl" },
+    { id: 3, logo: image3, alt: "City Bank", code: "city-bank" },
 ];
 
 export const MOCK_WHY_BANCASSURANCE_DATA = {

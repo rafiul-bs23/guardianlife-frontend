@@ -78,7 +78,7 @@ export const get_mock_partners = async (_channel: string): Promise<PartnersApiRe
     });
 };
 
-export const post_mock_lead = async (_payload: LeadRequest): Promise<LeadApiResult> => {
+export const post_mock_lead = async (_payload: LeadRequest | FormData): Promise<LeadApiResult> => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({

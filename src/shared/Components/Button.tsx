@@ -17,6 +17,7 @@ interface BaseButtonProps {
     disabled?: boolean;
     labelClass?: string;
     iconClass?: string;
+    children?: React.ReactNode;
 }
 
 const Button: React.FC<BaseButtonProps> = ({
@@ -31,7 +32,8 @@ const Button: React.FC<BaseButtonProps> = ({
     type = 'button',
     disabled = false,
     labelClass = '',
-    iconClass = ''
+    iconClass = '',
+    children
 }) => {
     const getVariantStyles = () => {
         switch (variant) {
@@ -89,6 +91,7 @@ const Button: React.FC<BaseButtonProps> = ({
         return (
             <Link to={to} className={sharedClassName}>
                 {content}
+                {children}
             </Link>
         );
     }
@@ -97,6 +100,7 @@ const Button: React.FC<BaseButtonProps> = ({
         return (
             <a href={href} target={target} rel={target === '_blank' ? 'noopener noreferrer' : undefined} className={sharedClassName}>
                 {content}
+                {children}
             </a>
         );
     }
@@ -109,6 +113,7 @@ const Button: React.FC<BaseButtonProps> = ({
             className={sharedClassName}
         >
             {content}
+            {children}
         </button>
     );
 };

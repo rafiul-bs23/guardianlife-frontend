@@ -1,23 +1,24 @@
-import { BenefitsSection } from "./component/BenefitsSection";
-import { CoverageSection } from "./component/CoverageSection";
-import { LifeCoverageSection } from "./component/LifeCoverageSection";
-import { CriticalIllnessSection } from "./component/CriticalIllnessSection";
-import { TreatmentPlanSection } from "./component/TreatmentPlanSection";
-import { MaternityBenefitsSection } from "./component/MaternityBenefitsSection.tsx";
-import { OutPatientCardsSection } from "./component/OutPatientCardsSection.tsx";
+import BenefitsSection from "./components/BenefitsSection.tsx";
+import { CoverageSection } from "./components/CoverageSection.tsx";
+import { LifeCoverageSection } from "./components/LifeCoverageSection.tsx";
+import { CriticalIllnessSection } from "./components/CriticalIllnessSection.tsx";
+import { TreatmentPlanSection } from "./components/TreatmentPlanSection.tsx";
+import { MaternityBenefitsSection } from "./components/MaternityBenefitsSection.tsx";
+import { OutPatientCardsSection } from "./components/OutPatientCardsSection.tsx";
 import GroupHeader from "./components/GroupHeader.tsx";
-import { useHeader } from "./hooks/useHeader.ts";
+
 import CashlessNetwork from "../../shared/Components/CashlessNetwork.tsx";
-import MicroContactForm from "../micro/components/MicroContactForm.tsx";
-import { mockMicroData } from "../micro/api/mockData.ts";
+
 import AppDownloadSection from "../../shared/Components/AppDownloadSection.tsx";
 import PartnersSlider from "../../shared/Components/PartnersSlider.tsx";
 import GroupContactForm from "./components/GroupContactForm.tsx";
+import { useHeader } from "../../shared/hooks/useHeader.ts";
+import { MOCK_GROUP_HEADER_DATA } from "./api/mockData.ts";
 
 // import { comprehensiveData, lifeCoveragedata, mockGroupApiResponse as apiResponse } from "./api/mockData";
 
 const Group = () => {
-  const { data: headerData, isLoading: isHeaderLoading } = useHeader();
+  const { data: headerData, isLoading: isHeaderLoading } = useHeader("group-info", true, MOCK_GROUP_HEADER_DATA);
 
 
 
@@ -32,9 +33,8 @@ const Group = () => {
   return (
     <main className="overflow-hidden">
       {headerData && <GroupHeader data={headerData} />}
-      <div className="mx-[auto]">
-        <BenefitsSection />
-      </div>
+
+      <BenefitsSection />
 
       <div className="mx-[auto]">
         <CoverageSection />

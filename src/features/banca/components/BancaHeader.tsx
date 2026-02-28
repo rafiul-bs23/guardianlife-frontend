@@ -5,21 +5,18 @@ import Button from '../../../shared/Components/Button';
 
 interface BancaHeaderProps {
     data: HeaderData;
+    onScrollToBancasurancePartners: () => void;
 }
 
-const BancaHeader: React.FC<BancaHeaderProps> = ({ data }) => {
+const BancaHeader: React.FC<BancaHeaderProps> = ({ data, onScrollToBancasurancePartners }) => {
     const actions = (
         <>
             <Button
                 label="Partner"
                 variant="outline-white"
-                onClick={() => console.log('Partner clicked')}
+                onClick={onScrollToBancasurancePartners}
             />
-            <Button
-                label="Explore"
-                variant="solid-white"
-                onClick={() => console.log('Explore clicked')}
-            />
+
         </>
     );
 

@@ -1,5 +1,5 @@
 import { useState, useRef, useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import ProductCard from "../../shared/Components/ProductCard.tsx";
 import ProductCardCompact from "./ProductCardCompact.tsx";
 import FAQ from "../../shared/Components/Faq.tsx";
@@ -12,14 +12,18 @@ import { useCategoryProducts } from "./hooks/useCategoryProducts.ts";
 
 const Category = () => {
   const { data: headerData, isLoading: isHeaderLoading } = useHeader();
-  const location = useLocation();
-  const initialIndex = (location.state as { tabIndex?: number } | null)?.tabIndex ?? 0;
-  const [activeIndex, setActiveIndex] = useState(initialIndex);
+  const [searchParams, navigate] = useSearchParams();
+  const tabIndex = searchParams.get('tabIndex');
+  const [activeIndex, setActiveIndex] = useState(tabIndex ? parseInt(tabIndex) : 0);
   const tabsRef = useRef<HTMLDivElement>(null);
 
-  const handleExploreClick = () => {
-    setActiveIndex(0);
+  const handleTabClick = (index: number) => {
+    setActiveIndex(index);
+
     tabsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    searchParams.set('tabIndex', index.toString());
+    navigate(`?${searchParams.toString()}`);
   };
 
   const tabs = [
@@ -44,13 +48,7 @@ const Category = () => {
     isLoading: isDigitalLoading
   } = useCategoryProducts('digital', null, activeSubcategory);
 
-  const handleViewDetails = (productCode: string): void => {
-    console.log(`View details clicked for: ${productCode}`);
-  };
 
-  const handleBuyNow = (productCode: string): void => {
-    console.log(`Buy now clicked for: ${productCode}`);
-  };
 
   if (isHeaderLoading) {
     return (
@@ -62,13 +60,13 @@ const Category = () => {
 
   return (
     <div className="overflow-hidden">
-      {headerData && <CategoryHeader data={headerData} onExploreClick={handleExploreClick} />}
+      {headerData && <CategoryHeader data={headerData} onExploreClick={() => handleTabClick(0)} />}
       <div className="px-4" id="tabs" ref={tabsRef}>
         <div className="flex gap-3 flex-wrap justify-center mt-[14px]">
           {tabs.map((tab, index) => (
             <button
               key={tab.id}
-              onClick={() => setActiveIndex(index)}
+              onClick={() => handleTabClick(index)}
               className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${activeIndex === index
                 ? 'bg-blue-900 text-white'
                 : 'bg-white text-gray-700 border border-gray-300 hover:border-blue-900'
@@ -98,7 +96,7 @@ const Category = () => {
                   thumbnailUrl={product.thumbnailUrl}
                   title={product.title}
                   points={product.points}
-                  onViewDetails={() => handleViewDetails(product.productCode)}
+                  productCode={product.productCode}
                 />
               ))}
               {(!retailProducts || retailProducts.length === 0) && (
@@ -129,8 +127,7 @@ const Category = () => {
                   title={product.title}
                   points={product.points}
                   description={product.description}
-                  onViewDetails={() => handleViewDetails(product.productCode)}
-                  onBuyNow={() => handleBuyNow(product.productCode)}
+                  productCode={product.productCode}
                 />
               ))}
               {(!digitalProducts || digitalProducts.length === 0) && (

@@ -3,7 +3,7 @@ import whoGetsYou from '../../../assets/images/productDetails/whoGetsYou.png';
 import whoGetsYouMan from '../../../assets/images/productDetails/whoGetsYouMan.png';
 import Button from '../../../shared/Components/Button';
 
-const LocalAgent: React.FC = () => {
+const LocalAgent: React.FC<{ productCode: string }> = ({ productCode }) => {
     return (
         <section className="w-full bg-[#EB6925] overflow-hidden relative">
             {/* Shape Background - Adaptive Positioning & Rotation */}
@@ -30,16 +30,12 @@ const LocalAgent: React.FC = () => {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto lg:mx-0">
-                        <input
-                            type="text"
-                            placeholder="Type your Location"
-                            className="flex-1 px-6 py-4 rounded-xl text-gray-500 bg-white border-none outline-none focus:ring-2 focus:ring-orange-300 shadow-lg text-lg w-full"
-                        />
+
                         <Button
                             label="Buy Through an Agent"
                             variant="solid-white"
                             className="whitespace-nowrap rounded-xl"
-                            onClick={() => console.log('Buy Through an Agent clicked')}
+                            href={`https://saleslead.myguardianbd.com/lead-form?product_name=${productCode}`}
                         />
                     </div>
                 </div>

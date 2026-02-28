@@ -11,10 +11,10 @@ export interface HeaderMediaData {
 export interface HeaderData {
     badge?: string | null;
     title: TitleItem[];
-    description?: string;
-    background_image_url?: string;
-    background_video_url?: string;
-    media?: HeaderMediaData;
+    description?: string | null;
+    background_image_url?: string | null;
+    background_video_url?: string | null;
+    media?: HeaderMediaData | null;
 }
 
 export interface HeaderResponse {

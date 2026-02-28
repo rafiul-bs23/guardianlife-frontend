@@ -6,6 +6,7 @@ import type { Branch, Pagination, BranchQueryParams, UseLocateBranchResult } fro
 const DEFAULT_FILTERS: BranchQueryParams = {
     page: 1,
     limit: 10,
+    query: '',
 };
 
 export const useLocateBranch = (): UseLocateBranchResult => {

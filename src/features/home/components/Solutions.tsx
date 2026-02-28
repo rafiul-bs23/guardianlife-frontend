@@ -120,8 +120,7 @@ const SolutionsComponent = () => {
                     <div className={`absolute inset-0 transition-opacity duration-500 ${position === 0 ? 'opacity-100' : 'opacity-80'}`}>
                       {position === 0 ? (
                         <Link
-                          to="/category"
-                          state={{ tabIndex: activeIndex }}
+                          to={`/category?tabIndex=${index}`}
                           className="absolute top-6 right-6 w-12 h-12 rounded-full border border-white/40 flex items-center justify-center text-white backdrop-blur-sm hover:bg-white/20 transition-colors"
                           onClick={(e) => e.stopPropagation()}
                         >

@@ -8,9 +8,13 @@ import { BankPartnersSection } from "./components/BankPartnersSection.tsx";
 import FAQ from "../../shared/Components/Faq.tsx";
 import BancaHeader from "./components/BancaHeader.tsx";
 import { useHeader } from "./hooks/useHeader.ts";
+import { useRef } from "react";
 
 const Banca = () => {
   const { data: headerData, isLoading: isHeaderLoading } = useHeader();
+  const bancassurancePartnersRef = useRef<HTMLDivElement>(null);
+  const scrollTobancasurancePartners = () =>
+    bancassurancePartnersRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   if (isHeaderLoading) {
     return (
@@ -19,10 +23,9 @@ const Banca = () => {
       </div>
     );
   }
-
   return (
     <main className="min-h-screen bg-white">
-      {headerData && <BancaHeader data={headerData} />}
+      {headerData && <BancaHeader data={headerData} onScrollToBancasurancePartners={scrollTobancasurancePartners} />}
 
       <StatsBar />
 
@@ -35,12 +38,10 @@ const Banca = () => {
       <BancassuranceProductSolutionsSection />
 
       <AdditionalProductsSection />
-
-      <BankPartnersSection />
-
-      <div className="mt-16 lg:mt-[300px] px-4 lg:px-0">
-        <FAQ />
+      <div ref={bancassurancePartnersRef}>
+        <BankPartnersSection />
       </div>
+      <FAQ />
 
     </main>
   );
