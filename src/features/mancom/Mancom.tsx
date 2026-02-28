@@ -1,11 +1,13 @@
+import MancomHeader from './components/MancomHeader';
+import { HEADER_DATA, mockMancomData } from './api/mockData';
+import MancomHero from './components/MancomHero';
+
 const Mancom = () => {
   return (
-    <section>
-      <h1>Mancom</h1>
-      <p>
-        Welcome to GuardianLife. This is the Mancom page.
-      </p>
-    </section>
+    <main className="min-h-screen w-full bg-white">
+      <MancomHeader data={HEADER_DATA} />
+      <MancomHero data={mockMancomData.hero} />
+    </main>
   );
 };
 

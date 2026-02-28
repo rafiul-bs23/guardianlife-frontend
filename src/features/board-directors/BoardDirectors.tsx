@@ -1,12 +1,22 @@
-const About = () => {
+
+import BoardDirectorsList from './components/BoardDirectorsList';
+import { HEADER_DATA } from './api/mockData';
+import BoardDirectoraHeader from './components/BoardDirectoraHeader';
+import { useBoardDirectors } from './hooks/useBoardDirectors';
+
+const BoardDirectors = () => {
+  const { data: dynamicData } = useBoardDirectors();
+
   return (
-    <section>
-      <h1>About</h1>
-      <p>
-        Welcome to GuardianLife. This is the About page.
-      </p>
-    </section>
+    <main className="min-h-screen bg-gray-50 ">
+      <BoardDirectoraHeader data={HEADER_DATA} />
+      <BoardDirectorsList
+        data={{
+          directors: dynamicData || []
+        }}
+      />
+    </main>
   );
 };
 
-export default About;
+export default BoardDirectors;

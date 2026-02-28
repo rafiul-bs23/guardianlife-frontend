@@ -1,29 +1,36 @@
-import bannerVideo from "../../assets/video/watermarked_preview.mp4";
 import sponsore1 from "../../assets/images/home/sponsore1.png";
 import sponsore2 from "../../assets/images/home/sponsore2.png";
 import sponsore3 from "../../assets/images/home/sponsore3.png";
-import guideYou from "../../assets/images/home/guide-you.png";
-import ActionButton from "../../shared/Components/BaseButton.tsx";
+import HomeHeader from "./components/HomeHeader";
+import GuideYou from "./components/GuideYou";
+import { MOCK_HOME_HEADER_DATA, MOCK_GUIDE_YOU_DATA } from "./api/mockData";
+import { motion } from "framer-motion";
+import { useIsMobile } from "../../shared/hooks/useMediaQuery";
 
-// import solutions from "./Solutions.tsx";
-import Solutions from "./Solutions.tsx";
-import PartnersBanks from "./PartnersBanks.tsx";
-import BusinessPartners from "./BusinessPartners.tsx";
+import Solutions from "./components/Solutions.tsx";
+import PartnersBanks from "./components/PartnersBanks.tsx";
+import BusinessPartners from "./components/BusinessPartners.tsx";
 import EmpoweringFamilies from "./components/EmpoweringFamilies.tsx";
 import AppPromotion from "./components/PromotionSection.tsx";
 import ContactForm from "./components/contact.tsx";
 
 const Home = () => {
+  const isMobile = useIsMobile();
+
   return (
-    <div>
-      <div className="h-[1080px]">
-        <video src={bannerVideo} autoPlay muted loop playsInline={true} className="inset-0 h-full w-full object-cover text-transparent"></video>
-      </div>
-      <div className="flex flex-col items-center">
-        <div className="mt-[98px] mb-[60px]">
-          <p className="not-italic font-black text-[24px] leading-[24px] tracking-[0.2em] uppercase text-[#1E3161]">sponsored by</p>
+    <div className="min-h-screen bg-[#F4F4F4] overflow-hidden">
+      <HomeHeader data={MOCK_HOME_HEADER_DATA} />
+      <motion.div
+        initial={{ opacity: 0, scale: 1.2 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        viewport={{ once: true, amount: isMobile ? 0.1 : 0.3 }}
+        className="flex flex-col items-center mb-20 overflow-hidden"
+      >
+        <div className="mt-16 lg:mt-[98px] mb-[60px]">
+          <p className="not-italic font-black text-[24px] leading-[24px] tracking-[0.2em] text-center lg:text-left uppercase text-[#1E3161]">sponsored by</p>
         </div>
-        <div className="flex justify-center gap-[200px] h-[223px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-8 lg:gap-[200px] min-h-[223px] px-4">
           <img
             src={sponsore1}
             alt="sponsore-1"
@@ -40,38 +47,16 @@ const Home = () => {
             className="mx-auto w-auto h-[223px] my-auto"
           />
         </div>
+      </motion.div>
 
-
-
-
-        <div className="flex gap-8 h-[437px] w-full mt-[140px]">
-          <div className="flex-1 rounded-tr-[32px] rounded-br-[32px]">
-            <img
-              src={guideYou}
-              alt="Sample"
-              className="w-full h-full object-cover rounded-tr-[32px] rounded-br-[32px]"
-            />
-          </div>
-          <div className="flex-1 flex flex-col py-[62.5px] pl-8 justify-center gap-4">
-            <p className="font-black text-[24px] leading-[24px] tracking-[0.2em] uppercase text-[#1E3161]">May i guide you</p>
-            <p className="text-[#464646] uppercase text-[40px] leading-[60px] tracking-[0.02em]">
-              Let our <span className="text-orange-500">AI Assistant</span> help you <br />
-              find the <span className="text-orange-500">best policy</span> — just <br />
-              answer a few <span className="text-orange-500">quick questions!</span>
-            </p>
-            <ActionButton
-              text="Find your policy"
-              className="w-[249px]"
-              onClick={() => console.log("clicked")}
-            />
-
-          </div>
-          <div>
-
-
-          </div>
-        </div>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, x: -100 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+        viewport={{ once: true, amount: isMobile ? 0.1 : 0.3 }}
+      >
+        <GuideYou data={MOCK_GUIDE_YOU_DATA} />
+      </motion.div>
       <Solutions />
       <PartnersBanks />
       <BusinessPartners />
