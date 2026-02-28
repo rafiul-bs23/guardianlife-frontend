@@ -2,7 +2,6 @@ import React from 'react';
 import type { HeaderData } from '../../../shared/types/header';
 import GenericHeader from '../../../shared/Components/GenericHeader';
 
-
 interface MancomHeaderProps {
     data: HeaderData;
 }
@@ -12,7 +11,6 @@ const MancomHeader: React.FC<MancomHeaderProps> = ({ data }) => {
         <GenericHeader data={data} variant="immersive">
             <div className="w-full px-8 md:px-16 lg:px-24 py-16 flex flex-col justify-end items-start h-full min-h-[400px] md:min-h-[400px] lg:min-h-[500px]">
                 {/* Compass Icon */}
-
 
                 {/* Text Content */}
                 <div className="max-w-4xl">

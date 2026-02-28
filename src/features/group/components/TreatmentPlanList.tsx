@@ -5,8 +5,6 @@ type TreatmentPlan = {
   bulletPoints?: string[];
 };
 
-
-
 export function TreatmentPlanList({ items }: { items: TreatmentPlan[] }) {
   return (
     <div className="flex flex-col gap-[12px] w-full">

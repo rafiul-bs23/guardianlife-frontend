@@ -34,7 +34,6 @@ const BoostCoverageModal: React.FC<BoostCoverageModalProps> = ({
 
     if (!isOpen || !data) return null;
 
-
     const tableLabel = shortTitle ? `${shortTitle} Plan` : 'Plan';
 
     return (

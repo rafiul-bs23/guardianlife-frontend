@@ -1,11 +1,11 @@
 import PartnersBanner from "../../../shared/Components/PartnersBanner";
-import MainImage from "../../../assets/images/home/BusinessPartners/MainImage.jpg";
+
 import { partners } from "../api/mockData";
 
 const BusinessPartners = () => (
   <div className="bg-[#F4F4F4] w-full py-20">
     <PartnersBanner
-      image={MainImage}
+      image={"/assets/images/home/BusinessPartners/MainImage.jpg"}
       imageAlt="Business Partnership"
       title={"Power up your business with\nGuardian Life Insurance."}
       description={

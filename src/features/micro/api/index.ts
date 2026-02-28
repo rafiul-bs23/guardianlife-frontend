@@ -18,4 +18,3 @@ export const getMicroImpact = async (): Promise<MicroApiResult<MicroImpactMetric
     return getRealMicroImpact();
 };
 
-

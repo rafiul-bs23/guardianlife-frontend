@@ -1,6 +1,5 @@
 import React from 'react';
-import whoGetsYou from '../../../assets/images/productDetails/whoGetsYou.png';
-import whoGetsYouMan from '../../../assets/images/productDetails/whoGetsYouMan.png';
+
 import Button from '../../../shared/Components/Button';
 
 const LocalAgent: React.FC<{ productCode: string }> = ({ productCode }) => {
@@ -8,7 +7,7 @@ const LocalAgent: React.FC<{ productCode: string }> = ({ productCode }) => {
         <section className="w-full bg-[#EB6925] overflow-hidden relative">
             {/* Shape Background - Adaptive Positioning & Rotation */}
             <img
-                src={whoGetsYou}
+                src="/assets/images/productDetails/whoGetsYou.png"
                 alt=""
                 className="absolute
                     bottom-[-5%] left-1/2 -translate-x-1/2 w-[80%] lg:w-full h-auto rotate-90 origin-center
@@ -43,7 +42,7 @@ const LocalAgent: React.FC<{ productCode: string }> = ({ productCode }) => {
                 {/* Right Side: Agent Image */}
                 <div className="relative w-full lg:w-1/2 h-[300px] lg:h-[500px] flex items-end justify-center lg:justify-end overflow-hidden">
                     <img
-                        src={whoGetsYouMan}
+                        src="/assets/images/productDetails/whoGetsYouMan.png"
                         alt="Local Agent"
                         className="relative h-full object-contain object-bottom z-10"
                     />

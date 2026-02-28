@@ -129,8 +129,6 @@ export const MENU_DATA: MenuItem[] = [
     { label: "Quick Buy Details", path: "/quick-buy-details/:id" },
 ];
 
-
-
 // Home
 // retail category
 // 1. guardian-sanchay

@@ -3,8 +3,6 @@ type MaternityItem = {
   label: string;
 };
 
-
-
 export function MaternityBenefits({
   title,
   description,

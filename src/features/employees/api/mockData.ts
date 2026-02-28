@@ -5,9 +5,8 @@ export const MOCK_EMPLOYEES_HEADER_DATA: HeaderData = {
     badge: null,
     title: [],
     description: undefined,
-    background_image_url: "src/assets/images/headers/employees.png",
+    background_image_url: "assets/images/headers/employees.png",
 };
-
 
 export const MOCK_EMPLOYEES_DATA: EmployeeApiResponse = {
     status: true,

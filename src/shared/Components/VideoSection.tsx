@@ -13,7 +13,7 @@ interface VideoThumbnailProps {
 }
 
 const VideoThumbnail: React.FC<VideoThumbnailProps> = ({
-    thumbnail = "/src/assets/images/category/headerImage.jpg",
+    thumbnail = "/assets/images/category/headerImage.jpg",
     title,
     onClick,
     className = '',

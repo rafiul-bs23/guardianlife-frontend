@@ -21,10 +21,10 @@ export const MOCK_HEADER_DATA: HeaderResponse = {
             }
         ],
         "description": "LIFE IS UNPREDICTABLE - AND FOR MILLIONS OF FAMILIES IN BANGLADESH, ONE UNEXPECTED LOSS CAN MEAN FINANCIAL HARDSHIP.",
-        "background_image_url": "/src/assets/images/category/headerImage.jpg",
+        "background_image_url": "assets/images/category/headerImage.jpg",
         "media": {
             "type": "image",
-            "url": "/src/assets/images/category/headerImage.jpg"
+            "url": "assets/images/category/headerImage.jpg"
         }
     }
 };
@@ -33,7 +33,7 @@ export const mockMicroData: MicroData = {
     whyMicroMatters: {
         title: "WHY MICROINSURANCE MATTERS",
         subtitle: "Microinsurance is designed for real lives and real challenges. Because one unexpected event should never destroy a lifetime of hard work.",
-        image: "src/assets/images/micro/1.png",
+        image: "assets/images/micro/1.png",
         benefits: [
             {
                 title: "Stay Financially Protected",
@@ -97,12 +97,12 @@ export const mockMicroData: MicroData = {
             "Strengthening credit confidence",
             "Creating long-term value for partners and beneficiaries"
         ],
-        image: "src/assets/images/micro/2.png"
+        image: "assets/images/micro/2.png"
     },
     impactStatic: {
         title: "OUR IMPACT AT A GLANCE",
         subtitle: "Behind every number is a family that didn't fall behind.",
-        image: "src/assets/images/micro/1.png",
+        image: "assets/images/micro/1.png",
         awardsTitle: "Recognition & Awards",
         awards: [
             { title: "Insurance Asia Awards", description: "Winner 2017, 2018 & 2019" }

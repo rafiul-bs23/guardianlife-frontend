@@ -1,7 +1,6 @@
 import type { HeaderResponse } from "../../../shared/types/header";
 import type { BancaBankInfoResponse, BancaBranchResponse } from "../types";
 
-
 export const MOCK_HEADER_DATA: HeaderResponse = {
     "status": true,
     "transaction_id": "GLIL-BNC-TXN-ID",
@@ -18,14 +17,13 @@ export const MOCK_HEADER_DATA: HeaderResponse = {
             }
         ],
         "description": "CITY BANK, IN PARTNERSHIP WITH GUARDIAN LIFE INSURANCE LIMITED, BRINGS YOU TRUSTED LIFE INSURANCE SOLUTIONS DESIGNED TO PROTECT YOUR SAVINGS, FAMILY, AND FUTURE.",
-        "background_image_url": "/src/assets/images/category/headerImage.jpg",
+        "background_image_url": "assets/images/category/headerImage.jpg",
         "media": {
             "type": "image",
-            "url": "/src/assets/images/category/headerImage.jpg"
+            "url": "assets/images/category/headerImage.jpg"
         }
     }
 };
-
 
 export const MOCK_BANK_INFO_DATA: BancaBankInfoResponse = {
     "transaction_id": "9P0A8M0S4NGZPF",

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import GetInTouch from "../../../assets/images/home/GetInTouch.png";
+
 import ContactForm from '../../../shared/Components/ContactForm';
 
 const CareerFormSection = () => {
@@ -17,7 +17,7 @@ const CareerFormSection = () => {
                 className="w-full lg:flex-1 rounded-[32px] lg:rounded-tr-[32px] lg:rounded-br-[32px] lg:rounded-tl-none lg:rounded-bl-none h-64 lg:h-[567px] my-auto overflow-hidden"
             >
                 <img
-                    src={GetInTouch}
+                    src="/assets/images/home/GetInTouch.png"
                     alt="Career Application"
                     className="w-full h-full object-cover"
                 />

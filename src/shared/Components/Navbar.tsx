@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { NavLink, useLocation } from 'react-router-dom';
-import logo from '../../assets/images/shared/logo.png';
+
 import { X, ChevronDown } from 'lucide-react';
 import { MENU_DATA } from '../constants/menuData';
 import type { MenuItem } from '../types/menu';
@@ -133,7 +133,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
                 {/* Centered Logo in Orange Container */}
                 <div className="absolute left-1/2 -translate-x-1/2 top-0 md:h-28 h-20 w-32 md:w-56 bg-primary rounded-b-[35px] flex items-center justify-center shadow-[0_10px_30px_rgba(235,105,37,0.3)] transition-all hover:h-32 group">
                     <img
-                        src={logo}
+                        src="/assets/images/shared/logo.png"
                         alt="Guardian Logo"
                         className="w-[100px] md:w-[180px] object-contain mb-2 px-4 transition-transform group-hover:scale-110"
                     />
@@ -167,7 +167,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
                         <div className={`flex items-center justify-between p-8 border-b border-gray-100 ${GAPS.DRAWER_HEADER}`}>
                             <div className={`flex items-center ${GAPS.DRAWER_HEADER}`}>
                                 <div className="w-32 h-12 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20">
-                                    <img src={logo} alt="Logo" className="w-28 h-6 object-contain" />
+                                    <img src="/assets/images/shared/logo.png" alt="Logo" className="w-28 h-6 object-contain" />
                                 </div>
                             </div>
                             <button

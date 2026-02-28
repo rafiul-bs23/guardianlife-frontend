@@ -17,15 +17,13 @@ export const MOCK_HEADER_DATA: HeaderResponse = {
             }
         ],
         "description": "Enjoy your money today without compromising their tomorrow. Even if you've already withdrawn 50% of your funds, your family is still guaranteed 100% of the protection plus bonuses.",
-        "background_image_url": "/src/assets/images/category/headerImage.jpg",
+        "background_image_url": "assets/images/category/headerImage.jpg",
         "media": {
             "type": "video",
             "url": "https://www.youtube.com/watch?v=YBI6Y6uF2jM&pp=ygUXZ3VhcmRpYW4gbGlmZSBpbnN1cmFuY2U%3D"
         }
     }
 };
-
-
 
 export const MOCK_SUCCESS_DATA: ProductSuccessResponse = {
     status: true,
@@ -208,7 +206,6 @@ export const MOCK_SUCCESS_DATA: ProductSuccessResponse = {
         }
     }
 };
-
 
 export const MOCK_ERROR_DATA: ProductErrorResponse = {
     status: false,

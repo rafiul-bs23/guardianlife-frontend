@@ -2,7 +2,6 @@ import React from 'react';
 import type { HeaderData } from '../../../shared/types/header';
 import GenericHeader from '../../../shared/Components/GenericHeader';
 import { Quote } from 'lucide-react';
-import ChairmanImg from '../../../assets/images/boardDirectors/1.png';
 
 interface ChairmanHeaderProps {
     data: HeaderData | null;
@@ -29,7 +28,7 @@ const ChairmanHeader: React.FC<ChairmanHeaderProps> = ({ data }) => {
                 {/* Chairman Image Layer - Bottom on Mobile, Left on Desktop */}
                 <div className="w-full lg:w-[45%] flex justify-center lg:justify-start items-end relative z-10 order-2 lg:order-1">
                     <img
-                        src={ChairmanImg}
+                        src="/assets/images/boardDirectors/1.png"
                         alt="Chairman"
                         className="max-h-[300px] md:max-h-[450px] lg:max-h-[85%] object-contain"
                     />

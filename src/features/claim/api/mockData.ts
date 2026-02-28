@@ -16,10 +16,10 @@ export const MOCK_HEADER_DATA: HeaderResponse = {
             }
         ],
         "description": "FAST, TRANSPARENT, AND RELIABLE CLAIM PROCESSING.",
-        "background_image_url": "/src/assets/images/category/headerImage.jpg",
+        "background_image_url": "assets/images/category/headerImage.jpg",
         "media": {
             "type": "image",
-            "url": "/src/assets/images/category/headerImage.jpg"
+            "url": "assets/images/category/headerImage.jpg"
         }
     }
 };
@@ -86,7 +86,7 @@ export const mockClaimData: ClaimData = {
     customerStories: {
         title: "STORIES FROM OUR CUSTOMERS",
         subtitle: "See how we've helped thousands of families during their most challenging times. These are real experiences from real customers.",
-        videoThumbnail: "src/assets/images/productDetails/videoOvarlay.png",
+        videoThumbnail: "assets/images/productDetails/videoOvarlay.png",
         videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
     }
 };

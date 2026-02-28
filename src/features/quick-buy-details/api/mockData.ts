@@ -17,10 +17,10 @@ export const MOCK_HEADER_DATA: HeaderResponse = {
             }
         ],
         "description": "An attractive pure term life coverage at a very affordable price. Customers can get up to 10 lac taka coverage for up to 25 years.",
-        "background_image_url": "/src/assets/images/category/headerImage.jpg",
+        "background_image_url": "assets/images/category/headerImage.jpg",
         "media": {
             "type": "image",
-            "url": "/src/assets/images/category/headerImage.jpg"
+            "url": "assets/images/category/headerImage.jpg"
         }
     }
 };
@@ -51,7 +51,6 @@ export const MOCK_SUCCESS_DATA: QuickBuySuccessResponse = {
             maturity_benefit: false,
             surrender_option: false
         },
-
 
         plan_benefits_section: {
             description: "Meet your priorities: A liquid savings plan that will give back a partial sum assured",
@@ -93,7 +92,6 @@ export const MOCK_SUCCESS_DATA: QuickBuySuccessResponse = {
             ]
         },
 
-
         product_documents_section: {
             content: [
                 {
@@ -128,7 +126,6 @@ export const MOCK_SUCCESS_DATA: QuickBuySuccessResponse = {
         }
     }
 };
-
 
 export const MOCK_ERROR_DATA: QuickBuyErrorResponse = {
     status: false,

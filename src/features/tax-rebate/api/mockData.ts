@@ -1,7 +1,5 @@
 import type { HeaderResponse } from "../../../shared/types/header";
 import type { TaxRebateDataResponse } from "../types";
-import taxImage from "../../../assets/images/tax-rebate/tax.png";
-
 
 export const MOCK_TAX_REBATE_HEADER_DATA: HeaderResponse = {
     "status": true,
@@ -29,7 +27,7 @@ export const MOCK_TAX_REBATE_DETAILS: TaxRebateDataResponse = {
     "data": {
         "thingsToRemember": {
             "title": "THINGS TO REMEMBER",
-            "image": taxImage,
+            "image": "assets/images/tax-rebate/tax.png",
             "descriptionPoints": [
                 {
                     "text": "Payment of a minimum income tax of BDT 5000 is compulsory for the eligible taxpayer irrespective of the rebate amount.",
