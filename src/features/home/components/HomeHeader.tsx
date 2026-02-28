@@ -38,7 +38,7 @@ interface HomeHeaderProps {
 
 const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
     return (
-        <GenericHeader data={data} variant="immersive" backgroundVideoUrl={data?.background_video_url}>
+        <GenericHeader data={data} variant="immersive" >
             <div className="relative w-full h-full min-h-[600px]  lg:min-h-[620px] flex flex-col items-center justify-center px-4 overflow-hidden">
 
                 {/* Bottom White Gradient/Fade Area */}

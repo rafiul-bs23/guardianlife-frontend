@@ -79,7 +79,7 @@ const PartnersBanner = ({
   const [rowHeight, setRowHeight] = useState<number | null>(null);
   const isMobile = useIsMobile();
 
-  const isInView = useInView(containerRef, { once: true, amount: isMobile ? 0.1 : 0.5 });
+  const isInView = useInView(containerRef, { once: true, amount: isMobile ? 0.06 : 0.2 });
 
   useLayoutEffect(() => {
     const measure = () => {

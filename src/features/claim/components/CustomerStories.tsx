@@ -26,7 +26,7 @@ const CustomerStories: React.FC<CustomerStoriesProps> = ({ data }) => {
                         title={data.title}
                         aspectRatio="video"
                         rounded="rounded-[40px]"
-                        onClick={() => window.open(data.videoUrl, '_blank')}
+                        url={data.videoUrl}
                     />
                 </div>
             </div>
