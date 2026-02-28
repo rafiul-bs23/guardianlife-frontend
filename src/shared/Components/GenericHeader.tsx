@@ -57,9 +57,9 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
                     </div>
                 )}
 
-                <h1 className={`text-4xl md:text-2xl lg:text-[45px] font-bold text-white flex flex-wrap gap-y-4 md:gap-4 ${titleClassName}`}>
+                <h1 className={`text-4xl md:text-2xl lg:text-[45px] font-bold text-white flex flex-wrap  ${titleClassName}`}>
                     {data.title.map((item, index) => (
-                        <span key={index} style={{ color: item.color }}>
+                        <span key={index} style={{ color: item.color, lineHeight: '1.1' }}>
                             {item.text}
                         </span>
                     ))}

@@ -2,10 +2,11 @@ export interface LeadRequest {
     full_name: string;
     email: string;
     phone: string;
-    type: 'lead';
-    applying_position: null;
+    type: 'lead' | 'job';
+    applying_position: string | null;
     message: string;
     channel?: string;
+    cv?: File | null;
 }
 
 export interface LeadApiSuccessResponse {

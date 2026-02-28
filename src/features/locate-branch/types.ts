@@ -43,11 +43,7 @@ export type BranchApiResult = BranchApiSuccessResponse | BranchApiErrorResponse;
 
 // Query Params
 export interface BranchQueryParams {
-    office_category?: string;
-    branch_name?: string;
-    area_name?: string;
-    division_name?: string;
-    district_name?: string;
+    query?: string;
     page?: number;
     limit?: number;
 }

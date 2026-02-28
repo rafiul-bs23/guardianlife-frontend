@@ -5,6 +5,7 @@ import HomeHeader from "./components/HomeHeader";
 import GuideYou from "./components/GuideYou";
 import { MOCK_HOME_HEADER_DATA, MOCK_GUIDE_YOU_DATA } from "./api/mockData";
 import { motion } from "framer-motion";
+import { useIsMobile } from "../../shared/hooks/useMediaQuery";
 
 import Solutions from "./components/Solutions.tsx";
 import PartnersBanks from "./components/PartnersBanks.tsx";
@@ -14,6 +15,7 @@ import AppPromotion from "./components/PromotionSection.tsx";
 import ContactForm from "./components/contact.tsx";
 
 const Home = () => {
+  const isMobile = useIsMobile();
 
   return (
     <div className="min-h-screen bg-[#F4F4F4] overflow-hidden">
@@ -22,7 +24,7 @@ const Home = () => {
         initial={{ opacity: 0, scale: 1.2 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: isMobile ? 0.1 : 0.3 }}
         className="flex flex-col items-center mb-20 overflow-hidden"
       >
         <div className="mt-16 lg:mt-[98px] mb-[60px]">
@@ -51,7 +53,7 @@ const Home = () => {
         initial={{ opacity: 0, x: -100 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: isMobile ? 0.1 : 0.3 }}
       >
         <GuideYou data={MOCK_GUIDE_YOU_DATA} />
       </motion.div>

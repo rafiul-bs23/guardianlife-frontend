@@ -36,7 +36,7 @@ export const NAV_ROUTES = [
   { path: "/category", label: "Category", element: <Category /> },
   { path: "/products/:product_code", label: "Product Details", element: <ProductDetails /> },
   { path: "/quick-buy-category", label: "Quick Buy Category", element: <QuickBuyCategory /> },
-  { path: "/quick-buy-details", label: "Quick Buy Details", element: <QuickBuyDetails /> },
+  { path: "/quick-buy-details/:product_code", label: "Quick Buy Details", element: <QuickBuyDetails /> },
   { path: "/group", label: "Group", element: <Group /> },
   { path: "/claim", label: "Claim", element: <Claim /> },
   { path: "/micro", label: "Micro", element: <Micro /> },

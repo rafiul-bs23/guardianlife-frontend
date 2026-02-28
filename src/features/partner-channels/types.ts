@@ -1,34 +1,17 @@
 export interface PartnerChannel {
-    id: string;
-    channel_name: string;
+    partner_name: string;
     logo_url: string;
-    tags: string[];
-    is_featured: boolean;
+    website_url: string;
 }
 
-export interface PartnerChannelListData {
-    partner_channels: PartnerChannel[];
-}
-
-export interface PartnerChannelApiSuccessResponse {
-    success: boolean;
+export interface PartnerChannelsApiResult {
     transaction_id: string;
-    data: PartnerChannelListData;
+    status: boolean;
+    data: PartnerChannel[];
 }
-
-export interface PartnerChannelApiErrorResponse {
-    success: boolean;
-    message: string;
-}
-
-export type PartnerChannelApiResult =
-    | PartnerChannelApiSuccessResponse
-    | PartnerChannelApiErrorResponse;
 
 export interface UsePartnerChannelsResult {
     partner_channels: PartnerChannel[];
     is_loading: boolean;
     error: string | null;
-    selected_channel_id: string | null;
-    set_selected_channel: (id: string) => void;
 }

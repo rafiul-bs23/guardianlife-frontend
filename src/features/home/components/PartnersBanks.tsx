@@ -1,12 +1,14 @@
 import { useRef } from 'react';
 import { motion, useInView, type Variants } from 'framer-motion';
+import { useIsMobile } from '../../../shared/hooks/useMediaQuery';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { MOCK_PARTNER_BANKS_DATA } from '../api/mockData';
 
 const PartnerBanks = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const isMobile = useIsMobile();
+  const isInView = useInView(ref, { once: true, amount: isMobile ? 0.1 : 0.2 });
 
   // Variants for the staggered card container
   const containerVariants: Variants = {

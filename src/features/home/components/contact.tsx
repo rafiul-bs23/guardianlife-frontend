@@ -1,11 +1,13 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useIsMobile } from "../../../shared/hooks/useMediaQuery";
 import GetInTouch from "../../../assets/images/home/GetInTouch.png";
 import ContactForm from '../../../shared/Components/ContactForm';
 
 const ContactSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const isMobile = useIsMobile();
+  const isInView = useInView(ref, { once: true, amount: isMobile ? 0.1 : 0.2 });
 
   return (
     <div ref={ref} className="flex flex-col lg:flex-row gap-8 w-full px-4 xl:px-0 overflow-hidden">

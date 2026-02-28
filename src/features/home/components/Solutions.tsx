@@ -2,15 +2,17 @@ import { useState, useRef } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
+import { useIsMobile } from '../../../shared/hooks/useMediaQuery';
 
 import { MOCK_OUR_SOLUTIONS_DATA } from '../api/mockData';
 
 const SolutionsComponent = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef(null);
+  const isMobile = useIsMobile();
 
-  // Triggers when 20% of the section is visible
-  const isInView = useInView(containerRef, { once: true, amount: 0.4 });
+  // Triggers when 10% (mobile) or 40% (PC) of the section is visible
+  const isInView = useInView(containerRef, { once: true, amount: isMobile ? 0.1 : 0.4 });
 
   const getStackOrder = () => {
     const order = [];
@@ -120,8 +122,7 @@ const SolutionsComponent = () => {
                     <div className={`absolute inset-0 transition-opacity duration-500 ${position === 0 ? 'opacity-100' : 'opacity-80'}`}>
                       {position === 0 ? (
                         <Link
-                          to="/category"
-                          state={{ tabIndex: activeIndex }}
+                          to={`/category?tabIndex=${index}`}
                           className="absolute top-6 right-6 w-12 h-12 rounded-full border border-white/40 flex items-center justify-center text-white backdrop-blur-sm hover:bg-white/20 transition-colors"
                           onClick={(e) => e.stopPropagation()}
                         >

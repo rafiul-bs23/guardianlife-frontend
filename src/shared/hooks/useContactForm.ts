@@ -5,7 +5,9 @@ interface FormData {
     fullName: string;
     email: string;
     phoneNumber: string;
+    applyingPosition: string;
     message: string;
+    cv: File | null;
     agreeToPolicy: boolean;
 }
 
@@ -13,7 +15,9 @@ interface FormErrors {
     fullName?: string;
     email?: string;
     phoneNumber?: string;
+    applyingPosition?: string;
     message?: string;
+    cv?: string;
     agreeToPolicy?: string;
 }
 
@@ -24,6 +28,7 @@ export interface UseContactFormResult {
     success: boolean;
     error: string | null;
     handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+    handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleSubmit: () => void;
     reset: () => void;
 }
@@ -32,11 +37,13 @@ const initial_form: FormData = {
     fullName: '',
     email: '',
     phoneNumber: '',
+    applyingPosition: '',
     message: '',
+    cv: null,
     agreeToPolicy: false,
 };
 
-const validate = (formData: FormData): FormErrors => {
+const validate = (formData: FormData, type: 'lead' | 'job'): FormErrors => {
     const errors: FormErrors = {};
 
     if (!formData.fullName.trim()) {
@@ -55,6 +62,14 @@ const validate = (formData: FormData): FormErrors => {
         errors.phoneNumber = 'Enter a valid 11-digit Bangladeshi phone number (e.g. 01XXXXXXXXX).';
     }
 
+    if (type === 'job' && !formData.applyingPosition.trim()) {
+        errors.applyingPosition = 'Applying position is required.';
+    }
+
+    if (type === 'job' && !formData.cv) {
+        errors.cv = 'Please upload your CV.';
+    }
+
     if (!formData.message.trim()) {
         errors.message = 'Message is required.';
     }
@@ -66,7 +81,7 @@ const validate = (formData: FormData): FormErrors => {
     return errors;
 };
 
-export const useContactForm = (channel: string): UseContactFormResult => {
+export const useContactForm = (channel: string, type: 'lead' | 'job' = 'lead'): UseContactFormResult => {
     const [formData, set_form_data] = useState<FormData>(initial_form);
     const [errors, set_errors] = useState<FormErrors>({});
     const [is_loading, set_is_loading] = useState(false);
@@ -86,8 +101,16 @@ export const useContactForm = (channel: string): UseContactFormResult => {
         []
     );
 
+    const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        if (files && files.length > 0) {
+            set_form_data((prev) => ({ ...prev, cv: files[0] }));
+            set_errors((prev) => ({ ...prev, cv: undefined }));
+        }
+    }, []);
+
     const handleSubmit = useCallback(async () => {
-        const validation_errors = validate(formData);
+        const validation_errors = validate(formData, type);
         if (Object.keys(validation_errors).length > 0) {
             set_errors(validation_errors);
             return;
@@ -97,15 +120,26 @@ export const useContactForm = (channel: string): UseContactFormResult => {
         set_error(null);
 
         try {
-            const response = await post_lead({
-                full_name: formData.fullName.trim(),
-                email: formData.email.trim(),
-                phone: formData.phoneNumber.trim(),
-                type: 'lead',
-                applying_position: null,
-                message: formData.message.trim(),
-                channel,
-            });
+            // Use FormData for file support
+            const payload = new FormData();
+            payload.append('full_name', formData.fullName.trim());
+            payload.append('email', formData.email.trim());
+            payload.append('phone', formData.phoneNumber.trim());
+            payload.append('type', type);
+            payload.append('message', formData.message.trim());
+            payload.append('channel', channel);
+
+            if (type === 'job') {
+                payload.append('applying_position', formData.applyingPosition.trim());
+                if (formData.cv) {
+                    payload.append('cv', formData.cv);
+                }
+            } else {
+                payload.append('applying_position', '');
+            }
+
+            // We need to pass the FormData to post_lead
+            const response = await post_lead(payload as any);
 
             if (response.success) {
                 set_success(true);
@@ -119,7 +153,7 @@ export const useContactForm = (channel: string): UseContactFormResult => {
         } finally {
             set_is_loading(false);
         }
-    }, [formData, channel]);
+    }, [formData, channel, type]);
 
     const reset = useCallback(() => {
         set_form_data(initial_form);
@@ -128,5 +162,5 @@ export const useContactForm = (channel: string): UseContactFormResult => {
         set_error(null);
     }, []);
 
-    return { formData, errors, is_loading, success, error, handleChange, handleSubmit, reset };
+    return { formData, errors, is_loading, success, error, handleChange, handleFileChange, handleSubmit, reset };
 };

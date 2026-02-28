@@ -36,7 +36,7 @@ const ProductDetails = () => {
             learnMore={data.learn_more_section}
           />
         )}
-        <LocalAgent />
+        <LocalAgent productCode={product_code as string} />
         <FAQ />
       </section>
     </>
