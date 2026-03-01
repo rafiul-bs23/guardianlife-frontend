@@ -15,7 +15,6 @@ const QuickBuyCategory = () => {
   const { data: savingsProducts, isLoading: isSavingsLoading } = useCategoryProducts(null, 'savings', null);
   const { data: specialPlansProducts, isLoading: isSpecialPlansLoading } = useCategoryProducts(null, 'special-plans', null);
 
-
   if (isHeaderLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">

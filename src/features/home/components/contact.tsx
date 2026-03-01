@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { useIsMobile } from "../../../shared/hooks/useMediaQuery";
-import GetInTouch from "../../../assets/images/home/GetInTouch.png";
+
 import ContactForm from '../../../shared/Components/ContactForm';
 
 const ContactSection = () => {
@@ -19,8 +19,8 @@ const ContactSection = () => {
         className="w-full lg:flex-1 rounded-[32px] lg:rounded-tr-[32px] lg:rounded-br-[32px] lg:rounded-tl-none lg:rounded-bl-none h-64 lg:h-[567px] my-auto overflow-hidden"
       >
         <img
-          src={GetInTouch}
-          alt="GetInTouch"
+          src="/assets/images/home/GetInTouch.png"
+          alt="/assets/images/home/GetInTouch.png"
           className="w-full h-full object-cover"
         />
       </motion.div>

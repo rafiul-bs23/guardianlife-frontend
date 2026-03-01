@@ -57,7 +57,6 @@ const QuickBuyDetails = () => {
 
       <FAQ />
 
-
     </section>
   );
 };

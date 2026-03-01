@@ -20,8 +20,6 @@ import { MOCK_GROUP_HEADER_DATA } from "./api/mockData.ts";
 const Group = () => {
   const { data: headerData, isLoading: isHeaderLoading } = useHeader("group-info", true, MOCK_GROUP_HEADER_DATA);
 
-
-
   if (isHeaderLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">

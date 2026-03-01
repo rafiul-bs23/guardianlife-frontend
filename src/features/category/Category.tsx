@@ -48,8 +48,6 @@ const Category = () => {
     isLoading: isDigitalLoading
   } = useCategoryProducts('digital', null, activeSubcategory);
 
-
-
   if (isHeaderLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">

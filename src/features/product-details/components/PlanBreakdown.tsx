@@ -63,7 +63,6 @@ const BreakdownBlock: React.FC<{ item: BreakdownItem }> = ({ item }) => {
 
 const EligibilityScale: React.FC<{ min: number; max: number }> = ({ min, max }) => {
 
-
     const labels = [20, 30, 40, 60, 50, 65];
     const maxScaleVal = 65;
     const minScaleVal = 20;

@@ -20,7 +20,6 @@ const QuickProduct: React.FC<QuickProductProps> = ({ data }) => {
                         <p className="text-gray-600 text-sm">Key Plan Details At A Glance</p>
                     </div>
 
-
                     <div className="px-4 pb-8 md:px-8">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                             {data?.content?.map((item, index) => (

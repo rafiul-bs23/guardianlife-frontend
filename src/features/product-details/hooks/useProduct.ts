@@ -3,7 +3,6 @@ import { AxiosError } from 'axios';
 import { getProductData } from '../api';
 import type { ProductApiResponse, ProductData, UseProductResult, ValidationError } from '../types';
 
-
 export const useProduct = (productId: string): UseProductResult => {
   const [data, setData] = useState<ProductData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);

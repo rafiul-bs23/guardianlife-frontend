@@ -3,7 +3,7 @@ import type { AppDownloadData, CashlessNetworkData } from '../types';
 export const sharedAppDownloadData: AppDownloadData = {
     title: "DOWNLOAD OUR APP",
     subtitle: "The Guardian Life app puts hassle-free coverage in your hands. Download now on Android & iOS to manage your insurance anytime, anywhere.",
-    image: "src/assets/images/shared/Subtract.png",
+    image: "assets/images/shared/Subtract.png",
 
 };
 
@@ -26,13 +26,13 @@ export const sharedCashlessNetworkData: CashlessNetworkData = {
         "Hospital Requests Pre-Authorization",
         "Get Treatment Without Payment"
     ],
-    image: "src/assets/images/shared/cashlessHospital.png"
+    image: "assets/images/shared/cashlessHospital.png"
 };
 
 export const sharedCustomerStoriesData = {
     title: "CUSTOMER STORIES",
     subtitle: "Real stories from families who found peace of mind with Guardian Life.",
-    videoThumbnail: "src/assets/shared/Subtract.png",
+    videoThumbnail: "assets/shared/Subtract.png",
     videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 };
 

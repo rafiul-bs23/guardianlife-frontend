@@ -11,7 +11,6 @@ export interface WhyMicroMattersData {
     benefits: MicroBenefit[];
 }
 
-
 export interface MicroProduct {
     title: string;
     product_code: string;

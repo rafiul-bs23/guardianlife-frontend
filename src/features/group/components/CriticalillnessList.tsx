@@ -3,8 +3,6 @@ type Illness = {
   name: string;
 };
 
-
-
 export function CriticalIllnessList({ items }: { items: Illness[] }) {
   return (
     <div className="w-full">

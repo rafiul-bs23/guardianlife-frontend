@@ -16,10 +16,10 @@ export const mockHeaderData: HeaderResponse = {
             }
         ],
         "description": "SINCE 2014, GUARDIAN LIFE INSURANCE LIMITED HAS BEEN COMMITTED TO RESHAPING THE INSURANCE LANDSCAPE OF BANGLADESH THROUGH TRUST, INNOVATION, AND PEOPLE-FIRST PROTECTION.",
-        "background_image_url": "/src/assets/images/category/headerImage.jpg",
+        "background_image_url": "assets/images/category/headerImage.jpg",
         "media": {
             "type": "image",
-            "url": "/src/assets/images/category/headerImage.jpg"
+            "url": "assets/images/category/headerImage.jpg"
         }
     }
 };
@@ -33,7 +33,7 @@ export const mockAboutData: AboutData = {
             "Through spontaneous service, ethical practices, and customer-centric innovation, Guardian Life continues to earn trust across the insurance ecosystem. Our dynamic, caring, and knowledge-driven workforce remains committed to exceeding customer expectations by delivering world-class insurance products and reliable service experiences.",
             "Innovation, disciplined investment strategies, and robust risk management remain our core tools for ensuring sustainable growth and maximum financial benefit for our valued customers."
         ],
-        image: "src/assets/images/about/1.png",
+        image: "assets/images/about/1.png",
         stats: [
             {
                 value: "BDT 33.67 CR",
@@ -48,7 +48,7 @@ export const mockAboutData: AboutData = {
     our_journey: {
         title: "OUR JOURNEY",
         description: "Since inception, Guardian Life Insurance Limited has grown steadily to become a respected name in Bangladesh's life insurance industry. Over the years, we have expanded our product portfolio, strengthened our operational capabilities, and embraced digital transformation to serve customers more efficiently.",
-        image: "src/assets/images/about/2.png",
+        image: "assets/images/about/2.png",
         cards: [
             {
                 title: "Steady Growth",
@@ -86,24 +86,24 @@ export const mockAboutData: AboutData = {
                 "Help policyholders build a safer future through world-class products and service excellence"
             ]
         },
-        image: "src/assets/images/about/3.png"
+        image: "assets/images/about/3.png"
     },
     our_achievements: {
         title: "OUR ACHIEVEMENTS",
         description: "Each recognition reflects our commitment to excellence, innovation, and customer trust.",
-        image: "src/assets/images/about/4.png",
+        image: "assets/images/about/4.png",
 
     },
     milestones: {
         title: "MILESTONES WE ACHIEVED",
         description: "Since inception, Guardian Life Insurance Limited has consistently progressed through innovation, expansion, and customer-centric transformation. Each milestone represents our dedication to growth, governance, and service excellence.",
-        image: "src/assets/images/about/5.png",
+        image: "assets/images/about/5.png",
 
     },
     governance_trust: {
         title: "Governance & Trust",
         description: "Guardian Life Insurance Limited operates under strong regulatory compliance and ethical governance frameworks. Regulated by the appropriate authorities, we emphasize transparency, accountability, and responsible risk management to safeguard the interests of our policyholders and stakeholders.",
-        image: "src/assets/images/about/6.png",
+        image: "assets/images/about/6.png",
         points: [
             {
                 icon: "Shield",
@@ -133,14 +133,13 @@ export const mockAboutData: AboutData = {
     }
 };
 
-
 export const MOCK_DYNAMIC_DATA: AboutDynamicResponse = {
     "transaction_id": "YOBDOZYUNZXC5Z",
     "status": true,
     "data": {
         "awards": [
             {
-                "name": "Best Life Insurer 2022",
+                "name": "Best Life Insurer 2024",
                 "description": "Recognized as the best life insurance provider in Bangladesh."
             },
             {

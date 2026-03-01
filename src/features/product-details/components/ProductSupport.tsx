@@ -1,6 +1,5 @@
 import React from 'react';
 
-import videoOverlay from '../../../assets/images/productDetails/videoOvarlay.png';
 import VideoSection from '../../../shared/Components/VideoSection';
 import { FileText, ClipboardCheck, Search } from 'lucide-react';
 import type { LearnMoreSection, ProductDocumentsSection } from '../../../shared/types/product';
@@ -51,7 +50,7 @@ const ProductSupport: React.FC<ProductSupportProps> = ({ documents, learnMore })
                         {learnMore?.content?.map((video, index) => (
                             <div key={index} className="flex flex-col gap-3 group cursor-pointer w-[240px]">
                                 <VideoSection
-                                    thumbnail={videoOverlay}
+                                    thumbnail={"/assets/images/productDetails/videoOvarlay.png"}
                                     title={video.title}
                                     rounded="rounded-2xl"
                                     url={video?.video_url}

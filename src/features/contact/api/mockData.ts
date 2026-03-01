@@ -29,10 +29,10 @@ export const MOCK_HEADER_DATA: HeaderResponse = {
             }
         ],
         "description": undefined,
-        "background_image_url": "/src/assets/images/category/headerImage.jpg",
+        "background_image_url": "assets/images/category/headerImage.jpg",
         "media": {
             "type": "image",
-            "url": "/src/assets/images/category/headerImage.jpg"
+            "url": "assets/images/category/headerImage.jpg"
         }
     }
 };

@@ -1,8 +1,6 @@
 
 import type { ChairmanMessageData } from "../types";
 
-
-
 export const MOCK_CHAIRMAN_MESSAGE_DATA: ChairmanMessageData = {
     title: "CHAIRMAN'S MESSAGE",
     paragraphs: [
@@ -15,6 +13,6 @@ export const MOCK_CHAIRMAN_MESSAGE_DATA: ChairmanMessageData = {
         designation: "CHAIRMAN",
         phone: "+8809612016622",
         email: "SAMUEL@GUARDIANLIFE.COM.BD",
-        image_url: "/src/assets/images/chairman/chairman.png"
+        image_url: "assets/images/chairman/chairman.png"
     }
 };

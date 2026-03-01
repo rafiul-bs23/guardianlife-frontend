@@ -6,8 +6,6 @@ import type {
   LearnMoreSection,
 } from '../../shared/types/product';
 
-
-
 export interface QuickProductSection {
   content: ContentItem[];
 }
@@ -53,10 +51,7 @@ export interface PlanBreakdownSection {
 
 // VideoItem is now imported from shared
 
-
-
 // LearnMoreSection is now imported from shared
-
 
 export interface ProductData {
   quick_product_section: QuickProductSection;

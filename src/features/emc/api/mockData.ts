@@ -5,7 +5,7 @@ export const MOCK_EMC_HEADER_DATA: HeaderData = {
     badge: null,
     title: [],
     description: undefined,
-    background_image_url: "src/assets/images/headers/emc.png",
+    background_image_url: "assets/images/headers/emc.png",
 };
 
 export const MOCK_EMC_DATA: EmcApiResponse = {

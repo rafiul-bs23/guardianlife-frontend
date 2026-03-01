@@ -40,8 +40,6 @@ const AppPromotion = () => {
         </div>
         <AppStoreButtons className='flex flex-col sm:flex-row gap-4 justify-center items-center' />
 
-
-
         <div className="relative mt-8 flex justify-center px-4 md:px-0">
           <div
             className="overflow-hidden mx-auto w-full max-w-6xl relative"
