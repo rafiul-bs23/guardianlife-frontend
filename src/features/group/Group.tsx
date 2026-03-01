@@ -60,8 +60,8 @@ const Group = () => {
         <CashlessNetwork />
       </div>
       <PartnersSlider channel="group" />
-      <GroupContactForm />
       <AppDownloadSection />
+      <GroupContactForm />
     </main>
   );
 };
