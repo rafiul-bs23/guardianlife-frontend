@@ -4,26 +4,28 @@ import { MOCK_TREATMENT_PLAN_DATA } from "../api/mockData";
 
 export const TreatmentPlanSection = () => {
     return (
-        <>
-            <div className="mt-16 lg:mt-[124px] px-4">
-                <Contentheader
-                    title={MOCK_TREATMENT_PLAN_DATA.header.title}
-                    description={MOCK_TREATMENT_PLAN_DATA.header.description}
-                />
-            </div>
-
-            <div className="flex flex-col-reverse lg:flex-row mt-12 lg:mt-[90px] gap-8 lg:gap-0 px-4 lg:px-0">
-                <div className="w-full lg:w-1/2 lg:pl-[211px] lg:pr-8">
-                    <img
-                        src={MOCK_TREATMENT_PLAN_DATA.imgUrl}
-                        alt="image"
-                        className="w-full h-auto lg:w-[688px] lg:h-[507px] object-cover rounded-[35px]"
+        <section className="bg-white pb-16 lg:pb-20">
+            <div className="max-w-[1600px] mx-auto px-6 lg:px-10">
+                <div className="mb-10 lg:mb-14">
+                    <Contentheader
+                        title={MOCK_TREATMENT_PLAN_DATA.header.title}
+                        description={MOCK_TREATMENT_PLAN_DATA.header.description}
                     />
                 </div>
-                <div className="w-full lg:w-1/2 lg:pl-8 lg:pr-[212px]">
-                    <TreatmentPlanList items={MOCK_TREATMENT_PLAN_DATA.plans} />
+
+                <div className="flex flex-col-reverse lg:flex-row gap-8 lg:gap-16 items-start">
+                    <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
+                        <img
+                            src={MOCK_TREATMENT_PLAN_DATA.imgUrl}
+                            alt="image"
+                            className="w-full h-auto lg:h-[507px] lg:max-w-[688px] object-cover rounded-[35px]"
+                        />
+                    </div>
+                    <div className="w-full lg:w-1/2 flex justify-center lg:justify-start">
+                        <TreatmentPlanList items={MOCK_TREATMENT_PLAN_DATA.plans} />
+                    </div>
                 </div>
             </div>
-        </>
+        </section>
     );
 };
