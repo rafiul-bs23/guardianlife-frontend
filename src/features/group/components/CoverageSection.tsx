@@ -19,7 +19,9 @@ export const CoverageSection = () => {
     };
 
     const comprehensiveData = MOCK_COVERAGE_DATA.coverages.map((item) => ({
-        ...item,
+        id: item.id,
+        title: item.title,
+        description: item.description,
         icon: getIcon(item.iconName, item.iconColor),
     }));
 
@@ -41,7 +43,7 @@ export const CoverageSection = () => {
                     />
                 </div>
                 <div className="w-full lg:w-1/2 lg:pl-8">
-                    <CoverageList items={comprehensiveData as any} />
+                    <CoverageList items={comprehensiveData} />
                 </div>
             </div>
         </>
