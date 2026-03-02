@@ -72,3 +72,37 @@ export const mockPartnersResponse = {
         },
     ]
 };
+
+export const footerLinksData = [
+    { name: 'Settings', path: '/settings' },
+    { name: 'Early Cash', path: '/early-cash' },
+    { name: 'Children', path: '/children' },
+    { name: 'Retirement', path: '/retirement' },
+    { name: 'Investment', path: '/investment' },
+    { name: 'Term Life', path: '/term-life' },
+
+    { name: 'Supplementary Benefits', path: '/supplementary-benefits' },
+    { name: 'Guardian Takaful', path: '/guardian-takaful' },
+    { name: 'Children', path: '/children' },
+    { name: 'Retirement', path: '/retirement' },
+    { name: 'Investment', path: '/investment' },
+    { name: 'Term Life', path: '/term-life' },
+
+    { name: 'About Us', path: '/about-us' },
+    { name: 'Corporate', path: '/corporate' },
+    { name: 'Bancassurance', path: '/bancassurance' },
+    { name: 'Microinsurance', path: '/microinsurance' },
+    { name: 'Partner Channels', path: '/partner-channels' },
+    { name: 'Claims', path: '/claims' },
+
+    { name: 'Careers', path: '/careers' },
+    { name: 'FAQs', path: '/faqs' },
+    { name: 'Tax Certificate', path: '/tax-certificate' },
+    { name: 'Payment Gateway', path: '/payment-gateway' },
+    { name: 'Notice Board', path: '/notice-board' },
+    { name: 'Contact Us', path: '/contact-us' },
+
+    { name: 'Form Library', path: '/form-library' },
+    { name: 'Privacy Policies', path: '/privacy-policies' },
+    { name: 'Privacy Policies', path: '/privacy-policies' },
+];
