@@ -69,9 +69,20 @@ const Footer: React.FC = () => {
                 <ul className="space-y-2 text-sm opacity-90">
                   {column.map((link) => (
                     <li key={link.path}>
+                      {link.path.startsWith('http') ? (
+                        <a
+                          href={link.path}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:opacity-100 transition-opacity font-medium text-[16px] leading-[24px]"
+                        >
+                      {link.name}
+                        </a>
+                        ) : (
                       <Link to={link.path} className="hover:opacity-100 transition-opacity font-medium text-[16px] leading-[24px]">
                         {link.name}
                       </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
