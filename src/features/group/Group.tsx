@@ -15,8 +15,6 @@ import GroupContactForm from "./components/GroupContactForm.tsx";
 import { useHeader } from "../../shared/hooks/useHeader.ts";
 import { MOCK_GROUP_HEADER_DATA } from "./api/mockData.ts";
 
-// import { comprehensiveData, lifeCoveragedata, mockGroupApiResponse as apiResponse } from "./api/mockData";
-
 const Group = () => {
   const { data: headerData, isLoading: isHeaderLoading } = useHeader("group-info", true, MOCK_GROUP_HEADER_DATA);
 
@@ -33,32 +31,14 @@ const Group = () => {
       {headerData && <GroupHeader data={headerData} />}
 
       <BenefitsSection />
-
-      <div className="mx-[auto]">
-        <CoverageSection />
-      </div>
-
-      <div className="mx-[auto]">
-        <LifeCoverageSection />
-      </div>
-
-      <div className="mx-[auto]">
-        <CriticalIllnessSection />
-      </div>
-
-      <div className="mx-[auto]">
-        <TreatmentPlanSection />
-      </div>
-
-      <div className="mx-[auto]">
-        <MaternityBenefitsSection />
-      </div>
-
+      <CoverageSection />
+      <LifeCoverageSection />
+      <CriticalIllnessSection />
+      <TreatmentPlanSection />
+      <MaternityBenefitsSection />
       <OutPatientCardsSection />
 
-      <div className="mt-16">
-        <CashlessNetwork />
-      </div>
+      <CashlessNetwork />
       <PartnersSlider channel="group" />
       <AppDownloadSection />
       <GroupContactForm />
