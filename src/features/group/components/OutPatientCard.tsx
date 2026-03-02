@@ -13,7 +13,7 @@ const ProductCardWithActionButton = ({
 }: ProductCardProps) => {
   return (
     <div
-      className="w-full max-w-[643px] h-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl shadow-lg overflow-hidden flex flex-col">
+      className="w-full max-w-[643px] h-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl shadow-[0_4px_30px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col mx-auto">
       {/* Header Section with Quick Buy badge */}
       <div className="relative">
 

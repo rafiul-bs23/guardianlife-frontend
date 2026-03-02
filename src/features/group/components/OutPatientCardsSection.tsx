@@ -5,9 +5,9 @@ export const OutPatientCardsSection = () => {
     return (
         <section className="bg-white pb-16 lg:pb-20">
             <div className="max-w-[1600px] mx-auto px-6 lg:px-10">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 justify-center items-center">
+                <div className="flex flex-col lg:flex-row gap-[60px] justify-center items-stretch object-cover w-full">
                     {MOCK_OUTPATIENT_DATA.map((product: any) => (
-                        <div key={product.productCode} className="flex justify-center">
+                        <div key={product.productCode} className="flex justify-center w-full lg:w-1/2 max-w-[643px]">
                             <OutPatientCard
                                 thumbnailUrl={product.thumbnailUrl}
                                 title={product.title}
