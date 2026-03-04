@@ -7,8 +7,6 @@ interface CalculatePremiumModalProps {
   onClose: () => void;
 }
 
-const termsList = Array.from({ length: 16 }, (_, i) => i + 10);
-
 const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, onClose }) => {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [name, setName] = useState('');
@@ -161,25 +159,40 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
             {/* Term Slider */}
             <div className="pt-2">
               <label className="block text-sm font-medium text-gray-700 mb-6">Term</label>
-              <div className="relative px-2">
-                <div className="flex justify-between text-xs text-gray-400 px-1 mb-2">
-                  {termsList.map(t => (
-                    <span key={t} className="w-4 text-center cursor-pointer" onClick={() => setTerm(t)}>{t}</span>
+              <div className="relative pt-8 pb-4">
+                {/* Tick Labels */}
+                <div className="absolute top-0 w-full flex justify-between px-2">
+                  {[10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25].map(t => (
+                    <span key={t} className={`text-[11px] font-bold ${t === term ? 'text-[#F37021] opacity-0' : 'text-gray-300'}`}>
+                      {t}
+                    </span>
                   ))}
                 </div>
+
+                {/* Selected Indicator */}
+                <div
+                  className="absolute top-0 flex flex-col items-center -translate-x-1/2 transition-all duration-150 pointer-events-none"
+                  style={{
+                    left: `calc(14px + (${((term - 10) / 15) * 100}% - ${((term - 10) / 15) * 28}px))`
+                  }}
+                >
+                  <span className="text-[11px] font-extrabold text-[#1E3161] whitespace-nowrap mb-1 uppercase">
+                    {term} YEARS
+                  </span>
+                  <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-[#F37021]"></div>
+                </div>
+
                 <input
                   type="range"
-                  min="10" max="25" step="1"
-                  value={term} onChange={(e) => setTerm(Number(e.target.value))}
-                  className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#F37021]"
+                  min="10"
+                  max="25"
+                  value={term}
+                  onChange={(e) => setTerm(parseInt(e.target.value))}
+                  className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                  style={{
+                    background: `linear-gradient(to right, #F37021 0%, #F37021 ${((term - 10) / 15) * 100}%, #E5E7EB ${((term - 10) / 15) * 100}%, #E5E7EB 100%)`
+                  }}
                 />
-                {/* Custom tracker label */}
-                <div className="flex justify-between w-full mt-2 relative">
-                  <div className="absolute -top-12 transform -translate-x-1/2 flex flex-col items-center" style={{ left: `${(term - 10) / 15 * 100}%` }}>
-                    <span className="text-[10px] font-bold text-gray-800">{term} YEARS</span>
-                    <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-[#F37021] mt-1"></div>
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -371,6 +384,29 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
         }}
         onCheckAgain={() => setIsDetailsModalOpen(false)}
       />
+
+      <style>{`
+        input[type='range']::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 28px;
+            height: 28px;
+            background: #F37021;
+            border: 4px solid white;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        input[type='range']::-moz-range-thumb {
+            width: 28px;
+            height: 28px;
+            background: #F37021;
+            border: 4px solid white;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+      `}</style>
     </>
   );
 };
