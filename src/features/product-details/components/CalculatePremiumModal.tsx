@@ -241,18 +241,31 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                   {/* HI Options */}
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[
-                      { name: 'BRONZE', value: '50,000', color: 'bg-[#D28E5D]' },
-                      { name: 'SILVER', value: '150,000', color: 'bg-[#B0B6BA]' },
-                      { name: 'GOLD', value: '300,000', color: 'bg-[#FBB03B]' },
-                      { name: 'PLATINUM', value: '500,000', color: 'bg-[#6F7678]' }
+                      { name: 'BRONZE', value: '50,000', color: '#D28E5D' },
+                      { name: 'SILVER', value: '150,000', color: '#B0B6BA' },
+                      { name: 'GOLD', value: '300,000', color: '#FBB03B' },
+                      { name: 'PLATINUM', value: '500,000', color: '#6F7678' }
                     ].map(opt => (
                       <div
                         key={opt.name}
                         onClick={() => setHiOption(opt.name)}
-                        className={`border rounded-xl flex flex-col items-center overflow-hidden cursor-pointer transition-all ${hiOption === opt.name ? 'border-[#F37021] shadow-md ring-1 ring-[#F37021]' : 'border-gray-200'}`}
+                        className={`border rounded-lg flex flex-col overflow-hidden cursor-pointer transition-all bg-white ${hiOption === opt.name ? 'border-[#F37021] shadow-md ring-2 ring-[#F37021] ring-opacity-20' : 'border-orange-100 hover:border-orange-300'}`}
                       >
-                        <div className={`w-full py-2 text-center text-xs font-bold text-white tracking-widest ${opt.color}`}>{opt.name}</div>
-                        <div className="py-4 font-bold text-gray-900">{opt.value}</div>
+                        <div
+                          className="w-full pt-2 pb-6 text-center text-[13px] font-bold text-[#464646] uppercase relative flex items-start justify-center"
+                          style={{
+                            backgroundColor: opt.color,
+                            maskImage: 'url("data:image/svg+xml,%3Csvg preserveAspectRatio=\'none\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0,0 L100,0 L100,70 Q50,100 0,70 Z\'/%3E%3C/svg%3E")',
+                            WebkitMaskImage: 'url("data:image/svg+xml,%3Csvg preserveAspectRatio=\'none\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0,0 L100,0 L100,70 Q50,100 0,70 Z\'/%3E%3C/svg%3E")',
+                            maskSize: '100% 100%',
+                            WebkitMaskSize: '100% 100%',
+                          }}
+                        >
+                          <span className="relative z-10 pt-1 tracking-wider">{opt.name}</span>
+                        </div>
+                        <div className="pt-2 pb-4 text-center font-bold text-gray-900 text-lg">
+                          {opt.value}
+                        </div>
                       </div>
                     ))}
                   </div>
