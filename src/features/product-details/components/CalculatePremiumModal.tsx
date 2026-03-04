@@ -80,7 +80,15 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
     }
   };
 
-  const OptionButton = ({ label, selected, onClick, activeClass = 'bg-[#F37021] text-white border-[#F37021]', inactiveClass = 'bg-white text-gray-700 border-gray-300 hover:border-[#F37021]' }: any) => (
+  interface OptionButtonProps {
+    label: string | number;
+    selected: boolean;
+    onClick: () => void;
+    activeClass?: string;
+    inactiveClass?: string;
+  }
+
+  const OptionButton = ({ label, selected, onClick, activeClass = 'bg-[#F37021] text-white border-[#F37021]', inactiveClass = 'bg-white text-gray-700 border-gray-300 hover:border-[#F37021]' }: OptionButtonProps) => (
     <button
       onClick={onClick}
       className={`px-4 py-2 rounded-md border text-sm font-medium transition-colors ${selected ? activeClass : inactiveClass}`}
