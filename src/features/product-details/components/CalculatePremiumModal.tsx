@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Calendar, Info, Check } from 'lucide-react';
+import PremiumDetailsModal from './PremiumDetailsModal';
 
 interface CalculatePremiumModalProps {
   isOpen: boolean;
@@ -9,6 +10,7 @@ interface CalculatePremiumModalProps {
 const termsList = Array.from({ length: 16 }, (_, i) => i + 10);
 
 const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, onClose }) => {
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -90,272 +92,286 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   );
 
   return (
-    <div className="fixed inset-0 z-[100] flex justify-center items-start overflow-y-auto bg-black/40 backdrop-blur-sm p-4 sm:p-6 lg:p-10">
-      <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-[1428px] mx-auto p-6 sm:p-8 lg:p-12">
-        <button
-          onClick={onClose}
-          className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full bg-orange-100 text-orange-500 hover:bg-orange-200 transition-colors"
-        >
-          <X size={18} />
-        </button>
+    <>
+      <div className={`fixed inset-0 z-[99999] flex justify-center items-start overflow-y-auto bg-black/40 backdrop-blur-sm p-4 sm:p-6 lg:p-10 ${isDetailsModalOpen ? 'hidden' : ''}`}>
+        <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-[1428px] mx-auto p-6 sm:p-8 lg:p-12">
+          <button
+            onClick={onClose}
+            className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full bg-orange-100 text-orange-500 hover:bg-orange-200 transition-colors"
+          >
+            <X size={18} />
+          </button>
 
-        <div className="mb-8">
-          <p className="text-sm text-gray-500 font-medium mb-1">Calculate</p>
-          <h2 className="text-2xl sm:text-3xl font-black text-gray-900 uppercase tracking-tight">GUARDIAN 3 STAGE PLAN</h2>
-          <div className="h-px bg-orange-200 w-full mt-4"></div>
-        </div>
-
-        <div className="space-y-8">
-          {/* Row 1: Name, Phone, Email */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
-              <input type="text" placeholder="Your Name" value={name} onChange={e => setName(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Phone <span className="text-red-500">*</span></label>
-              <input type="tel" placeholder="01XXXXXXXXX" value={phone} onChange={e => setPhone(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Email <span className="text-red-500">*</span></label>
-              <input type="email" placeholder="Your Email" value={email} onChange={e => setEmail(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
-            </div>
+          <div className="mb-8">
+            <p className="text-sm text-gray-500 font-medium mb-1">Calculate</p>
+            <h2 className="text-2xl sm:text-3xl font-black text-gray-900 uppercase tracking-tight">GUARDIAN 3 STAGE PLAN</h2>
+            <div className="h-px bg-orange-200 w-full mt-4"></div>
           </div>
 
-          {/* Row 2: Date of Birth, Age, Gender */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Date of Birth <span className="text-red-500">*</span></label>
-              <div className="relative">
-                <input type="text" placeholder="DD/MM/YY" value={dob} onChange={e => setDob(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 pr-10 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
-                <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+          <div className="space-y-8">
+            {/* Row 1: Name, Phone, Email */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                <input type="text" placeholder="Your Name" value={name} onChange={e => setName(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Phone <span className="text-red-500">*</span></label>
+                <input type="tel" placeholder="01XXXXXXXXX" value={phone} onChange={e => setPhone(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Email <span className="text-red-500">*</span></label>
+                <input type="email" placeholder="Your Email" value={email} onChange={e => setEmail(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
               </div>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
-              <input type="text" placeholder="30 Years" value={age} onChange={e => setAge(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Gender <span className="text-red-500">*</span></label>
-              <select value={gender} onChange={e => setGender(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none bg-white">
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-          </div>
 
-          {/* Mode Options */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">Mode</label>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {['Yearly', 'Half-Yearly', 'Quarterly', 'Monthly'].map(m => (
-                <OptionButton key={m} label={m} selected={mode === m} onClick={() => setMode(m)} />
-              ))}
+            {/* Row 2: Date of Birth, Age, Gender */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Date of Birth <span className="text-red-500">*</span></label>
+                <div className="relative">
+                  <input type="text" placeholder="DD/MM/YY" value={dob} onChange={e => setDob(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 pr-10 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+                  <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
+                <input type="text" placeholder="30 Years" value={age} onChange={e => setAge(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Gender <span className="text-red-500">*</span></label>
+                <select value={gender} onChange={e => setGender(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none bg-white">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
             </div>
-          </div>
 
-          {/* Term Slider */}
-          <div className="pt-2">
-            <label className="block text-sm font-medium text-gray-700 mb-6">Term</label>
-            <div className="relative px-2">
-              <div className="flex justify-between text-xs text-gray-400 px-1 mb-2">
-                {termsList.map(t => (
-                  <span key={t} className="w-4 text-center cursor-pointer" onClick={() => setTerm(t)}>{t}</span>
+            {/* Mode Options */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-3">Mode</label>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {['Yearly', 'Half-Yearly', 'Quarterly', 'Monthly'].map(m => (
+                  <OptionButton key={m} label={m} selected={mode === m} onClick={() => setMode(m)} />
                 ))}
               </div>
-              <input
-                type="range"
-                min="10" max="25" step="1"
-                value={term} onChange={(e) => setTerm(Number(e.target.value))}
-                className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#F37021]"
-              />
-              {/* Custom tracker label */}
-              <div className="flex justify-between w-full mt-2 relative">
-                <div className="absolute -top-12 transform -translate-x-1/2 flex flex-col items-center" style={{ left: `${(term - 10) / 15 * 100}%` }}>
-                  <span className="text-[10px] font-bold text-gray-800">{term} YEARS</span>
-                  <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-[#F37021] mt-1"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Sum Assured */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Sum Assured</label>
-            <div className="relative max-w-full">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <span className="text-gray-900 font-medium">৳</span>
-              </div>
-              <input
-                type="text"
-                placeholder="1,00,000"
-                value={sumAssured}
-                onChange={handleSumAssuredChange}
-                className="w-full border border-gray-300 rounded-md py-3 pl-8 pr-4 text-center font-semibold text-lg focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none"
-              />
-            </div>
-            <p className="text-xs text-gray-400 mt-2">Suggested <span className="text-[#F37021] font-medium">50,000</span> BDT</p>
-          </div>
-
-          {/* Health Insurance Section */}
-          <div className="border-t border-gray-100 pt-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-semibold text-gray-800">Health Insurance (HI)</h3>
-              <button
-                onClick={() => handleToggle(setHiEnabled, hiEnabled)}
-                className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${hiEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-              >
-                <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${hiEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
-                  {hiEnabled && <Check size={10} className="text-[#F37021]" />}
-                </div>
-              </button>
             </div>
 
-            {hiEnabled && (
-              <div className="space-y-6 pt-2">
-                {/* HI Options */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {[
-                    { name: 'BRONZE', value: '50,000', color: 'bg-[#D28E5D]' },
-                    { name: 'SILVER', value: '150,000', color: 'bg-[#B0B6BA]' },
-                    { name: 'GOLD', value: '300,000', color: 'bg-[#FBB03B]' },
-                    { name: 'PLATINUM', value: '500,000', color: 'bg-[#6F7678]' }
-                  ].map(opt => (
-                    <div
-                      key={opt.name}
-                      onClick={() => setHiOption(opt.name)}
-                      className={`border rounded-xl flex flex-col items-center overflow-hidden cursor-pointer transition-all ${hiOption === opt.name ? 'border-[#F37021] shadow-md ring-1 ring-[#F37021]' : 'border-gray-200'}`}
-                    >
-                      <div className={`w-full py-2 text-center text-xs font-bold text-white tracking-widest ${opt.color}`}>{opt.name}</div>
-                      <div className="py-4 font-bold text-gray-900">{opt.value}</div>
-                    </div>
+            {/* Term Slider */}
+            <div className="pt-2">
+              <label className="block text-sm font-medium text-gray-700 mb-6">Term</label>
+              <div className="relative px-2">
+                <div className="flex justify-between text-xs text-gray-400 px-1 mb-2">
+                  {termsList.map(t => (
+                    <span key={t} className="w-4 text-center cursor-pointer" onClick={() => setTerm(t)}>{t}</span>
                   ))}
                 </div>
-
-                {/* Beneficiary */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-3">Beneficiary</label>
-                  <div className="flex flex-wrap gap-4">
-                    {['Self', 'Couple', 'Family', 'Children'].map(ben => (
-                      <label key={ben} onClick={() => setHiBeneficiary(ben)} className={`flex items-center gap-2 px-5 py-2.5 rounded-lg border cursor-pointer transition-colors ${hiBeneficiary === ben ? 'border-[#F37021] bg-orange-50/50' : 'border-gray-200 hover:border-[#F37021]'}`}>
-                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${hiBeneficiary === ben ? 'border-[#F37021]' : 'border-gray-300'}`}>
-                          {hiBeneficiary === ben && <div className="w-2 h-2 bg-[#F37021] rounded-full"></div>}
-                        </div>
-                        <span className="text-sm font-medium text-gray-700">{ben}</span>
-                      </label>
-                    ))}
+                <input
+                  type="range"
+                  min="10" max="25" step="1"
+                  value={term} onChange={(e) => setTerm(Number(e.target.value))}
+                  className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#F37021]"
+                />
+                {/* Custom tracker label */}
+                <div className="flex justify-between w-full mt-2 relative">
+                  <div className="absolute -top-12 transform -translate-x-1/2 flex flex-col items-center" style={{ left: `${(term - 10) / 15 * 100}%` }}>
+                    <span className="text-[10px] font-bold text-gray-800">{term} YEARS</span>
+                    <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-[#F37021] mt-1"></div>
                   </div>
                 </div>
+              </div>
+            </div>
 
-                {/* Conditional Fields for Beneficiary */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {['Couple', 'Family'].includes(hiBeneficiary) && (
-                    <>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Spouse Date Of Birth</label>
-                        <div className="relative">
-                          <input type="text" placeholder="DD/MM/YY" value={spouseDob} onChange={e => setSpouseDob(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 pr-10 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
-                          <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                        </div>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
-                        <input type="text" placeholder="12" value={spouseAge} onChange={e => setSpouseAge(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
-                      </div>
-                    </>
-                  )}
-                  {['Family', 'Children'].includes(hiBeneficiary) && (
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Number of Children</label>
-                      <input type="number" placeholder="Enter Number of Children" value={childrenCount} onChange={e => setChildrenCount(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
-                    </div>
-                  )}
+            {/* Sum Assured */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Sum Assured</label>
+              <div className="relative max-w-full">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <span className="text-gray-900 font-medium">৳</span>
                 </div>
+                <input
+                  type="text"
+                  placeholder="1,00,000"
+                  value={sumAssured}
+                  onChange={handleSumAssuredChange}
+                  className="w-full border border-gray-300 rounded-md py-3 pl-8 pr-4 text-center font-semibold text-lg focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none"
+                />
+              </div>
+              <p className="text-xs text-gray-400 mt-2">Suggested <span className="text-[#F37021] font-medium">50,000</span> BDT</p>
+            </div>
 
-                {/* Maternity Plan (Couple/Family only) */}
-                {['Couple', 'Family'].includes(hiBeneficiary) && (
+            {/* Health Insurance Section */}
+            <div className="border-t border-gray-100 pt-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-sm font-semibold text-gray-800">Health Insurance (HI)</h3>
+                <button
+                  onClick={() => handleToggle(setHiEnabled, hiEnabled)}
+                  className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${hiEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                >
+                  <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${hiEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
+                    {hiEnabled && <Check size={10} className="text-[#F37021]" />}
+                  </div>
+                </button>
+              </div>
+
+              {hiEnabled && (
+                <div className="space-y-6 pt-2">
+                  {/* HI Options */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {[
+                      { name: 'BRONZE', value: '50,000', color: 'bg-[#D28E5D]' },
+                      { name: 'SILVER', value: '150,000', color: 'bg-[#B0B6BA]' },
+                      { name: 'GOLD', value: '300,000', color: 'bg-[#FBB03B]' },
+                      { name: 'PLATINUM', value: '500,000', color: 'bg-[#6F7678]' }
+                    ].map(opt => (
+                      <div
+                        key={opt.name}
+                        onClick={() => setHiOption(opt.name)}
+                        className={`border rounded-xl flex flex-col items-center overflow-hidden cursor-pointer transition-all ${hiOption === opt.name ? 'border-[#F37021] shadow-md ring-1 ring-[#F37021]' : 'border-gray-200'}`}
+                      >
+                        <div className={`w-full py-2 text-center text-xs font-bold text-white tracking-widest ${opt.color}`}>{opt.name}</div>
+                        <div className="py-4 font-bold text-gray-900">{opt.value}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Beneficiary */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-3">Maternity Plan</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-3">Beneficiary</label>
                     <div className="flex flex-wrap gap-4">
-                      {['Standard', 'Delux', 'No Maternity'].map(plan => (
-                        <OptionButton key={plan} label={plan} selected={maternityPlan === plan} onClick={() => setMaternityPlan(plan)} />
+                      {['Self', 'Couple', 'Family', 'Children'].map(ben => (
+                        <label key={ben} onClick={() => setHiBeneficiary(ben)} className={`flex items-center gap-2 px-5 py-2.5 rounded-lg border cursor-pointer transition-colors ${hiBeneficiary === ben ? 'border-[#F37021] bg-orange-50/50' : 'border-gray-200 hover:border-[#F37021]'}`}>
+                          <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${hiBeneficiary === ben ? 'border-[#F37021]' : 'border-gray-300'}`}>
+                            {hiBeneficiary === ben && <div className="w-2 h-2 bg-[#F37021] rounded-full"></div>}
+                          </div>
+                          <span className="text-sm font-medium text-gray-700">{ben}</span>
+                        </label>
                       ))}
                     </div>
                   </div>
-                )}
-              </div>
-            )}
-          </div>
 
-          {/* Critical Illness (CI) */}
-          <div className="border-t border-gray-100 pt-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-semibold text-gray-800">Critical Illness (CI)</h3>
+                  {/* Conditional Fields for Beneficiary */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {['Couple', 'Family'].includes(hiBeneficiary) && (
+                      <>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Spouse Date Of Birth</label>
+                          <div className="relative">
+                            <input type="text" placeholder="DD/MM/YY" value={spouseDob} onChange={e => setSpouseDob(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 pr-10 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+                            <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
+                          <input type="text" placeholder="12" value={spouseAge} onChange={e => setSpouseAge(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+                        </div>
+                      </>
+                    )}
+                    {['Family', 'Children'].includes(hiBeneficiary) && (
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Number of Children</label>
+                        <input type="number" placeholder="Enter Number of Children" value={childrenCount} onChange={e => setChildrenCount(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Maternity Plan (Couple/Family only) */}
+                  {['Couple', 'Family'].includes(hiBeneficiary) && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-3">Maternity Plan</label>
+                      <div className="flex flex-wrap gap-4">
+                        {['Standard', 'Delux', 'No Maternity'].map(plan => (
+                          <OptionButton key={plan} label={plan} selected={maternityPlan === plan} onClick={() => setMaternityPlan(plan)} />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Critical Illness (CI) */}
+            <div className="border-t border-gray-100 pt-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-sm font-semibold text-gray-800">Critical Illness (CI)</h3>
+                <button
+                  onClick={() => handleToggle(setCiEnabled, ciEnabled)}
+                  className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${ciEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                >
+                  <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${ciEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
+                    {ciEnabled && <Check size={10} className="text-[#F37021]" />}
+                  </div>
+                </button>
+              </div>
+
+              {ciEnabled && (
+                <div className="flex gap-4 pt-2">
+                  {['50%', '100%'].map(opt => (
+                    <OptionButton key={opt} label={opt} selected={ciOption === opt} onClick={() => setCiOption(opt)} />
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* PDAB */}
+            <div className="border-t border-gray-100 pt-6 flex items-center justify-between">
+              <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
+                Permanent Disability Accidental Benefit (PDAB)
+                <Info size={14} className="text-gray-400" />
+              </h3>
               <button
-                onClick={() => handleToggle(setCiEnabled, ciEnabled)}
-                className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${ciEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                onClick={() => handleToggle(setPdabEnabled, pdabEnabled, true, false)}
+                className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${pdabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
               >
-                <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${ciEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
-                  {ciEnabled && <Check size={10} className="text-[#F37021]" />}
+                <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${pdabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
+                  {pdabEnabled && <Check size={10} className="text-[#F37021]" />}
                 </div>
               </button>
             </div>
 
-            {ciEnabled && (
-              <div className="flex gap-4 pt-2">
-                {['50%', '100%'].map(opt => (
-                  <OptionButton key={opt} label={opt} selected={ciOption === opt} onClick={() => setCiOption(opt)} />
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* PDAB */}
-          <div className="border-t border-gray-100 pt-6 flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
-              Permanent Disability Accidental Benefit (PDAB)
-              <Info size={14} className="text-gray-400" />
-            </h3>
-            <button
-              onClick={() => handleToggle(setPdabEnabled, pdabEnabled, true, false)}
-              className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${pdabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-            >
-              <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${pdabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
-                {pdabEnabled && <Check size={10} className="text-[#F37021]" />}
-              </div>
-            </button>
-          </div>
-
-          {/* DIAB */}
-          <div className="pt-2 flex items-center justify-between pb-6">
-            <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
-              Double Indemnity Accidental Benefit (DIAB)
-              <Info size={14} className="text-gray-400" />
-            </h3>
-            <button
-              onClick={() => handleToggle(setDiabEnabled, diabEnabled, false, true)}
-              className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${diabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-            >
-              <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${diabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
-                {diabEnabled && <Check size={10} className="text-[#F37021]" />}
-              </div>
-            </button>
-          </div>
-
-        </div>
-
-        {/* Footer */}
-        <div className="mt-8 flex justify-center">
-          <button className="bg-[#F37021] text-white px-8 py-3 rounded-full font-semibold flex items-center gap-3 hover:bg-[#E06015] transition-colors">
-            Check Premium
-            <div className="bg-white text-[#F37021] rounded-full p-1">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+            {/* DIAB */}
+            <div className="pt-2 flex items-center justify-between pb-6">
+              <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
+                Double Indemnity Accidental Benefit (DIAB)
+                <Info size={14} className="text-gray-400" />
+              </h3>
+              <button
+                onClick={() => handleToggle(setDiabEnabled, diabEnabled, false, true)}
+                className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${diabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+              >
+                <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${diabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
+                  {diabEnabled && <Check size={10} className="text-[#F37021]" />}
+                </div>
+              </button>
             </div>
-          </button>
+
+          </div>
+
+          {/* Footer */}
+          <div className="mt-8 flex justify-center">
+            <button
+              onClick={() => setIsDetailsModalOpen(true)}
+              className="bg-[#F37021] text-white px-8 py-3 rounded-full font-semibold flex items-center gap-3 hover:bg-[#E06015] transition-colors"
+            >
+              Check Premium
+              <div className="bg-white text-[#F37021] rounded-full p-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+              </div>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+
+      <PremiumDetailsModal
+        isOpen={isDetailsModalOpen}
+        onClose={() => {
+          setIsDetailsModalOpen(false);
+          onClose(); // Close both modals
+        }}
+        onCheckAgain={() => setIsDetailsModalOpen(false)}
+      />
+    </>
   );
 };
 
