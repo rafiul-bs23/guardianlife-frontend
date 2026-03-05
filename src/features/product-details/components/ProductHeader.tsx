@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { HeaderData } from '../../../shared/types/header';
 import GenericHeader from '../../../shared/Components/GenericHeader';
 import Button from '../../../shared/Components/Button';
 import { usePopup } from '../../../shared/context/PopupContext';
+import CalculatePremiumModal from './CalculatePremiumModal';
 
 interface ProductHeaderProps {
     data: HeaderData;
@@ -10,12 +11,14 @@ interface ProductHeaderProps {
 
 const ProductHeader: React.FC<ProductHeaderProps> = ({ data }) => {
     const { showPopup } = usePopup();
+    const [isCalculateModalOpen, setIsCalculateModalOpen] = useState(false);
+
     const actions = (
         <>
             <Button
                 label="Calculate Premium"
                 variant="outline-white"
-                onClick={() => showPopup()}
+                onClick={() => setIsCalculateModalOpen(true)}
             />
             <Button
                 label="AI Assistant"
@@ -25,7 +28,15 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({ data }) => {
         </>
     );
 
-    return <GenericHeader data={data} mediaClassName="rounded-[20px]" actions={actions} descriptionClassName='text-white !text-xs ' />;
+    return (
+        <>
+            <GenericHeader data={data} mediaClassName="rounded-[20px]" actions={actions} descriptionClassName='text-white !text-xs ' />
+            <CalculatePremiumModal
+                isOpen={isCalculateModalOpen}
+                onClose={() => setIsCalculateModalOpen(false)}
+            />
+        </>
+    );
 };
 
 export default ProductHeader;

@@ -19,31 +19,35 @@ export const CoverageSection = () => {
     };
 
     const comprehensiveData = MOCK_COVERAGE_DATA.coverages.map((item) => ({
-        ...item,
+        id: item.id,
+        title: item.title,
+        description: item.description,
         icon: getIcon(item.iconName, item.iconColor),
     }));
 
     return (
-        <>
-            <div className="mt-16 lg:mt-[124px] px-4">
-                <Contentheader
-                    title={MOCK_COVERAGE_DATA.header.title}
-                    description={MOCK_COVERAGE_DATA.header.description}
-                />
-            </div>
-
-            <div className="flex flex-col-reverse lg:flex-row mt-12 lg:mt-[90px] gap-8 lg:gap-0 px-4 lg:px-0">
-                <div className="w-full lg:w-1/2 lg:pl-[211px] lg:pr-8">
-                    <img
-                        src={MOCK_COVERAGE_DATA.imgUrl}
-                        alt="image"
-                        className="w-full h-auto lg:h-[554px] lg:w-[712px] object-cover rounded-[35px]"
+        <section className="bg-white py-16 lg:py-20">
+            <div className="max-w-[1600px] mx-auto px-6 lg:px-10">
+                <div className="mb-10 lg:mb-14">
+                    <Contentheader
+                        title={MOCK_COVERAGE_DATA.header.title}
+                        description={MOCK_COVERAGE_DATA.header.description}
                     />
                 </div>
-                <div className="w-full lg:w-1/2 lg:pl-8">
-                    <CoverageList items={comprehensiveData as any} />
+
+                <div className="flex flex-col-reverse lg:flex-row gap-8 lg:gap-16 items-start">
+                    <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
+                        <img
+                            src={MOCK_COVERAGE_DATA.imgUrl}
+                            alt="image"
+                            className="w-full h-auto lg:h-[554px] lg:max-w-[712px] object-cover rounded-[35px]"
+                        />
+                    </div>
+                    <div className="w-full lg:w-1/2 flex justify-center lg:justify-start">
+                        <CoverageList items={comprehensiveData} />
+                    </div>
                 </div>
             </div>
-        </>
+        </section>
     );
 };

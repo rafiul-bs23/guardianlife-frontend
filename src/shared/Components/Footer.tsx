@@ -1,46 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { footerLinksData } from '../api/mockData';
 
 const Footer: React.FC = () => {
-  const footerLinks = [
-
-    { name: 'Settings', path: '/settings' },
-    { name: 'Early Cash', path: '/early-cash' },
-    { name: 'Children', path: '/children' },
-    { name: 'Retirement', path: '/retirement' },
-    { name: 'Investment', path: '/investment' },
-    { name: 'Term Life', path: '/term-life' },
-
-    { name: 'Supplementary Benefits', path: '/supplementary-benefits' },
-    { name: 'Guardian Takaful', path: '/guardian-takaful' },
-    { name: 'Children', path: '/children' },
-    { name: 'Retirement', path: '/retirement' },
-    { name: 'Investment', path: '/investment' },
-    { name: 'Term Life', path: '/term-life' },
-
-    { name: 'About Us', path: '/about-us' },
-    { name: 'Corporate', path: '/corporate' },
-    { name: 'Bancassurance', path: '/bancassurance' },
-    { name: 'Microinsurance', path: '/microinsurance' },
-    { name: 'Partner Channels', path: '/partner-channels' },
-    { name: 'Claims', path: '/claims' },
-
-    { name: 'Careers', path: '/careers' },
-    { name: 'FAQs', path: '/faqs' },
-    { name: 'Tax Certificate', path: '/tax-certificate' },
-    { name: 'Payment Gateway', path: '/payment-gateway' },
-    { name: 'Notice Board', path: '/notice-board' },
-    { name: 'Contact Us', path: '/contact-us' },
-
-    { name: 'Form Library', path: '/form-library' },
-    { name: 'Privacy Policies', path: '/privacy-policies' },
-    { name: 'Privacy Policies', path: '/privacy-policies' },
-  ];
-
   // Split links into columns of 6
   const columns = [];
-  for (let i = 0; i < footerLinks.length; i += 6) {
-    columns.push(footerLinks.slice(i, i + 6));
+  for (let i = 0; i < footerLinksData.length; i += 6) {
+    columns.push(footerLinksData.slice(i, i + 6));
   }
 
   return (
@@ -69,9 +35,20 @@ const Footer: React.FC = () => {
                 <ul className="space-y-2 text-sm opacity-90">
                   {column.map((link) => (
                     <li key={link.path}>
-                      <Link to={link.path} className="hover:opacity-100 transition-opacity font-medium text-[16px] leading-[24px]">
-                        {link.name}
-                      </Link>
+                      {link.path.startsWith('http') ? (
+                        <a
+                          href={link.path}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:opacity-100 transition-opacity font-medium text-[16px] leading-[24px]"
+                        >
+                          {link.name}
+                        </a>
+                      ) : (
+                        <Link to={link.path} className="hover:opacity-100 transition-opacity font-medium text-[16px] leading-[24px]">
+                          {link.name}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>

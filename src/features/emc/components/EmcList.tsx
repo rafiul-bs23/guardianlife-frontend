@@ -23,9 +23,13 @@ const EmcList: React.FC = () => {
                 </div>
             ) : (
                 <div className="bg-white rounded-lg p-4  md:p-8 shadow-xl shadow-gray-200/50">
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
+                    <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-5 lg:gap-6">
                         {members?.map((member, index) => (
                             <EmcCard key={index} member={member} />
+                        ))}
+                        {/* Spacers to prevent last row flex items from over-stretching */}
+                        {Array.from({ length: 5 }).map((_, i) => (
+                            <div key={`spacer-${i}`} className="h-0 flex-auto w-[40%] sm:w-[25%] md:w-[20%] lg:w-[13%] invisible" aria-hidden="true" />
                         ))}
                     </div>
 
