@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Calendar, Info, Check } from 'lucide-react';
+import { X, Info, Check } from 'lucide-react';
 import PremiumDetailsModal from './PremiumDetailsModal';
 
 interface CalculatePremiumModalProps {
@@ -136,8 +136,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Date of Birth <span className="text-red-500">*</span></label>
                 <div className="relative">
-                  <input type="text" placeholder="DD/MM/YY" value={dob} onChange={e => setDob(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 pr-10 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
-                  <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                  <input type="date" placeholder="DD/MM/YY" value={dob} onChange={e => setDob(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
                 </div>
               </div>
               <div>
@@ -292,8 +291,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-2">Spouse Date Of Birth</label>
                           <div className="relative">
-                            <input type="text" placeholder="DD/MM/YY" value={spouseDob} onChange={e => setSpouseDob(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 pr-10 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
-                            <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                            <input type="date" placeholder="DD/MM/YY" value={spouseDob} onChange={e => setSpouseDob(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
                           </div>
                         </div>
                         <div>
