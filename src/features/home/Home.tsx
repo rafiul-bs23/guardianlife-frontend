@@ -23,11 +23,11 @@ const Home = () => {
         initial={{ opacity: 0, scale: 1.2 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        viewport={{ once: true, amount: isMobile ? 0.1 : 0.3 }}
+        viewport={{ once: true, amount: isMobile ? 0.1 : 0.5 }}
         className="flex flex-col items-center mb-20 overflow-hidden"
       >
         <div className="mt-16 lg:mt-[98px] mb-[60px]">
-          <p className="not-italic font-black text-[24px] leading-[24px] tracking-[0.2em] text-center lg:text-left uppercase text-[#1E3161]">sponsored by</p>
+          <p className="subheading text-[#1E3161]">sponsored by</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-8 lg:gap-[200px] min-h-[223px] px-4">
           <img
@@ -48,14 +48,9 @@ const Home = () => {
         </div>
       </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, x: -100 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
-        viewport={{ once: true, amount: isMobile ? 0.1 : 0.3 }}
-      >
-        <GuideYou data={MOCK_GUIDE_YOU_DATA} />
-      </motion.div>
+
+      <GuideYou data={MOCK_GUIDE_YOU_DATA} />
+
       <Solutions />
       <PartnersBanks />
       <BusinessPartners />

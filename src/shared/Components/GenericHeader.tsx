@@ -118,7 +118,10 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
                         src={data?.background_video_url}
                     />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/70 to-primary/10 z-0 pointer-events-none" />
+                <div
+                    className="absolute inset-0 z-0 pointer-events-none"
+                    style={{ background: 'linear-gradient(180deg, rgba(243, 112, 33, 0.29) 0%, #F37021 100%)' }}
+                />
                 <div className="relative z-10 flex flex-col w-full h-full">
                     <Navbar transparent />
                     <div className={`flex-grow flex items-center ${innerWrapperClassName}`}>

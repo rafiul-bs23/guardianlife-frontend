@@ -37,15 +37,15 @@ const SolutionsComponent = () => {
           initial={{ opacity: 0, x: -100 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.6, delay: isMobile ? 0 : 2 }}
-          className="w-full lg:w-1/2 flex flex-col items-start text-left">
+          className="w-full lg:w-1/2 flex flex-col items-start text-left gap-4">
           <h5
-            className="text-[#1E3161] text-lg font-bold tracking-[.2em] mb-4 uppercase"
+            className="subheading"
           >
             {MOCK_OUR_SOLUTIONS_DATA.title}
           </h5>
 
           <h2
-            className="text-[30px] lg:text-[35px] font-semibold leading-[1.2] text-[#333333] mb-6 max-w-[600px]"
+            className="heading mb-6 max-w-[600px]"
           >
             {MOCK_OUR_SOLUTIONS_DATA.heading.map((item, index) => (
               <span key={index} style={{ color: item.color }} className={item.color === '#f97316' ? 'text-primary' : ''}>
@@ -80,8 +80,8 @@ const SolutionsComponent = () => {
             {MOCK_OUR_SOLUTIONS_DATA.solutions.map((solution, index) => {
               const position = stackOrder.indexOf(index);
               const zIndex = 40 - position * 10;
-              const scale = 0.9 - position * 0.15;
-              const translateX = position * 180;
+              const scale = 1 - position * 0.08;
+              const translateX = position * 150;
               const translateY = position * 1;
 
               return (
@@ -94,7 +94,7 @@ const SolutionsComponent = () => {
                     x: translateX,
                     y: translateY,
                     scale: scale,
-                    opacity: position > 2 ? 0 : 1,
+                    opacity: position > 3 ? 0 : 1,
                     zIndex: zIndex
                   } : {}}
                   transition={{

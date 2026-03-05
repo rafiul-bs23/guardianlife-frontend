@@ -14,18 +14,33 @@ interface MetricBadgeProps {
 }
 
 const MetricBadge: React.FC<MetricBadgeProps> = ({ icon, value, label, className = "", size = "sm" }) => {
-    const isLarge = size === 'lg';
-    const isMedium = size === 'md';
+    const sizeClasses = {
+        sm: "w-24 h-24 md:w-32 md:h-32 lg:w-32 lg:h-32",
+        md: "w-28 h-28 md:w-36 md:h-36 lg:w-38 lg:h-38",
+        lg: "w-32 h-32 md:w-44 md:h-44 lg:w-44 lg:h-44"
+    };
+
+    const valueSizeClasses = {
+        sm: "text-sm md:text-lg lg:text-xl",
+        md: "text-lg md:text-xl lg:text-2xl",
+        lg: "text-xl md:text-xl lg:text-2xl"
+    };
+
+    const labelSizeClasses = {
+        sm: "text-[8px] md:text-xs",
+        md: "text-[10px] md:text-sm",
+        lg: "text-xs md:text-base"
+    };
 
     return (
-        <div className={`flex flex-col items-center justify-center rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white shadow-2xl transition-transform hover:scale-105 ${isLarge ? 'w-32 h-32 md:w-44 md:h-44 lg:w-56 lg:h-56' : isMedium ? 'w-28 h-28 md:w-32 md:h-32 lg:w-40 lg:h-40' : 'w-20 h-20 md:w-28 md:h-28 lg:w-36 lg:h-36'} ${className}`}>
+        <div className={`flex flex-col items-center justify-center rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white shadow-2xl transition-transform hover:scale-105 ${sizeClasses[size]} ${className}`}>
             <div className="text-[#FFD700] mb-1">
                 {icon}
             </div>
-            <span className={`font-black ${isLarge ? 'text-xl md:text-2xl lg:text-3xl' : isMedium ? 'text-lg md:text-xl lg:text-2xl' : 'text-sm md:text-lg lg:text-xl'} leading-tight text-center`}>
+            <span className={`font-black !text-[#FFD700] ${valueSizeClasses[size]} leading-tight text-center`}>
                 {value}
             </span>
-            <span className="text-[8px] md:text-[10px] lg:text-xs font-semibold uppercase tracking-tighter text-center px-2">
+            <span className={` text-center px-2 ${labelSizeClasses[size]}`}>
                 {label}
             </span>
         </div>
@@ -38,11 +53,11 @@ interface HomeHeaderProps {
 
 const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
     return (
-        <GenericHeader data={data} variant="immersive" >
-            <div className="relative w-full h-full min-h-[600px]  lg:min-h-[620px] flex flex-col items-center justify-center px-4 overflow-hidden">
+        <GenericHeader data={data} variant="immersive" className='min-h-[600px] lg:min-h-[780px] max-h-[600px] lg:max-h-[780px]'>
+            <div className="absolute top-0 left-0 w-full h-full min-h-[600px] lg:min-h-[780px]  flex flex-col items-center justify-center px-4 overflow-hidden">
 
                 {/* Bottom White Gradient/Fade Area */}
-                <div className="absolute bottom-0 left-0 right-0 h-[30%] bg-gradient-to-t from-[#F4F4F4] via-white/80 to-transparent z-10" />
+                <div className="absolute bottom-0 left-0 right-0 h-[40%] bg-gradient-to-t from-[#F4F4F4] via-white/100 to-transparent z-10" />
 
                 {/* Central Section: Question and Search */}
                 <div className="hidden absolute top-[25%] md:top-[20%] z-30 flex flex-col items-center gap-8 w-full max-w-4xl text-center mb-12">
@@ -71,7 +86,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                             initial={{ x: -100, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                            className="absolute top-[0%] md:top-[0%] left-[0%] md:left-[0%]"
+                            className="absolute top-[20%]  left-[1%]"
                         >
                             <MetricBadge
                                 icon={<ShieldCheck size={28} className="md:size-8 lg:size-10" />}
@@ -86,7 +101,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                             initial={{ x: -100, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-                            className="absolute bottom-[35%] left-[10%] md:left-[6%]"
+                            className="absolute bottom-[30%] left-[10%] md:left-[6%]"
                         >
                             <MetricBadge
                                 icon={<Wallet size={28} className="md:size-8 lg:size-10" />}
@@ -101,15 +116,34 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                             initial={{ x: 100, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                            className="absolute md:top-[0%] top-[-0%] right-[0%] md:right-[6%]"
+                            className="absolute top-[20%] right-[0%] md:right-[6%] flex items-center justify-center"
                         >
-                            <Link to="/quick-buy-category" className="pointer-events-auto">
+                            <Link to="/quick-buy-category" className="pointer-events-auto relative">
+                                {/* Pulse Rings */}
+                                {[...Array(3)].map((_, i) => (
+                                    <motion.div
+                                        key={i}
+                                        className="absolute inset-0 rounded-full border-2 border-[#FFD700]"
+                                        initial={{ scale: 0.8, opacity: 0 }}
+                                        animate={{
+                                            scale: 1.8,
+                                            opacity: [0, 1, 0],
+                                        }}
+                                        transition={{
+                                            duration: 3,
+                                            repeat: Infinity,
+                                            delay: i * 1,
+                                            ease: "linear",
+                                            times: [0, 0.2, 1],
+                                        }}
+                                    />
+                                ))}
                                 <MetricBadge
                                     icon={<Zap size={32} className="md:size-10 lg:size-14" />}
-                                    value="Quick"
-                                    label="Buy"
+                                    value="Quick Buy"
+                                    label=""
                                     size="lg"
-                                    className="!text-[#FFD700]"
+                                    className="!text-[#FFD700] relative z-10"
                                 />
                             </Link>
                         </motion.div>
@@ -119,13 +153,13 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                             initial={{ x: 100, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-                            className="absolute bottom-[35%] right-[0%] md:right-[0%]"
+                            className="absolute bottom-[30%] right-[1%] "
                         >
                             <MetricBadge
                                 icon={<ShieldAlert size={28} className="md:size-8 lg:size-10" />}
                                 value="3 Days"
                                 label="Claim Settlement"
-                                size="md"
+                                size="sm"
                             />
                         </motion.div>
                     </div>
@@ -133,7 +167,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
 
                 {/* Large Bottom Text: LET'S TALK ABOUT LIFE. MORE! */}
                 <div className="absolute bottom-24 md:bottom-20 lg:bottom-24 w-full text-center px-4 z-30">
-                    <h1 className="text-4xl md:text-7xl lg:text-[90px] font-black tracking-tighter leading-none [text-wrap:balance]">
+                    <h1 className="text-2xl md:text-5xl lg:text-[70px] xl:text-[90px] font-black tracking-tighter leading-none [text-wrap:balance]">
                         <motion.span
                             className="text-primary block flex flex-wrap justify-center overflow-hidden"
                             initial="hidden"
@@ -147,21 +181,29 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                                 },
                             }}
                         >
-                            {"LET'S TALK ABOUT LIFE. MORE!".split("").map((char, index) => (
-                                <motion.span
-                                    key={index}
-                                    variants={{
-                                        hidden: { y: 50, opacity: 0 },
-                                        visible: {
-                                            y: 0,
-                                            opacity: 1,
-                                            transition: { type: "spring", damping: 12, stiffness: 100 }
-                                        },
-                                    }}
-                                    className={char === " " ? "whitespace-pre" : "inline-block"}
-                                >
-                                    {char}
-                                </motion.span>
+                            {"LET'S TALK ABOUT LIFE. MORE!".split(" ").map((word, wordIndex) => (
+                                <span key={wordIndex} className="inline-block whitespace-nowrap">
+                                    {word.split("").map((char, charIndex) => (
+                                        <motion.span
+                                            key={`${wordIndex}-${charIndex}`}
+                                            variants={{
+                                                hidden: { y: 50, opacity: 0 },
+                                                visible: {
+                                                    y: 0,
+                                                    opacity: 1,
+                                                    transition: { type: "spring", damping: 12, stiffness: 100 }
+                                                },
+                                            }}
+                                            className="inline-block"
+                                        >
+                                            {char}
+                                        </motion.span>
+                                    ))}
+                                    {/* Add space after each word except the last one */}
+                                    {wordIndex < "LET'S TALK ABOUT LIFE. MORE!".split(" ").length - 1 && (
+                                        <span className="whitespace-pre"> </span>
+                                    )}
+                                </span>
                             ))}
                         </motion.span>
                     </h1>
