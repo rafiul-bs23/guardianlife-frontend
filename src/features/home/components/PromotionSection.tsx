@@ -1,27 +1,55 @@
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import { useIsMobile } from '../../../shared/hooks/useMediaQuery';
-
-
 import AppStoreButtons from '../../../shared/Components/AppStoreButtons';
-
 import { MOCK_APP_PROMOTION_DATA } from '../api/mockData';
 
+/* ─── Direction-aware scroll reveal ───
+   visible = true  → element entered viewport (scroll down)
+   visible = false → element exited from BOTTOM (scroll back up)
+   no change       → element exited from TOP (scrolled past) → stays visible
+*/
+const useScrollReveal = (threshold: number) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+        } else if (entry.boundingClientRect.top > 0) {
+          // Element is below viewport → user scrolled back up → reverse
+          setVisible(false);
+        }
+        // top < 0 → element above viewport → scrolled past → keep visible
+      },
+      { threshold }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold]);
+
+  return [ref, visible] as const;
+};
+
 const AppPromotion = () => {
-  const topRef = useRef<HTMLDivElement>(null);
-  const bottomRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
-  const isTopInView = useInView(topRef, { once: true, amount: isMobile ? 0.5 : 0.8 });
-  const isBottomInView = useInView(bottomRef, { once: true, amount: isMobile ? 0.2 : 0.2 });
+  const [topRef, isTopVisible] = useScrollReveal(isMobile ? 0.5 : 0.8);
+  const [bottomRef, isBottomVisible] = useScrollReveal(0.2);
 
   return (
     <div className="bg-gray-50 py-16 px-8 overflow-hidden">
       <motion.div
-        initial={{ opacity: 0, y: -100, }}
-        animate={isTopInView ? { opacity: 1, y: 0 } : {}}
+        ref={topRef}
+        initial={{ opacity: 0, y: -100 }}
+        animate={isTopVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: -100 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="mx-auto"
-        ref={topRef}
       >
         {/* Header Section */}
         <div className="text-center mb-8">
@@ -43,12 +71,13 @@ const AppPromotion = () => {
         </div>
         <AppStoreButtons className='flex flex-col sm:flex-row gap-4 justify-center items-center' />
       </motion.div>
+
       <motion.div
+        ref={bottomRef}
         initial={{ opacity: 0, y: 100 }}
-        animate={isBottomInView ? { opacity: 1, y: 0 } : {}}
+        animate={isBottomVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="mx-auto"
-        ref={bottomRef}
       >
         <div className="relative mt-8 flex justify-center px-4 md:px-0">
           <div
