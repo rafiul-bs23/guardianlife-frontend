@@ -1,24 +1,27 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useIsMobile } from '../../../shared/hooks/useMediaQuery';
-import { ArrowRight } from 'lucide-react';
+
 
 import AppStoreButtons from '../../../shared/Components/AppStoreButtons';
 
 import { MOCK_APP_PROMOTION_DATA } from '../api/mockData';
 
 const AppPromotion = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const topRef = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
-  const isInView = useInView(containerRef, { once: true, amount: isMobile ? 0.1 : 0.2 });
+  const isTopInView = useInView(topRef, { once: true, amount: isMobile ? 0.5 : 0.8 });
+  const isBottomInView = useInView(bottomRef, { once: true, amount: isMobile ? 0.2 : 0.2 });
 
   return (
-    <div ref={containerRef} className="bg-gray-50 py-16 px-8 overflow-hidden">
+    <div className="bg-gray-50 py-16 px-8 overflow-hidden">
       <motion.div
-        initial={{ opacity: 0, scale: 1.2 }}
-        animate={isInView ? { opacity: 1, scale: 1 } : {}}
+        initial={{ opacity: 0, y: -100, }}
+        animate={isTopInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="mx-auto"
+        ref={topRef}
       >
         {/* Header Section */}
         <div className="text-center mb-8">
@@ -39,7 +42,14 @@ const AppPromotion = () => {
           </p>
         </div>
         <AppStoreButtons className='flex flex-col sm:flex-row gap-4 justify-center items-center' />
-
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 100 }}
+        animate={isBottomInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="mx-auto"
+        ref={bottomRef}
+      >
         <div className="relative mt-8 flex justify-center px-4 md:px-0">
           <div
             className="overflow-hidden mx-auto w-full max-w-6xl relative"
@@ -55,10 +65,7 @@ const AppPromotion = () => {
             />
 
             {/* Top-right circle icon (optional) */}
-            <div
-              className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center">
-              <ArrowRight className="w-5 h-5 md:w-6 md:h-6 text-gray-700" />
-            </div>
+
           </div>
         </div>
       </motion.div>
