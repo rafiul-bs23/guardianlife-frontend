@@ -1,25 +1,25 @@
 import Button from "../../shared/Components/Button.tsx";
 
 export interface ProductCardProps {
-  thumbnailUrl: string;
+  thumbnail_url: string;
   title: string;
   points?: string[];
-  productCode: string;
+  product_code: string;
 }
 
 const ProductCardCompact = ({
-  thumbnailUrl,
+  thumbnail_url,
   title,
   points = [],
-  productCode,
+  product_code,
 }: ProductCardProps) => {
   return (
     <div className="w-full max-w-[471px] h-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl shadow-lg overflow-hidden flex flex-col">
 
       <div className="relative">
-        {thumbnailUrl && (
+        {thumbnail_url && (
           <img
-            src={thumbnailUrl}
+            src={thumbnail_url}
             alt={title}
             className="w-full h-[213px] object-cover"
           />
@@ -46,7 +46,7 @@ const ProductCardCompact = ({
         <div className="mt-auto flex justify-center">
           <Button
             label="View Details"
-            to={`/products/${productCode}`}
+            to={`/products/${product_code}`}
           />
         </div>
       </div>

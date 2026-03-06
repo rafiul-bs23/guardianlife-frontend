@@ -33,7 +33,7 @@ import Career from "../features/career/Career.tsx";
 
 export const NAV_ROUTES = [
   { path: "/", label: "Home", element: <Home /> },
-  { path: "/category", label: "Category", element: <Category /> },
+  { path: "/category/:categoryName?", label: "Category", element: <Category /> },
   { path: "/products/:product_code", label: "Product Details", element: <ProductDetails /> },
   { path: "/quick-buy-category", label: "Quick Buy Category", element: <QuickBuyCategory /> },
   { path: "/quick-buy-details/:product_code", label: "Quick Buy Details", element: <QuickBuyDetails /> },

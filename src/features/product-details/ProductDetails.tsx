@@ -8,16 +8,16 @@ import LocalAgent from './components/LocalAgent';
 import { useProduct } from './hooks/useProduct';
 import PlanBenefitsSection from '../../shared/Components/PlanBenefitsSection';
 import ProductHeader from './components/ProductHeader';
-import { useHeader } from './hooks/useHeader';
 
 import { useParams } from 'react-router-dom';
 import FAQ from '../../shared/Components/Faq';
+import { useHeader } from '../../shared/hooks/useHeader';
 
 const ProductDetails = () => {
   const { product_code } = useParams();
-  console.log("product_code:", product_code);
 
-  const { data: headerData, isLoading: isHeaderLoading } = useHeader('1');
+
+  const { data: headerData, isLoading: isHeaderLoading } = useHeader(`product-${product_code}`);
   const { data } = useProduct(product_code as string);
 
   return (
@@ -36,7 +36,7 @@ const ProductDetails = () => {
             learnMore={data.learn_more_section}
           />
         )}
-        <LocalAgent productCode={product_code as string} />
+        <LocalAgent product_code={product_code as string} />
         <FAQ />
       </section>
     </>

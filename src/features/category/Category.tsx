@@ -1,5 +1,5 @@
-import { useState, useRef, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useRef, useMemo } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import ProductCard from "../../shared/Components/ProductCard.tsx";
 import ProductCardCompact from "./ProductCardCompact.tsx";
 import FAQ from "../../shared/Components/Faq.tsx";
@@ -7,34 +7,35 @@ import Contentheader from "../../shared/Components/Contentheader.tsx";
 import { WhyChooseQuickBuy } from "../../shared/Components/WhyChooseQuickBuy.tsx";
 
 import CategoryHeader from "./components/CategoryHeader.tsx";
-import { useHeader } from "./hooks/useHeader.ts";
 import { useCategoryProducts } from "./hooks/useCategoryProducts.ts";
+import { useHeader } from "../../shared/hooks/useHeader.ts";
+
+const TABS = [
+  { id: 0, title: 'For You', value: 'for-you' },
+  { id: 1, title: 'For Your Family', value: 'for-your-family' },
+  { id: 2, title: 'Retirement', value: 'retirement' },
+  { id: 3, title: 'Islamic', value: 'islamic' },
+];
 
 const Category = () => {
-  const { data: headerData, isLoading: isHeaderLoading } = useHeader();
-  const [searchParams, navigate] = useSearchParams();
-  const tabIndex = searchParams.get('tabIndex');
-  const [activeIndex, setActiveIndex] = useState(tabIndex ? parseInt(tabIndex) : 0);
+  const { data: headerData, isLoading: isHeaderLoading } = useHeader('retail-products-list');
+  const { categoryName } = useParams<{ categoryName: string }>();
+  const navigate = useNavigate();
   const tabsRef = useRef<HTMLDivElement>(null);
 
+  const activeIndex = useMemo(() => {
+    if (!categoryName) return 0;
+    const index = TABS.findIndex(t => t.value === categoryName);
+    return index >= 0 ? index : 0;
+  }, [categoryName]);
+
   const handleTabClick = (index: number) => {
-    setActiveIndex(index);
-
+    navigate(`/category/${TABS[index].value}`);
     tabsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-    searchParams.set('tabIndex', index.toString());
-    navigate(`?${searchParams.toString()}`);
   };
 
-  const tabs = [
-    { id: 0, title: 'For You', value: 'for-you' },
-    { id: 1, title: 'For Your Family', value: 'for-your-family' },
-    { id: 2, title: 'Retirement', value: 'retirement' },
-    { id: 3, title: 'Islamic', value: 'islamic' },
-  ];
-
   // Derive active subcategory from selected tab
-  const activeSubcategory = useMemo(() => tabs[activeIndex]?.value || null, [activeIndex, tabs]);
+  const activeSubcategory = useMemo(() => TABS[activeIndex]?.value || null, [activeIndex]);
 
   // Fetch Retail channel products (for ProductCardCompact)
   const {
@@ -61,7 +62,7 @@ const Category = () => {
       {headerData && <CategoryHeader data={headerData} onExploreClick={() => handleTabClick(0)} />}
       <div className="px-4" id="tabs" ref={tabsRef}>
         <div className="flex gap-3 flex-wrap justify-center mt-[14px]">
-          {tabs.map((tab, index) => (
+          {TABS.map((tab, index) => (
             <button
               key={tab.id}
               onClick={() => handleTabClick(index)}
@@ -90,11 +91,11 @@ const Category = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 justify-items-center mt-12 lg:mt-[84px] w-full max-w-7xl">
               {retailProducts?.map((product) => (
                 <ProductCardCompact
-                  key={product.productCode}
-                  thumbnailUrl={product.thumbnailUrl}
+                  key={product.product_code}
+                  thumbnail_url={product.thumbnail_url}
                   title={product.title}
                   points={product.points}
-                  productCode={product.productCode}
+                  product_code={product.product_code}
                 />
               ))}
               {(!retailProducts || retailProducts.length === 0) && (
@@ -120,12 +121,12 @@ const Category = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 justify-items-center mt-12 lg:mt-[84px] w-full max-w-7xl">
               {digitalProducts?.map((product) => (
                 <ProductCard
-                  key={product.productCode}
-                  thumbnailUrl={product.thumbnailUrl}
+                  key={product.product_code}
+                  thumbnail_url={product.thumbnail_url}
                   title={product.title}
                   points={product.points}
                   description={product.description}
-                  productCode={product.productCode}
+                  product_code={product.product_code}
                 />
               ))}
               {(!digitalProducts || digitalProducts.length === 0) && (

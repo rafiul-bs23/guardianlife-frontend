@@ -3,19 +3,19 @@ import { usePopup } from "../context/PopupContext.tsx";
 import Button from "./Button.tsx";
 
 export interface ProductCardProps {
-  thumbnailUrl: string;
+  thumbnail_url: string;
   title: string;
   points?: string[];
   description?: string | null;
-  productCode: string;
+  product_code: string;
 }
 
 const ProductCardWithActionButton = ({
-  thumbnailUrl,
+  thumbnail_url,
   title,
   points = [],
   description,
-  productCode,
+  product_code,
 }: ProductCardProps) => {
   const { showPopup } = usePopup();
   return (
@@ -29,9 +29,9 @@ const ProductCardWithActionButton = ({
         </div>
 
         <div className="relative">
-          {thumbnailUrl && (
+          {thumbnail_url && (
             <img
-              src={thumbnailUrl}
+              src={thumbnail_url}
               alt={title}
               className="relative z-10 w-full h-[324px] object-cover"
             />
@@ -66,11 +66,11 @@ const ProductCardWithActionButton = ({
         )}
 
         {/* Action Buttons - Using your ActionButton component */}
-        <div className="flex flex-col sm:flex-row gap-4 mt-4">
+        <div className="flex flex-col sm:flex-row gap-4 mt-auto pt-8">
           <div className="flex-1">
             <Button
               label="View Details"
-              to={`/quick-buy-details/${productCode}`}
+              to={`/quick-buy-details/${product_code}`}
             />
           </div>
           <div className="flex-1">

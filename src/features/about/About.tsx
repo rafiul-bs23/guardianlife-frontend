@@ -5,12 +5,12 @@ import OurAchievements from './components/OurAchievements';
 import Milestones from './components/Milestones';
 import GovernanceTrust from './components/GovernanceTrust';
 import AboutHeader from './components/AboutHeader';
-import { useAboutHeader } from './hooks/useAboutHeader';
 import { useAboutDynamic } from './hooks/useAboutDynamic';
 import { mockAboutData } from './api/mockData';
+import { useHeader } from '../../shared/hooks/useHeader';
 
 const About = () => {
-  const { data: headerData, isLoading: isHeaderLoading } = useAboutHeader('about');
+  const { data: headerData, isLoading: isHeaderLoading } = useHeader('about-us');
   const { data: dynamicData } = useAboutDynamic();
 
   return (

@@ -33,11 +33,11 @@ const SupplementaryBenefits: React.FC<SupplementaryBenefitsProps> = ({ data }) =
                     </p>
 
                     {/* Cards Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="flex flex-wrap justify-center gap-6 ">
                         {data?.content?.map((item, index) => (
                             <div
                                 key={index}
-                                className="bg-white rounded-2xl p-6 shadow-sm flex flex-col items-start gap-4 relative hover:shadow-md transition-shadow duration-300 min-h-[160px]"
+                                className="bg-white rounded-2xl p-6 shadow-sm flex flex-col items-start gap-4 relative hover:shadow-md transition-shadow duration-300 min-h-[160px] w-full md:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]"
                             >
                                 {/* Details button */}
                                 <div className="absolute top-4 right-4 p-1">
