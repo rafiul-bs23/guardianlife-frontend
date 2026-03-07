@@ -13,7 +13,7 @@ const DirectorCard: React.FC<DirectorCardProps> = ({ director }) => {
                 {/* Director PNG Image - Positioned at bottom */}
                 {director?.image_url ? (
                     <img
-                        src={`/${director.image_url}`}
+                        src={director.image_url}
                         alt={director?.name || 'Director'}
                         className="absolute bottom-0 left-0 w-full h-[95%] object-contain object-bottom transition-transform duration-500 group-hover:scale-105"
                     />

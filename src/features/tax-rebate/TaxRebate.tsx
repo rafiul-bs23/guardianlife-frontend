@@ -2,12 +2,11 @@ import TaxRebateHeader from "./components/TaxRebateHeader";
 import InvestmentSectors from "./components/InvestmentSectors";
 import ThingsToRemember from "./components/ThingsToRemember";
 import ProfitableInvestment from "./components/ProfitableInvestment";
-import { useHeader } from "./hooks/useHeader";
-import { useTaxRebateData } from "./hooks/useTaxRebateData";
+import { MOCK_TAX_REBATE_DETAILS } from "./api/mockData";
+import { useHeader } from "../../shared/hooks/useHeader";
 
 const TaxRebate = () => {
-    const { data: headerData, isLoading: isHeaderLoading } = useHeader();
-    const { data: detailsData } = useTaxRebateData();
+    const { data: headerData, isLoading: isHeaderLoading } = useHeader("tax-rebate");
 
     return (
         <main className="min-h-screen bg-white">
@@ -16,12 +15,12 @@ const TaxRebate = () => {
             <InvestmentSectors />
             {/* <InvestmentSectorsEditor /> */}
 
-            {detailsData && (
-                <>
-                    <ThingsToRemember data={detailsData.thingsToRemember} />
-                    <ProfitableInvestment data={detailsData.profitableInvestment} />
-                </>
-            )}
+
+            <>
+                <ThingsToRemember data={MOCK_TAX_REBATE_DETAILS.data.thingsToRemember} />
+                <ProfitableInvestment data={MOCK_TAX_REBATE_DETAILS.data.profitableInvestment} />
+            </>
+
 
             <div className="container mx-auto px-4 py-16">
                 {/* Additional Tax Rebate content can go here */}

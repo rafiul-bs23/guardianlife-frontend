@@ -5,11 +5,13 @@ import { usePreferredHospital } from "./hooks/usePreferredHospital";
 
 const PreferredHospital = () => {
     const {
-        filtered_hospitals,
+        paginated_hospitals,
         is_loading,
         error,
         active_type,
         frontend_filters,
+        current_page,
+        pagination,
         division_options,
         district_options,
         area_options,
@@ -17,6 +19,7 @@ const PreferredHospital = () => {
         set_active_type,
         set_frontend_filters,
         reset_filters,
+        go_to_page,
     } = usePreferredHospital();
 
     return (
@@ -49,9 +52,12 @@ const PreferredHospital = () => {
 
                 {/* Table */}
                 <HospitalTable
-                    hospitals={filtered_hospitals}
+                    hospitals={paginated_hospitals}
+                    pagination={pagination}
                     is_loading={is_loading}
                     error={error}
+                    current_page={current_page}
+                    on_page_change={go_to_page}
                     active_type={active_type}
                 />
             </section>

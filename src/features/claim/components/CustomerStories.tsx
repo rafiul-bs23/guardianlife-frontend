@@ -12,21 +12,21 @@ const CustomerStories: React.FC<CustomerStoriesProps> = ({ data }) => {
                 {/* Header */}
                 <div className="mb-12 max-w-[900px] mx-auto">
                     <h2 className="text-3xl font-extrabold text-gray-900 mb-6 uppercase tracking-wider">
-                        {data.title}
+                        {data?.title}
                     </h2>
                     <p className="text-gray-600 text-lg font-medium leading-relaxed">
-                        {data.subtitle}
+                        {data?.subtitle}
                     </p>
                 </div>
 
                 {/* Video Section */}
                 <div className="max-w-[1000px] mx-auto border-8 border-white shadow-2xl rounded-[48px] overflow-hidden">
                     <VideoSection
-                        thumbnail={data.videoThumbnail}
-                        title={data.title}
+                        thumbnail={data?.video_thumbnail}
+                        title={data?.title}
                         aspectRatio="video"
                         rounded="rounded-[40px]"
-                        url={data.videoUrl}
+                        url={data?.video_url}
                     />
                 </div>
             </div>

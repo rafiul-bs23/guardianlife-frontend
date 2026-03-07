@@ -1,9 +1,14 @@
+import Pagination from '../../../shared/Components/Pagination';
+import type { PaginationData } from '../../../shared/types/pagination';
 import type { Hospital, HospitalType } from '../types';
 
 interface HospitalTableProps {
     hospitals: Hospital[];
+    pagination: PaginationData | null;
     is_loading: boolean;
     error: string | null;
+    current_page: number;
+    on_page_change: (page: number) => void;
     active_type: HospitalType;
 }
 
@@ -26,9 +31,18 @@ const SkeletonRow = ({ col_count }: { col_count: number }) => (
     </tr>
 );
 
-const HospitalTable = ({ hospitals, is_loading, error, active_type }: HospitalTableProps) => {
+const HospitalTable = ({
+    hospitals,
+    pagination,
+    is_loading,
+    error,
+    current_page,
+    on_page_change,
+    active_type
+}: HospitalTableProps) => {
     const columns = get_columns(active_type);
     const intl = is_international(active_type);
+    const startIndex = (current_page - 1) * 10;
 
     return (
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
@@ -80,7 +94,7 @@ const HospitalTable = ({ hospitals, is_loading, error, active_type }: HospitalTa
                                 >
                                     {/* SL */}
                                     <td className="px-4 py-3.5 font-medium text-gray-500 whitespace-nowrap">
-                                        {index + 1}
+                                        {startIndex + index + 1}
                                     </td>
 
                                     {/* Hospital Name */}
@@ -183,13 +197,12 @@ const HospitalTable = ({ hospitals, is_loading, error, active_type }: HospitalTa
                 </table>
             </div>
 
-            {/* Results count */}
-            {!is_loading && !error && (hospitals?.length ?? 0) > 0 && (
-                <div className="px-4 py-3 border-t border-gray-100 bg-gray-50 text-sm text-gray-500">
-                    Showing{' '}
-                    <span className="font-semibold text-gray-700">{hospitals?.length}</span>{' '}
-                    result{hospitals?.length !== 1 ? 's' : ''}
-                </div>
+            {/* Pagination */}
+            {pagination && (
+                <Pagination
+                    pagination={pagination}
+                    onPageChange={on_page_change}
+                />
             )}
         </div>
     );

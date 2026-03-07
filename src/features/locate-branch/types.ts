@@ -28,13 +28,13 @@ export interface BranchListData {
 
 // API Response Types
 export interface BranchApiSuccessResponse {
-    success: true;
+    status: true;
     transaction_id: string;
     data: BranchListData;
 }
 
 export interface BranchApiErrorResponse {
-    success: false;
+    status: false;
     transaction_id: string;
     message: string;
 }

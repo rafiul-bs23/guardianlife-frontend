@@ -25,7 +25,7 @@ export const MOCK_HEADER_DATA: HeaderResponse = {
 };
 
 export const mockClaimData: ClaimData = {
-    featuresSection: {
+    features_section: {
         title: "FEATURES",
         subtitle: "Discover how GLIL has revolutionized claims processing through strategic technology implementation and innovation-driven solutions.",
         items: [
@@ -71,23 +71,23 @@ export const mockClaimData: ClaimData = {
             }
         ]
     },
-    claimStatus: {
-        trackingTitle: "TRACK YOUR CLAIM",
-        trackingSubtitle: "Stay updated on your claim status with our transparent tracking system. Get instant notifications and estimated completion dates.",
+    claim_status: {
+        tracking_title: "TRACK YOUR CLAIM",
+        tracking_subtitle: "Stay updated on your claim status with our transparent tracking system. Get instant notifications and estimated completion dates.",
         timeline: [
-            { label: "Claim Submission", date: "01 Jan 2025", isCompleted: true },
-            { label: "HR Approval", date: "01 Jan 2025", isCompleted: true },
-            { label: "Claim Information", date: "01 Jan 2025", isCompleted: true },
-            { label: "Claim Review By Analyst", date: "01 Jan 2025", isCompleted: true },
-            { label: "Claim Approval", date: "03 Jan 2025", isCompleted: true },
-            { label: "Claim Is Settled", date: "03 Jan 2025", isCompleted: true }
+            { label: "Claim Submission", date: "01 Jan 2025", is_completed: true },
+            { label: "HR Approval", date: "01 Jan 2025", is_completed: true },
+            { label: "Claim Information", date: "01 Jan 2025", is_completed: true },
+            { label: "Claim Review By Analyst", date: "01 Jan 2025", is_completed: true },
+            { label: "Claim Approval", date: "03 Jan 2025", is_completed: true },
+            { label: "Claim Is Settled", date: "03 Jan 2025", is_completed: true }
         ]
     },
-    customerStories: {
+    customer_stories: {
         title: "STORIES FROM OUR CUSTOMERS",
         subtitle: "See how we've helped thousands of families during their most challenging times. These are real experiences from real customers.",
-        videoThumbnail: "assets/images/productDetails/videoOvarlay.png",
-        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        video_thumbnail: "assets/images/productDetails/videoOvarlay.png",
+        video_url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
     }
 };
 
@@ -99,24 +99,24 @@ export const mockDocumentsData: { status: boolean; data: ClaimDocumentsData } = 
                 name: "General",
                 documents: [
                     {
-                        fileName: "Permanent Disability Claim Form",
-                        pdfDownloadLink: "https://guardian-life-website-example.com/assets/docs/claimform-permanent-disability.pdf"
+                        file_name: "Permanent Disability Claim Form",
+                        pdf_download_link: "https://guardian-life-website-example.com/assets/docs/claimform-permanent-disability.pdf"
                     },
                     {
-                        fileName: "Health Insurance Claim Form",
-                        pdfDownloadLink: "https://guardian-life-website-example.com/assets/docs/claimform-health.pdf"
+                        file_name: "Health Insurance Claim Form",
+                        pdf_download_link: "https://guardian-life-website-example.com/assets/docs/claimform-health.pdf"
                     },
                     {
-                        fileName: "Death Claim Form",
-                        pdfDownloadLink: "https://guardian-life-website-example.com/assets/docs/death-claim.pdf"
+                        file_name: "Death Claim Form",
+                        pdf_download_link: "https://guardian-life-website-example.com/assets/docs/death-claim.pdf"
                     },
                     {
-                        fileName: "Critical Illness Claim Form",
-                        pdfDownloadLink: "https://guardian-life-website-example.com/assets/docs/critical-illness.pdf"
+                        file_name: "Critical Illness Claim Form",
+                        pdf_download_link: "https://guardian-life-website-example.com/assets/docs/critical-illness.pdf"
                     },
                     {
-                        fileName: "Manual on Claim Management System",
-                        pdfDownloadLink: "https://guardian-life-website-example.com/assets/docs/claim-management-manual.pdf"
+                        file_name: "Manual on Claim Management System",
+                        pdf_download_link: "https://guardian-life-website-example.com/assets/docs/claim-management-manual.pdf"
                     }
                 ]
             },
@@ -124,12 +124,12 @@ export const mockDocumentsData: { status: boolean; data: ClaimDocumentsData } = 
                 name: "Statement(Updated)",
                 documents: [
                     {
-                        fileName: "Pending Claims",
-                        pdfDownloadLink: "https://guardian-life-website-example.com/assets/docs/pending-claims.pdf"
+                        file_name: "Pending Claims",
+                        pdf_download_link: "https://guardian-life-website-example.com/assets/docs/pending-claims.pdf"
                     },
                     {
-                        fileName: "Claims Settlement",
-                        pdfDownloadLink: "https://guardian-life-website-example.com/assets/docs/claimsettlement.pdf"
+                        file_name: "Claims Settlement",
+                        pdf_download_link: "https://guardian-life-website-example.com/assets/docs/claimsettlement.pdf"
                     }
                 ]
             }

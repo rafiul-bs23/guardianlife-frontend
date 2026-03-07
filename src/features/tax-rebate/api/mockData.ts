@@ -27,7 +27,7 @@ export const MOCK_TAX_REBATE_DETAILS: TaxRebateDataResponse = {
     "data": {
         "thingsToRemember": {
             "title": "THINGS TO REMEMBER",
-            "image": "assets/images/tax-rebate/tax.png",
+            "image": "/assets/images/tax-rebate/tax.png",
             "descriptionPoints": [
                 {
                     "text": "Payment of a minimum income tax of BDT 5000 is compulsory for the eligible taxpayer irrespective of the rebate amount.",

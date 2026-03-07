@@ -6,14 +6,11 @@ export const getBancaBankInfo = async (bankCode: string): Promise<BancaBankInfoR
     return data;
 };
 
-export const getBancaBranches = async (params: {
+export const getBancaBranches = async (bankCode: string, params: {
     branch_name?: string;
-    area_name?: string;
-    division_name?: string;
-    district_name?: string;
     page?: number;
     limit?: number;
 }): Promise<BancaBranchResponse> => {
-    const { data } = await axiosClient.get<BancaBranchResponse>('/banca/branches', { params });
+    const { data } = await axiosClient.get<BancaBranchResponse>(`/banca/branches/${bankCode}`, { params });
     return data;
 };

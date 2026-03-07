@@ -9,18 +9,14 @@ export const get_mock_hospitals = async (params?: HospitalQueryParams): Promise<
 
             if (!source) {
                 resolve({
-                    success: false,
+                    status: false,
                     transaction_id: "GLIL-TXN-ID",
                     message: "Invalid hospital type.",
                 });
                 return;
             }
 
-            resolve({
-                success: true,
-                transaction_id: "GLIL-TXN-ID",
-                data: source?.data ?? [],
-            });
+            resolve(source);
         }, 700);
     });
 };

@@ -10,7 +10,7 @@ const EmcCard: React.FC<EmcCardProps> = ({ member }) => {
         <motion.div
 
 
-            className="relative overflow-hidden rounded-xl group cursor-pointer flex-auto w-[40%] sm:w-[25%] md:w-[20%] lg:w-[13%] hover:w-[50%] sm:hover:w-[35%] md:hover:w-[30%] lg:hover:w-[20%] h-[300px] sm:h-[350px] md:h-[400px] lg:h-[460px] transition-all duration-300 ease-out"
+            className="relative overflow-hidden rounded-xl group flex-auto w-[40%] sm:w-[25%] md:w-[20%] lg:w-[13%] hover:w-[50%] sm:hover:w-[35%] md:hover:w-[30%] lg:hover:w-[20%] h-[300px] sm:h-[350px] md:h-[400px] lg:h-[460px] transition-all duration-300 ease-out"
         >
             <motion.img
 

@@ -1,20 +1,21 @@
-import { MOCK_STATS_DATA } from "../api/mockData";
+import { mock_stats_data } from "../api/mockData";
+
 
 export function StatsBar() {
   return (
-    <div className="w-full bg-[#EAF0FB] rounded-[12px] px-4 lg:px-[32px] py-[20px] flex flex-col md:flex-row flex-wrap items-center justify-center gap-6 md:gap-4 md:justify-evenly">
-      {MOCK_STATS_DATA.map((item) => (
-        <div key={item.id} className="flex items-center gap-[0px]">
-          <div className="flex flex-col items-center text-center px-[24px]">
-            <span className="text-[30px] font-bold text-[#3B6FD4] leading-[1.3]">
-              {item.value}
+    <div className="w-full bg-[#EAF0FB]  px-6 lg:px-12 py-8  relative z-10 transition-all duration-300">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-y-10 md:gap-y-0 divide-y md:divide-y-0 md:divide-x divide-blue-200/50">
+        {mock_stats_data?.map((item) => (
+          <div key={item?.id} className="flex flex-col items-center text-center px-4 first:pt-0 pt-8 md:pt-0 last:pb-0 pb-0">
+            <span className="text-2xl lg:text-3xl font-black text-[#3B6FD4] mb-2 tracking-tight">
+              {item?.value}
             </span>
-            <span className="text-[20px] text-[#555555] leading-[1.5] max-w-[250px] mt-[4px]">
-              {item.label}
+            <span className="text-sm lg:text-base font-medium text-[#555555] leading-snug max-w-[180px]">
+              {item?.label}
             </span>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

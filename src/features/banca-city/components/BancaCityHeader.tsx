@@ -5,14 +5,15 @@ import Button from '../../../shared/Components/Button';
 
 interface BancaCityHeaderProps {
     data: HeaderData;
+    on_explore_click?: () => void;
 }
 
-const BancaCityHeader: React.FC<BancaCityHeaderProps> = ({ data }) => {
+const BancaCityHeader: React.FC<BancaCityHeaderProps> = ({ data, on_explore_click }) => {
     const actions = (
         <Button
             label="Explore Products"
             variant="solid-white"
-            onClick={() => console.log('Explore Products clicked')}
+            onClick={on_explore_click || (() => console.log('Explore Products clicked'))}
         />
     );
 

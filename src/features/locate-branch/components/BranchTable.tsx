@@ -1,8 +1,10 @@
-import type { Branch, Pagination } from '../types';
+import Pagination from '../../../shared/Components/Pagination';
+import type { PaginationData } from '../../../shared/types/pagination';
+import type { Branch } from '../types';
 
 interface BranchTableProps {
     branches: Branch[];
-    pagination: Pagination | null;
+    pagination: PaginationData | null;
     isLoading: boolean;
     error: string | null;
     currentPage: number;
@@ -158,46 +160,11 @@ const BranchTable = ({
             </div>
 
             {/* Pagination */}
-            {pagination && pagination.total_pages > 1 && (
-                <div className="flex items-center justify-between px-4 py-4 border-t border-gray-100 bg-gray-50">
-                    <p className="text-sm text-gray-500">
-                        Page{' '}
-                        <span className="font-semibold text-gray-700">{pagination.current_page}</span>{' '}
-                        of{' '}
-                        <span className="font-semibold text-gray-700">{pagination.total_pages}</span>
-                        {' '}·{' '}
-                        <span className="font-semibold text-gray-700">{pagination.total_records}</span>{' '}
-                        total records
-                    </p>
-                    <div className="flex items-center gap-1">
-                        <button
-                            onClick={() => onPageChange(currentPage - 1)}
-                            disabled={!pagination.has_previous}
-                            className="px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-300 text-gray-600 bg-white hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition"
-                        >
-                            ‹ Prev
-                        </button>
-                        {Array.from({ length: pagination.total_pages }, (_, i) => i + 1).map((p) => (
-                            <button
-                                key={p}
-                                onClick={() => onPageChange(p)}
-                                className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition ${p === currentPage
-                                    ? 'bg-primary text-white border-primary'
-                                    : 'border-gray-300 text-gray-600 bg-white hover:bg-gray-100'
-                                    }`}
-                            >
-                                {p}
-                            </button>
-                        ))}
-                        <button
-                            onClick={() => onPageChange(currentPage + 1)}
-                            disabled={!pagination.has_next}
-                            className="px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-300 text-gray-600 bg-white hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition"
-                        >
-                            Next ›
-                        </button>
-                    </div>
-                </div>
+            {pagination && (
+                <Pagination
+                    pagination={pagination}
+                    onPageChange={onPageChange}
+                />
             )}
         </div>
     );

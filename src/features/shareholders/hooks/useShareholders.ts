@@ -1,30 +1,34 @@
 import { useState, useEffect } from 'react';
 import type { ShareholderItem } from '../types';
-import { getShareholders } from '../api';
+import { get_shareholders } from '../api';
 
 export const useShareholders = () => {
-    const [shareholders, setShareholders] = useState<ShareholderItem[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const [shareholders_data, set_shareholders_data] = useState<ShareholderItem[]>([]);
+    const [is_loading, set_is_loading] = useState(true);
+    const [error_message, set_error_message] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchShareholders = async () => {
+        const fetch_shareholders = async () => {
             try {
-                const response = await getShareholders();
-                if (response.status) {
-                    setShareholders(response.data);
+                const response = await get_shareholders();
+                if (response?.status) {
+                    set_shareholders_data(response?.data ?? []);
                 } else {
-                    setError('Failed to fetch shareholders');
+                    set_error_message('Failed to fetch shareholders');
                 }
             } catch (err) {
-                setError('An error occurred while fetching shareholders');
+                set_error_message('An error occurred while fetching shareholders');
             } finally {
-                setLoading(false);
+                set_is_loading(false);
             }
         };
 
-        fetchShareholders();
+        fetch_shareholders();
     }, []);
 
-    return { shareholders, loading, error };
+    return {
+        shareholders: shareholders_data,
+        is_loading,
+        error_message
+    };
 };

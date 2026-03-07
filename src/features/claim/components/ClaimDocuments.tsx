@@ -36,23 +36,23 @@ const ClaimDocuments: React.FC<ClaimDocumentsProps> = ({ data }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {data.category.map((cat, catIdx) => (
+                            {data?.category?.map((cat, catIdx) => (
                                 <React.Fragment key={catIdx}>
-                                    {cat.documents.map((doc, docIdx) => (
+                                    {cat?.documents?.map((doc, docIdx) => (
                                         <tr key={`${catIdx}-${docIdx}`} className="border-b border-[#D1D5DB] last:border-b-0">
                                             {/* Rowspan for Category */}
                                             {docIdx === 0 && (
                                                 <td
-                                                    rowSpan={cat.documents.length}
+                                                    rowSpan={cat?.documents?.length}
                                                     className="px-6 py-4 align-middle bg-white border-r border-[#D1D5DB] font-bold text-gray-700 text-[15px]"
                                                 >
-                                                    {cat.name}
+                                                    {cat?.name}
                                                 </td>
                                             )}
 
                                             {/* Document Name */}
                                             <td className="px-6 py-4 text-[15px] font-medium text-gray-700 border-r border-[#D1D5DB]">
-                                                {doc.fileName}
+                                                {doc?.file_name}
                                             </td>
 
                                             {/* Action Button */}
@@ -62,7 +62,11 @@ const ClaimDocuments: React.FC<ClaimDocumentsProps> = ({ data }) => {
                                                         label="Download"
                                                         variant="base"
                                                         className=" min-w-[110px] rounded-lg"
-                                                        onClick={() => window.open(doc.pdfDownloadLink, '_blank')}
+                                                        onClick={() => {
+                                                            if (doc?.pdf_download_link) {
+                                                                window.open(doc.pdf_download_link, '_blank');
+                                                            }
+                                                        }}
                                                         labelClass="text-sm"
                                                     />
                                                 </div>

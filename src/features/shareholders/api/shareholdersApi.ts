@@ -1,7 +1,7 @@
 import axiosClient from '../../../lib/axios';
 import type { ShareholdersResponse } from '../types';
 
-export const getRealShareholders = async (): Promise<ShareholdersResponse> => {
-    const { data } = await axiosClient.get<ShareholdersResponse>('/api/v1/shareholders');
+export const get_real_shareholders = async (): Promise<ShareholdersResponse> => {
+    const { data } = await axiosClient.get<ShareholdersResponse>('/about/shareholders');
     return data;
 };

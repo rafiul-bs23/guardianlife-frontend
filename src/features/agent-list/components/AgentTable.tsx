@@ -1,8 +1,10 @@
-import type { Agent, Pagination } from '../types';
+import type { Agent } from '../types';
+import Pagination from '../../../shared/Components/Pagination';
+import type { PaginationData } from '../../../shared/types/pagination';
 
 interface AgentTableProps {
     agents: Agent[];
-    pagination: Pagination | null;
+    pagination: PaginationData | null;
     is_loading: boolean;
     error: string | null;
     current_page: number;
@@ -56,11 +58,6 @@ const AgentTable = ({
     on_page_change,
 }: AgentTableProps) => {
     const start_index = (current_page - 1) * 10;
-
-    const page_numbers = Array.from(
-        { length: pagination?.total_pages ?? 0 },
-        (_, i) => i + 1
-    );
 
     return (
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
@@ -189,58 +186,11 @@ const AgentTable = ({
             </div>
 
             {/* Pagination */}
-            {(pagination?.total_pages ?? 0) > 1 && (
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-4 py-4 border-t border-gray-100 bg-gray-50">
-                    <p className="text-sm text-gray-500">
-                        Page{' '}
-                        <span className="font-semibold text-gray-700">
-                            {pagination?.current_page}
-                        </span>{' '}
-                        of{' '}
-                        <span className="font-semibold text-gray-700">
-                            {pagination?.total_pages}
-                        </span>
-                        {' · '}
-                        <span className="font-semibold text-gray-700">
-                            {pagination?.total_records}
-                        </span>{' '}
-                        total records
-                    </p>
-
-                    <div className="flex items-center gap-1 flex-wrap justify-center">
-                        {/* Prev */}
-                        <button
-                            onClick={() => on_page_change(current_page - 1)}
-                            disabled={!pagination?.has_previous}
-                            className="px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-300 text-gray-600 bg-white hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition"
-                        >
-                            ‹ Prev
-                        </button>
-
-                        {/* Page Numbers */}
-                        {page_numbers.map((p) => (
-                            <button
-                                key={p}
-                                onClick={() => on_page_change(p)}
-                                className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition ${p === current_page
-                                        ? 'bg-primary text-white border-primary'
-                                        : 'border-gray-300 text-gray-600 bg-white hover:bg-gray-100'
-                                    }`}
-                            >
-                                {p}
-                            </button>
-                        ))}
-
-                        {/* Next */}
-                        <button
-                            onClick={() => on_page_change(current_page + 1)}
-                            disabled={!pagination?.has_next}
-                            className="px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-300 text-gray-600 bg-white hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition"
-                        >
-                            Next ›
-                        </button>
-                    </div>
-                </div>
+            {pagination && (
+                <Pagination
+                    pagination={pagination}
+                    onPageChange={on_page_change}
+                />
             )}
         </div>
     );

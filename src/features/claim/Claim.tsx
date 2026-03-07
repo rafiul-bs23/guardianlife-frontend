@@ -7,11 +7,11 @@ import ClaimDocuments from './components/ClaimDocuments';
 import { mockClaimData } from './api/mockData';
 import { useClaimDocuments } from './hooks/useClaimDocuments';
 import ClaimHeader from './components/ClaimHeader';
-import { useHeader } from './hooks/useHeader';
 import FAQ from '../../shared/Components/Faq';
+import { useHeader } from '../../shared/hooks/useHeader';
 
 const Claim = () => {
-  const { data: headerData, isLoading: isHeaderLoading } = useHeader();
+  const { data: headerData, isLoading: isHeaderLoading } = useHeader("claim-info");
   const { data } = useClaimDocuments();
 
   if (isHeaderLoading) {
@@ -25,10 +25,10 @@ const Claim = () => {
   return (
     <main className="min-h-screen bg-white">
       {headerData && <ClaimHeader data={headerData} />}
-      <ClaimFeatures data={mockClaimData.featuresSection} />
-      {/* <TrackClaim data={mockClaimData.claimStatus} /> */}
+      <ClaimFeatures data={mockClaimData?.features_section} />
+      {/* <TrackClaim data={mockClaimData?.claim_status} /> */}
       <CashlessNetwork />
-      <CustomerStories data={mockClaimData.customerStories} />
+      <CustomerStories data={mockClaimData?.customer_stories} />
       {data && <ClaimDocuments data={data} />}
       <AppDownloadSection />
       <FAQ />

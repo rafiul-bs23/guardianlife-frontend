@@ -1,26 +1,32 @@
 import Contentheader from "../../../shared/Components/Contentheader";
+import { mock_why_bancassurance_data } from "../api/mockData";
 import { WhatIsBancassurance } from "./WhatIsBancassurance";
-import { MOCK_WHY_BANCASSURANCE_DATA } from "../api/mockData";
+
 
 export const WhyBancassuranceMattersSection = () => {
     return (
-        <div className="mt-16 lg:mt-[77px] px-4 lg:px-0">
-            <Contentheader
-                title={MOCK_WHY_BANCASSURANCE_DATA.header.title}
-                description={MOCK_WHY_BANCASSURANCE_DATA.header.description}
-            />
-            <div className="flex flex-col-reverse lg:flex-row mt-12 mb-12 lg:mt-[90px] gap-8 lg:gap-0 max-w-7xl mx-auto">
-                <div className="w-full lg:w-1/2 lg:pl-[50px] lg:pr-8">
-                    <WhatIsBancassurance data={MOCK_WHY_BANCASSURANCE_DATA.whatIsBancassurance} />
-                </div>
-                <div className="w-full lg:w-1/2 lg:pl-8 flex justify-center">
-                    <img
-                        src={MOCK_WHY_BANCASSURANCE_DATA.imgUrl}
-                        alt="image"
-                        className="w-full max-w-[649px] h-auto lg:h-[505px] object-cover rounded-[35px]"
-                    />
+        <section className="py-16 lg:py-24 px-4 bg-white overflow-hidden">
+            <div className="max-w-[1440px] mx-auto">
+                <Contentheader
+                    title={mock_why_bancassurance_data?.header?.title}
+                    description={mock_why_bancassurance_data?.header?.description}
+                />
+
+                <div className="flex flex-col lg:flex-row items-center mt-16 lg:mt-24 gap-12 lg:gap-20">
+                    <div className="w-full lg:w-[55%]">
+                        <WhatIsBancassurance data={mock_why_bancassurance_data?.what_is_bancassurance} />
+                    </div>
+                    <div className="w-full lg:w-[45%]">
+                        <div className="relative group">
+                            <img
+                                src={mock_why_bancassurance_data?.image_url}
+                                alt="Bancassurance illustration"
+                                className="w-full h-auto object-cover rounded-[40px] shadow-sm transition-transform duration-500 group-hover:scale-[1.02]"
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };

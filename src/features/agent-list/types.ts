@@ -29,13 +29,13 @@ export interface AgentListData {
 
 // API Response Types
 export interface AgentApiSuccessResponse {
-    success: true;
+    status: true;
     transaction_id: string;
     data: AgentListData;
 }
 
 export interface AgentApiErrorResponse {
-    success: false;
+    status: false;
     transaction_id: string;
     message: string;
 }
