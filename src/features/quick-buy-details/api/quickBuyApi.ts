@@ -4,7 +4,7 @@ import type { QuickBuyApiResponse } from '../types';
 import { MOCK_SUCCESS_DATA } from './mockData';
 
 export const getRealQuickBuyData = async (productId: string): Promise<QuickBuyApiResponse> => {
-    const { data } = await axiosClient.get<QuickBuyApiResponse>(`/quick-buy/${productId}`);
+    const { data } = await axiosClient.get<QuickBuyApiResponse>(`/products/${productId}`);
     return data;
 };
 
@@ -17,7 +17,7 @@ export const getMockQuickBuyData = async (_productId: string): Promise<QuickBuyA
 };
 
 export const getProductBuyDetailsData = async (productId: string): Promise<QuickBuyApiResponse> => {
-    const useMock = import.meta.env.VITE_USE_MOCK_API === 'true';
+    const useMock = import.meta.env.VITE_USE_MOCK_API === 'false';
     if (useMock) {
         return getMockQuickBuyData(productId);
     }

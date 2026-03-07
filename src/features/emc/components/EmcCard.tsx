@@ -1,4 +1,4 @@
-import React from 'react';
+import { motion } from 'framer-motion';
 import type { EmcMember } from '../types';
 
 interface EmcCardProps {
@@ -7,8 +7,13 @@ interface EmcCardProps {
 
 const EmcCard: React.FC<EmcCardProps> = ({ member }) => {
     return (
-        <div className="relative overflow-hidden rounded-xl group transition-all duration-500 ease-in-out cursor-pointer flex-auto w-[40%] sm:w-[25%] md:w-[20%] lg:w-[13%] hover:w-[50%] sm:hover:w-[35%] md:hover:w-[30%] lg:hover:w-[20%] h-[300px] sm:h-[350px] md:h-[400px] lg:h-[460px]">
-            <img
+        <motion.div
+
+
+            className="relative overflow-hidden rounded-xl group cursor-pointer flex-auto w-[40%] sm:w-[25%] md:w-[20%] lg:w-[13%] hover:w-[50%] sm:hover:w-[35%] md:hover:w-[30%] lg:hover:w-[20%] h-[300px] sm:h-[350px] md:h-[400px] lg:h-[460px] transition-all duration-300 ease-out"
+        >
+            <motion.img
+
                 src={member.image_url}
                 alt={member.name}
                 className="w-full h-full object-cover"
@@ -22,7 +27,7 @@ const EmcCard: React.FC<EmcCardProps> = ({ member }) => {
                     {member.designation}
                 </p>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

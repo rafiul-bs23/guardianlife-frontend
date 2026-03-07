@@ -15,7 +15,7 @@ export const usePartners = (channel: string): UsePartnersResult => {
         try {
             const response = await get_partners(channel);
 
-            if (response.success) {
+            if (response.status) {
                 set_data(response.data);
             } else {
                 set_error(response.message ?? 'Failed to fetch partners.');

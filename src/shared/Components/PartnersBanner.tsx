@@ -17,11 +17,13 @@ interface LogoGridProps {
   rowHeight: number | null;
   isInView: boolean;
   reversed: boolean;
+  isMobile: boolean;
 }
 
 interface LogoCardProps {
   logo: string;
   name: string;
+  isMobile: boolean;
 }
 
 export interface PartnersBannerProps {
@@ -92,13 +94,16 @@ const LogoGrid = ({ partners, rowHeight, isInView, reversed }: LogoGridProps) =>
       transition: { duration: 0.22, ease: "easeIn" },
     },
   };
+  const isMobile = useIsMobile();
+
+  const rows = isMobile ? 5 : 4;
 
   return (
     <AnimatePresence mode="wait">
       <motion.div
         key={batchKey}
-        className="grid grid-cols-3 gap-2 h-full max-h-[100px]"
-        style={rowHeight ? { gridTemplateRows: `repeat(4, ${rowHeight}px)` } : undefined}
+        className="grid grid-cols-2 lg:grid-cols-3 gap-2 h-full"
+        style={rowHeight ? { gridTemplateRows: `repeat(${rows}, ${rowHeight}px)` } : undefined}
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
@@ -107,10 +112,10 @@ const LogoGrid = ({ partners, rowHeight, isInView, reversed }: LogoGridProps) =>
         {batch.map((partner, index) => (
           <motion.div
             key={partner.id}
-            className={SPAN_PATTERN[index] === 2 ? "col-span-2" : "col-span-1"}
+            className={isMobile ? "col-span-1" : (SPAN_PATTERN[index] === 2 ? "col-span-2" : "col-span-1")}
             variants={itemVariants}
           >
-            <LogoCard logo={partner.logo} name={partner.name} />
+            <LogoCard logo={partner.logo} name={partner.name} isMobile={isMobile} />
           </motion.div>
         ))}
       </motion.div>
@@ -119,12 +124,12 @@ const LogoGrid = ({ partners, rowHeight, isInView, reversed }: LogoGridProps) =>
 };
 
 /* ─── Logo card ─── */
-const LogoCard = ({ logo, name }: LogoCardProps) => (
-  <div className="group bg-white border border-gray-100 flex items-center justify-center h-full p-4 overflow-hidden hover:border-gray-300 transition-colors duration-200">
+const LogoCard = ({ logo, name, isMobile }: LogoCardProps) => (
+  <div className={`group bg-white border border-gray-100 flex items-center justify-center h-full ${isMobile ? 'p-2' : 'p-4'} overflow-hidden hover:border-gray-300 transition-colors duration-200`}>
     <img
       src={logo}
       alt={name}
-      className="max-h-[70%] max-w-[70%] object-contain grayscale group-hover:grayscale-0 group-hover:scale-[1.2] transition-all duration-300"
+      className={`${isMobile ? 'max-h-[85%] max-w-[85%]' : 'max-h-[70%] max-w-[70%]'} object-contain grayscale group-hover:grayscale-0 group-hover:scale-[1.2] transition-all duration-300`}
     />
   </div>
 );
@@ -152,13 +157,15 @@ const PartnersBanner = ({
     const measure = () => {
       if (gridRef.current) {
         const h = gridRef.current.getBoundingClientRect().height;
-        setRowHeight((h - 24) / 4); // 3 gaps × 8px = 24
+        const rows = isMobile ? 5 : 4;
+        const gaps = rows - 1;
+        setRowHeight((h - (gaps * 8)) / rows); // 8px gaps
       }
     };
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
-  }, []);
+  }, [isMobile]);
 
   const imageVariants: Variants = {
     hidden: { opacity: 0, x: reversed ? 50 : -50 },
@@ -235,13 +242,12 @@ const PartnersBanner = ({
           </motion.div>
         </div>
 
-        {/* ── Grid — flush to outer edge ── */}
         <div
           ref={gridRef}
-          className={`w-full lg:w-1/2 p-4 self-stretch ${reversed ? "lg:py-0 lg:pl-0" : "lg:py-0 lg:pr-0"
+          className={`w-full h-auto lg:w-1/2 p-4 self-stretch ${reversed ? "lg:py-0 lg:pl-0" : "lg:py-0 lg:pr-0"
             }`}
         >
-          <LogoGrid partners={partners} rowHeight={rowHeight} isInView={isInView} reversed={reversed} />
+          <LogoGrid partners={partners} rowHeight={rowHeight} isInView={isInView} reversed={reversed} isMobile={isMobile} />
         </div>
 
       </motion.div>

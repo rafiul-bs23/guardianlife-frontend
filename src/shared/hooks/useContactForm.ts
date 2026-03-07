@@ -43,6 +43,14 @@ const initial_form: FormData = {
     agreeToPolicy: false,
 };
 
+
+// Assuming you have these defined elsewhere
+// interface FormErrors { ... }
+// interface FormData { ... }
+// interface UseContactFormResult { ... }
+// const initial_form: FormData = { ... };
+// const post_lead = async (payload: any) => { ... };
+
 const validate = (formData: FormData, type: 'lead' | 'job'): FormErrors => {
     const errors: FormErrors = {};
 
@@ -58,8 +66,12 @@ const validate = (formData: FormData, type: 'lead' | 'job'): FormErrors => {
 
     if (!formData.phoneNumber.trim()) {
         errors.phoneNumber = 'Phone number is required.';
-    } else if (!/^01[3-9]\d{8}$/.test(formData.phoneNumber.trim())) {
-        errors.phoneNumber = 'Enter a valid 11-digit Bangladeshi phone number (e.g. 01XXXXXXXXX).';
+    } else if (!formData.phoneNumber.trim().startsWith('+880')) {
+        errors.phoneNumber = 'Phone number must start with +880.';
+    } else if (formData.phoneNumber.trim().length !== 14) {
+        errors.phoneNumber = 'Phone number must be 14 characters long.';
+    } else if (!/^\+8801[3-9]\d{8}$/.test(formData.phoneNumber.trim())) {
+        errors.phoneNumber = 'Please enter a valid Bangladeshi phone number.';
     }
 
     if (type === 'job' && !formData.applyingPosition.trim()) {
@@ -120,35 +132,35 @@ export const useContactForm = (channel: string, type: 'lead' | 'job' = 'lead'): 
         set_error(null);
 
         try {
-            // Use FormData for file support
             const payload = new FormData();
+
+            // REMOVED 'body.' prefix to match the curl requirements exactly
             payload.append('full_name', formData.fullName.trim());
             payload.append('email', formData.email.trim());
             payload.append('phone', formData.phoneNumber.trim());
             payload.append('type', type);
             payload.append('message', formData.message.trim());
-            payload.append('channel', channel);
+            type !== 'job' && payload.append('channel', channel);
+            type === 'job' && payload.append('applying_position', formData.applyingPosition.trim());
 
-            if (type === 'job') {
-                payload.append('applying_position', formData.applyingPosition.trim());
-                if (formData.cv) {
-                    payload.append('cv', formData.cv);
-                }
+            // Append file if exists, otherwise empty string
+            if (formData.cv) {
+                payload.append('file', formData.cv);
             } else {
-                payload.append('applying_position', '');
+                payload.append('file', '');
             }
 
-            // We need to pass the FormData to post_lead
             const response = await post_lead(payload as any);
 
-            if (response.success) {
+            if (response.status) {
                 set_success(true);
                 set_form_data(initial_form);
                 set_errors({});
             } else {
                 set_error(response.message ?? 'Submission failed. Please try again.');
             }
-        } catch {
+        } catch (error) {
+            console.log(error);
             set_error('An unexpected error occurred. Please try again.');
         } finally {
             set_is_loading(false);

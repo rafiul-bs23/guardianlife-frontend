@@ -1,14 +1,15 @@
 import QuickBuyHeader from "./components/QuickBuyHeader.tsx";
-import { useHeader } from "./hooks/useHeader.ts";
 import ProductCard from "../../shared/Components/ProductCard.tsx";
 import FAQ from "../../shared/Components/Faq.tsx";
 import { WhyChooseQuickBuy } from "../../shared/Components/WhyChooseQuickBuy.tsx";
 
 import { useCategoryProducts } from "../category/hooks/useCategoryProducts.ts";
 import Contentheader from "../../shared/Components/Contentheader.tsx";
+import { useHeader } from "../../shared/hooks/useHeader.ts";
+import GenericHeader from "../../shared/Components/GenericHeader.tsx";
 
 const QuickBuyCategory = () => {
-  const { data: headerData, isLoading: isHeaderLoading } = useHeader();
+  const { data: headerData, isLoading: isHeaderLoading } = useHeader('easylife-products-list');
 
   // Fetching products for the three specific categories without passing channel since it breaks the endpoint
   const { data: termLifeProducts, isLoading: isTermLifeLoading } = useCategoryProducts(null, 'term-life', null);
@@ -25,7 +26,12 @@ const QuickBuyCategory = () => {
 
   return (
     <main className="min-h-screen bg-white overflow-hidden">
-      {headerData && <QuickBuyHeader data={headerData} />}
+      {headerData && <GenericHeader
+        data={headerData}
+        variant="immersive"
+        mediaClassName="md:rounded-tr-[120px] md:rounded-bl-[120px] rounded-[10px]"
+        titleClassName="!text-3xl lg:!text-[42px] !leading-normal max-w-3xl"
+      />}
 
       {/* Term Life Section */}
       {!isTermLifeLoading && termLifeProducts && termLifeProducts.length > 0 && (

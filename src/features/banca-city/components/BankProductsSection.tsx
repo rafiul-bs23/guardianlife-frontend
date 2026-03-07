@@ -24,7 +24,7 @@ const BankProductsSection: React.FC<BankProductsSectionProps> = ({ products }) =
                 {/* Products Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {products.map((product, index) => (
-                        <Card key={index}>
+                        <Card key={index} className='flex flex-col group p-8 border border-primary/30 hover:shadow-xl hover:border-primary/60 hover:scale-[1.01] transition-all duration-300'>
                             {/* Card Header: Icon + Title */}
                             <div className="flex items-center gap-4 mb-4">
 

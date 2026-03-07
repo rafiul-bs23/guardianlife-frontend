@@ -4,6 +4,7 @@ import { useIsMobile } from '../../../shared/hooks/useMediaQuery';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { MOCK_PARTNER_BANKS_DATA } from '../api/mockData';
+import Card from '../../../shared/Components/Card';
 
 const PartnerBanks = () => {
   const ref = useRef(null);
@@ -66,24 +67,25 @@ const PartnerBanks = () => {
             <motion.div
               key={partner.id}
               variants={cardVariants}
-              className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 relative group cursor-pointer"
             >
-              {/* Arrow Icon */}
-              <Link
-                to={partner.link}
-                className="absolute top-6 right-6 w-10 h-10 rounded-full border-2 border-gray-300 flex items-center justify-center group-hover:border-orange-500 group-hover:bg-orange-500 transition-all duration-300"
-              >
-                <ArrowUpRight className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors duration-300" />
-              </Link>
+              <Card
+                className="relative  bg-white rounded-2xl  shadow-sm hover:shadow-md transition-shadow duration-300 relative group ">
+                {/* Arrow Icon */}
+                <Link
+                  to={partner.link}
+                  className="absolute top-3 right-3 w-10 h-10 rounded-full border-2 border-gray-300 flex items-center justify-center group-hover:border-orange-500 group-hover:bg-orange-500 transition-all duration-300"
+                >
+                  <ArrowUpRight className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors duration-300" />
+                </Link>
 
-              {/* Bank Logo */}
-              <div className="flex items-center justify-center h-32">
-                <img
-                  src={partner.logo}
-                  alt={partner.name}
-                  className="max-w-full max-h-full object-contain"
-                />
-              </div>
+                {/* Bank Logo */}
+                <div className="flex items-center justify-center h-32 w-full py-24 px-10">
+                  <img
+                    src={partner.logo}
+                    alt={partner.name}
+                    className="h-20 object-contain group-hover:scale-110 transition-all duration-300"
+                  />
+                </div></Card>
             </motion.div>
           ))}
         </motion.div>
