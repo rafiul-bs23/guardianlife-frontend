@@ -1,0 +1,10 @@
+{
+  "header": {
+    "title": "GUARDIAN FAMILY"
+  },
+  "list": {
+    "section_title": "GUARDIAN EMPLOYEE LIST",
+    "search_placeholder": "Search",
+    "empty_state": "No employees found matching your search."
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "header": {
+    "line1": "MEET OUR",
+    "line2": "GUARDIANS"
+  },
+  "director": {
+    "image_alt_fallback": "Director",
+    "no_image": "No Image Available",
+    "no_description": "No description provided."
+  }
+}

@@ -1,15 +1,17 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useEmc } from '../hooks/useEmc';
 import EmcCard from './EmcCard';
 
 const EmcList: React.FC = () => {
+    const { t } = useTranslation('emc');
     const { data: members, isLoading, error } = useEmc();
 
     return (
         <section className="py-16 px-4 md:px-12 max-w-full mx-auto">
             <div className="text-center mb-12">
                 <h2 className="text-4xl font-extrabold text-[#212529] uppercase tracking-wide">
-                    EXTENDED MANAGEMENT COMMITTEE
+                    {t('list.section_title')}
                 </h2>
             </div>
 
@@ -35,7 +37,7 @@ const EmcList: React.FC = () => {
 
                     {!members || members.length === 0 ? (
                         <div className="text-center py-20 text-gray-500">
-                            No members found for the Extended Management Committee.
+                            {t('list.empty_state')}
                         </div>
                     ) : null}
                 </div>

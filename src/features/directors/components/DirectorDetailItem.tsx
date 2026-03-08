@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import type { DirectorDetail } from '../types';
 
 interface DirectorDetailItemProps {
@@ -6,6 +7,7 @@ interface DirectorDetailItemProps {
 }
 
 const DirectorDetailItem = ({ director, index }: DirectorDetailItemProps) => {
+    const { t } = useTranslation('directors');
     const isOdd = index % 2 !== 0;
 
     return (
@@ -18,12 +20,12 @@ const DirectorDetailItem = ({ director, index }: DirectorDetailItemProps) => {
                         {director?.image_url ? (
                             <img
                                 src={director.image_url}
-                                alt={director?.name || 'Director'}
+                                alt={director?.name || t('director.image_alt_fallback')}
                                 className="w-full max-w-[200px] md:max-w-[400px] h-auto object-contain drop-shadow-2xl translate-y-6 md:translate-y-12"
                             />
                         ) : (
                             <div className="w-full max-w-[200px] md:max-w-[400px] h-[300px] bg-gray-100 flex items-center justify-center translate-y-6 md:translate-y-12 text-gray-400 font-medium">
-                                No Image Available
+                                {t('director.no_image')}
                             </div>
                         )}
                     </div>
@@ -53,7 +55,7 @@ const DirectorDetailItem = ({ director, index }: DirectorDetailItemProps) => {
                             {/* Bio Content */}
                             <div className="relative z-10 p-8 md:p-12 lg:py-16 lg:px-0 text-white">
                                 <p className={`text-[15px] md:text-base lg:text-lg leading-relaxed font-normal ${isOdd ? 'md:text-right text-center' : 'md:text-left text-center'}`}>
-                                    {director?.description || "No description provided."}
+                                    {director?.description || t('director.no_description')}
                                 </p>
                             </div>
                         </div>
