@@ -53,6 +53,37 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
   const isSumAssuredFilled = parseFloat(sumAssured.replace(/,/g, '')) > 0;
 
+  const calculateCeilAge = (dateString: string) => {
+    if (!dateString) return '';
+    const dobDate = new Date(dateString);
+    const now = new Date();
+    if (isNaN(dobDate.getTime()) || now < dobDate) return '';
+
+    let years = now.getFullYear() - dobDate.getFullYear();
+
+    // Check if we are past the birthday this year
+    if (
+      now.getMonth() > dobDate.getMonth() ||
+      (now.getMonth() === dobDate.getMonth() && now.getDate() > dobDate.getDate())
+    ) {
+      years++;
+    }
+
+    return years.toString();
+  };
+
+  const handleDobChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setDob(val);
+    setAge(calculateCeilAge(val));
+  };
+
+  const handleSpouseDobChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setSpouseDob(val);
+    setSpouseAge(calculateCeilAge(val));
+  };
+
   const handleToggle = (setter: React.Dispatch<React.SetStateAction<boolean>>, currentValue: boolean, isPdab: boolean = false, isDiab: boolean = false) => {
     if (!isSumAssuredFilled) return; // cannot turn on if sum assured is empty
 
@@ -138,12 +169,12 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Date of Birth <span className="text-red-500">*</span></label>
                 <div className="relative">
-                  <input type="date" placeholder="DD/MM/YY" value={dob} onChange={e => setDob(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+                  <input type="date" placeholder="DD/MM/YY" value={dob} onChange={handleDobChange} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
                 </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
-                <input type="text" placeholder="30 Years" value={age} onChange={e => setAge(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+                <input type="text" placeholder="30" value={age} disabled className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-gray-50 text-gray-500 cursor-not-allowed outline-none" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Gender <span className="text-red-500">*</span></label>
@@ -310,12 +341,12 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                             <div>
                               <label className="block text-sm font-medium text-gray-700 mb-2">Spouse Date Of Birth</label>
                               <div className="relative">
-                                <input type="date" placeholder="DD/MM/YY" value={spouseDob} onChange={e => setSpouseDob(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+                                <input type="date" placeholder="DD/MM/YY" value={spouseDob} onChange={handleSpouseDobChange} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
                               </div>
                             </div>
                             <div>
                               <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
-                              <input type="text" placeholder="12" value={spouseAge} onChange={e => setSpouseAge(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+                              <input type="text" placeholder="12" value={spouseAge} disabled className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-gray-50 text-gray-500 cursor-not-allowed outline-none" />
                             </div>
                           </>
                         )}
