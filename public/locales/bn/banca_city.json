@@ -1,0 +1,51 @@
+{
+    "header": {
+        "explore_btn": "B Explore Products"
+    },
+    "bank_info": {
+        "fallback_title": "B Partnership Introduction"
+    },
+    "products": {
+        "title": "B LIFE INSURANCE SOLUTIONS AVAILABLE AT CITY BANK",
+        "description": "B Guardian Life offers a range of insurance products through City Bank, designed to meet different financial goals and life stages.",
+        "ideal_for": "B Ideal for"
+    },
+    "search": {
+        "title": "B FIND A CITY BANK BRANCH OFFERING GUARDIAN LIFE INSURANCE",
+        "description": "B Guardian Life insurance products are available at selected City Bank branches across Bangladesh. Use the filters below to find the nearest branch offering Bancassurance services.",
+        "labels": {
+            "branch_name": "B Branch Name",
+            "division": "B Choose Division",
+            "district": "B Select District",
+            "area": "B Select Area"
+        },
+        "placeholders": {
+            "search_branch": "B Search branch..."
+        },
+        "options": {
+            "all_divisions": "B All Divisions",
+            "all_districts": "B All Districts",
+            "all_areas": "B All Areas"
+        },
+        "reset_btn": "B Reset"
+    },
+    "table": {
+        "headers": {
+            "sl": "B SL",
+            "branch_name": "B Branch Name",
+            "division": "B Division",
+            "district": "B District",
+            "area": "B Area",
+            "bancassurance": "B Bancassurance"
+        },
+        "status": {
+            "available": "B Available"
+        },
+        "empty_state": "B No branches found for the selected filters.",
+        "footer": {
+            "showing": "B Showing",
+            "results": "B result",
+            "results_plural": "B results"
+        }
+    }
+}

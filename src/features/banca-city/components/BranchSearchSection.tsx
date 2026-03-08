@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface BranchSearchSectionProps {
     frontend_filters: {
@@ -22,6 +23,7 @@ const BranchSearchSection: React.FC<BranchSearchSectionProps> = ({
     on_filter_change,
     on_reset,
 }) => {
+    const { t } = useTranslation('banca_city');
     const handle_division_change = (value: string) => {
         on_filter_change({
             ...frontend_filters,
@@ -44,11 +46,10 @@ const BranchSearchSection: React.FC<BranchSearchSectionProps> = ({
             <div className="max-w-[1200px] mx-auto px-4">
                 <div className="text-center mb-10">
                     <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 uppercase tracking-tight">
-                        FIND A CITY BANK BRANCH OFFERING GUARDIAN LIFE INSURANCE
+                        {t('search.title')}
                     </h2>
                     <p className="text-gray-600 max-w-3xl mx-auto font-medium">
-                        Guardian Life insurance products are available at selected City Bank branches across
-                        Bangladesh. Use the filters below to find the nearest branch offering Bancassurance services.
+                        {t('search.description')}
                     </p>
                 </div>
 
@@ -57,7 +58,7 @@ const BranchSearchSection: React.FC<BranchSearchSectionProps> = ({
                         {/* Branch Name */}
                         <div className="flex flex-col gap-1">
                             <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                                Branch Name
+                                {t('search.labels.branch_name')}
                             </label>
                             <div className="relative">
                                 <svg
@@ -76,7 +77,7 @@ const BranchSearchSection: React.FC<BranchSearchSectionProps> = ({
                                 </svg>
                                 <input
                                     type="text"
-                                    placeholder="Search branch..."
+                                    placeholder={t('search.placeholders.search_branch')}
                                     value={frontend_filters?.branch_name ?? ''}
                                     onChange={(e) =>
                                         on_filter_change({
@@ -92,14 +93,14 @@ const BranchSearchSection: React.FC<BranchSearchSectionProps> = ({
                         {/* Division */}
                         <div className="flex flex-col gap-1">
                             <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                                Choose Division
+                                {t('search.labels.division')}
                             </label>
                             <select
                                 value={frontend_filters?.division_name ?? ''}
                                 onChange={(e) => handle_division_change(e.target.value)}
                                 className="border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
                             >
-                                <option value="">All Divisions</option>
+                                <option value="">{t('search.options.all_divisions')}</option>
                                 {division_options?.map((d) => (
                                     <option key={d} value={d}>{d}</option>
                                 ))}
@@ -109,7 +110,7 @@ const BranchSearchSection: React.FC<BranchSearchSectionProps> = ({
                         {/* District */}
                         <div className="flex flex-col gap-1">
                             <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                                Select District
+                                {t('search.labels.district')}
                             </label>
                             <select
                                 value={frontend_filters?.district_name ?? ''}
@@ -117,7 +118,7 @@ const BranchSearchSection: React.FC<BranchSearchSectionProps> = ({
                                 disabled={!frontend_filters?.division_name}
                                 className="border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                <option value="">All Districts</option>
+                                <option value="">{t('search.options.all_districts')}</option>
                                 {district_options?.map((d) => (
                                     <option key={d} value={d}>{d}</option>
                                 ))}
@@ -127,7 +128,7 @@ const BranchSearchSection: React.FC<BranchSearchSectionProps> = ({
                         {/* Area */}
                         <div className="flex flex-col gap-1">
                             <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                                Select Area
+                                {t('search.labels.area')}
                             </label>
                             <select
                                 value={frontend_filters?.area_name ?? ''}
@@ -140,7 +141,7 @@ const BranchSearchSection: React.FC<BranchSearchSectionProps> = ({
                                 disabled={!frontend_filters?.district_name}
                                 className="border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                <option value="">All Areas</option>
+                                <option value="">{t('search.options.all_areas')}</option>
                                 {area_options?.map((a) => (
                                     <option key={a} value={a}>{a}</option>
                                 ))}
@@ -168,7 +169,7 @@ const BranchSearchSection: React.FC<BranchSearchSectionProps> = ({
                                     d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
                                 />
                             </svg>
-                            Reset
+                            {t('search.reset_btn')}
                         </button>
                     </div>
                 </div>

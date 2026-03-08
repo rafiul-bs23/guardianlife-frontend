@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { BancaBranch } from '../types';
 
 interface BranchTableSectionProps {
@@ -18,6 +19,7 @@ const SkeletonRow = ({ col_count }: { col_count: number }) => (
 );
 
 const BranchTableSection: React.FC<BranchTableSectionProps> = ({ branches, is_loading, error }) => {
+    const { t } = useTranslation('banca_city');
     return (
         <section className="pb-20 bg-white">
             <div className="max-w-[1200px] mx-auto px-4">
@@ -26,12 +28,12 @@ const BranchTableSection: React.FC<BranchTableSectionProps> = ({ branches, is_lo
                         <table className="w-full text-left text-sm">
                             <thead className="bg-primary text-white">
                                 <tr>
-                                    <th className="px-8 py-4 font-semibold whitespace-nowrap text-xs uppercase tracking-wide">SL</th>
-                                    <th className="px-8 py-4 font-semibold whitespace-nowrap text-xs uppercase tracking-wide">Branch Name</th>
-                                    <th className="px-8 py-4 font-semibold whitespace-nowrap text-xs uppercase tracking-wide">Division</th>
-                                    <th className="px-8 py-4 font-semibold whitespace-nowrap text-xs uppercase tracking-wide">District</th>
-                                    <th className="px-8 py-4 font-semibold whitespace-nowrap text-xs uppercase tracking-wide">Area</th>
-                                    <th className="px-8 py-4 font-semibold whitespace-nowrap text-xs uppercase tracking-wide text-center">Bancassurance</th>
+                                    <th className="px-8 py-4 font-semibold whitespace-nowrap text-xs uppercase tracking-wide">{t('table.headers.sl')}</th>
+                                    <th className="px-8 py-4 font-semibold whitespace-nowrap text-xs uppercase tracking-wide">{t('table.headers.branch_name')}</th>
+                                    <th className="px-8 py-4 font-semibold whitespace-nowrap text-xs uppercase tracking-wide">{t('table.headers.division')}</th>
+                                    <th className="px-8 py-4 font-semibold whitespace-nowrap text-xs uppercase tracking-wide">{t('table.headers.district')}</th>
+                                    <th className="px-8 py-4 font-semibold whitespace-nowrap text-xs uppercase tracking-wide">{t('table.headers.area')}</th>
+                                    <th className="px-8 py-4 font-semibold whitespace-nowrap text-xs uppercase tracking-wide text-center">{t('table.headers.bancassurance')}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100">
@@ -68,7 +70,7 @@ const BranchTableSection: React.FC<BranchTableSectionProps> = ({ branches, is_lo
                                             <td className="px-8 py-5 text-center">
                                                 {branch.bancassurance_available ? (
                                                     <span className="inline-flex items-center px-3 py-1 bg-green-50 text-green-600 text-[10px] font-bold rounded-full border border-green-100 uppercase tracking-tighter">
-                                                        Available
+                                                        {t('table.status.available')}
                                                     </span>
                                                 ) : (
                                                     <span className="text-gray-300 text-xs">—</span>
@@ -79,7 +81,7 @@ const BranchTableSection: React.FC<BranchTableSectionProps> = ({ branches, is_lo
                                 ) : (
                                     <tr>
                                         <td colSpan={6} className="px-8 py-10 text-center text-gray-400 font-medium">
-                                            No branches found for the selected filters.
+                                            {t('table.empty_state')}
                                         </td>
                                     </tr>
                                 )}
@@ -88,7 +90,7 @@ const BranchTableSection: React.FC<BranchTableSectionProps> = ({ branches, is_lo
                     </div>
                     {!is_loading && !error && branches.length > 0 && (
                         <div className="px-8 py-3 border-t border-gray-100 bg-gray-50 text-sm text-gray-500">
-                            Showing <span className="font-semibold text-gray-700">{branches.length}</span> result{branches.length !== 1 ? 's' : ''}
+                            {t('table.footer.showing')} <span className="font-semibold text-gray-700">{branches.length}</span> {branches.length !== 1 ? t('table.footer.results_plural') : t('table.footer.results')}
                         </div>
                     )}
                 </div>

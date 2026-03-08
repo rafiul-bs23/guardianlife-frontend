@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { Director } from '../types';
 
 interface DirectorCardProps {
@@ -6,6 +7,8 @@ interface DirectorCardProps {
 }
 
 const DirectorCard: React.FC<DirectorCardProps> = ({ director }) => {
+    const { t } = useTranslation('board_directors');
+
     return (
         <div className="flex flex-col items-center group cursor-pointer">
             {/* Gradient Background Container */}
@@ -19,7 +22,7 @@ const DirectorCard: React.FC<DirectorCardProps> = ({ director }) => {
                     />
                 ) : (
                     <div className="absolute inset-0 flex items-center justify-center opacity-30 text-white font-bold text-center p-4">
-                        Image Unavailable
+                        {t('card.image_unavailable')}
                     </div>
                 )}
             </div>
