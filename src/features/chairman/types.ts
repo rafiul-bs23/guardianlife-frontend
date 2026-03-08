@@ -1,13 +1,14 @@
-export interface ChairmanInfo {
-    name: string;
-    designation: string;
-    phone: string;
-    email: string;
-    image_url: string;
-}
-
-export interface ChairmanMessageData {
+export interface ChairmanLocale {
     title: string;
     paragraphs: string[];
-    chairman: ChairmanInfo;
+    chairman: {
+        name: string;
+        designation: string;
+        phone: string;
+        email: string;
+    };
+    labels: {
+        phone: string;
+        email: string;
+    };
 }
