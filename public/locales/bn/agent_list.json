@@ -1,0 +1,30 @@
+{
+    "header": {
+        "title": "B Agent List"
+    },
+    "section": {
+        "title": "B Agent List",
+        "description": "B Browse all licensed Guardian Life agents."
+    },
+    "table": {
+        "headers": {
+            "sl": "B SL",
+            "name": "B Name",
+            "mobile": "B Mobile",
+            "fa_code": "B FA Code",
+            "um_code": "B UM Code",
+            "license_no": "B License No.",
+            "issue_date": "B Issue Date",
+            "expiry_date": "B Expiry Date",
+            "working_area": "B Working Area",
+            "address": "B Address"
+        },
+        "no_agents": "B No agents found.",
+        "expired": "B Expired",
+        "na": "B N/A"
+    },
+    "errors": {
+        "fetch_failed": "B Failed to fetch agents.",
+        "unexpected": "B An unexpected error occurred."
+    }
+}

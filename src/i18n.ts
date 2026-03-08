@@ -17,7 +17,7 @@ i18n
         backend: {
             loadPath: "/locales/{{lng}}/{{ns}}.json",
         },
-        ns: ["common", "home", "shared", "group", "about"],
+        ns: ["common", "home", "shared", "group", "about", "agent_list"],
         defaultNS: "common",
         detection: {
             order: ["querystring", "cookie", "localStorage", "navigator", "htmlTag"],
