@@ -11,18 +11,18 @@ export interface BankPartner {
 export interface ServiceCard {
     id: number;
     image: string;
-    title: string;
-    points: string[];
+    title?: string;
+    points?: string[];
 }
 
 export interface BenefitSection {
     id: number;
     icon: React.ReactNode;
-    title: string;
+    title?: string;
     image: string;
     dot_color: string;
     bg_color: string;
-    points: string[];
+    points?: string[];
 }
 
 export interface Product {
@@ -52,12 +52,12 @@ export interface BancaProductsResponse {
 }
 
 export interface WhyBancassuranceData {
-    header: {
+    header?: {
         title: string;
         description: string;
     };
     image_url: string;
-    what_is_bancassurance: {
+    what_is_bancassurance?: {
         title: string;
         subtitle1: string;
         subtitle2: string;

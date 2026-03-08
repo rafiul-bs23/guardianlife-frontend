@@ -36,16 +36,10 @@ export const bancassurance_benefits_sections: BenefitSection[] = [
                 />
             </svg>
         ),
-        title: "Benefits for Bank's Customers",
         image: "assets/images/banca/image 97.png",
         dot_color: "bg-[#E8823A]",
         bg_color: "bg-[#F5E6DC]",
-        points: [
-            "Protects families from the burden of loan repayment after the borrower's death",
-            "Financial relief during permanent disability or severe health conditions",
-            "Health coverage as an add-on benefit with life protection",
-            "Peace of mind with minimal effort and maximum security",
-        ],
+        points: [],
     },
     {
         id: 2,
@@ -55,17 +49,10 @@ export const bancassurance_benefits_sections: BenefitSection[] = [
                 <circle cx="8" cy="8" r="3" fill="#4CAF82" />
             </svg>
         ),
-        title: "Benefits for Banks",
         image: "assets/images/banca/image 98.png",
         dot_color: "bg-[#3B6FD4]",
         bg_color: "bg-[#E8EDF5]",
-        points: [
-            "Increased revenue through insurance sales with minimal investment risk",
-            "Reduced credit risk exposure in mortgage, personal, SME loans, and credit cards",
-            "Better utilization of existing branches and sales channels",
-            "Motivated workforce through commission and incentive opportunities",
-            "Enhanced attractiveness of existing banking products",
-        ],
+        points: [],
     },
 ];
 
@@ -73,29 +60,17 @@ export const service_cards: ServiceCard[] = [
     {
         id: 1,
         image: "assets/images/banca/image 93.png",
-        title: "Customized Solutions",
-        points: [
-            "Customized insurance product design",
-            "Integration with banking products and processes",
-        ],
+        points: [],
     },
     {
         id: 2,
         image: "assets/images/banca/image 94.png",
-        title: "Training & Support",
-        points: [
-            "Training and sales support for bank staff",
-            "Marketing and customer communication assistance",
-        ],
+        points: [],
     },
     {
         id: 3,
         image: "assets/images/banca/image 95.png",
-        title: "Complete Management",
-        points: [
-            "Policy administration and claims management",
-            "Dedicated relationship and support teams",
-        ],
+        points: [],
     },
 ];
 
@@ -106,22 +81,7 @@ export const bank_partners: BankPartner[] = [
 ];
 
 export const mock_why_bancassurance_data = {
-    header: {
-        title: "WHY BANCASSURANCE MATTERS",
-        description: "In an evolving financial landscape, banks are increasingly exposed to credit risk while customers seek greater financial security. Bancassurance bridges this gap by integrating life insurance protection directly into banking products—ensuring continuity, protection, and long-term value for all stakeholders."
-    },
     image_url: "assets/images/banca/image 91.png",
-    what_is_bancassurance: {
-        title: "What is Bancassurance?",
-        subtitle1: "Bancassurance Is A Strategic Collaboration Between Banks And Life Insurance Companies That Enables Banks To Offer Insurance Solutions Through Their Existing Distribution Channels.",
-        subtitle2: "This Partnership Enhances Traditional Banking Products By Embedding Life Insurance Coverage, Helping To:",
-        bullet_points: [
-            "Protect Customers And Their Families Against Financial Uncertainty",
-            "Mitigate Credit Risk Arising From Death, Disability, Or Critical Illness",
-            "Strengthen Long-Term Customer Relationships",
-        ],
-        footer: "When Implemented With The Right Strategy And Operational Excellence, Bancassurance Creates A Win-Win Ecosystem For Customers, Banks, And Insurers Alike."
-    }
 };
 
 export const mock_product_solutions_response: BancaProductsResponse = {
@@ -184,57 +144,20 @@ export const mock_product_solutions_response: BancaProductsResponse = {
     }
 };
 
-export const mock_facilities_data = {
-    header: {
-        title: "Facilities of Bancassurance with Guardian Life",
-        description: "We provide end-to-end Bancassurance support to ensure seamless integration and long-term success"
-    }
-};
+export const mock_facilities_data = {};
 
-export const mock_banca_benefits_data = {
-    header: {
-        title: "Benefits of Bancassurance",
-        description: "Discover how Guardian Life's Bancassurance solutions create value for both customers and banking partners"
-    }
-};
+export const mock_banca_benefits_data = {};
 
-export const mock_product_solutions_data = {
-    header: {
-        title: "Bancassurance Product Solutions",
-        description: "Comprehensive protection solutions designed for diverse banking needs"
-    }
-};
+export const mock_product_solutions_data = {};
 
-export const mock_additional_products_data = [
-    {
-        title: "SME Loan",
-        description1: "Settlement of outstanding liabilities in case of life casualties",
-        description2: null
-    },
-    {
-        title: "Employee Insurance",
-        description1: "Customized insurance solutions bundled with salary or employee accounts",
-        description2: "Comprehensive coverage at minamum cost"
-    }
-];
+// Localized
 
-export const mock_depository_insurance_data = {
-    title: "Depository Insurance Products",
-    description1: "Cash assurance for current and savings accounts",
-    description2: "Customized insurance solutions for DPS and Fixed Deposits"
-};
-
-export const mock_bank_partners_data = {
-    header: {
-        title: "Our Bancassurance Partners",
-        description: "We are proud to collaborate with leading banks in Bangladesh"
-    }
-};
+export const mock_bank_partners_data = {};
 
 export const mock_stats_data = [
-    { id: 1, value: "1,000+", label: "Life Coverage Policies Issued" },
-    { id: 2, value: "500+", label: "Claims Successfully Settled" },
-    { id: 3, value: "Trusted", label: "by Leading Banks & FIs" },
-    { id: 4, value: "Fast", label: "& Transparent Claim Process" },
-    { id: 5, value: "Dedicated", label: "Bancassurance Support Team" },
+    { id: 1, value: "1,000+" },
+    { id: 2, value: "500+" },
+    { id: 3, value: "Trusted" },
+    { id: 4, value: "Fast" },
+    { id: 5, value: "Dedicated" },
 ];
