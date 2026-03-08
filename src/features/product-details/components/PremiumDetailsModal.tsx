@@ -26,9 +26,9 @@ const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, onClo
             <div className="relative bg-white rounded-3xl shadow-xl w-full max-w-[900px] mx-auto p-6 sm:p-8 lg:p-10">
                 <button
                     onClick={onClose}
-                    className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-orange-100 text-[#F37021] hover:bg-orange-200 transition-colors"
+                    className="absolute top-6 right-6 w-[50px] h-[50px] flex items-center justify-center rounded-full bg-orange-100 text-[#F37021] hover:bg-orange-200 transition-colors"
                 >
-                    <X size={20} strokeWidth={2.5} />
+                    <X size={27}/>
                 </button>
 
                 <div className="mb-6">

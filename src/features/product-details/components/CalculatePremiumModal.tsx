@@ -136,9 +136,9 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
         <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-[1428px] mx-auto p-6 sm:p-8 lg:p-12">
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full bg-orange-100 text-orange-500 hover:bg-orange-200 transition-colors"
+            className="absolute top-6 right-6 w-[50px] h-[50px] flex items-center justify-center rounded-full bg-orange-100 text-orange-500 hover:bg-orange-200 transition-colors"
           >
-            <X size={18} />
+            <X size={27} />
           </button>
 
           <div className="mb-8">
@@ -181,7 +181,6 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                 <select value={gender} onChange={e => setGender(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none bg-white">
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
-                  <option value="Other">Other</option>
                 </select>
               </div>
             </div>
