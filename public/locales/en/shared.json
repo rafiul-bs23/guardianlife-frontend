@@ -1,0 +1,87 @@
+{
+    "cashless_network": {
+        "title": "Cashless Hospital Network",
+        "description": "Get Treatment At 100+ Network Hospitals Without Paying Upfront. Our Cashless Facility Ensures You Focus On Recovery, Not Paperwork.",
+        "stats": [
+            {
+                "value": "100+",
+                "label": "Network Hospitals"
+            },
+            {
+                "value": "24/7",
+                "label": "Pre-Authorization"
+            }
+        ],
+        "steps_title": "How Cashless Works:",
+        "steps": [
+            "Show Your Policy Card At Network Hospital",
+            "Hospital Requests Pre-Authorization",
+            "Get Treatment Without Payment"
+        ],
+        "buttons": {
+            "cashless": "Cashless",
+            "hospital_list": "Hospital List"
+        }
+    },
+    "partners": {
+        "title": "OUR MAJOR PARTNERS",
+        "subtitle": "OUR MAJOR PARTNERS",
+        "error_loading": "Failed to load partners"
+    },
+    "app_download": {
+        "title": "DOWNLOAD OUR APP",
+        "subtitle": "The Guardian Life app puts hassle-free coverage in your hands. Download now on Android & iOS to manage your insurance anytime, anywhere.",
+        "buttons": {
+            "google_play": "Google Play",
+            "app_store": "App Store"
+        }
+    },
+    "contact_form": {
+        "titles": {
+            "default": "Get in touch",
+            "card": "Please fill up the form"
+        },
+        "labels": {
+            "full_name": "Full Name",
+            "email": "Email",
+            "phone_number": "Phone number",
+            "applying_position": "Applying Position",
+            "upload_cv": "Upload CV",
+            "message": "Message",
+            "privacy_policy_intro": "You agree to our",
+            "privacy_policy_link": "privacy policy"
+        },
+        "placeholders": {
+            "full_name": "Enter Name Here",
+            "email": "name@company.com",
+            "phone_number": "+88 (017) 000-0000",
+            "applying_position": "Enter Position Here",
+            "upload_cv": "Selection CV (PDF, DOC, DOCX)",
+            "message": "Your message..."
+        },
+        "buttons": {
+            "browse": "Browse",
+            "sending": "Sending...",
+            "send_message": "Send Message"
+        },
+        "messages": {
+            "success_title": "Message sent successfully!",
+            "success_subtitle": "We'll get back to you as soon as possible.",
+            "error_generic": "An unexpected error occurred. Please try again.",
+            "error_submission_failed": "Submission failed. Please try again."
+        },
+        "validation": {
+            "full_name_required": "Full name is required.",
+            "email_required": "Email is required.",
+            "email_invalid": "Please enter a valid email address.",
+            "phone_required": "Phone number is required.",
+            "phone_start_prefix": "Phone number must start with +880.",
+            "phone_length": "Phone number must be 14 characters long.",
+            "phone_invalid": "Please enter a valid Bangladeshi phone number.",
+            "applying_position_required": "Applying position is required.",
+            "cv_required": "Please upload your CV.",
+            "message_required": "Message is required.",
+            "privacy_policy_required": "You must agree to the privacy policy."
+        }
+    }
+}

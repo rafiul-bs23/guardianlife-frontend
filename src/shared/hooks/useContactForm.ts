@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState, useCallback } from 'react';
 import { post_lead } from '../api';
 
@@ -43,62 +44,55 @@ const initial_form: FormData = {
     agreeToPolicy: false,
 };
 
-
-// Assuming you have these defined elsewhere
-// interface FormErrors { ... }
-// interface FormData { ... }
-// interface UseContactFormResult { ... }
-// const initial_form: FormData = { ... };
-// const post_lead = async (payload: any) => { ... };
-
-const validate = (formData: FormData, type: 'lead' | 'job'): FormErrors => {
-    const errors: FormErrors = {};
-
-    if (!formData.fullName.trim()) {
-        errors.fullName = 'Full name is required.';
-    }
-
-    if (!formData.email.trim()) {
-        errors.email = 'Email is required.';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-        errors.email = 'Please enter a valid email address.';
-    }
-
-    if (!formData.phoneNumber.trim()) {
-        errors.phoneNumber = 'Phone number is required.';
-    } else if (!formData.phoneNumber.trim().startsWith('+880')) {
-        errors.phoneNumber = 'Phone number must start with +880.';
-    } else if (formData.phoneNumber.trim().length !== 14) {
-        errors.phoneNumber = 'Phone number must be 14 characters long.';
-    } else if (!/^\+8801[3-9]\d{8}$/.test(formData.phoneNumber.trim())) {
-        errors.phoneNumber = 'Please enter a valid Bangladeshi phone number.';
-    }
-
-    if (type === 'job' && !formData.applyingPosition.trim()) {
-        errors.applyingPosition = 'Applying position is required.';
-    }
-
-    if (type === 'job' && !formData.cv) {
-        errors.cv = 'Please upload your CV.';
-    }
-
-    if (!formData.message.trim()) {
-        errors.message = 'Message is required.';
-    }
-
-    if (!formData.agreeToPolicy) {
-        errors.agreeToPolicy = 'You must agree to the privacy policy.';
-    }
-
-    return errors;
-};
-
 export const useContactForm = (channel: string, type: 'lead' | 'job' = 'lead'): UseContactFormResult => {
+    const { t } = useTranslation('shared');
     const [formData, set_form_data] = useState<FormData>(initial_form);
     const [errors, set_errors] = useState<FormErrors>({});
     const [is_loading, set_is_loading] = useState(false);
     const [success, set_success] = useState(false);
     const [error, set_error] = useState<string | null>(null);
+
+    const validate = useCallback((formData: FormData, type: 'lead' | 'job'): FormErrors => {
+        const errors: FormErrors = {};
+
+        if (!formData.fullName.trim()) {
+            errors.fullName = t('contact_form.validation.full_name_required');
+        }
+
+        if (!formData.email.trim()) {
+            errors.email = t('contact_form.validation.email_required');
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            errors.email = t('contact_form.validation.email_invalid');
+        }
+
+        if (!formData.phoneNumber.trim()) {
+            errors.phoneNumber = t('contact_form.validation.phone_required');
+        } else if (!formData.phoneNumber.trim().startsWith('+880')) {
+            errors.phoneNumber = t('contact_form.validation.phone_start_prefix');
+        } else if (formData.phoneNumber.trim().length !== 14) {
+            errors.phoneNumber = t('contact_form.validation.phone_length');
+        } else if (!/^\+8801[3-9]\d{8}$/.test(formData.phoneNumber.trim())) {
+            errors.phoneNumber = t('contact_form.validation.phone_invalid');
+        }
+
+        if (type === 'job' && !formData.applyingPosition.trim()) {
+            errors.applyingPosition = t('contact_form.validation.applying_position_required');
+        }
+
+        if (type === 'job' && !formData.cv) {
+            errors.cv = t('contact_form.validation.cv_required');
+        }
+
+        if (!formData.message.trim()) {
+            errors.message = t('contact_form.validation.message_required');
+        }
+
+        if (!formData.agreeToPolicy) {
+            errors.agreeToPolicy = t('contact_form.validation.privacy_policy_required');
+        }
+
+        return errors;
+    }, [t]);
 
     const handleChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -134,7 +128,6 @@ export const useContactForm = (channel: string, type: 'lead' | 'job' = 'lead'): 
         try {
             const payload = new FormData();
 
-            // REMOVED 'body.' prefix to match the curl requirements exactly
             payload.append('full_name', formData.fullName.trim());
             payload.append('email', formData.email.trim());
             payload.append('phone', formData.phoneNumber.trim());
@@ -143,7 +136,6 @@ export const useContactForm = (channel: string, type: 'lead' | 'job' = 'lead'): 
             type !== 'job' && payload.append('channel', channel);
             type === 'job' && payload.append('applying_position', formData.applyingPosition.trim());
 
-            // Append file if exists, otherwise empty string
             if (formData.cv) {
                 payload.append('file', formData.cv);
             } else {
@@ -157,15 +149,15 @@ export const useContactForm = (channel: string, type: 'lead' | 'job' = 'lead'): 
                 set_form_data(initial_form);
                 set_errors({});
             } else {
-                set_error(response.message ?? 'Submission failed. Please try again.');
+                set_error(response.message ?? t('contact_form.messages.error_submission_failed'));
             }
         } catch (error) {
             console.log(error);
-            set_error('An unexpected error occurred. Please try again.');
+            set_error(t('contact_form.messages.error_generic'));
         } finally {
             set_is_loading(false);
         }
-    }, [formData, channel, type]);
+    }, [formData, channel, type, t, validate]);
 
     const reset = useCallback(() => {
         set_form_data(initial_form);

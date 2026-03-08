@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { ArrowRight } from 'lucide-react';
 import Button from './Button';
 import { useContactForm } from '../hooks/useContactForm';
@@ -19,10 +20,11 @@ const ContactForm = ({
     subtitle,
     className = '',
 }: ContactFormProps) => {
+    const { t } = useTranslation('shared');
     const { formData, errors, is_loading, success, error, handleChange, handleFileChange, handleSubmit, reset } =
         useContactForm(channel, type);
 
-    const displayTitle = title ?? (variant === 'card' ? 'Please fill up the form' : 'Get in touch');
+    const displayTitle = title ?? (variant === 'card' ? t('contact_form.titles.card') : t('contact_form.titles.default'));
 
     /* ─── input/label styles by variant ─── */
     const inputBase =
@@ -56,8 +58,8 @@ const ContactForm = ({
                 <div className="mb-6 flex items-start gap-3 px-4 py-3 rounded-xl bg-green-50 border border-green-200">
                     <span className="text-green-500 mt-0.5">✓</span>
                     <div>
-                        <p className="text-green-800 font-semibold text-sm">Message sent successfully!</p>
-                        <p className="text-green-700 text-xs mt-0.5">We'll get back to you as soon as possible.</p>
+                        <p className="text-green-800 font-semibold text-sm">{t('contact_form.messages.success_title')}</p>
+                        <p className="text-green-700 text-xs mt-0.5">{t('contact_form.messages.success_subtitle')}</p>
                     </div>
                     <button onClick={reset} className="ml-auto text-green-500 hover:text-green-700 text-lg leading-none">&times;</button>
                 </div>
@@ -74,14 +76,14 @@ const ContactForm = ({
                 {/* Full Name */}
                 <div className="space-y-2">
                     <label className={`${labelBase} flex gap-1`}>
-                        Full Name <span className="text-red-500">*</span>
+                        {t('contact_form.labels.full_name')} <span className="text-red-500">*</span>
                     </label>
                     <input
                         type="text"
                         name="fullName"
                         value={formData.fullName}
                         onChange={handleChange}
-                        placeholder="Enter Name Here"
+                        placeholder={t('contact_form.placeholders.full_name')}
                         className={`${inputBase} ${errors.fullName ? inputError : ''}`}
                     />
                     {errors.fullName && <p className="text-xs text-red-500">{errors.fullName}</p>}
@@ -89,13 +91,13 @@ const ContactForm = ({
 
                 {/* Email */}
                 <div className="space-y-2">
-                    <label className={labelBase}>Email</label>
+                    <label className={labelBase}>{t('contact_form.labels.email')}</label>
                     <input
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="name@company.com"
+                        placeholder={t('contact_form.placeholders.email')}
                         className={`${inputBase} ${errors.email ? inputError : ''}`}
                     />
                     {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
@@ -104,7 +106,7 @@ const ContactForm = ({
                 {/* Phone */}
                 <div className="space-y-2">
                     <label className={`${labelBase} flex gap-1`}>
-                        Phone number <span className="text-red-500">*</span>
+                        {t('contact_form.labels.phone_number')} <span className="text-red-500">*</span>
                     </label>
                     {variant === 'card' ? (
                         <div className="flex gap-3">
@@ -119,7 +121,7 @@ const ContactForm = ({
                                 name="phoneNumber"
                                 value={formData.phoneNumber}
                                 onChange={handleChange}
-                                placeholder="+88 (017) 000-0000"
+                                placeholder={t('contact_form.placeholders.phone_number')}
                                 className={`flex-1 bg-white rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-300 placeholder:text-gray-300 font-medium text-sm ${errors.phoneNumber ? inputError : ''}`}
                             />
                         </div>
@@ -139,7 +141,7 @@ const ContactForm = ({
                                 name="phoneNumber"
                                 value={formData.phoneNumber}
                                 onChange={handleChange}
-                                placeholder="+88 (017) 000-0000"
+                                placeholder={t('contact_form.placeholders.phone_number')}
                                 className="flex-1 px-4 py-3 outline-none text-sm"
                             />
                         </div>
@@ -151,14 +153,14 @@ const ContactForm = ({
                 {type === 'job' && (
                     <div className="space-y-2">
                         <label className={`${labelBase} flex gap-1`}>
-                            Applying Position <span className="text-red-500">*</span>
+                            {t('contact_form.labels.applying_position')} <span className="text-red-500">*</span>
                         </label>
                         <input
                             type="text"
                             name="applyingPosition"
                             value={formData.applyingPosition}
                             onChange={handleChange}
-                            placeholder="Enter Position Here"
+                            placeholder={t('contact_form.placeholders.applying_position')}
                             className={`${inputBase} ${errors.applyingPosition ? inputError : ''}`}
                         />
                         {errors.applyingPosition && <p className="text-xs text-red-500">{errors.applyingPosition}</p>}
@@ -169,7 +171,7 @@ const ContactForm = ({
                 {type === 'job' && (
                     <div className="space-y-2">
                         <label className={`${labelBase} flex gap-1`}>
-                            Upload CV <span className="text-red-500">*</span>
+                            {t('contact_form.labels.upload_cv')} <span className="text-red-500">*</span>
                         </label>
                         <div className="relative">
                             <input
@@ -185,10 +187,10 @@ const ContactForm = ({
                                 className={`${inputBase} flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors ${errors.cv ? inputError : ''}`}
                             >
                                 <span className={formData.cv ? 'text-gray-900' : 'text-gray-400'}>
-                                    {formData.cv ? formData.cv.name : 'Selection CV (PDF, DOC, DOCX)'}
+                                    {formData.cv ? formData.cv.name : t('contact_form.placeholders.upload_cv')}
                                 </span>
                                 <div className="bg-orange-100 text-orange-600 px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider">
-                                    Browse
+                                    {t('contact_form.buttons.browse')}
                                 </div>
                             </label>
                         </div>
@@ -198,13 +200,13 @@ const ContactForm = ({
 
                 {/* Message */}
                 <div className="space-y-2">
-                    <label className={labelBase}>Message</label>
+                    <label className={labelBase}>{t('contact_form.labels.message')}</label>
                     <textarea
                         rows={variant === 'card' ? 6 : 4}
                         name="message"
                         value={formData.message}
                         onChange={handleChange}
-                        placeholder="Your message..."
+                        placeholder={t('contact_form.placeholders.message')}
                         className={`${inputBase} resize-none ${errors.message ? inputError : ''}`}
                     />
                     {errors.message && <p className="text-xs text-red-500">{errors.message}</p>}
@@ -221,9 +223,9 @@ const ContactForm = ({
                         className="mt-0.5 w-4 h-4 rounded text-orange-500 border-gray-300 focus:ring-orange-500 cursor-pointer"
                     />
                     <label htmlFor={`privacy-${channel}`} className="text-sm text-gray-600 cursor-pointer">
-                        You agree to our{' '}
+                        {t('contact_form.labels.privacy_policy_intro')}{' '}
                         <a href="#" className="text-gray-900 underline hover:text-orange-500 transition-colors">
-                            privacy policy
+                            {t('contact_form.labels.privacy_policy_link')}
                         </a>
                         .
                     </label>
@@ -233,7 +235,7 @@ const ContactForm = ({
                 {/* Submit */}
                 <div className="pt-2">
                     <Button
-                        label={is_loading ? 'Sending...' : 'Send Message'}
+                        label={is_loading ? t('contact_form.buttons.sending') : t('contact_form.buttons.send_message')}
                         variant="solid-orange"
                         icon={ArrowRight}
                         onClick={handleSubmit}
@@ -266,5 +268,6 @@ const ContactForm = ({
         </div>
     );
 };
+
 
 export default ContactForm;

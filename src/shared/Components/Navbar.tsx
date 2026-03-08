@@ -6,6 +6,7 @@ import { X, ChevronDown } from 'lucide-react';
 import { MENU_DATA } from '../constants/menuData';
 import type { MenuItem } from '../types/menu';
 import Button from './Button';
+import LanguageToggle from './LanguageToggle';
 
 interface NavbarProps {
     transparent?: boolean;
@@ -145,6 +146,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
                 {/* Right Side Actions */}
                 <div className={`flex items-center ${GAPS.NAVBAR_RIGHT_ACTIONS}`}>
 
+                    <LanguageToggle />
                     <Button
                         label="Login"
                         variant='base'

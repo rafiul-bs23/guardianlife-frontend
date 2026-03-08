@@ -1,8 +1,10 @@
 import React from 'react';
+import { useTranslation } from "react-i18next";
 import { sharedAppDownloadData } from '../api/mockData';
 import AppStoreButtons from './AppStoreButtons';
 
 const AppDownloadSection: React.FC = () => {
+    const { t } = useTranslation('shared');
     const data = sharedAppDownloadData;
 
     return (
@@ -11,10 +13,10 @@ const AppDownloadSection: React.FC = () => {
                 {/* Header */}
                 <div className="mb-12 max-w-[900px] mx-auto">
                     <h2 className="text-3xl font-extrabold text-gray-900 mb-6 uppercase tracking-wider">
-                        {data.title}
+                        {t('app_download.title')}
                     </h2>
                     <p className="text-gray-600 text-lg font-medium leading-relaxed">
-                        {data.subtitle}
+                        {t('app_download.subtitle')}
                     </p>
                 </div>
 
@@ -38,5 +40,6 @@ const AppDownloadSection: React.FC = () => {
         </section>
     );
 };
+
 
 export default AppDownloadSection;

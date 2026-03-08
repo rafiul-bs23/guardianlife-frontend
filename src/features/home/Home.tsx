@@ -1,5 +1,6 @@
 
 
+import { useTranslation } from "react-i18next";
 import HomeHeader from "./components/HomeHeader";
 import GuideYou from "./components/GuideYou";
 import { MOCK_HOME_HEADER_DATA, MOCK_GUIDE_YOU_DATA } from "./api/mockData";
@@ -15,6 +16,7 @@ import ContactForm from "./components/contact.tsx";
 
 const Home = () => {
   const isMobile = useIsMobile();
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen bg-[#F4F4F4] overflow-hidden">
@@ -27,7 +29,7 @@ const Home = () => {
         className="flex flex-col items-center mb-20 overflow-hidden"
       >
         <div className="mt-16 lg:mt-[98px] mb-[60px]">
-          <p className="subheading text-[#1E3161]">sponsored by</p>
+          <p className="subheading text-[#1E3161]">{t('home:sponsored_by')}</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-8 lg:gap-[200px] min-h-[223px] px-4">
           <img
