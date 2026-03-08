@@ -1,4 +1,4 @@
-import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { HeaderData } from '../../../shared/types/header';
 import GenericHeader from '../../../shared/Components/GenericHeader';
 import Button from '../../../shared/Components/Button';
@@ -10,15 +10,17 @@ interface MicroHeaderProps {
 }
 
 const MicroHeader: React.FC<MicroHeaderProps> = ({ data, onScrollToSolutions, onScrollToContact }) => {
+    const { t } = useTranslation('micro');
+
     const actions = (
         <>
             <Button
-                label="About Our Solutions"
+                label={t('header.button_solutions')}
                 variant="outline-white"
                 onClick={onScrollToSolutions}
             />
             <Button
-                label="Get Protected Today"
+                label={t('header.button_contact')}
                 variant="solid-white"
                 onClick={onScrollToContact}
             />

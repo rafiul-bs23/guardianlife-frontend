@@ -13,8 +13,6 @@ const TaxRebate = () => {
             {!isHeaderLoading && headerData && <TaxRebateHeader data={headerData} />}
 
             <InvestmentSectors />
-            {/* <InvestmentSectorsEditor /> */}
-
 
             <>
                 <ThingsToRemember data={MOCK_TAX_REBATE_DETAILS.data.thingsToRemember} />

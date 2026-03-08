@@ -1,11 +1,18 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useMicroImpact } from '../hooks/useMicroImpact';
 import { mockMicroData } from '../api/mockData';
 import { ShieldCheck } from 'lucide-react';
 
 const MicroImpact: React.FC = () => {
+    const { t } = useTranslation('micro');
     const { data: metrics, isLoading, error } = useMicroImpact();
     const staticData = mockMicroData.impactStatic;
+
+    const title = t('impact.title');
+    const subtitle = t('impact.subtitle');
+    const awardsTitle = t('impact.recognition_title');
+    const awards = t('impact.awards', { returnObjects: true }) as typeof staticData.awards;
 
     return (
         <section className="py-24 bg-[#F8FAFC]">
@@ -13,10 +20,10 @@ const MicroImpact: React.FC = () => {
                 {/* Header Section */}
                 <div className="text-center mb-16 space-y-3">
                     <h2 className="text-[26px] font-extrabold text-[#111827] uppercase tracking-wider">
-                        {staticData.title}
+                        {title}
                     </h2>
                     <p className="text-gray-500 text-[14px] font-medium leading-relaxed max-w-[600px] mx-auto opacity-80">
-                        {staticData.subtitle}
+                        {subtitle}
                     </p>
                 </div>
 
@@ -27,7 +34,7 @@ const MicroImpact: React.FC = () => {
                         <div className="h-full rounded-[40px] overflow-hidden shadow-sm border border-gray-100 flex">
                             <img
                                 src={`/${staticData.image}`}
-                                alt="Impact Background"
+                                alt={t('impact.image_alt')}
                                 className="w-full h-full object-cover"
                             />
                         </div>
@@ -47,35 +54,42 @@ const MicroImpact: React.FC = () => {
                                 ))
                             ) : error ? (
                                 <div className="col-span-full p-8 bg-white rounded-[24px] border border-red-100 text-center">
-                                    <p className="text-red-500 font-bold">Failed to load impact metrics</p>
+                                    <p className="text-red-500 font-bold">{t('impact:error_message')}</p>
                                 </div>
                             ) : (
-                                metrics?.map((stat, index) => (
-                                    <div
-                                        key={index}
-                                        className="bg-white rounded-[24px] p-8 border border-[#FDE6D7] flex flex-col items-center text-center gap-1.5 transition-all hover:shadow-md hover:border-primary/20 group"
-                                    >
-                                        <span className={`text-[32px] font-black leading-tight text-[#EB6925]`}>
-                                            {stat.metric}
-                                        </span>
-                                        <h4 className="text-[14px] font-extrabold text-[#111827] uppercase tracking-tight">
-                                            {stat.title}
-                                        </h4>
-                                        <p className="text-gray-400 text-[12px] font-bold leading-relaxed">
-                                            {stat.description}
-                                        </p>
-                                    </div>
-                                ))
+                                metrics?.map((stat, index) => {
+                                    // Localize metric titles/descriptions if available in JSON
+                                    const metricKey = stat.title.toLowerCase().replace(/\s+/g, '_');
+                                    const localizedTitle = t(`impact.metrics.${metricKey}.title`);
+                                    const localizedDesc = t(`impact.metrics.${metricKey}.description`);
+
+                                    return (
+                                        <div
+                                            key={index}
+                                            className="bg-white rounded-[24px] p-8 border border-[#FDE6D7] flex flex-col items-center text-center gap-1.5 transition-all hover:shadow-md hover:border-primary/20 group"
+                                        >
+                                            <span className={`text-[32px] font-black leading-tight text-[#EB6925]`}>
+                                                {stat.metric}
+                                            </span>
+                                            <h4 className="text-[14px] font-extrabold text-[#111827] uppercase tracking-tight">
+                                                {localizedTitle}
+                                            </h4>
+                                            <p className="text-gray-400 text-[12px] font-bold leading-relaxed">
+                                                {localizedDesc}
+                                            </p>
+                                        </div>
+                                    );
+                                })
                             )}
                         </div>
 
                         {/* Awards Section */}
                         <div className="bg-white rounded-[24px] p-8 border border-[#FDE6D7] flex flex-col gap-5">
                             <h4 className="text-[14px] font-extrabold text-[#111827] uppercase tracking-wider opacity-80">
-                                {staticData.awardsTitle}
+                                {awardsTitle}
                             </h4>
                             <div className="space-y-4">
-                                {staticData.awards.map((award, index) => (
+                                {Array.isArray(awards) && awards.map((award, index) => (
                                     <div key={index} className="flex gap-4 items-center">
                                         <div className="w-12 h-12 rounded-2xl bg-[#FEF3C7] flex items-center justify-center shrink-0">
                                             <ShieldCheck className="w-6 h-6 text-[#F59E0B]" />
@@ -98,10 +112,10 @@ const MicroImpact: React.FC = () => {
                 {/* Banner CTA */}
                 <div className="bg-gradient-to-r from-[#EF6925] to-[#F97316] rounded-[32px] p-10 text-center text-white shadow-xl shadow-orange-500/10">
                     <h3 className="text-[20px] font-black mb-2 leading-tight uppercase tracking-wide">
-                        {staticData.bannerTitle}
+                        {t('impact.banner.title')}
                     </h3>
                     <p className="text-white/90 font-bold text-[15px] leading-relaxed">
-                        {staticData.bannerSubtitle}
+                        {t('impact.banner.subtitle')}
                     </p>
                 </div>
             </div>

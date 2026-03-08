@@ -1,0 +1,62 @@
+{
+    "tax_rebate_calculator": "B Tax Rebate Calculator",
+    "investment_sectors_title": "B INVESTMENT SECTORS FOR TAX REBATE",
+    "tax_rebate_hub": "B TAX REBATE",
+    "life_insurance_premium": "B Life Insurance Premium",
+    "investment_stock_exchange": "B Investment in stock exchange, mutual funds or in debentures",
+    "investment_savings_certificates": "B Investment in Savings Certificates",
+    "investment_dps": "B Investment in deposit pension scheme: maximum investment of BDT 60,000 per annum",
+    "investment_dps_mobile": "B Investment in deposit pension scheme",
+    "things_to_remember": {
+        "title": "B THINGS TO REMEMBER",
+        "descriptionPoints": [
+            {
+                "text": "B Payment of a minimum income tax of BDT 5000 is compulsory for the eligible taxpayer irrespective of the rebate amount.",
+                "isBold": true
+            },
+            {
+                "text": "B Invest the amount equal to or greater than the allowable amount in Guardian Life policy before 30th June to get tax rebate.",
+                "isHighlighted": true
+            },
+            {
+                "text": "B Investment on insurance is the maximum amount that you can annually invest in life insurance premium."
+            },
+            {
+                "text": "B Tax rebate is applicable on the premium of any revived lapsed policy."
+            },
+            {
+                "text": "B Any type of insurance, whether life or health, provides the highest tax benefits and financial protection."
+            },
+            {
+                "text": "B Secure your future today with Guardian Life's diverse range of insurance products tailored to meet your unique needs and financial goals. Our policies are designed to offer maximum value and peace of mind for you and your loved ones."
+            }
+        ],
+        "read_more": "B Read More",
+        "collapse": "B Collapse"
+    },
+    "profitable_investment": {
+        "title": "B WHY INVESTING IN GUARDIAN LIFE'S INSURANCE POLICIES IS PROFITABLE?",
+        "points": [
+            {
+                "id": 1,
+                "text": "B MORE THAN 11 MILLION LIVES PROTECTED"
+            },
+            {
+                "id": 2,
+                "text": "B 1300+ CRORES PAID IN CLAIMS"
+            },
+            {
+                "id": 3,
+                "text": "B 98% CLAIM PAYMENT RATIO"
+            },
+            {
+                "id": 4,
+                "text": "B CLAIM SETTLEMENT WITHIN 3-5 DAYS OF THE CLAIM SUBMISSION"
+            },
+            {
+                "id": 5,
+                "text": "B ONLINE CLAIM SUBMISSION THROUGH ACPS PLATFORM"
+            }
+        ]
+    }
+}

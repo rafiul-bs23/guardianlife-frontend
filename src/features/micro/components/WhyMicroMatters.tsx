@@ -1,4 +1,4 @@
-import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { WhyMicroMattersData } from '../types';
 import { Check } from 'lucide-react';
 
@@ -7,16 +7,24 @@ interface WhyMicroMattersProps {
 }
 
 const WhyMicroMatters: React.FC<WhyMicroMattersProps> = ({ data }) => {
+    const { t } = useTranslation('micro');
+
+    // If data is from mock, we use translated version. If it's eventually from API, we'd use 'data' as is.
+    // For now, these are static mock data, so we can prioritize translation.
+    const title = t('why_micro_matters.title');
+    const subtitle = t('why_micro_matters.subtitle');
+    const benefits = t('why_micro_matters.benefits', { returnObjects: true }) as WhyMicroMattersData['benefits'];
+
     return (
         <section className="py-20 bg-white">
             <div className="max-w-[1400px] mx-auto px-4">
                 {/* Header Section */}
                 <div className="text-center mb-16 max-w-[900px] mx-auto">
                     <h2 className="text-3xl font-extrabold text-gray-900 mb-6 uppercase tracking-wider">
-                        {data.title}
+                        {title}
                     </h2>
                     <p className="text-gray-600 text-lg font-medium leading-relaxed">
-                        {data.subtitle}
+                        {subtitle}
                     </p>
                 </div>
 
@@ -35,11 +43,11 @@ const WhyMicroMatters: React.FC<WhyMicroMattersProps> = ({ data }) => {
                     {/* Right: Benefits List */}
                     <div className="flex flex-col gap-8 max-w-[600px]">
                         <h3 className="text-xl font-extrabold text-gray-900 mb-2">
-                            It helps families:
+                            {t('why_micro_matters.list_title')}
                         </h3>
 
                         <div className="space-y-6">
-                            {data.benefits.map((benefit, index) => (
+                            {Array.isArray(benefits) && benefits.map((benefit, index) => (
                                 <div key={index} className="flex gap-5 group">
                                     {/* Orange Checkmark Icon */}
                                     <div className="flex-shrink-0">

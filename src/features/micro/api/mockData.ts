@@ -31,84 +31,52 @@ export const MOCK_HEADER_DATA: HeaderResponse = {
 
 export const mockMicroData: MicroData = {
     whyMicroMatters: {
-        title: "WHY MICROINSURANCE MATTERS",
-        subtitle: "Microinsurance is designed for real lives and real challenges. Because one unexpected event should never destroy a lifetime of hard work.",
+        title: "",
+        subtitle: "",
         image: "assets/images/micro/1.png",
-        benefits: [
-            {
-                title: "Stay Financially Protected",
-                description: "Against Life And Health Risks That Could Devastate Family Finances"
-            },
-            {
-                title: "Access Affordable Insurance",
-                description: "Plans Specifically Designed For Low-Income Households"
-            },
-            {
-                title: "Understand Policies Easily",
-                description: "Simple Terms With Minimal Exclusions And Clear Benefits"
-            },
-            {
-                title: "Feel Secure And Peaceful",
-                description: "Knowing Protection Is There When Life Takes Unexpected Turns"
-            },
-            {
-                title: "Submit Claims Simply",
-                description: "Hassle-Free Process With Fast Settlement And Support"
-            },
-            {
-                title: "Improve Living Standards",
-                description: "Building Financial Resilience And Long-Term Security Over Time"
-            }
-        ]
+        benefits: []
     },
     whyMicroinsurance: {
-        title: "WHY GUARDIAN LIFE'S MICROINSURANCE",
-        subtitle: "Families trust Guardian Life because we go beyond policies.",
+        title: "",
+        subtitle: "",
         cards: [
             {
                 icon: "shield-check",
-                title: "Simplified Products",
-                description: "Designed for everyday people with easy-to-understand terms",
+                title: "",
+                description: "",
                 iconColor: "text-blue-500"
             },
             {
                 icon: "dollar-sign",
-                title: "Affordable Pricing",
-                description: "No hidden costs, transparent and fair pricing for all",
+                title: "",
+                description: "",
                 iconColor: "text-green-500"
             },
             {
                 icon: "zap",
-                title: "Fast Claims",
-                description: "Automated processing for faster settlement when you need it most",
+                title: "",
+                description: "",
                 iconColor: "text-purple-500"
             },
             {
                 icon: "help-circle",
-                title: "24/7 Support",
-                description: "Customer support in Bangla & English whenever you need help",
+                title: "",
+                description: "",
                 iconColor: "text-orange-500"
             }
         ],
-        outcomesTitle: "We focus on outcomes that truly matter:",
-        outcomes: [
-            "Protecting funds",
-            "Reducing financial risk",
-            "Strengthening credit confidence",
-            "Creating long-term value for partners and beneficiaries"
-        ],
+        outcomesTitle: "",
+        outcomes: [],
         image: "assets/images/micro/2.png"
     },
     impactStatic: {
-        title: "OUR IMPACT AT A GLANCE",
-        subtitle: "Behind every number is a family that didn't fall behind.",
+        title: "",
+        subtitle: "",
         image: "assets/images/micro/1.png",
-        awardsTitle: "Recognition & Awards",
-        awards: [
-            { title: "Insurance Asia Awards", description: "Winner 2017, 2018 & 2019" }
-        ],
-        bannerTitle: "One Of The Fastest Claim Settlement Records In The Country",
-        bannerSubtitle: "When Families Need Support Most, We're There With Quick And Reliable Service."
+        awardsTitle: "",
+        awards: [],
+        bannerTitle: "",
+        bannerSubtitle: ""
     }
 };
 

@@ -16,7 +16,7 @@ const LanguageToggle: React.FC = () => {
         <button
             onClick={toggleLanguage}
             className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/20 hover:border-white/50 text-white hover:text-white transition-all duration-300 font-medium text-sm"
-            title={t('common:toggle_language', { defaultValue: 'Toggle Language' })}
+            title={t('common:toggle_language')}
         >
             <Globe size={16} className="text-white" />
             <span>{currentLangLabel}</span>

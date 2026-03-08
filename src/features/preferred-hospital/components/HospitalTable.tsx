@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import Pagination from '../../../shared/Components/Pagination';
 import type { PaginationData } from '../../../shared/types/pagination';
 import type { Hospital, HospitalType } from '../types';
@@ -13,13 +14,6 @@ interface HospitalTableProps {
 }
 
 const is_international = (type: HospitalType) => type === 'international_hospital';
-
-const get_columns = (type: HospitalType): string[] => {
-    if (is_international(type)) {
-        return ['SL', 'Hospital Name', 'Country', 'Address', 'Facilities', 'Contact Details', 'Remark'];
-    }
-    return ['SL', 'Hospital Name', 'Division', 'District', 'Area', 'Address', 'Facilities', 'Contact Details', 'Remark'];
-};
 
 const SkeletonRow = ({ col_count }: { col_count: number }) => (
     <tr className="animate-pulse">
@@ -40,9 +34,36 @@ const HospitalTable = ({
     on_page_change,
     active_type
 }: HospitalTableProps) => {
-    const columns = get_columns(active_type);
+    const { t } = useTranslation('preferred_hospital');
     const intl = is_international(active_type);
     const startIndex = (current_page - 1) * 10;
+
+    const get_columns = (type: HospitalType): { id: string; label: string }[] => {
+        if (is_international(type)) {
+            return [
+                { id: 'sl', label: t('table.col_sl') },
+                { id: 'hospital_name', label: t('table.col_hospital_name') },
+                { id: 'country', label: t('table.col_country') },
+                { id: 'address', label: t('table.col_address') },
+                { id: 'facilities', label: t('table.col_facilities') },
+                { id: 'contact_details', label: t('table.col_contact_details') },
+                { id: 'remark', label: t('table.col_remark') },
+            ];
+        }
+        return [
+            { id: 'sl', label: t('table.col_sl') },
+            { id: 'hospital_name', label: t('table.col_hospital_name') },
+            { id: 'division', label: t('table.col_division') },
+            { id: 'district', label: t('table.col_district') },
+            { id: 'area', label: t('table.col_area') },
+            { id: 'address', label: t('table.col_address') },
+            { id: 'facilities', label: t('table.col_facilities') },
+            { id: 'contact_details', label: t('table.col_contact_details') },
+            { id: 'remark', label: t('table.col_remark') },
+        ];
+    };
+
+    const columns = get_columns(active_type);
 
     return (
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
@@ -53,10 +74,10 @@ const HospitalTable = ({
                         <tr>
                             {columns?.map((col) => (
                                 <th
-                                    key={col}
+                                    key={col.id}
                                     className="px-4 py-3.5 font-semibold whitespace-nowrap text-xs uppercase tracking-wide"
                                 >
-                                    {col}
+                                    {col.label}
                                 </th>
                             ))}
                         </tr>
@@ -83,7 +104,7 @@ const HospitalTable = ({
                                     colSpan={columns?.length}
                                     className="px-4 py-10 text-center text-gray-400 font-medium"
                                 >
-                                    No hospitals found for the selected filters.
+                                    {t('table.empty')}
                                 </td>
                             </tr>
                         ) : (

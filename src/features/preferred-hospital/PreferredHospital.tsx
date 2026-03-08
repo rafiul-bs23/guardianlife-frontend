@@ -1,9 +1,11 @@
+import { useTranslation } from 'react-i18next';
 import PreferredHospitalHeader from "./components/PreferredHospitalHeader";
 import HospitalFilter from "./components/HospitalFilter";
 import HospitalTable from "./components/HospitalTable";
 import { usePreferredHospital } from "./hooks/usePreferredHospital";
 
 const PreferredHospital = () => {
+    const { t } = useTranslation('preferred_hospital');
     const {
         paginated_hospitals,
         is_loading,
@@ -30,10 +32,10 @@ const PreferredHospital = () => {
                 {/* Section Title */}
                 <div className="mb-6">
                     <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-primary">
-                        Find Hospital and Diagnostics
+                        {t('page.title')}
                     </h2>
                     <p className="text-sm text-gray-500 mt-1">
-                        Browse Guardian Life's network of preferred hospitals and diagnostic centres.
+                        {t('page.description')}
                     </p>
                 </div>
 

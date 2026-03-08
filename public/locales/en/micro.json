@@ -1,0 +1,88 @@
+{
+    "header": {
+        "button_solutions": "About Our Solutions",
+        "button_contact": "Get Protected Today"
+    },
+    "why_micro_matters": {
+        "title": "WHY MICROINSURANCE MATTERS",
+        "subtitle": "Microinsurance is designed for real lives and real challenges. Because one unexpected event should never destroy a lifetime of hard work.",
+        "list_title": "It helps families:",
+        "benefits": [
+            {
+                "title": "Stay Financially Protected",
+                "description": "Against Life And Health Risks That Could Devastate Family Finances"
+            },
+            {
+                "title": "Access Affordable Insurance",
+                "description": "Plans Specifically Designed For Low-Income Households"
+            },
+            {
+                "title": "Understand Policies Easily",
+                "description": "Simple Terms With Minimal Exclusions And Clear Benefits"
+            },
+            {
+                "title": "Feel Secure And Peaceful",
+                "description": "Knowing Protection Is There When Life Takes Unexpected Turns"
+            },
+            {
+                "title": "Submit Claims Simply",
+                "description": "Hassle-Free Process With Fast Settlement And Support"
+            },
+            {
+                "title": "Improve Living Standards",
+                "description": "Building Financial Resilience And Long-Term Security Over Time"
+            }
+        ]
+    },
+    "why_guardian_micro": {
+        "title": "WHY GUARDIAN LIFE'S MICROINSURANCE",
+        "subtitle": "Families trust Guardian Life because we go beyond policies.",
+        "features": [
+            {
+                "title": "Simplified Products",
+                "description": "Designed for everyday people with easy-to-understand terms"
+            },
+            {
+                "title": "Affordable Pricing",
+                "description": "No hidden costs, transparent and fair pricing for all"
+            },
+            {
+                "title": "Fast Claims",
+                "description": "Automated processing for faster settlement when you need it most"
+            },
+            {
+                "title": "24/7 Support",
+                "description": "Customer support in Bangla & English whenever you need help"
+            }
+        ],
+        "outcomes_title": "We focus on outcomes that truly matter:",
+        "outcomes": [
+            "Protecting funds",
+            "Reducing financial risk",
+            "Strengthening credit confidence",
+            "Creating long-term value for partners and beneficiaries"
+        ]
+    },
+    "impact": {
+        "title": "OUR IMPACT AT A GLANCE",
+        "subtitle": "Behind every number is a family that didn't fall behind.",
+        "recognition_title": "Recognition & Awards",
+        "awards": [
+            {
+                "title": "Insurance Asia Awards",
+                "description": "Winner 2017, 2018 & 2019"
+            }
+        ],
+        "banner": {
+            "title": "One Of The Fastest Claim Settlement Records In The Country",
+            "subtitle": "When Families Need Support Most, We're There With Quick And Reliable Service."
+        },
+        "error_message": "Failed to load impact metrics"
+    },
+    "products": {
+        "title": "MICROINSURANCE SOLUTIONS WE OFFER",
+        "subtitle": "Comprehensive protection designed for real lives and real challenges, with affordable plans that fit your needs.",
+        "error_prefix": "Failed to load solutions: ",
+        "data_not_found": "Data not found"
+    }
+}

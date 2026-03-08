@@ -1,11 +1,17 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { ProfitableInvestmentData } from '../types';
 
 interface ProfitableInvestmentProps {
     data: ProfitableInvestmentData;
 }
 
-const ProfitableInvestment: React.FC<ProfitableInvestmentProps> = ({ data }) => {
+const ProfitableInvestment: React.FC<ProfitableInvestmentProps> = ({ data: propData }) => {
+    const { t } = useTranslation('tax_rebate');
+
+    const translatedData = t('profitable_investment', { returnObjects: true }) as ProfitableInvestmentData;
+    const data = translatedData?.title ? translatedData : propData;
+
     return (
         <section className="pb-24 pt-10 bg-white">
             <div className="max-w-[1200px] mx-auto px-4">
