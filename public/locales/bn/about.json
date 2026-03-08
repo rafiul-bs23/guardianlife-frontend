@@ -1,0 +1,92 @@
+{
+    "who_we_are": {
+        "title": "B WHO WE ARE",
+        "paragraphs": [
+            "B Guardian Life Insurance Limited commenced its business operations on 1st January 2014 with a clear purpose — to help build a safer and more secure future for the people of Bangladesh.",
+            "B With a paid-up capital of BDT 33.67 Crores and an authorized capital of BDT 200 Crores, Guardian Life has established a strong financial foundation backed by sound governance and prudent risk management.",
+            "B Through spontaneous service, ethical practices, and customer-centric innovation, Guardian Life continues to earn trust across the insurance ecosystem. Our dynamic, caring, and knowledge-driven workforce remains committed to exceeding customer expectations by delivering world-class insurance products and reliable service experiences.",
+            "B Innovation, disciplined investment strategies, and robust risk management remain our core tools for ensuring sustainable growth and maximum financial benefit for our valued customers."
+        ],
+        "stats": [
+            {
+                "value": "BDT 33.67 CR",
+                "label": "B Paid-up Capital"
+            },
+            {
+                "value": "BDT 200 CR",
+                "label": "B Authorized Capital"
+            }
+        ]
+    },
+    "our_journey": {
+        "title": "B OUR JOURNEY",
+        "description": "B Since inception, Guardian Life Insurance Limited has grown steadily to become a respected name in Bangladesh's life insurance industry. Over the years, we have expanded our product portfolio, strengthened our operational capabilities, and embraced digital transformation to serve customers more efficiently.",
+        "cards": [
+            {
+                "title": "B Steady Growth",
+                "description": "B Our journey reflects a consistent commitment to customer satisfaction, technological advancement, and long-term value creation."
+            },
+            {
+                "title": "B Digital Transformation",
+                "description": "B We have embraced digital innovation to serve customers more efficiently and enhance their insurance experience."
+            },
+            {
+                "title": "B Trusted Partner",
+                "description": "B Positioning Guardian Life as a forward-thinking and reliable insurance partner for individuals and organizations."
+            }
+        ]
+    },
+    "mission_vision": {
+        "title": "B OUR MISSION & VISION",
+        "description": "B See how we've helped thousands of families during their most challenging times. These are real experiences from real customers.",
+        "mission": {
+            "title": "B Mission",
+            "description": "B To become the most trusted life insurance brand in Bangladesh, driven by the philosophy of \"Insurance for All.\"",
+            "points": [
+                "B Transform how insurance is sold and perceived in Bangladesh",
+                "B Create a global-standard local insurance brand",
+                "B Shift focus from selling products to delivering meaningful protection",
+                "B Expand insurance awareness through concept-driven engagement"
+            ]
+        },
+        "vision": {
+            "title": "B Vision",
+            "description": "B To change the landscape of the insurance industry in Bangladesh by becoming a torchbearer of ethical growth, innovation, and inclusive protection.",
+            "points": [
+                "B Play an active role in the overall development of the insurance sector",
+                "B Promote inclusive insurance aligned with \"Insurance for All\"",
+                "B Help policyholders build a safer future through world-class products and service excellence"
+            ]
+        }
+    },
+    "our_achievements": {
+        "title": "B OUR ACHIEVEMENTS",
+        "description": "B Each recognition reflects our commitment to excellence, innovation, and customer trust."
+    },
+    "milestones": {
+        "title": "B MILESTONES WE ACHIEVED",
+        "description": "B Since inception, Guardian Life Insurance Limited has consistently progressed through innovation, expansion, and customer-centric transformation. Each milestone represents our dedication to growth, governance, and service excellence."
+    },
+    "governance_trust": {
+        "title": "B Governance & Trust",
+        "description": "B Guardian Life Insurance Limited operates under strong regulatory compliance and ethical governance frameworks. Regulated by the appropriate authorities, we emphasize transparency, accountability, and responsible risk management to safeguard the interests of our policyholders and stakeholders.",
+        "points": [
+            {
+                "title": "B IDRA Regulated",
+                "description": "B Fully compliant with Insurance Development & Regulatory Authority guidelines"
+            },
+            {
+                "title": "B AA3 CRAB Rating",
+                "description": "B Recognized for financial stability and operational excellence"
+            },
+            {
+                "title": "B Risk Management",
+                "description": "B Robust frameworks ensuring policyholder protection and sustainable growth"
+            },
+            {
+                "title": "B Strong Capital Base",
+                "description": "B BDT 33.67 Crores paid-up capital with BDT 200 Crores authorized capital"
+            }
+        ]
+    }
+}
