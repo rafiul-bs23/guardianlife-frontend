@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import Button from "../../shared/Components/Button.tsx";
 
 export interface ProductCardProps {
@@ -13,6 +14,8 @@ const ProductCardCompact = ({
   points = [],
   product_code,
 }: ProductCardProps) => {
+  const { t } = useTranslation('category');
+
   return (
     <div className="w-full max-w-[471px] h-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl shadow-lg overflow-hidden flex flex-col">
 
@@ -45,7 +48,7 @@ const ProductCardCompact = ({
 
         <div className="mt-auto flex justify-center">
           <Button
-            label="View Details"
+            label={t('product_card.view_details')}
             to={`/products/${product_code}`}
           />
         </div>

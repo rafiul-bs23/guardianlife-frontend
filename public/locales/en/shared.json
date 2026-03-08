@@ -36,6 +36,20 @@
             "app_store": "App Store"
         }
     },
+    "product_card": {
+        "badge": "Quick Buy",
+        "view_details": "View Details",
+        "buy_now": "Buy Now",
+        "popup_message": "Log in to your profile and grab your QuickBuy products in seconds. Fast, simple, and hassle-free."
+    },
+    "why_choose_quick_buy": {
+        "title": "Why Choose Quick Buy?",
+        "features": [
+            { "id": 1, "title": "Instant Approval", "description": "Get covered in minutes" },
+            { "id": 2, "title": "Digital Process", "description": "100% paperless" },
+            { "id": 3, "title": "Immediate Coverage", "description": "Protection starts now" }
+        ]
+    },
     "contact_form": {
         "titles": {
             "default": "Get in touch",

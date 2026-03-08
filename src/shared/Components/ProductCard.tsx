@@ -1,5 +1,5 @@
+import { useTranslation } from "react-i18next";
 import { usePopup } from "../context/PopupContext.tsx";
-
 import Button from "./Button.tsx";
 
 export interface ProductCardProps {
@@ -18,13 +18,15 @@ const ProductCardWithActionButton = ({
   product_code,
 }: ProductCardProps) => {
   const { showPopup } = usePopup();
+  const { t } = useTranslation('shared');
+
   return (
     <div className="w-full max-w-[643px] h-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl shadow-lg overflow-hidden flex flex-col">
       {/* Header Section with Quick Buy badge */}
       <div className="relative">
         <div className="absolute top-8 right-8 z-20">
           <span className="bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-medium">
-            Quick Buy
+            {t('product_card.badge')}
           </span>
         </div>
 
@@ -46,7 +48,7 @@ const ProductCardWithActionButton = ({
           {title}
         </p>
 
-        {/*Points */}
+        {/* Points */}
         {points && points.length > 0 && (
           <ul className="space-y-3 mb-6">
             {points.map((point, index) => (
@@ -65,19 +67,18 @@ const ProductCardWithActionButton = ({
           </p>
         )}
 
-        {/* Action Buttons - Using your ActionButton component */}
+        {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 mt-auto pt-8">
           <div className="flex-1">
             <Button
-              label="View Details"
+              label={t('product_card.view_details')}
               to={`/quick-buy-details/${product_code}`}
             />
           </div>
           <div className="flex-1">
             <Button
-              label="Buy Now"
-              onClick={() => showPopup({ title: "", message: "Log in to your profile and grab your QuickBuy products in seconds. Fast, simple, and hassle-free." })}
-
+              label={t('product_card.buy_now')}
+              onClick={() => showPopup({ title: "", message: t('product_card.popup_message') })}
             />
           </div>
         </div>
