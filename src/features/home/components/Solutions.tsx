@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import { useIsMobile } from '../../../shared/hooks/useMediaQuery';
 
+import { useTranslation } from 'react-i18next';
 import { MOCK_OUR_SOLUTIONS_DATA } from '../api/mockData';
 
 const SolutionsComponent = () => {
+  const { t } = useTranslation('home');
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef(null);
   const isMobile = useIsMobile();
@@ -41,24 +43,25 @@ const SolutionsComponent = () => {
           <h5
             className="subheading"
           >
-            {MOCK_OUR_SOLUTIONS_DATA.title}
+            {t('solutions.title')}
           </h5>
 
           <h2
             className="heading mb-6 max-w-[600px]"
           >
-            {MOCK_OUR_SOLUTIONS_DATA.heading.map((item, index) => (
-              <span key={index} style={{ color: item.color }} className={item.color === '#f97316' ? 'text-primary' : ''}>
-                {item.text}
-              </span>
-            ))}
+            {t('solutions.heading')}
           </h2>
 
           {/* Tab Navigation */}
           <div className="flex flex-row items-center gap-4 lg:gap-4 flex-wrap">
             <div className="w-[10%] lg:w-8 h-[2px] bg-[#1E3161]" />
             <div className="flex items-center gap-4 lg:gap-4 flex-wrap w-[80%] lg:w-auto">
-              {MOCK_OUR_SOLUTIONS_DATA.solutions.map((solution, index) => (
+              {[
+                { id: 0, title: t('solutions.tabs.for_you') },
+                { id: 1, title: t('solutions.tabs.for_your_family') },
+                { id: 2, title: t('solutions.tabs.retirement') },
+                { id: 3, title: t('solutions.tabs.islamic') },
+              ].map((solution, index) => (
                 <button
                   key={solution.id}
                   onClick={() => setActiveIndex(index)}
@@ -136,7 +139,12 @@ const SolutionsComponent = () => {
 
                       <div className="absolute bottom-10 left-10">
                         <h3 className="text-white text-xl md:text-2xl uppercase tracking-wider">
-                          {solution.title}
+                          {[
+                            t('solutions.tabs.for_you'),
+                            t('solutions.tabs.for_your_family'),
+                            t('solutions.tabs.retirement'),
+                            t('solutions.tabs.islamic')
+                          ][index]}
                         </h3>
                       </div>
                     </div>

@@ -5,8 +5,10 @@ import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { MOCK_PARTNER_BANKS_DATA } from '../api/mockData';
 import Card from '../../../shared/Components/Card';
+import { useTranslation } from 'react-i18next';
 
 const PartnerBanks = () => {
+  const { t } = useTranslation('home');
   const ref = useRef(null);
   const isMobile = useIsMobile();
   const isInView = useInView(ref, { once: true, amount: isMobile ? 0.1 : 0.2 });
@@ -44,15 +46,11 @@ const PartnerBanks = () => {
           className="text-center mb-12"
         >
           <h3 className="text-sm font-semibold text-gray-600 tracking-wide mb-4 uppercase">
-            {MOCK_PARTNER_BANKS_DATA.title}
+            {t('partners_bank.title')}
           </h3>
 
           <h2 className="text-3xl font-bold text-gray-800">
-            {MOCK_PARTNER_BANKS_DATA.heading.map((item, index) => (
-              <span key={index} className={item.color === '#f97316' ? 'text-orange-500' : ''}>
-                {item.text}
-              </span>
-            ))}
+            {t('partners_bank.heading')}
           </h2>
         </motion.div>
 

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useIsMobile } from '../../../shared/hooks/useMediaQuery';
 import AppStoreButtons from '../../../shared/Components/AppStoreButtons';
+import { useTranslation } from 'react-i18next';
 import { MOCK_APP_PROMOTION_DATA } from '../api/mockData';
 
 /* ─── Direction-aware scroll reveal ───
@@ -38,6 +39,7 @@ const useScrollReveal = (threshold: number) => {
 };
 
 const AppPromotion = () => {
+  const { t } = useTranslation('home');
   const isMobile = useIsMobile();
   const [topRef, isTopVisible] = useScrollReveal(isMobile ? 0.5 : 0.8);
   const [bottomRef, isBottomVisible] = useScrollReveal(0.2);
@@ -54,19 +56,15 @@ const AppPromotion = () => {
         {/* Header Section */}
         <div className="text-center mb-8">
           <h3 className="text-sm font-semibold text-gray-600 tracking-wide mb-3">
-            {MOCK_APP_PROMOTION_DATA.title}
+            {t('promotion.title')}
           </h3>
 
           <h2 className="text-4xl font-bold mb-4">
-            {MOCK_APP_PROMOTION_DATA.heading.map((item, index) => (
-              <span key={index} style={{ color: item.color }} className={item.color === '#f97316' ? 'text-orange-500' : ''}>
-                {item.text}
-              </span>
-            ))}
+            {t('promotion.heading')}
           </h2>
 
           <p className="text-gray-700 text-lg max-w-3xl mx-auto leading-relaxed whitespace-pre-line">
-            {MOCK_APP_PROMOTION_DATA.description}
+            {t('promotion.description')}
           </p>
         </div>
         <AppStoreButtons className='flex flex-col sm:flex-row gap-4 justify-center items-center' />

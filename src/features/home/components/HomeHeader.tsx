@@ -4,6 +4,7 @@ import type { HeaderData } from '../../../shared/types/header';
 import GenericHeader from '../../../shared/Components/GenericHeader';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 interface MetricBadgeProps {
     icon: React.ReactNode;
@@ -52,6 +53,8 @@ interface HomeHeaderProps {
 }
 
 const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
+    const { t } = useTranslation('home');
+
     return (
         <GenericHeader data={data} variant="immersive" className='min-h-[600px] lg:min-h-[780px] max-h-[600px] lg:max-h-[780px]'>
             <div className="absolute top-0 left-0 w-full h-full min-h-[600px] lg:min-h-[780px]  flex flex-col items-center justify-center px-4 overflow-hidden">
@@ -62,7 +65,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                 {/* Central Section: Question and Search */}
                 <div className="hidden absolute top-[25%] md:top-[20%] z-30 flex flex-col items-center gap-8 w-full max-w-4xl text-center mb-12">
                     <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white drop-shadow-lg">
-                        How can we help?
+                        {t('header.help_question')}
                     </h2>
 
                     <div className="relative w-[96%] md:w-full max-w-2xl group">
@@ -71,7 +74,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                         </div>
                         <input
                             type="text"
-                            placeholder="How to claim online.."
+                            placeholder={t('header.search_placeholder')}
                             className="w-full bg-black/30 backdrop-blur-md border border-white/30 rounded-full py-4 pl-16 pr-8 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-orange-500/50 transition-all text-lg"
                         />
                     </div>
@@ -91,7 +94,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                             <MetricBadge
                                 icon={<ShieldCheck size={28} className="md:size-8 lg:size-10" />}
                                 value="98%"
-                                label="Pay-Claim Ratio"
+                                label={t('header.pay_claim_ratio')}
                                 size="lg"
                             />
                         </motion.div>
@@ -106,7 +109,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                             <MetricBadge
                                 icon={<Wallet size={28} className="md:size-8 lg:size-10" />}
                                 value="1.2 Cr"
-                                label="Live Coverage"
+                                label={t('header.live_coverage')}
                                 size="md"
                             />
                         </motion.div>
@@ -140,7 +143,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                                 ))}
                                 <MetricBadge
                                     icon={<Zap size={32} className="md:size-10 lg:size-14" />}
-                                    value="Quick Buy"
+                                    value={t('header.quick_buy')}
                                     label=""
                                     size="lg"
                                     className="!text-[#FFD700] relative z-10"
@@ -158,7 +161,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                             <MetricBadge
                                 icon={<ShieldAlert size={28} className="md:size-8 lg:size-10" />}
                                 value="3 Days"
-                                label="Claim Settlement"
+                                label={t('header.claim_settlement')}
                                 size="sm"
                             />
                         </motion.div>
@@ -181,7 +184,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                                 },
                             }}
                         >
-                            {"LET'S TALK ABOUT LIFE. MORE!".split(" ").map((word, wordIndex) => (
+                            {t('header.hero_text').split(" ").map((word, wordIndex) => (
                                 <span key={wordIndex} className="inline-block whitespace-nowrap">
                                     {word.split("").map((char, charIndex) => (
                                         <motion.span
@@ -200,7 +203,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                                         </motion.span>
                                     ))}
                                     {/* Add space after each word except the last one */}
-                                    {wordIndex < "LET'S TALK ABOUT LIFE. MORE!".split(" ").length - 1 && (
+                                    {wordIndex < t('header.hero_text').split(" ").length - 1 && (
                                         <span className="whitespace-pre"> </span>
                                     )}
                                 </span>
@@ -216,7 +219,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                     transition={{ duration: 1, delay: 2.5 }}
                     className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 z-30"
                 >
-                    <span className="text-[10px] font-bold text-primary uppercase tracking-widest">Scroll</span>
+                    <span className="text-[10px] font-bold text-primary uppercase tracking-widest">{t('header.scroll')}</span>
                     <div className="w-10 h-10 rounded-full border border-primary flex items-center justify-center text-primary transition-colors hover:bg-orange-50 cursor-pointer">
                         <ChevronDown size={22} className="animate-bounce mt-1" />
                     </div>

@@ -1,3 +1,51 @@
 {
-    "sponsored_by": "B sponsored by"
+    "sponsored_by": "B sponsored by",
+    "header": {
+        "help_question": "B How can we help?",
+        "search_placeholder": "B How to claim online..",
+        "pay_claim_ratio": "B Pay-Claim Ratio",
+        "live_coverage": "B Live Coverage",
+        "quick_buy": "B Quick Buy",
+        "claim_settlement": "B Claim Settlement",
+        "hero_text": "B LET'S TALK ABOUT LIFE. MORE!",
+        "scroll": "B Scroll"
+    },
+    "guide_you": {
+        "title": "B May i guide you",
+        "description": "B Let our AI Assistant help you find the best policy — just answer a few quick questions!",
+        "button": "B AI ASSISTANT"
+    },
+    "solutions": {
+        "title": "B OUR SOLUTIONS",
+        "heading": "B SECURE YOUR FAMILY'S FUTURE, PLAN YOUR RETIREMENT, OR PROTECT YOUR HEALTH— WE'VE GOT YOU COVERED.",
+        "tabs": {
+            "for_you": "B For You",
+            "for_your_family": "B For Your Family",
+            "retirement": "B Retirement",
+            "islamic": "B Islamic"
+        }
+    },
+    "partners_bank": {
+        "title": "B OUR PARTNERS BANK",
+        "heading": "B DROP BY A PARTNER BANK OR HOP ONLINE TO EXPLORE AND GRAB YOUR GUARDIAN LIFE INSURANCE PLAN—SIMPLE AND TAILORED FOR YOU."
+    },
+    "business_partners": {
+        "title": "B Power up your business with\nGuardian Life Insurance.",
+        "description": "B Join 450+ organizations that trust us —\nthe industry leader in group coverage.\nThe best choice to protect and\nempower your employees.",
+        "button": "B Explore Opportunities"
+    },
+    "empowering_families": {
+        "title": "B Empowering Families with\nGuardian Life Insurance.",
+        "description": "B Join 10,000+ families that trust us —\nthe industry leader in microinsurance.\nAffordable protection for all —\nempowering underserved communities.",
+        "button": "B Check Services"
+    },
+    "promotion": {
+        "title": "B OUR AMAZING NEW APP",
+        "heading": "B SEAMLESS INSURANCE AT YOUR FINGERTIPS",
+        "description": "B THE GUARDIAN LIFE APP PUTS HASSLE-FREE COVERAGE IN YOUR HANDS.\nDOWNLOAD NOW ON ANDROID & IOS TO MANAGE YOUR INSURANCE ANYTIME, ANYWHERE."
+    },
+    "contact": {
+        "title": "B Get in touch",
+        "subtitle": "B Our team would love to hear from you."
+    }
 }

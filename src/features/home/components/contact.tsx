@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useIsMobile } from "../../../shared/hooks/useMediaQuery";
 
 import ContactForm from '../../../shared/Components/ContactForm';
+import { useTranslation } from 'react-i18next';
 
 const useScrollReveal = (threshold: number) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -31,6 +32,7 @@ const useScrollReveal = (threshold: number) => {
 };
 
 const ContactSection = () => {
+  const { t } = useTranslation('home');
   const isMobile = useIsMobile();
   const [ref, isVisible] = useScrollReveal(isMobile ? 0.1 : 0.5);
 
@@ -60,8 +62,8 @@ const ContactSection = () => {
         <ContactForm
           channel="home"
           variant="flat"
-          title="Get in touch"
-          subtitle="Our team would love to hear from you."
+          title={t('contact.title')}
+          subtitle={t('contact.subtitle')}
           className="p-6 sm:p-12 lg:p-16 lg:mr-16"
         />
       </motion.div>

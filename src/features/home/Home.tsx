@@ -16,7 +16,7 @@ import ContactForm from "./components/contact.tsx";
 
 const Home = () => {
   const isMobile = useIsMobile();
-  const { t } = useTranslation();
+  const { t } = useTranslation('home');
 
   return (
     <div className="min-h-screen bg-[#F4F4F4] overflow-hidden">
