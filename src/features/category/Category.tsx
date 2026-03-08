@@ -78,8 +78,7 @@ const Category = () => {
         <div className="flex flex-col items-center mt-12 lg:mt-[73px] px-4 lg:px-0">
           <Contentheader
             title="for your insurance solutions"
-            description="Working on guardianlife project:
-          working on group page."
+            description="Comprehensive protection plans tailored to your needs. Submit your application and let our experts guide you through the process."
           />
 
           {isRetailLoading ? (
@@ -90,11 +89,11 @@ const Category = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 justify-items-center mt-12 lg:mt-[84px] w-full max-w-7xl">
               {retailProducts?.map((product) => (
                 <ProductCardCompact
-                  key={product.productCode}
-                  thumbnailUrl={product.thumbnailUrl}
+                  key={product.product_code}
+                  thumbnailUrl={product.thumbnail_url}
                   title={product.title}
                   points={product.points}
-                  productCode={product.productCode}
+                  productCode={product.product_code}
                 />
               ))}
               {(!retailProducts || retailProducts.length === 0) && (
@@ -120,12 +119,12 @@ const Category = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 justify-items-center mt-12 lg:mt-[84px] w-full max-w-7xl">
               {digitalProducts?.map((product) => (
                 <ProductCard
-                  key={product.productCode}
-                  thumbnailUrl={product.thumbnailUrl}
+                  key={product.product_code}
+                  thumbnailUrl={product.thumbnail_url}
                   title={product.title}
                   points={product.points}
                   description={product.description}
-                  productCode={product.productCode}
+                  productCode={product.product_code}
                 />
               ))}
               {(!digitalProducts || digitalProducts.length === 0) && (

@@ -1,8 +1,8 @@
 export interface CategoryProduct {
     title: string;
-    productCode: string;
+    product_code: string;
     logoUrl: string | null;
-    thumbnailUrl: string;
+    thumbnail_url: string;
     description: string;
     footer: string | null;
     points: string[];
