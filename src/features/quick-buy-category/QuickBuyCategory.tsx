@@ -37,12 +37,12 @@ const QuickBuyCategory = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center mt-12 lg:mt-[84px] w-full max-w-7xl">
             {termLifeProducts?.map((product) => (
               <ProductCard
-                key={product.productCode}
-                thumbnailUrl={product.thumbnailUrl}
+                key={product.product_code}
+                thumbnailUrl={product.thumbnail_url}
                 title={product.title}
                 points={product.points}
                 description={product.description}
-                productCode={product.productCode}
+                productCode={product.product_code}
               />
             ))}
             {(!termLifeProducts || termLifeProducts.length === 0) && (
@@ -62,12 +62,12 @@ const QuickBuyCategory = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center mt-12 lg:mt-[84px] w-full max-w-7xl">
             {savingsProducts?.map((product) => (
               <ProductCard
-                key={product.productCode}
-                thumbnailUrl={product.thumbnailUrl}
+                key={product.product_code}
+                thumbnailUrl={product.thumbnail_url}
                 title={product.title}
                 points={product.points}
                 description={product.description}
-                productCode={product.productCode}
+                productCode={product.product_code}
               />
             ))}
             {(!savingsProducts || savingsProducts.length === 0) && (
@@ -87,12 +87,12 @@ const QuickBuyCategory = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center mt-12 lg:mt-[84px] w-full max-w-7xl">
             {specialPlansProducts?.map((product) => (
               <ProductCard
-                key={product.productCode}
-                thumbnailUrl={product.thumbnailUrl}
+                key={product.product_code}
+                thumbnailUrl={product.thumbnail_url}
                 title={product.title}
                 points={product.points}
                 description={product.description}
-                productCode={product.productCode}
+                productCode={product.product_code}
               />
             ))}
             {(!specialPlansProducts || specialPlansProducts.length === 0) && (
