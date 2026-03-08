@@ -1,9 +1,11 @@
+import { useTranslation } from 'react-i18next';
 import LocateBranchHeader from "./components/LocateBranchHeader";
 import BranchFilter from "./components/BranchFilter";
 import BranchTable from "./components/BranchTable";
 import { useLocateBranch } from "./hooks/useLocateBranch";
 
 const LocateBranch = () => {
+    const { t } = useTranslation('locate_branch');
     const {
         branches,
         pagination,
@@ -23,10 +25,10 @@ const LocateBranch = () => {
                 {/* Section Title */}
                 <div className="mb-6">
                     <h2 className="text-2xl font-bold text-gray-800 uppercase tracking-tight">
-                        Find a Branch
+                        {t('page.title')}
                     </h2>
                     <p className="text-sm text-gray-500 mt-1">
-                        Use the filters below to locate a Guardian Life branch near you.
+                        {t('page.description')}
                     </p>
                 </div>
 

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import Pagination from '../../../shared/Components/Pagination';
 import type { PaginationData } from '../../../shared/types/pagination';
 import type { Branch } from '../types';
@@ -29,6 +30,7 @@ const BranchTable = ({
     currentPage,
     onPageChange,
 }: BranchTableProps) => {
+    const { t } = useTranslation('locate_branch');
     const startIndex = pagination ? (currentPage - 1) * 10 : 0;
 
     return (
@@ -39,21 +41,21 @@ const BranchTable = ({
                     <thead className="bg-primary text-white">
                         <tr>
                             {[
-                                'SL',
-                                'Office Category',
-                                'Office Name',
-                                'Division',
-                                'District',
-                                'Area',
-                                'Address',
-                                'Contact Person',
-                                'View On Map',
+                                { key: 'sl', label: t('table.headers.sl') },
+                                { key: 'category', label: t('table.headers.category') },
+                                { key: 'name', label: t('table.headers.name') },
+                                { key: 'division', label: t('table.headers.division') },
+                                { key: 'district', label: t('table.headers.district') },
+                                { key: 'area', label: t('table.headers.area') },
+                                { key: 'address', label: t('table.headers.address') },
+                                { key: 'contact', label: t('table.headers.contact') },
+                                { key: 'map', label: t('table.headers.map') },
                             ].map((col) => (
                                 <th
-                                    key={col}
+                                    key={col.key}
                                     className="px-4 py-3.5 font-semibold whitespace-nowrap text-xs uppercase tracking-wide"
                                 >
-                                    {col}
+                                    {col.label}
                                 </th>
                             ))}
                         </tr>
@@ -76,7 +78,7 @@ const BranchTable = ({
                                     colSpan={9}
                                     className="px-4 py-10 text-center text-gray-400 font-medium"
                                 >
-                                    No branches found for the selected filters.
+                                    {t('table.no_branches')}
                                 </td>
                             </tr>
                         ) : (
@@ -149,7 +151,7 @@ const BranchTable = ({
                                                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                                                 />
                                             </svg>
-                                            Map
+                                            {t('table.map_btn')}
                                         </a>
                                     </td>
                                 </tr>

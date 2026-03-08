@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import type { BranchQueryParams } from '../types';
 
 interface BranchFilterProps {
@@ -7,6 +8,7 @@ interface BranchFilterProps {
 }
 
 const BranchFilter = ({ filters, onFilterChange, onReset }: BranchFilterProps) => {
+    const { t } = useTranslation('locate_branch');
     const handleQueryChange = (value: string) => {
         onFilterChange({ ...filters, query: value || undefined });
     };
@@ -17,7 +19,7 @@ const BranchFilter = ({ filters, onFilterChange, onReset }: BranchFilterProps) =
                 {/* Search Query */}
                 <div className="flex-1 flex flex-col gap-1.5 w-full">
                     <label className="text-xs font-bold text-gray-500 uppercase tracking-widest px-1">
-                        Search Branches
+                        {t('filter.label')}
                     </label>
                     <div className="relative">
                         <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
@@ -27,7 +29,7 @@ const BranchFilter = ({ filters, onFilterChange, onReset }: BranchFilterProps) =
                         </div>
                         <input
                             type="text"
-                            placeholder="Search by name, category, division, district, area or address..."
+                            placeholder={t('filter.placeholder')}
                             value={filters.query ?? ''}
                             onChange={(e) => handleQueryChange(e.target.value)}
                             className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all bg-gray-50/30"
@@ -54,7 +56,7 @@ const BranchFilter = ({ filters, onFilterChange, onReset }: BranchFilterProps) =
                             d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
                         />
                     </svg>
-                    Reset
+                    {t('filter.reset_btn')}
                 </button>
             </div>
         </div>

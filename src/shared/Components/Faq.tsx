@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useFaq } from '../hooks/useFaq';
 import type { FaqItem } from '../types/faq';
 
@@ -9,11 +10,15 @@ interface FAQProps {
 
 // FAQ Component
 const FAQ: React.FC<FAQProps> = ({
-  title = "FREQUENTLY ASKED QUESTIONS",
-  subtitle = "Get answers to common questions about Guardian Life insurance products and services.",
+  title,
+  subtitle,
 }) => {
+  const { t } = useTranslation('faq');
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const { data: faqs, isLoading, error } = useFaq();
+
+  const displayTitle = title || t('default.title');
+  const displaySubtitle = subtitle || t('default.subtitle');
 
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -31,7 +36,7 @@ const FAQ: React.FC<FAQProps> = ({
     return (
       <div className="w-full mx-auto px-4 py-16 bg-[#EFF0F1] flex justify-center items-center min-h-[400px]">
         <div className="text-red-500 text-center">
-          <p className="text-xl font-semibold mb-2">Failed to load FAQs</p>
+          <p className="text-xl font-semibold mb-2">{t('default.error_title')}</p>
           <p>{error}</p>
         </div>
       </div>
@@ -43,10 +48,10 @@ const FAQ: React.FC<FAQProps> = ({
       {/* Header Section */}
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-gray-900 mb-4">
-          {title}
+          {displayTitle}
         </h2>
         <p className="text-gray-600 text-lg">
-          {subtitle}
+          {displaySubtitle}
         </p>
       </div>
 
