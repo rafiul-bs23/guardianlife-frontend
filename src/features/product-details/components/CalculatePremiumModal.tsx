@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Info, Check } from 'lucide-react';
 import PremiumDetailsModal from './PremiumDetailsModal';
+import Button from "../../../shared/Components/Button.tsx";
 
 interface CalculatePremiumModalProps {
   isOpen: boolean;
@@ -178,7 +179,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
-                <input type="text" placeholder="30" value={age} disabled className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-gray-50 text-gray-500 cursor-not-allowed outline-none" />
+                <input type="text" placeholder="0" value={age} disabled className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-gray-50 text-gray-500 cursor-not-allowed outline-none" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Gender <span className="text-red-500">*</span></label>
@@ -192,15 +193,10 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
             {/* Process Button */}
             {!isProcessed && (
               <div className="flex justify-center pt-4">
-                <button
+                <Button
+                  label="Process"
                   onClick={() => setIsProcessed(true)}
-                  className="bg-[#F37021] text-white px-8 py-3 rounded-full font-semibold flex items-center gap-3 hover:bg-[#E06015] transition-colors"
-                >
-                  Process
-                  <div className="bg-white text-[#F37021] rounded-full p-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
-                  </div>
-                </button>
+                />
               </div>
             )}
 
@@ -438,15 +434,10 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
           {/* Footer */}
           {isProcessed && (
             <div className="mt-8 flex justify-center">
-              <button
+              <Button
+                label="Check Premium"
                 onClick={() => setIsDetailsModalOpen(true)}
-                className="bg-[#F37021] text-white px-8 py-3 rounded-full font-semibold flex items-center gap-3 hover:bg-[#E06015] transition-colors"
-              >
-                Check Premium
-                <div className="bg-white text-[#F37021] rounded-full p-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
-                </div>
-              </button>
+              />
             </div>
           )}
         </div>
