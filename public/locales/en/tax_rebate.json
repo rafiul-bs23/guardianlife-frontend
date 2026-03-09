@@ -1,0 +1,62 @@
+{
+    "tax_rebate_calculator": "Tax Rebate Calculator",
+    "investment_sectors_title": "INVESTMENT SECTORS FOR TAX REBATE",
+    "tax_rebate_hub": "TAX REBATE",
+    "life_insurance_premium": "Life Insurance Premium",
+    "investment_stock_exchange": "Investment in stock exchange, mutual funds or in debentures",
+    "investment_savings_certificates": "Investment in Savings Certificates",
+    "investment_dps": "Investment in deposit pension scheme: maximum investment of BDT 60,000 per annum",
+    "investment_dps_mobile": "Investment in deposit pension scheme",
+    "things_to_remember": {
+        "title": "THINGS TO REMEMBER",
+        "descriptionPoints": [
+            {
+                "text": "Payment of a minimum income tax of BDT 5000 is compulsory for the eligible taxpayer irrespective of the rebate amount.",
+                "isBold": true
+            },
+            {
+                "text": "Invest the amount equal to or greater than the allowable amount in Guardian Life policy before 30th June to get tax rebate.",
+                "isHighlighted": true
+            },
+            {
+                "text": "Investment on insurance is the maximum amount that you can annually invest in life insurance premium."
+            },
+            {
+                "text": "Tax rebate is applicable on the premium of any revived lapsed policy."
+            },
+            {
+                "text": "Any type of insurance, whether life or health, provides the highest tax benefits and financial protection."
+            },
+            {
+                "text": "Secure your future today with Guardian Life's diverse range of insurance products tailored to meet your unique needs and financial goals. Our policies are designed to offer maximum value and peace of mind for you and your loved ones."
+            }
+        ],
+        "read_more": "Read More",
+        "collapse": "Collapse"
+    },
+    "profitable_investment": {
+        "title": "WHY INVESTING IN GUARDIAN LIFE'S INSURANCE POLICIES IS PROFITABLE?",
+        "points": [
+            {
+                "id": 1,
+                "text": "MORE THAN 11 MILLION LIVES PROTECTED"
+            },
+            {
+                "id": 2,
+                "text": "1300+ CRORES PAID IN CLAIMS"
+            },
+            {
+                "id": 3,
+                "text": "98% CLAIM PAYMENT RATIO"
+            },
+            {
+                "id": 4,
+                "text": "CLAIM SETTLEMENT WITHIN 3-5 DAYS OF THE CLAIM SUBMISSION"
+            },
+            {
+                "id": 5,
+                "text": "ONLINE CLAIM SUBMISSION THROUGH ACPS PLATFORM"
+            }
+        ]
+    }
+}

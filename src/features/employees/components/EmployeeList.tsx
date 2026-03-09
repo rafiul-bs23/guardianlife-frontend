@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Search } from 'lucide-react';
 import { useEmployees } from '../hooks/useEmployees';
 import EmployeeCard from './EmployeeCard';
 
 const EmployeeList: React.FC = () => {
+    const { t } = useTranslation('employees');
     const [searchQuery, setSearchQuery] = useState('');
     const [debouncedQuery, setDebouncedQuery] = useState('');
 
@@ -21,7 +23,7 @@ const EmployeeList: React.FC = () => {
         <section className="py-16 px-4 max-w-full mx-auto ">
             <div className="text-center mb-12">
                 <h2 className="text-4xl font-extrabold text-[#212529] mb-8 uppercase">
-                    GUARDIAN EMPLOYEE LIST
+                    {t('list.section_title')}
                 </h2>
 
                 <div className="relative max-w-xl mx-auto">
@@ -30,7 +32,7 @@ const EmployeeList: React.FC = () => {
                     </div>
                     <input
                         type="text"
-                        placeholder="Search"
+                        placeholder={t('list.search_placeholder')}
                         className="w-full bg-gray-300 border-none rounded-2xl py-3 pl-12 pr-4 text-[#495057] focus:ring-2 focus:ring-[#EB6925] outline-none transition-all"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
@@ -58,7 +60,7 @@ const EmployeeList: React.FC = () => {
 
                     {(!employees || employees.length === 0) && (
                         <div className="text-center py-20 text-[#6C757D] bg-white">
-                            No employees found matching your search.
+                            {t('list.empty_state')}
                         </div>
                     )}
                 </>

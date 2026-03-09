@@ -213,7 +213,7 @@ export const MOCK_ERROR_DATA: ProductErrorResponse = {
     message: "Failed to fetch product details.",
     errors: [
         {
-            field: "productCode",
+            field: "product_code",
             message: "Product not found or invalid product code."
         }
     ]

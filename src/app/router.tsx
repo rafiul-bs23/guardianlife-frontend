@@ -33,7 +33,7 @@ import Career from "../features/career/Career.tsx";
 
 export const NAV_ROUTES = [
   { path: "/", label: "Home", element: <Home /> },
-  { path: "/category", label: "Category", element: <Category /> },
+  { path: "/category/:categoryName?", label: "Category", element: <Category /> },
   { path: "/products/:product_code", label: "Product Details", element: <ProductDetails /> },
   { path: "/quick-buy-category", label: "Quick Buy Category", element: <QuickBuyCategory /> },
   { path: "/quick-buy-details/:product_code", label: "Quick Buy Details", element: <QuickBuyDetails /> },
@@ -41,7 +41,7 @@ export const NAV_ROUTES = [
   { path: "/claim", label: "Claim", element: <Claim /> },
   { path: "/micro", label: "Micro", element: <Micro /> },
   { path: "/banca", label: "Banca", element: <Banca /> },
-  { path: "/banca/:bank_name", label: "Banca City", element: <BancaCity /> },
+  { path: "/banca/:bank_code", label: "Banca City", element: <BancaCity /> },
   { path: "/about", label: "About", element: <About /> },
   { path: "/chairman", label: "Chairman", element: <Chairman /> },
   { path: "/contact", label: "Contact", element: <Contact /> },

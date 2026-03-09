@@ -9,7 +9,7 @@ interface UseBancaBranchesParams {
     area_name?: string;
 }
 
-export const useBancaBranches = (initialParams: UseBancaBranchesParams = {}) => {
+export const useBancaBranches = (bankCode: string, initialParams: UseBancaBranchesParams = {}) => {
     const [branches, setBranches] = useState<BancaBranch[]>([]);
     const [pagination, setPagination] = useState<PaginationData | null>(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +20,11 @@ export const useBancaBranches = (initialParams: UseBancaBranchesParams = {}) => 
         setIsLoading(true);
         setError(null);
         try {
-            const response = await getBancaBranches(params);
+            // Only send branch_name to the API
+            const apiParams = {
+                branch_name: params.branch_name,
+            };
+            const response = await getBancaBranches(bankCode, apiParams);
             if (response.status) {
                 setBranches(response.data.branches);
                 setPagination(response.data.pagination);
@@ -32,7 +36,7 @@ export const useBancaBranches = (initialParams: UseBancaBranchesParams = {}) => 
         } finally {
             setIsLoading(false);
         }
-    }, [params]);
+    }, [bankCode, params.branch_name]);
 
     useEffect(() => {
         fetchBranches();

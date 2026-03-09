@@ -3,7 +3,7 @@ import type { BancaBankInfoResponse, BancaBranchResponse } from "../types";
 import { getMockBancaData, getMockBancaBranches } from "./mockBancaApi";
 import { getBancaBranches as getRealBancaBranches } from "./bancaApi";
 
-const USE_MOCK = import.meta.env.VITE_USE_MOCK_API === 'true';
+const USE_MOCK = import.meta.env.VITE_USE_MOCK_API === 'false';
 
 export const getBancaBankInfo = async (bankCode: string): Promise<BancaBankInfoResponse> => {
   if (USE_MOCK) {
@@ -14,9 +14,9 @@ export const getBancaBankInfo = async (bankCode: string): Promise<BancaBankInfoR
   return data;
 };
 
-export const getBancaBranches = async (params: any): Promise<BancaBranchResponse> => {
+export const getBancaBranches = async (bankCode: string, params: any): Promise<BancaBranchResponse> => {
   if (USE_MOCK) {
     return getMockBancaBranches();
   }
-  return getRealBancaBranches(params);
+  return getRealBancaBranches(bankCode, params);
 };

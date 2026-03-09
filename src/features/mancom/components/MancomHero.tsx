@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { MancomHeroData } from '../types';
 
 interface MancomHeroProps {
@@ -6,12 +7,13 @@ interface MancomHeroProps {
 }
 
 const MancomHero: React.FC<MancomHeroProps> = ({ data }) => {
+    const { t } = useTranslation('mancom');
     return (
         <section className="pt-24 pb-0 bg-white overflow-hidden w-full">
             <div className="container mx-auto px-4 w-full">
                 <div className="text-center mb-12">
                     <h1 className="text-3xl md:text-4xl font-black text-[#111827] uppercase tracking-wider">
-                        {data.title}
+                        {t('hero.title')}
                     </h1>
                 </div>
             </div>
@@ -21,7 +23,7 @@ const MancomHero: React.FC<MancomHeroProps> = ({ data }) => {
                 <div className=" rounded-t-[40px] overflow-hidden w-full">
                     <img
                         src={`/${data.image}`}
-                        alt={data.title}
+                        alt={t('hero.title')}
                         className="w-full h-auto object-cover"
                     />
                     {/* Subtle dark gradient overlay at the bottom to match the design */}

@@ -1,9 +1,19 @@
+import { useTranslation } from "react-i18next";
 import Contentheader from "../../../shared/Components/Contentheader";
 import { CoverageList } from "./CoverageList";
 import { MOCK_COVERAGE_DATA } from "../api/mockData";
 import { ShieldIcon, HeartIcon, StarIcon } from "lucide-react";
 
+interface LocalizedCoverage {
+    id: number;
+    iconName: string;
+    iconColor: string;
+    title: string;
+    description: string;
+}
+
 export const CoverageSection = () => {
+    const { t } = useTranslation();
 
     const getIcon = (iconName: string, color: string) => {
         switch (iconName) {
@@ -18,7 +28,11 @@ export const CoverageSection = () => {
         }
     };
 
-    const comprehensiveData = MOCK_COVERAGE_DATA.coverages.map((item) => ({
+    // Load coverages from translation
+    const localizedCoverages = t('group:coverage_section.coverages', { returnObjects: true });
+    const coverages = Array.isArray(localizedCoverages) ? (localizedCoverages as LocalizedCoverage[]) : [];
+
+    const comprehensiveData = coverages.map((item) => ({
         id: item.id,
         title: item.title,
         description: item.description,
@@ -30,8 +44,8 @@ export const CoverageSection = () => {
             <div className="max-w-[1600px] mx-auto px-6 lg:px-10">
                 <div className="mb-10 lg:mb-14">
                     <Contentheader
-                        title={MOCK_COVERAGE_DATA.header.title}
-                        description={MOCK_COVERAGE_DATA.header.description}
+                        title={t('group:coverage_section.header.title')}
+                        description={t('group:coverage_section.header.description')}
                     />
                 </div>
 
@@ -51,3 +65,4 @@ export const CoverageSection = () => {
         </section>
     );
 };
+

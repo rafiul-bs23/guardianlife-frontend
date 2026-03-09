@@ -1,18 +1,21 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { HeaderData } from '../../../shared/types/header';
 import GenericHeader from '../../../shared/Components/GenericHeader';
 import Button from '../../../shared/Components/Button';
 
 interface BancaCityHeaderProps {
     data: HeaderData;
+    on_explore_click?: () => void;
 }
 
-const BancaCityHeader: React.FC<BancaCityHeaderProps> = ({ data }) => {
+const BancaCityHeader: React.FC<BancaCityHeaderProps> = ({ data, on_explore_click }) => {
+    const { t } = useTranslation('banca_city');
     const actions = (
         <Button
-            label="Explore Products"
+            label={t('header.explore_btn')}
             variant="solid-white"
-            onClick={() => console.log('Explore Products clicked')}
+            onClick={on_explore_click || (() => console.log('Explore Products clicked'))}
         />
     );
 

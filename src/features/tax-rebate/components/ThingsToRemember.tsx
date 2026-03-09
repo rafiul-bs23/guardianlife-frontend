@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import type { ThingsToRememberData } from '../types';
 import Button from '../../../shared/Components/Button';
 
@@ -7,8 +8,12 @@ interface ThingsToRememberProps {
     data: ThingsToRememberData;
 }
 
-const ThingsToRemember: React.FC<ThingsToRememberProps> = ({ data }) => {
+const ThingsToRemember: React.FC<ThingsToRememberProps> = ({ data: propData }) => {
+    const { t } = useTranslation('tax_rebate');
     const [isExpanded, setIsExpanded] = useState(false);
+
+    const translatedData = t('things_to_remember', { returnObjects: true }) as ThingsToRememberData;
+    const data = translatedData?.title ? { ...propData, ...translatedData, image: propData.image } : propData;
 
     // Calculate total word count
     const totalWords = data.descriptionPoints.reduce((acc, point) => {
@@ -94,7 +99,7 @@ const ThingsToRemember: React.FC<ThingsToRememberProps> = ({ data }) => {
                         {isLongContent && (
                             <div className="mt-4">
                                 <Button
-                                    label={isExpanded ? 'Collapse' : 'Read More'}
+                                    label={isExpanded ? t('things_to_remember.collapse') : t('things_to_remember.read_more')}
                                     onClick={() => setIsExpanded(!isExpanded)}
                                     icon={isExpanded ? ChevronUp : ChevronDown}
                                     iconClass="w-4 h-4"

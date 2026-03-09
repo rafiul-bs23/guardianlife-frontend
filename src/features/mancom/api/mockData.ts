@@ -10,7 +10,7 @@ export const HEADER_DATA: HeaderData = {
 
 export const mockMancomData: MancomData = {
     hero: {
-        title: "MANAGEMENT COMMITTEE",
+        title: "", // Will be localized in component
         image: "assets/images/mancom/1.jpeg"
     }
 };

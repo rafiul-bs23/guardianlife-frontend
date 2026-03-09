@@ -1,0 +1,14 @@
+{
+    "header": {
+        "title": "B Shareholders",
+        "description": "B The leading institutions and individual of the country have continuously been bestowing their confidence upon us and we thrive to provide the best output they expect. We follow Shareholding structure of GLIL as per the Audited Account 2022."
+    },
+    "list": {
+        "loading": "B Loading shareholders...",
+        "empty": "B No shareholders data available.",
+        "col_sl": "B SL",
+        "col_name": "B Name Of Shareholders",
+        "col_shares": "B No Of Shares",
+        "col_percentage": "B % Of Shareholdings"
+    }
+}

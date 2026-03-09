@@ -133,7 +133,7 @@ export const MOCK_ERROR_DATA: QuickBuyErrorResponse = {
     message: "Failed to fetch quick buy details.",
     errors: [
         {
-            field: "productCode",
+            field: "product_code",
             message: "Quick buy details not found "
         }
     ]

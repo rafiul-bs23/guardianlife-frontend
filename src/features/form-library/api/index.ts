@@ -2,7 +2,7 @@ import { getMockFormLibrary } from './mockFormLibraryApi';
 import { getRealFormLibrary } from './formLibraryApi';
 import type { FormLibraryResponse } from '../types';
 
-const USE_MOCK = import.meta.env.VITE_USE_MOCK_API === 'true';
+const USE_MOCK = import.meta.env.VITE_USE_MOCK_API === 'false';
 
 export const getFormLibrary = async (): Promise<FormLibraryResponse> => {
     if (USE_MOCK) {

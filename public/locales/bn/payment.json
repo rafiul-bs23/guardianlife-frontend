@@ -1,0 +1,23 @@
+{
+    "header": {
+        "title": "B Payment Channels"
+    },
+    "section": {
+        "title": "B Payment we support"
+    },
+    "tabs": {
+        "mobile_banking": "B MOBILE BANKING",
+        "cards": "B CARDS",
+        "internet_banking": "B INTERNET BANKING",
+        "direct_bank": "B DIRECT BANK"
+    },
+    "table": {
+        "sl": "B SL No.",
+        "bank_name": "B Name of Bank",
+        "account_name": "B Account Name",
+        "account_type": "B A/C Type",
+        "account_no": "B A/C No",
+        "routing_no": "B Routing No.",
+        "branch_name": "B Branch Name"
+    }
+}

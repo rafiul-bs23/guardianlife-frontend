@@ -1,10 +1,14 @@
-import { privacyPolicyData } from '../api/mockData';
+import { useTranslation } from 'react-i18next';
+import type { PrivacyPolicySection } from '../api/mockData';
 
 const PrivacyPolicyBody = () => {
+    const { t } = useTranslation('privacy_policy');
+    const sections = t('sections', { returnObjects: true }) as PrivacyPolicySection[];
+
     return (
         <section className="container mx-auto px-4 md:px-8 py-12 max-w-7xl">
             <div className="flex flex-col space-y-10">
-                {privacyPolicyData.map((section, index) => (
+                {sections.map((section, index) => (
                     <div key={index} className="flex flex-col space-y-4">
                         <h2 className="text-xl md:text-2xl font-bold text-[#1f295b] tracking-wide uppercase">
                             {section.title}

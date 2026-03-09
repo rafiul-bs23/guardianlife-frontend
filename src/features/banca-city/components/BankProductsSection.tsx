@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { BancaProduct } from '../types';
 import Card from '../../../shared/Components/Card';
 import Icon from '../../../shared/Components/Icon';
@@ -8,23 +9,24 @@ interface BankProductsSectionProps {
 }
 
 const BankProductsSection: React.FC<BankProductsSectionProps> = ({ products }) => {
+    const { t } = useTranslation('banca_city');
     return (
         <section className="py-20 bg-[#F6F7F9]">
             <div className="max-w-[1200px] mx-auto px-4">
                 {/* Header Section */}
                 <div className="text-center mb-16 max-w-[900px] mx-auto">
                     <h2 className="text-[25px] font-extrabold text-[#1a1f36] mb-4 uppercase tracking-tighter">
-                        LIFE INSURANCE SOLUTIONS AVAILABLE AT CITY BANK
+                        {t('products.title')}
                     </h2>
                     <p className="text-gray-600 text-[16px] font-medium leading-relaxed max-w-2xl mx-auto">
-                        Guardian Life offers a range of insurance products through City Bank, designed to meet different financial goals and life stages.
+                        {t('products.description')}
                     </p>
                 </div>
 
                 {/* Products Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {products.map((product, index) => (
-                        <Card key={index}>
+                        <Card key={index} className='flex flex-col group p-8 border border-primary/30 hover:shadow-xl hover:border-primary/60 hover:scale-[1.01] transition-all duration-300'>
                             {/* Card Header: Icon + Title */}
                             <div className="flex items-center gap-4 mb-4">
 
@@ -51,7 +53,7 @@ const BankProductsSection: React.FC<BankProductsSectionProps> = ({ products }) =
                             {/* Footer: Ideal For */}
                             <div className="mt-auto bg-[#F6F7F9]/80 rounded-2xl p-5">
                                 <p className="text-[#6C757D] text-[12px] font-bold mb-1 uppercase tracking-tight">
-                                    {product.subtitle}:
+                                    {t('products.ideal_for')}:
                                 </p>
                                 <p className="text-[#212529] text-[13px] font-medium leading-snug">
                                     {product.subtitle_description}

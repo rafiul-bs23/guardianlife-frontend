@@ -1,31 +1,10 @@
 import type { AppDownloadData, CashlessNetworkData } from '../types';
 
 export const sharedAppDownloadData: AppDownloadData = {
-    title: "DOWNLOAD OUR APP",
-    subtitle: "The Guardian Life app puts hassle-free coverage in your hands. Download now on Android & iOS to manage your insurance anytime, anywhere.",
     image: "assets/images/shared/Subtract.png",
-
 };
 
-export const sharedCashlessNetworkData: CashlessNetworkData = {
-    title: "Cashless Hospital Network",
-    description: "Get Treatment At 100+ Network Hospitals Without Paying Upfront. Our Cashless Facility Ensures You Focus On Recovery, Not Paperwork.",
-    stats: [
-        {
-            value: "100+",
-            label: "Network Hospitals"
-        },
-        {
-            value: "24/7",
-            label: "Pre-Authorization"
-        }
-    ],
-    stepsTitle: "How Cashless Works:",
-    steps: [
-        "Show Your Policy Card At Network Hospital",
-        "Hospital Requests Pre-Authorization",
-        "Get Treatment Without Payment"
-    ],
+export const sharedCashlessNetworkData = {
     image: "assets/images/shared/cashlessHospital.png"
 };
 
@@ -72,24 +51,3 @@ export const mockPartnersResponse = {
         },
     ]
 };
-
-export const footerLinksData = [
-    { name: 'About Us', path: '/about'},
-    { name: 'Bancassurance', path: '/banca' },
-    { name: 'Microinsurance', path: '/micro' },
-    { name: 'Privacy Policies', path: '/privacy-policy' },
-    { name: 'Term Life', path: '/quick-buy-category' },
-    { name: 'Employee', path: '/employees' },
-
-    { name: 'Claims', path: '/claim' },
-    { name: 'Careers', path: '/career' },
-    { name: 'FAQs', path: '/faq' },
-    { name: 'Tax Certificate', path: '/tax-rebate' },
-    { name: 'Payment Channels', path: '/payment' },
-    { name: 'Contact Us', path: '/contact' },
-
-    { name: 'Savings', path: '/quick-buy-category' },
-    { name: 'Group Insurance', path: '/group' },
-    { name: 'Partner Channels', path: '/partner-channels' },
-    { name: 'Form Library', path: '/form-library' },
-];

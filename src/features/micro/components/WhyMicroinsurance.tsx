@@ -1,4 +1,4 @@
-import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { WhyMicroinsuranceData } from '../types';
 import { ShieldCheck, DollarSign, Zap, HelpCircle, Check } from 'lucide-react';
 import { getLightBgByIndex } from '../../../utils/colorUtils';
@@ -15,16 +15,24 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 const WhyMicroinsurance: React.FC<WhyMicroinsuranceProps> = ({ data }) => {
+    const { t } = useTranslation('micro');
+
+    const title = t('why_guardian_micro.title');
+    const subtitle = t('why_guardian_micro.subtitle');
+    const cards = t('why_guardian_micro.features', { returnObjects: true }) as WhyMicroinsuranceData['cards'];
+    const outcomesTitle = t('why_guardian_micro.outcomes_title');
+    const outcomes = t('why_guardian_micro.outcomes', { returnObjects: true }) as WhyMicroinsuranceData['outcomes'];
+
     return (
         <section className="py-20 bg-white">
             <div className="max-w-[1400px] mx-auto px-4">
                 {/* Header Section */}
                 <div className="text-center mb-16 max-w-[900px] mx-auto">
                     <h2 className="text-3xl font-extrabold text-gray-900 mb-6 uppercase tracking-wider">
-                        {data.title}
+                        {title}
                     </h2>
                     <p className="text-gray-600 text-lg font-medium leading-relaxed">
-                        {data.subtitle}
+                        {subtitle}
                     </p>
                 </div>
 
@@ -33,13 +41,13 @@ const WhyMicroinsurance: React.FC<WhyMicroinsuranceProps> = ({ data }) => {
                     <div className="w-full lg:w-1/2 flex flex-col gap-10">
                         {/* 2x2 Grid */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {data.cards.map((card, index) => (
+                            {Array.isArray(cards) && cards.map((card, index) => (
                                 <div
                                     key={index}
                                     className={`${getLightBgByIndex(index)} rounded-[16px] p-6 flex flex-col gap-4 transition-all duration-300`}
                                 >
-                                    <div className={`w-9 h-9 rounded-lg bg-white flex items-center justify-center shadow-sm ${card.iconColor}`}>
-                                        {iconMap[card.icon]}
+                                    <div className={`w-9 h-9 rounded-lg bg-white flex items-center justify-center shadow-sm ${card.iconColor || data.cards[index]?.iconColor}`}>
+                                        {iconMap[card.icon || data.cards[index]?.icon]}
                                     </div>
                                     <div className="flex flex-col gap-1.5">
                                         <h4 className="text-[17px] font-extrabold text-[#32367B] leading-tight">
@@ -56,10 +64,10 @@ const WhyMicroinsurance: React.FC<WhyMicroinsuranceProps> = ({ data }) => {
                         {/* Outcomes Section */}
                         <div className="bg-[#F8FAFC] rounded-[24px] p-8 sm:p-10 flex flex-col gap-6">
                             <h4 className="text-[17px] font-extrabold text-[#32367B]">
-                                {data.outcomesTitle}
+                                {outcomesTitle}
                             </h4>
                             <div className="space-y-3">
-                                {data.outcomes.map((outcome, index) => (
+                                {Array.isArray(outcomes) && outcomes.map((outcome, index) => (
                                     <div key={index} className="flex gap-3 items-center">
                                         <div className="flex-shrink-0">
                                             <Check className="w-4 h-4 text-[#3B82F6] stroke-[3px]" />

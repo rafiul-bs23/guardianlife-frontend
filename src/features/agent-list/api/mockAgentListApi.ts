@@ -15,7 +15,7 @@ export const get_mock_agents = async (params?: AgentQueryParams): Promise<AgentA
             const paginated = all_agents.slice(start, start + limit);
 
             resolve({
-                success: true,
+                status: true,
                 transaction_id: "GLIL-TXN-ID",
                 data: {
                     pagination: {

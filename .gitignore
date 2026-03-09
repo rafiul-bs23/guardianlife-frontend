@@ -28,3 +28,6 @@ dist-ssr
 rules.md
 rules1.md
 .vercel
+localization-rules.md
+
+.claude

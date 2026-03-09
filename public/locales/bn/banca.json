@@ -1,0 +1,113 @@
+{
+    "header": {
+        "partner_btn": "B Partner"
+    },
+    "stats": [
+        "B Life Coverage Policies Issued",
+        "B Claims Successfully Settled",
+        "B by Leading Banks & FIs",
+        "B & Transparent Claim Process",
+        "B Bancassurance Support Team"
+    ],
+    "why_banca": {
+        "header": {
+            "title": "B WHY BANCASSURANCE MATTERS",
+            "description": "B In an evolving financial landscape, banks are increasingly exposed to credit risk while customers seek greater financial security. Bancassurance bridges this gap by integrating life insurance protection directly into banking products—ensuring continuity, protection, and long-term value for all stakeholders."
+        },
+        "what_is": {
+            "title": "B What is Bancassurance?",
+            "subtitle1": "B Bancassurance Is A Strategic Collaboration Between Banks And Life Insurance Companies That Enables Banks To Offer Insurance Solutions Through Their Existing Distribution Channels.",
+            "subtitle2": "B This Partnership Enhances Traditional Banking Products By Embedding Life Insurance Coverage, Helping To:",
+            "bullet_points": [
+                "B Protect Customers And Their Families Against Financial Uncertainty",
+                "B Mitigate Credit Risk Arising From Death, Disability, Or Critical Illness",
+                "B Strengthen Long-Term Customer Relationships"
+            ],
+            "footer": "B When Implemented With The Right Strategy And Operational Excellence, Bancassurance Creates A Win-Win Ecosystem For Customers, Banks, And Insurers Alike."
+        }
+    },
+    "facilities": {
+        "header": {
+            "title": "B Facilities of Bancassurance with Guardian Life",
+            "description": "B We provide end-to-end Bancassurance support to ensure seamless integration and long-term success"
+        },
+        "cards": [
+            {
+                "title": "B Customized Solutions",
+                "points": [
+                    "B Customized insurance product design",
+                    "B Integration with banking products and processes"
+                ]
+            },
+            {
+                "title": "B Training & Support",
+                "points": [
+                    "B Training and sales support for bank staff",
+                    "B Marketing and customer communication assistance"
+                ]
+            },
+            {
+                "title": "B Complete Management",
+                "points": [
+                    "B Policy administration and claims management",
+                    "B Dedicated relationship and support teams"
+                ]
+            }
+        ]
+    },
+    "benefits": {
+        "header": {
+            "title": "B Benefits of Bancassurance",
+            "description": "B Discover how Guardian Life's Bancassurance solutions create value for both customers and banking partners"
+        },
+        "sections": [
+            {
+                "title": "B Benefits for Bank's Customers",
+                "points": [
+                    "B Protects families from the burden of loan repayment after the borrower's death",
+                    "B Financial relief during permanent disability or severe health conditions",
+                    "B Health coverage as an add-on benefit with life protection",
+                    "B Peace of mind with minimal effort and maximum security"
+                ]
+            },
+            {
+                "title": "B Benefits for Banks",
+                "points": [
+                    "B Increased revenue through insurance sales with minimal investment risk",
+                    "B Reduced credit risk exposure in mortgage, personal, SME loans, and credit cards",
+                    "B Better utilization of existing branches and sales channels",
+                    "B Motivated workforce through commission and incentive opportunities",
+                    "B Enhanced attractiveness of existing banking products"
+                ]
+            }
+        ]
+    },
+    "product_solutions": {
+        "header": {
+            "title": "B Bancassurance Product Solutions",
+            "description": "B Comprehensive protection solutions designed for diverse banking needs"
+        },
+        "additional_products": [
+            {
+                "title": "B SME Loan",
+                "description1": "B Settlement of outstanding liabilities in case of life casualties"
+            },
+            {
+                "title": "B Employee Insurance",
+                "description1": "B Customized insurance solutions bundled with salary or employee accounts",
+                "description2": "B Comprehensive coverage at minamum cost"
+            }
+        ],
+        "depository_insurance": {
+            "title": "B Depository Insurance Products",
+            "description1": "B Cash assurance for current and savings accounts",
+            "description2": "B Customized insurance solutions for DPS and Fixed Deposits"
+        }
+    },
+    "bank_partners": {
+        "header": {
+            "title": "B Our Bancassurance Partners",
+            "description": "B We are proud to collaborate with leading banks in Bangladesh"
+        }
+    }
+}

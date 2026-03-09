@@ -1,0 +1,25 @@
+{
+    "header": {
+        "explore_btn": "Explore Our Products",
+        "quote_btn": "Get A Quote"
+    },
+    "tabs": {
+        "for_you": "For You",
+        "for_your_family": "For Your Family",
+        "retirement": "Retirement",
+        "islamic": "Islamic"
+    },
+    "retail_section": {
+        "title": "for your insurance solutions",
+        "description": "Working on guardianlife project: working on group page.",
+        "empty_state": "No retail products found for this category."
+    },
+    "digital_section": {
+        "title": "Buy Policy Instantly – No Waiting, No Hassle",
+        "description": "Get instant coverage with our digital-first policies. Complete your purchase online in minutes with immediate policy issuance.",
+        "empty_state": "No digital products found for this category."
+    },
+    "product_card": {
+        "view_details": "View Details"
+    }
+}

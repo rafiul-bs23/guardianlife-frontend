@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Search } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useFormLibrary } from '../hooks/useFormLibrary';
 
 const FormList = () => {
+    const { t } = useTranslation('form_library');
     const { forms, loading, error } = useFormLibrary();
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -11,7 +13,7 @@ const FormList = () => {
     );
 
     if (loading) {
-        return <div className="text-center py-10">Loading forms...</div>;
+        return <div className="text-center py-10">{t('list.loading')}</div>;
     }
 
     if (error) {
@@ -28,7 +30,7 @@ const FormList = () => {
                 <input
                     type="text"
                     className="block w-full pl-12 pr-4 py-3.5 border border-gray-200 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500 sm:text-sm shadow-sm"
-                    placeholder="Search"
+                    placeholder={t('list.search_placeholder')}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -38,8 +40,8 @@ const FormList = () => {
             <div className="w-full bg-white border border-gray-200 rounded-sm">
                 {/* Table Header */}
                 <div className="grid grid-cols-[1fr_200px] bg-[#FDF0E6] border-b border-gray-200 py-4 px-6">
-                    <div className="font-semibold text-gray-900">File Name</div>
-                    <div className="font-semibold text-gray-900 text-center">Action</div>
+                    <div className="font-semibold text-gray-900">{t('list.table_header_file')}</div>
+                    <div className="font-semibold text-gray-900 text-center">{t('list.table_header_action')}</div>
                 </div>
 
                 {/* Table Body */}
@@ -57,14 +59,14 @@ const FormList = () => {
                                     rel="noopener noreferrer"
                                     className="bg-primary text-white text-sm font-medium px-8 py-2.5 rounded-full hover:bg-opacity-90 transition-all text-center inline-block"
                                 >
-                                    Download
+                                    {t('list.download_btn')}
                                 </a>
                             </div>
                         </div>
                     ))}
                     {filteredForms.length === 0 && (
                         <div className="py-12 text-center text-gray-500">
-                            No forms found matching "{searchQuery}"
+                            {t('list.no_forms', { query: searchQuery })}
                         </div>
                     )}
                 </div>

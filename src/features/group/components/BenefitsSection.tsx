@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { BenefitItem } from "../types";
 import { MOCK_BENEFITS_DATA } from "../api/mockData";
 
@@ -42,7 +43,12 @@ const BenefitRow = ({ title, description }: Pick<BenefitItem, "title" | "descrip
 
 /* ─── Section ─── */
 const BenefitsSection = () => {
-  const { header, image_url, benefits } = MOCK_BENEFITS_DATA;
+  const { t } = useTranslation();
+  const { image_url } = MOCK_BENEFITS_DATA;
+
+  // Load benefits from translation
+  const localizedBenefits = t('group:benefits_section.benefits', { returnObjects: true });
+  const benefits = Array.isArray(localizedBenefits) ? (localizedBenefits as BenefitItem[]) : [];
 
   return (
     <section className="bg-white py-16 lg:py-20">
@@ -51,10 +57,10 @@ const BenefitsSection = () => {
         {/* Heading */}
         <div className="text-center mb-10 lg:mb-14">
           <h2 className="font-extrabold text-[20px] lg:text-[26px] uppercase leading-[1.3] tracking-[0.01em] text-gray-900">
-            {header.title}
+            {t('group:benefits_section.header.title')}
           </h2>
           <p className="mt-3 text-[14px] lg:text-[15px] text-gray-500 font-normal">
-            {header.description}
+            {t('group:benefits_section.header.description')}
           </p>
         </div>
 
@@ -63,7 +69,7 @@ const BenefitsSection = () => {
 
           {/* Left — benefit items */}
           <div className="w-full lg:w-1/2 flex flex-col">
-            {benefits.map((item) => (
+            {benefits.map((item: BenefitItem) => (
               <BenefitRow
                 key={item.id}
                 title={item.title}
@@ -88,3 +94,4 @@ const BenefitsSection = () => {
 };
 
 export default BenefitsSection;
+

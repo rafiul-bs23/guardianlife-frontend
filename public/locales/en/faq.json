@@ -1,0 +1,10 @@
+{
+    "header": {
+        "title": "FAQ"
+    },
+    "default": {
+        "title": "FREQUENTLY ASKED QUESTIONS",
+        "subtitle": "Get answers to common questions about Guardian Life insurance products and services.",
+        "error_title": "Failed to load FAQs"
+    }
+}

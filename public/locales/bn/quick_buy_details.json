@@ -1,0 +1,42 @@
+{
+    "error": {
+        "title": "B Error loading details"
+    },
+    "quick_product_view": {
+        "title": "B QUICK PRODUCT VIEW",
+        "subtitle": "B Key Plan Details at a glance"
+    },
+    "header": {
+        "ai_assistant": "B AI Assistant"
+    },
+    "calculator": {
+        "label_dob": "B DOB",
+        "label_term": "B TERM",
+        "label_coverage": "B COVERAGE",
+        "unit_years": "B YEARS",
+        "unit_lakh": "B LAKH",
+        "unit_lac": "B Lac",
+        "unit_years_lower": "B years",
+        "details_title": "B DETAILS OF THE PRODUCT",
+        "details_subtitle": "B automatic calculate value by changing the term and coverage",
+        "row_product_name": "B Product Name",
+        "row_sum_assured": "B Sum Assured",
+        "row_term": "B Term",
+        "row_yearly_premium": "B Yearly Premium",
+        "row_stamp_fee": "B Stamp Fee (One Time Payment)",
+        "row_total": "B Total",
+        "row_life_coverage": "B Life Coverage From Day One",
+        "row_premium_mode": "B Premium Payment Mode",
+        "row_age": "B Age",
+        "age_format": "{{min}} B to {{max}} B years nearest birthday",
+        "row_medical_test": "B Medical Test",
+        "row_maturity_benefit": "B Maturity Benefit",
+        "row_surrender_option": "B Surrender Option",
+        "yes": "B Yes",
+        "no": "B No",
+        "terms_label": "B Terms and Conditions",
+        "terms_read": "B Read and Agree",
+        "buy_now": "B Buy Now",
+        "popup_message": "B Log in to your profile and grab your QuickBuy products in seconds. Fast, simple, and hassle-free."
+    }
+}

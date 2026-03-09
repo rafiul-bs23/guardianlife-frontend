@@ -7,11 +7,11 @@ import { AdditionalProductsSection } from "./components/AdditionalProductsSectio
 import { BankPartnersSection } from "./components/BankPartnersSection.tsx";
 import FAQ from "../../shared/Components/Faq.tsx";
 import BancaHeader from "./components/BancaHeader.tsx";
-import { useHeader } from "./hooks/useHeader.ts";
 import { useRef } from "react";
+import { useHeader } from "../../shared/hooks/useHeader.ts";
 
 const Banca = () => {
-  const { data: headerData, isLoading: isHeaderLoading } = useHeader();
+  const { data: headerData, isLoading: isHeaderLoading } = useHeader('banca-info');
   const bancassurancePartnersRef = useRef<HTMLDivElement>(null);
   const scrollTobancasurancePartners = () =>
     bancassurancePartnersRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });

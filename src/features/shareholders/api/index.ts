@@ -1,12 +1,12 @@
-import { getMockShareholders } from './mockShareholdersApi';
-import { getRealShareholders } from './shareholdersApi';
+import { get_mock_shareholders } from './mockShareholdersApi';
+import { get_real_shareholders } from './shareholdersApi';
 import type { ShareholdersResponse } from '../types';
 
-const USE_MOCK = import.meta.env.VITE_USE_MOCK_API === 'true';
+const use_mock = import.meta.env.VITE_USE_MOCK_API === 'true';
 
-export const getShareholders = async (): Promise<ShareholdersResponse> => {
-    if (USE_MOCK) {
-        return getMockShareholders();
+export const get_shareholders = async (): Promise<ShareholdersResponse> => {
+    if (use_mock) {
+        return get_mock_shareholders();
     }
-    return getRealShareholders();
+    return get_real_shareholders();
 };

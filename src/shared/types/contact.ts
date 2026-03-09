@@ -6,22 +6,27 @@ export interface LeadRequest {
     applying_position: string | null;
     message: string;
     channel?: string;
-    cv?: File | null;
+    file?: File | null;
 }
 
 export interface LeadApiSuccessResponse {
-    success: true;
+    status: true;
     transaction_id: string;
-    data: {
+    message?: string;
+    data?: {
         status: string;
         received_at: string;
     };
 }
 
 export interface LeadApiErrorResponse {
-    success: false;
+    status: false;
     transaction_id: string;
     message: string;
+    errors?: {
+        field: string;
+        message: string;
+    }[];
 }
 
 export type LeadApiResult = LeadApiSuccessResponse | LeadApiErrorResponse;

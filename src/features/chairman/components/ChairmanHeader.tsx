@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { HeaderData } from '../../../shared/types/header';
 import GenericHeader from '../../../shared/Components/GenericHeader';
 import { Quote } from 'lucide-react';
@@ -8,6 +9,8 @@ interface ChairmanHeaderProps {
 }
 
 const ChairmanHeader: React.FC<ChairmanHeaderProps> = ({ data }) => {
+    const { t } = useTranslation('chairman');
+
     return (
         <GenericHeader data={data} variant="immersive" customBgStyles={{ backgroundColor: '#F5F5F5' }}>
             <div className="w-full h-full flex flex-col lg:flex-row items-center lg:items-end justify-between relative px-6 md:px-16 lg:px-24 py-12 lg:py-0 gap-10 lg:gap-0">
@@ -20,7 +23,7 @@ const ChairmanHeader: React.FC<ChairmanHeaderProps> = ({ data }) => {
 
                     <div className="relative z-20 lg:pl-16 text-center lg:text-left">
                         <h1 className="text-xl md:text-3xl lg:text-[38px] font-bold text-[#2E3192] leading-[1.3] uppercase tracking-tight">
-                            AT GUARDIAN LIFE, OUR CUSTOMERS ARE NOT JUST POLICYHOLDERS—THEY ARE OUR PRINCIPAL STAKEHOLDERS. PROTECTING THEIR FUTURE WITH INTEGRITY, PROFESSIONALISM, AND DIGNITY IS OUR FIRM COMMITMENT.
+                            {t('header.quote')}
                         </h1>
                     </div>
                 </div>
@@ -29,7 +32,7 @@ const ChairmanHeader: React.FC<ChairmanHeaderProps> = ({ data }) => {
                 <div className="w-full lg:w-[45%] flex justify-center lg:justify-start items-end relative z-10 order-2 lg:order-1">
                     <img
                         src="/assets/images/boardDirectors/1.png"
-                        alt="Chairman"
+                        alt={t('header.image_alt')}
                         className="max-h-[300px] md:max-h-[450px] lg:max-h-[85%] object-contain"
                     />
                 </div>

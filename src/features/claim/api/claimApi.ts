@@ -1,11 +1,7 @@
-import { mockDocumentsData } from './mockData';
+import axiosClient from "../../../lib/axios";
 import type { ClaimDocumentsData } from '../types';
 
-export const getClaimDocuments = async (): Promise<ClaimDocumentsData> => {
-    // Simulate API delay
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(mockDocumentsData.data);
-        }, 500);
-    });
+export const getRealClaimDocuments = async (): Promise<ClaimDocumentsData> => {
+    const { data } = await axiosClient.get<{ status: boolean; data: ClaimDocumentsData }>('/documents/claims');
+    return data.data;
 };

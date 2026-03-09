@@ -10,7 +10,7 @@ export const getRealFaqData = async (): Promise<FaqApiResult> => {
 };
 
 export const get_real_partners = async (channel: string): Promise<PartnersApiResult> => {
-    const { data } = await axiosClient.get<PartnersApiResult>(`/about/partners/${channel}`);
+    const { data } = await axiosClient.get<PartnersApiResult>(`/about/partners/${channel}`)
     return data;
 };
 

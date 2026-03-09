@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { ClaimDocumentsData } from '../types';
 import Button from '../../../shared/Components/Button';
 
@@ -7,6 +8,8 @@ interface ClaimDocumentsProps {
 }
 
 const ClaimDocuments: React.FC<ClaimDocumentsProps> = ({ data }) => {
+    const { t } = useTranslation('claim');
+
     if (!data?.category?.length) return null;
 
     return (
@@ -15,7 +18,7 @@ const ClaimDocuments: React.FC<ClaimDocumentsProps> = ({ data }) => {
                 {/* Header */}
                 <div className="text-center mb-12">
                     <h2 className="text-3xl font-bold text-gray-900 uppercase tracking-tight">
-                        FORMS AND STATEMENT
+                        {t('documents.heading')}
                     </h2>
                 </div>
 
@@ -25,44 +28,48 @@ const ClaimDocuments: React.FC<ClaimDocumentsProps> = ({ data }) => {
                         <thead>
                             <tr className="bg-[#FFF4E5] border-b border-[#D1D5DB]">
                                 <th className="px-6 py-4 text-left text-[15px] font-bold text-gray-800 border-r border-[#D1D5DB] w-1/4">
-                                    Form Category
+                                    {t('documents.table_headers.category')}
                                 </th>
                                 <th className="px-6 py-4 text-left text-[15px] font-bold text-gray-800 border-r border-[#D1D5DB] w-1/2">
-                                    File Name
+                                    {t('documents.table_headers.file_name')}
                                 </th>
                                 <th className="px-6 py-4 text-center text-[15px] font-bold text-gray-800">
-                                    Action
+                                    {t('documents.table_headers.action')}
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            {data.category.map((cat, catIdx) => (
+                            {data?.category?.map((cat, catIdx) => (
                                 <React.Fragment key={catIdx}>
-                                    {cat.documents.map((doc, docIdx) => (
+                                    {cat?.documents?.map((doc, docIdx) => (
                                         <tr key={`${catIdx}-${docIdx}`} className="border-b border-[#D1D5DB] last:border-b-0">
                                             {/* Rowspan for Category */}
                                             {docIdx === 0 && (
                                                 <td
-                                                    rowSpan={cat.documents.length}
+                                                    rowSpan={cat?.documents?.length}
                                                     className="px-6 py-4 align-middle bg-white border-r border-[#D1D5DB] font-bold text-gray-700 text-[15px]"
                                                 >
-                                                    {cat.name}
+                                                    {cat?.name}
                                                 </td>
                                             )}
 
                                             {/* Document Name */}
                                             <td className="px-6 py-4 text-[15px] font-medium text-gray-700 border-r border-[#D1D5DB]">
-                                                {doc.fileName}
+                                                {doc?.file_name}
                                             </td>
 
                                             {/* Action Button */}
                                             <td className="px-6 py-3 whitespace-nowrap text-center">
                                                 <div className="flex justify-center">
                                                     <Button
-                                                        label="Download"
+                                                        label={t('documents.download_btn')}
                                                         variant="base"
                                                         className=" min-w-[110px] rounded-lg"
-                                                        onClick={() => window.open(doc.pdfDownloadLink, '_blank')}
+                                                        onClick={() => {
+                                                            if (doc?.pdf_download_link) {
+                                                                window.open(doc.pdf_download_link, '_blank');
+                                                            }
+                                                        }}
                                                         labelClass="text-sm"
                                                     />
                                                 </div>

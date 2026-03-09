@@ -1,0 +1,51 @@
+{
+    "sponsored_by": "sponsored by",
+    "header": {
+        "help_question": "How can we help?",
+        "search_placeholder": "How to claim online..",
+        "pay_claim_ratio": "Pay-Claim Ratio",
+        "live_coverage": "Live Coverage",
+        "quick_buy": "Quick Buy",
+        "claim_settlement": "Claim Settlement",
+        "hero_text": "LET'S TALK ABOUT LIFE. MORE!",
+        "scroll": "Scroll"
+    },
+    "guide_you": {
+        "title": "May i guide you",
+        "description": "Let our AI Assistant help you find the best policy — just answer a few quick questions!",
+        "button": "AI ASSISTANT"
+    },
+    "solutions": {
+        "title": "OUR SOLUTIONS",
+        "heading": "SECURE YOUR FAMILY'S FUTURE, PLAN YOUR RETIREMENT, OR PROTECT YOUR HEALTH— WE'VE GOT YOU COVERED.",
+        "tabs": {
+            "for_you": "For You",
+            "for_your_family": "For Your Family",
+            "retirement": "Retirement",
+            "islamic": "Islamic"
+        }
+    },
+    "partners_bank": {
+        "title": "OUR PARTNERS BANK",
+        "heading": "DROP BY A PARTNER BANK OR HOP ONLINE TO EXPLORE AND GRAB YOUR GUARDIAN LIFE INSURANCE PLAN—SIMPLE AND TAILORED FOR YOU."
+    },
+    "business_partners": {
+        "title": "Power up your business with\nGuardian Life Insurance.",
+        "description": "Join 450+ organizations that trust us —\nthe industry leader in group coverage.\nThe best choice to protect and\nempower your employees.",
+        "button": "Explore Opportunities"
+    },
+    "empowering_families": {
+        "title": "Empowering Families with\nGuardian Life Insurance.",
+        "description": "Join 10,000+ families that trust us —\nthe industry leader in microinsurance.\nAffordable protection for all —\nempowering underserved communities.",
+        "button": "Check Services"
+    },
+    "promotion": {
+        "title": "OUR AMAZING NEW APP",
+        "heading": "SEAMLESS INSURANCE AT YOUR FINGERTIPS",
+        "description": "THE GUARDIAN LIFE APP PUTS HASSLE-FREE COVERAGE IN YOUR HANDS.\nDOWNLOAD NOW ON ANDROID & IOS TO MANAGE YOUR INSURANCE ANYTIME, ANYWHERE."
+    },
+    "contact": {
+        "title": "Get in touch",
+        "subtitle": "Our team would love to hear from you."
+    }
+}

@@ -1,4 +1,5 @@
-import { serviceCards } from "../api/mockData.tsx";
+import { useTranslation } from "react-i18next";
+import { service_cards } from "../api/mockData.tsx";
 
 const CheckIcon = () => (
   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -13,25 +14,28 @@ const CheckIcon = () => (
 );
 
 export function FacilitiesOfBancassurance() {
+  const { t } = useTranslation('banca');
+  const cards = t('facilities.cards', { returnObjects: true }) as any[];
+
   return (
     <div className="flex flex-col lg:flex-row flex-wrap items-center lg:items-stretch justify-center gap-8 lg:gap-[35px] w-full px-4 lg:px-0">
-      {serviceCards.map((card) => (
+      {cards?.map((card, index) => (
         <div
-          key={card.id}
+          key={index}
           className="w-full max-w-[480px] h-auto lg:h-[519px] bg-white rounded-[35px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col"
         >
           <img
-            src={card.image}
-            alt={card.title}
+            src={service_cards[index]?.image}
+            alt={card?.title}
             className="w-[calc(100%-48px)] lg:w-[394px] h-[225px] object-cover rounded-[35px] mx-6 lg:mx-[43px] my-[22px]"
           />
           <div className="px-[21px] py-[20px] flex flex-col gap-[14px]">
             <p className="font-bold text-[24px] leading-[32px] tracking-[0.02em]">
-              {card.title}
+              {card?.title}
             </p>
             <div className="flex flex-col gap-[10px]">
-              {card.points.map((point, index) => (
-                <div key={index} className="flex items-start gap-[10px]">
+              {card?.points?.map((point: string, idx: number) => (
+                <div key={idx} className="flex items-start gap-[10px]">
                   <span className="mt-[1px] flex-shrink-0">
                     <CheckIcon />
                   </span>

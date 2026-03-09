@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 
 import { X, ChevronDown } from 'lucide-react';
 import { MENU_DATA } from '../constants/menuData';
 import type { MenuItem } from '../types/menu';
+import Button from './Button';
+import LanguageToggle from './LanguageToggle';
 
 interface NavbarProps {
     transparent?: boolean;
@@ -131,20 +133,26 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
                 </div>
 
                 {/* Centered Logo in Orange Container */}
-                <div className="absolute left-1/2 -translate-x-1/2 top-0 md:h-28 h-20 w-32 md:w-56 bg-primary rounded-b-[35px] flex items-center justify-center shadow-[0_10px_30px_rgba(235,105,37,0.3)] transition-all hover:h-32 group">
-                    <img
-                        src="/assets/images/shared/logo.png"
-                        alt="Guardian Logo"
-                        className="w-[100px] md:w-[180px] object-contain mb-2 px-4 transition-transform group-hover:scale-110"
-                    />
-                </div>
+                <Link to="/">
+                    <div className="absolute left-1/2 -translate-x-1/2 top-0 md:h-28 h-20 w-32 md:w-64 bg-primary rounded-b-[35px] flex items-center justify-center shadow-[0_10px_30px_rgba(235,105,37,0.3)] transition-all hover:h-30 group">
+                        <img
+                            src="/assets/images/shared/logo.png"
+                            alt="Guardian Logo"
+                            className="w-[100px] md:w-[180px] object-contain mb-2 px-4 transition-transform group-hover:scale-110"
+                        />
+                    </div>
+                </Link>
 
                 {/* Right Side Actions */}
                 <div className={`flex items-center ${GAPS.NAVBAR_RIGHT_ACTIONS}`}>
 
-                    <button className={`border border-white/50 bg-primary hover:bg-[#e0661d] text-white px-8 py-2.5 rounded-full font-black ${TEXT_SIZES.LOGIN_BTN} transition-all shadow-lg`}>
-                        Login
-                    </button>
+                    <LanguageToggle />
+                    <Button
+                        label="Login"
+                        variant='base'
+                        className="!w-[80px] md:!w-[130px] h-[40px] md:h-[45px] text-[13px] md:text-[16px]"
+                        onClick={() => { }}
+                    />
                 </div>
             </nav>
 

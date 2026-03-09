@@ -1,12 +1,12 @@
 export interface ProductCardProps {
-  thumbnailUrl: string;
+  thumbnail_url: string;
   title: string;
   points?: string[];
   description?: string | null;
 }
 
 const ProductCardWithActionButton = ({
-  thumbnailUrl,
+  thumbnail_url,
   title,
   points = [],
   description,
@@ -18,9 +18,9 @@ const ProductCardWithActionButton = ({
       <div className="relative">
 
         <div className="relative">
-          {thumbnailUrl && (
+          {thumbnail_url && (
             <img
-              src={thumbnailUrl}
+              src={thumbnail_url}
               alt={title}
               className="relative z-10 w-full h-[324px] object-cover"
             />

@@ -2,7 +2,7 @@ import { getMockCategoryProducts } from './mockCategoryApi';
 import { getRealCategoryProducts } from './categoryApi';
 import type { CategoryApiResponse } from '../types';
 
-const USE_MOCK = import.meta.env.VITE_USE_MOCK_API === 'true';
+const USE_MOCK = import.meta.env.VITE_USE_MOCK_API === 'false';
 
 export const getCategoryProducts = async (
     channel: string | null = null,

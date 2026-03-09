@@ -1,15 +1,19 @@
+import { useTranslation } from 'react-i18next';
 import PreferredHospitalHeader from "./components/PreferredHospitalHeader";
 import HospitalFilter from "./components/HospitalFilter";
 import HospitalTable from "./components/HospitalTable";
 import { usePreferredHospital } from "./hooks/usePreferredHospital";
 
 const PreferredHospital = () => {
+    const { t } = useTranslation('preferred_hospital');
     const {
-        filtered_hospitals,
+        paginated_hospitals,
         is_loading,
         error,
         active_type,
         frontend_filters,
+        current_page,
+        pagination,
         division_options,
         district_options,
         area_options,
@@ -17,6 +21,7 @@ const PreferredHospital = () => {
         set_active_type,
         set_frontend_filters,
         reset_filters,
+        go_to_page,
     } = usePreferredHospital();
 
     return (
@@ -27,10 +32,10 @@ const PreferredHospital = () => {
                 {/* Section Title */}
                 <div className="mb-6">
                     <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-primary">
-                        Find Hospital and Diagnostics
+                        {t('page.title')}
                     </h2>
                     <p className="text-sm text-gray-500 mt-1">
-                        Browse Guardian Life's network of preferred hospitals and diagnostic centres.
+                        {t('page.description')}
                     </p>
                 </div>
 
@@ -49,9 +54,12 @@ const PreferredHospital = () => {
 
                 {/* Table */}
                 <HospitalTable
-                    hospitals={filtered_hospitals}
+                    hospitals={paginated_hospitals}
+                    pagination={pagination}
                     is_loading={is_loading}
                     error={error}
+                    current_page={current_page}
+                    on_page_change={go_to_page}
                     active_type={active_type}
                 />
             </section>

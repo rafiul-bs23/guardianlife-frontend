@@ -4,7 +4,7 @@ import type { FaqApiResult } from '../types/faq';
 import type { PartnersApiResult } from '../types/partners';
 import type { LeadRequest, LeadApiResult } from '../types/contact';
 
-const USE_MOCK = import.meta.env.VITE_USE_MOCK_API === 'true';
+const USE_MOCK = import.meta.env.VITE_USE_MOCK_API === 'false';
 
 export const getFaqData = async (): Promise<FaqApiResult> => {
     if (USE_MOCK) {

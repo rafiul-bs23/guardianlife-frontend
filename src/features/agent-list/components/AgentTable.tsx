@@ -1,51 +1,16 @@
-import type { Agent, Pagination } from '../types';
+import { useTranslation } from 'react-i18next';
+import type { Agent } from '../types';
+import Pagination from '../../../shared/Components/Pagination';
+import type { PaginationData } from '../../../shared/types/pagination';
 
 interface AgentTableProps {
     agents: Agent[];
-    pagination: Pagination | null;
+    pagination: PaginationData | null;
     is_loading: boolean;
     error: string | null;
     current_page: number;
     on_page_change: (page: number) => void;
 }
-
-const TABLE_COLUMNS = [
-    'SL',
-    'Name',
-    'Mobile',
-    'FA Code',
-    'UM Code',
-    'License No.',
-    'Issue Date',
-    'Expiry Date',
-    'Working Area',
-    'Address',
-];
-
-const SkeletonRow = () => (
-    <tr className="animate-pulse">
-        {Array.from({ length: TABLE_COLUMNS.length }).map((_, i) => (
-            <td key={i} className="px-4 py-4">
-                <div className="h-4 bg-gray-200 rounded w-full" />
-            </td>
-        ))}
-    </tr>
-);
-
-const format_date = (date_str?: string | null): string => {
-    if (!date_str) return '—';
-    const date = new Date(date_str);
-    return date.toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-    });
-};
-
-const is_expired = (expiry_date?: string | null): boolean => {
-    if (!expiry_date) return false;
-    return new Date(expiry_date) < new Date();
-};
 
 const AgentTable = ({
     agents,
@@ -55,11 +20,45 @@ const AgentTable = ({
     current_page,
     on_page_change,
 }: AgentTableProps) => {
+    const { t, i18n } = useTranslation('agent_list');
     const start_index = (current_page - 1) * 10;
 
-    const page_numbers = Array.from(
-        { length: pagination?.total_pages ?? 0 },
-        (_, i) => i + 1
+    const TABLE_COLUMNS = [
+        t('table.headers.sl'),
+        t('table.headers.name'),
+        t('table.headers.mobile'),
+        t('table.headers.fa_code'),
+        t('table.headers.um_code'),
+        t('table.headers.license_no'),
+        t('table.headers.issue_date'),
+        t('table.headers.expiry_date'),
+        t('table.headers.working_area'),
+        t('table.headers.address'),
+    ];
+
+    const format_date = (date_str?: string | null): string => {
+        if (!date_str) return '—';
+        const date = new Date(date_str);
+        return date.toLocaleDateString(i18n.language === 'bn' ? 'bn-BD' : 'en-GB', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+        });
+    };
+
+    const is_expired = (expiry_date?: string | null): boolean => {
+        if (!expiry_date) return false;
+        return new Date(expiry_date) < new Date();
+    };
+
+    const SkeletonRow = () => (
+        <tr className="animate-pulse">
+            {Array.from({ length: TABLE_COLUMNS.length }).map((_, i) => (
+                <td key={i} className="px-4 py-4">
+                    <div className="h-4 bg-gray-200 rounded w-full" />
+                </td>
+            ))}
+        </tr>
     );
 
     return (
@@ -97,7 +96,7 @@ const AgentTable = ({
                                     colSpan={TABLE_COLUMNS.length}
                                     className="px-4 py-10 text-center text-gray-400 font-medium"
                                 >
-                                    No agents found.
+                                    {t('table.no_agents')}
                                 </td>
                             </tr>
                         ) : (
@@ -142,7 +141,7 @@ const AgentTable = ({
                                                     {agent.um_code}
                                                 </span>
                                             ) : (
-                                                <span className="text-gray-400 text-xs">N/A</span>
+                                                <span className="text-gray-400 text-xs">{t('table.na')}</span>
                                             )}
                                         </td>
 
@@ -166,7 +165,7 @@ const AgentTable = ({
                                             </span>
                                             {expired && (
                                                 <span className="ml-1.5 inline-block px-1.5 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-600 uppercase">
-                                                    Expired
+                                                    {t('table.expired')}
                                                 </span>
                                             )}
                                         </td>
@@ -189,61 +188,15 @@ const AgentTable = ({
             </div>
 
             {/* Pagination */}
-            {(pagination?.total_pages ?? 0) > 1 && (
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-4 py-4 border-t border-gray-100 bg-gray-50">
-                    <p className="text-sm text-gray-500">
-                        Page{' '}
-                        <span className="font-semibold text-gray-700">
-                            {pagination?.current_page}
-                        </span>{' '}
-                        of{' '}
-                        <span className="font-semibold text-gray-700">
-                            {pagination?.total_pages}
-                        </span>
-                        {' · '}
-                        <span className="font-semibold text-gray-700">
-                            {pagination?.total_records}
-                        </span>{' '}
-                        total records
-                    </p>
-
-                    <div className="flex items-center gap-1 flex-wrap justify-center">
-                        {/* Prev */}
-                        <button
-                            onClick={() => on_page_change(current_page - 1)}
-                            disabled={!pagination?.has_previous}
-                            className="px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-300 text-gray-600 bg-white hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition"
-                        >
-                            ‹ Prev
-                        </button>
-
-                        {/* Page Numbers */}
-                        {page_numbers.map((p) => (
-                            <button
-                                key={p}
-                                onClick={() => on_page_change(p)}
-                                className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition ${p === current_page
-                                        ? 'bg-primary text-white border-primary'
-                                        : 'border-gray-300 text-gray-600 bg-white hover:bg-gray-100'
-                                    }`}
-                            >
-                                {p}
-                            </button>
-                        ))}
-
-                        {/* Next */}
-                        <button
-                            onClick={() => on_page_change(current_page + 1)}
-                            disabled={!pagination?.has_next}
-                            className="px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-300 text-gray-600 bg-white hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition"
-                        >
-                            Next ›
-                        </button>
-                    </div>
-                </div>
+            {pagination && (
+                <Pagination
+                    pagination={pagination}
+                    onPageChange={on_page_change}
+                />
             )}
         </div>
     );
 };
+
 
 export default AgentTable;
