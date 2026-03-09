@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { HeaderData } from '../../../shared/types/header';
 import GenericHeader from '../../../shared/Components/GenericHeader';
 import Button from '../../../shared/Components/Button';
@@ -9,10 +10,11 @@ interface QuickBuyHeaderProps {
 }
 
 const QuickBuyHeader: React.FC<QuickBuyHeaderProps> = ({ data }) => {
+    const { t } = useTranslation('quick_buy_details');
     const { showPopup } = usePopup();
     const actions = (
         <Button
-            label="AI Assistant"
+            label={t('header.ai_assistant')}
             variant="solid-white"
             onClick={() => showPopup()}
         />

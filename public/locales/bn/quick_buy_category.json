@@ -1,0 +1,19 @@
+{
+    "sections": {
+        "term_life": {
+            "title": "B term life insurance",
+            "description": "B Get instant coverage with our digital-first policies. Complete your purchase online in minutes with immediate policy issuance.",
+            "empty": "B No term life products found."
+        },
+        "savings": {
+            "title": "B savings plan",
+            "description": "B Offers a dual benefit of life insurance protection and a savings component. Typically, a policyholder pays monthly premiums.",
+            "empty": "B No savings products found."
+        },
+        "special_plans": {
+            "title": "B special insurance plans",
+            "description": "B Special insurance plans are designed to cover the financial risks in accidental indemnity, personal accident coverage, critical illnesses like Cancer Care, Cardiac Insurance etc.",
+            "empty": "B No special insurance plans found."
+        }
+    }
+}
