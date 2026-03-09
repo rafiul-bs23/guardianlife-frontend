@@ -1,0 +1,19 @@
+{
+    "sections": {
+        "term_life": {
+            "title": "term life insurance",
+            "description": "Get instant coverage with our digital-first policies. Complete your purchase online in minutes with immediate policy issuance.",
+            "empty": "No term life products found."
+        },
+        "savings": {
+            "title": "savings plan",
+            "description": "Offers a dual benefit of life insurance protection and a savings component. Typically, a policyholder pays monthly premiums.",
+            "empty": "No savings products found."
+        },
+        "special_plans": {
+            "title": "special insurance plans",
+            "description": "Special insurance plans are designed to cover the financial risks in accidental indemnity, personal accident coverage, critical illnesses like Cancer Care, Cardiac Insurance etc.",
+            "empty": "No special insurance plans found."
+        }
+    }
+}

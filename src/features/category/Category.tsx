@@ -1,5 +1,6 @@
-import { useState, useRef, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useRef, useMemo } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import ProductCard from "../../shared/Components/ProductCard.tsx";
 import ProductCardCompact from "./ProductCardCompact.tsx";
 import FAQ from "../../shared/Components/Faq.tsx";
@@ -7,34 +8,43 @@ import Contentheader from "../../shared/Components/Contentheader.tsx";
 import { WhyChooseQuickBuy } from "../../shared/Components/WhyChooseQuickBuy.tsx";
 
 import CategoryHeader from "./components/CategoryHeader.tsx";
-import { useHeader } from "./hooks/useHeader.ts";
 import { useCategoryProducts } from "./hooks/useCategoryProducts.ts";
+import { useHeader } from "../../shared/hooks/useHeader.ts";
+
+const TAB_VALUES = [
+  { id: 0, value: 'for-you' },
+  { id: 1, value: 'for-your-family' },
+  { id: 2, value: 'retirement' },
+  { id: 3, value: 'islamic' },
+];
 
 const Category = () => {
-  const { data: headerData, isLoading: isHeaderLoading } = useHeader();
-  const [searchParams, navigate] = useSearchParams();
-  const tabIndex = searchParams.get('tabIndex');
-  const [activeIndex, setActiveIndex] = useState(tabIndex ? parseInt(tabIndex) : 0);
+  const { t } = useTranslation('category');
+  const { data: headerData, isLoading: isHeaderLoading } = useHeader('retail-products-list');
+  const { categoryName } = useParams<{ categoryName: string }>();
+  const navigate = useNavigate();
   const tabsRef = useRef<HTMLDivElement>(null);
 
-  const handleTabClick = (index: number) => {
-    setActiveIndex(index);
-
-    tabsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-    searchParams.set('tabIndex', index.toString());
-    navigate(`?${searchParams.toString()}`);
-  };
-
-  const tabs = [
-    { id: 0, title: 'For You', value: 'for-you' },
-    { id: 1, title: 'For Your Family', value: 'for-your-family' },
-    { id: 2, title: 'Retirement', value: 'retirement' },
-    { id: 3, title: 'Islamic', value: 'islamic' },
+  const TABS = [
+    { ...TAB_VALUES[0], title: t('tabs.for_you') },
+    { ...TAB_VALUES[1], title: t('tabs.for_your_family') },
+    { ...TAB_VALUES[2], title: t('tabs.retirement') },
+    { ...TAB_VALUES[3], title: t('tabs.islamic') },
   ];
 
+  const activeIndex = useMemo(() => {
+    if (!categoryName) return 0;
+    const index = TAB_VALUES.findIndex(tab => tab.value === categoryName);
+    return index >= 0 ? index : 0;
+  }, [categoryName]);
+
+  const handleTabClick = (index: number) => {
+    navigate(`/category/${TAB_VALUES[index].value}`);
+    tabsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   // Derive active subcategory from selected tab
-  const activeSubcategory = useMemo(() => tabs[activeIndex]?.value || null, [activeIndex, tabs]);
+  const activeSubcategory = useMemo(() => TAB_VALUES[activeIndex]?.value || null, [activeIndex]);
 
   // Fetch Retail channel products (for ProductCardCompact)
   const {
@@ -61,7 +71,7 @@ const Category = () => {
       {headerData && <CategoryHeader data={headerData} onExploreClick={() => handleTabClick(0)} />}
       <div className="px-4" id="tabs" ref={tabsRef}>
         <div className="flex gap-3 flex-wrap justify-center mt-[14px]">
-          {tabs.map((tab, index) => (
+          {TABS.map((tab, index) => (
             <button
               key={tab.id}
               onClick={() => handleTabClick(index)}
@@ -77,8 +87,8 @@ const Category = () => {
 
         <div className="flex flex-col items-center mt-12 lg:mt-[73px] px-4 lg:px-0">
           <Contentheader
-            title="for your insurance solutions"
-            description="Comprehensive protection plans tailored to your needs. Submit your application and let our experts guide you through the process."
+            title={t('retail_section.title')}
+            description={t('retail_section.description')}
           />
 
           {isRetailLoading ? (
@@ -90,14 +100,14 @@ const Category = () => {
               {retailProducts?.map((product) => (
                 <ProductCardCompact
                   key={product.product_code}
-                  thumbnailUrl={product.thumbnail_url}
+                  thumbnail_url={product.thumbnail_url}
                   title={product.title}
                   points={product.points}
-                  productCode={product.product_code}
+                  product_code={product.product_code}
                 />
               ))}
               {(!retailProducts || retailProducts.length === 0) && (
-                <p className="col-span-1 md:col-span-2 xl:col-span-3 text-gray-500 text-center py-10">No retail products found for this category.</p>
+                <p className="col-span-1 md:col-span-2 xl:col-span-3 text-gray-500 text-center py-10">{t('retail_section.empty_state')}</p>
               )}
             </div>
           )}
@@ -105,9 +115,8 @@ const Category = () => {
 
         <div className="flex flex-col items-center mt-16 lg:mt-[143px] px-4 lg:px-0">
           <Contentheader
-            title="Buy Policy Instantly – No Waiting, No Hassle"
-            description="Get instant coverage with our digital-first policies. Complete your purchase online in minutes with immediate
-          policy issuance."
+            title={t('digital_section.title')}
+            description={t('digital_section.description')}
             isUpperCase={false}
           />
 
@@ -120,15 +129,15 @@ const Category = () => {
               {digitalProducts?.map((product) => (
                 <ProductCard
                   key={product.product_code}
-                  thumbnailUrl={product.thumbnail_url}
+                  thumbnail_url={product.thumbnail_url}
                   title={product.title}
                   points={product.points}
                   description={product.description}
-                  productCode={product.product_code}
+                  product_code={product.product_code}
                 />
               ))}
               {(!digitalProducts || digitalProducts.length === 0) && (
-                <p className="col-span-1 md:col-span-2 text-gray-500 text-center py-10">No digital products found for this category.</p>
+                <p className="col-span-1 md:col-span-2 text-gray-500 text-center py-10">{t('digital_section.empty_state')}</p>
               )}
             </div>
           )}
@@ -145,4 +154,3 @@ const Category = () => {
 };
 
 export default Category;
-

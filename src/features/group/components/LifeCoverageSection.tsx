@@ -1,21 +1,28 @@
+import { useTranslation } from "react-i18next";
 import Contentheader from "../../../shared/Components/Contentheader";
 import { LifeCoverage } from "./LifeCoverage";
 import { MOCK_LIFE_COVERAGE_DATA } from "../api/mockData";
 
 export const LifeCoverageSection = () => {
+    const { t } = useTranslation();
+
+    // Load coverages from translation
+    const localizedCoverages = t('group:life_coverage_section.coverages', { returnObjects: true });
+    const coverages = Array.isArray(localizedCoverages) ? localizedCoverages : [];
+
     return (
         <section className="bg-white pb-16 lg:pb-20">
             <div className="max-w-[1600px] mx-auto px-6 lg:px-10">
                 <div className="mb-10 lg:mb-14">
                     <Contentheader
-                        title={MOCK_LIFE_COVERAGE_DATA.header.title}
-                        description={MOCK_LIFE_COVERAGE_DATA.header.description}
+                        title={t('group:life_coverage_section.header.title')}
+                        description={t('group:life_coverage_section.header.description')}
                     />
                 </div>
 
                 <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start">
                     <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
-                        <LifeCoverage items={MOCK_LIFE_COVERAGE_DATA.coverages} />
+                        <LifeCoverage items={coverages as any} />
                     </div>
                     <div className="w-full lg:w-1/2 flex justify-center lg:justify-start">
                         <img
@@ -29,3 +36,4 @@ export const LifeCoverageSection = () => {
         </section>
     );
 };
+

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { HeaderData } from '../../../shared/types/header';
 import GenericHeader from '../../../shared/Components/GenericHeader';
 import Button from '../../../shared/Components/Button';
@@ -9,10 +10,12 @@ interface BancaHeaderProps {
 }
 
 const BancaHeader: React.FC<BancaHeaderProps> = ({ data, onScrollToBancasurancePartners }) => {
+    const { t } = useTranslation('banca');
+
     const actions = (
         <>
             <Button
-                label="Partner"
+                label={t('header.partner_btn')}
                 variant="outline-white"
                 onClick={onScrollToBancasurancePartners}
             />

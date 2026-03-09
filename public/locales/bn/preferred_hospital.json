@@ -1,0 +1,40 @@
+{
+    "header": {
+        "title": "B Preferred Hospital"
+    },
+    "page": {
+        "title": "B Find Hospital and Diagnostics",
+        "description": "B Browse Guardian Life's network of preferred hospitals and diagnostic centres."
+    },
+    "filter": {
+        "type_national": "B National",
+        "type_international": "B International",
+        "sub_hospital": "B Hospital",
+        "sub_diagnostic": "B Diagnostic Center",
+        "name_label": "B Hospital Name",
+        "name_placeholder": "B Search hospital...",
+        "name_placeholder_intl": "B Search international hospital...",
+        "division_label": "B Choose Division",
+        "all_divisions": "B All Divisions",
+        "district_label": "B Select District",
+        "all_districts": "B All Districts",
+        "area_label": "B Select Area",
+        "all_areas": "B All Areas",
+        "country_label": "B Choose Country",
+        "all_countries": "B All Countries",
+        "reset_btn": "B Reset"
+    },
+    "table": {
+        "col_sl": "B SL",
+        "col_hospital_name": "B Hospital Name",
+        "col_division": "B Division",
+        "col_district": "B District",
+        "col_area": "B Area",
+        "col_address": "B Address",
+        "col_facilities": "B Facilities",
+        "col_contact_details": "B Contact Details",
+        "col_remark": "B Remark",
+        "col_country": "B Country",
+        "empty": "B No hospitals found for the selected filters."
+    }
+}

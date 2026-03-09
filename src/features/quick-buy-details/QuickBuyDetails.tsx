@@ -1,15 +1,18 @@
 import QuickBuyHeader from './components/QuickBuyHeader';
-import { useHeader } from './hooks/useHeader';
+
 import { useProductBuyDetails } from './hooks/useProductBuyDetails';
 import PlanBenefitsSection from '../../shared/Components/PlanBenefitsSection';
 import ProductSupport from '../../shared/Components/ProductSupport';
 import QuickProductView from '../../shared/Components/QuickProductView';
 import ProductCalculator from './components/ProductCalculator';
 import FAQ from '../../shared/Components/Faq';
+import { useParams } from 'react-router-dom';
+import { useHeader } from '../../shared/hooks/useHeader';
 
 const QuickBuyDetails = () => {
-  const { data: headerData, isLoading: isHeaderLoading } = useHeader('quick-buy-1');
-  const { data, isLoading, error } = useProductBuyDetails('quick-buy-1');
+  const { product_code } = useParams();
+  const { data: headerData, isLoading: isHeaderLoading } = useHeader(`product-${product_code}`);
+  const { data, isLoading, error } = useProductBuyDetails(product_code as string);
 
   if (isLoading || isHeaderLoading) {
     return (

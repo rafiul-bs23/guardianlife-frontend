@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '../../../shared/Components/Button';
 
-const LocalAgent: React.FC<{ productCode: string }> = ({ productCode }) => {
+const LocalAgent: React.FC<{ product_code: string }> = ({ product_code }) => {
     return (
         <section className="w-full bg-[#EB6925] overflow-hidden relative">
             {/* Shape Background - Adaptive Positioning & Rotation */}
@@ -34,7 +34,7 @@ const LocalAgent: React.FC<{ productCode: string }> = ({ productCode }) => {
                             label="Buy Through an Agent"
                             variant="solid-white"
                             className="whitespace-nowrap rounded-xl"
-                            href={`https://saleslead.myguardianbd.com/lead-form?product_name=${productCode}`}
+                            href={`https://saleslead.myguardianbd.com/lead-form?product_name=${product_code}`}
                         />
                     </div>
                 </div>

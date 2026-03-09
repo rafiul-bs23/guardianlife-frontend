@@ -1,6 +1,8 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const InvestmentSectors: React.FC = () => {
+    const { t } = useTranslation('tax_rebate');
     const paths = {
         left: "M 305 249 H 68 Q 53 247 55 229 v -115 Q 56 103 71 103 H 430 C 455 102 453 116 453 121 V 160 C 417 177 390 202 379 249",
         right: "M 695 249 H 932 Q 947 247 945 229 V 114 Q 944 103 929 103 H 570 C 545 102 547 116 547 121 V 160 C 583 177 610 202 621 249",
@@ -12,7 +14,7 @@ const InvestmentSectors: React.FC = () => {
         <section className="py-24 px-4 bg-white overflow-hidden">
             <div className="max-w-7xl mx-auto">
                 <h2 className="text-lg md:text-2xl font-bold text-[#212529] text-center uppercase  tracking-wide">
-                    INVESTMENT SECTORS FOR TAX REBATE
+                    {t('investment_sectors_title')}
                 </h2>
 
                 <div className="relative w-full max-w-[1100px] mx-auto hidden md:block aspect-[1.8/1]">
@@ -40,29 +42,29 @@ const InvestmentSectors: React.FC = () => {
                         <div className="w-20 h-20 mb-1">
                             <img src="https://img.icons8.com/isometric-line/100/EB6925/tax.png" alt="Tax Icon" className="w-full h-full object-contain" />
                         </div>
-                        <span className="text-xl font-black text-[#212529] uppercase tracking-tighter">TAX REBATE</span>
+                        <span className="text-xl font-black text-[#212529] uppercase tracking-tighter">{t('tax_rebate_hub')}</span>
                     </div>
 
                     {/* Content Positioning */}
 
                     {/* Top Left Text */}
                     <div className="absolute top-[30%] left-[3%] w-[38%] text-center">
-                        <h3 className="text-xl font-bold text-[#212529]">Life Insurance Premium</h3>
+                        <h3 className="text-xl font-bold text-[#212529]">{t('life_insurance_premium')}</h3>
                     </div>
 
                     {/* Top Right Text */}
                     <div className="absolute top-[27%] right-[3%] w-[38%] text-center">
-                        <h3 className="text-xl font-bold text-[#212529]">Investment in stock exchange,<br />mutual funds or in debentures</h3>
+                        <h3 className="text-xl font-bold text-[#212529]" dangerouslySetInnerHTML={{ __html: t('investment_stock_exchange').replace(',', ',<br />') }} />
                     </div>
 
                     {/* Bottom Left Text */}
                     <div className="absolute bottom-[28%] left-[3%] w-[38%] text-center">
-                        <h3 className="text-xl font-bold text-[#212529]">Investment in Savings<br />Certificates</h3>
+                        <h3 className="text-xl font-bold text-[#212529]" dangerouslySetInnerHTML={{ __html: t('investment_savings_certificates').replace('Investment in', 'Investment in<br />') }} />
                     </div>
 
                     {/* Bottom Right Text */}
                     <div className="absolute bottom-[25%] right-[7%] w-[32%] text-center">
-                        <h3 className="text-xl font-bold text-[#212529] leading-tight">Investment in deposit pension scheme: maximum investment<br />of BDT 60,000 per annum</h3>
+                        <h3 className="text-xl font-bold text-[#212529] leading-tight" dangerouslySetInnerHTML={{ __html: t('investment_dps').replace('scheme:', 'scheme:<br />') }} />
                     </div>
 
                 </div>
@@ -70,16 +72,16 @@ const InvestmentSectors: React.FC = () => {
                 {/* Mobile View (Stack) */}
                 <div className="md:hidden space-y-6">
                     <div className="p-6 border-l-4 border-[#4C51BF] bg-gray-50 rounded-r-xl shadow-sm">
-                        <h3 className="text-lg font-black text-[#212529]">Life Insurance Premium</h3>
+                        <h3 className="text-lg font-black text-[#212529]">{t('life_insurance_premium')}</h3>
                     </div>
                     <div className="p-6 border-l-4 border-[#ED8936] bg-gray-50 rounded-r-xl shadow-sm">
-                        <h3 className="text-lg font-black text-[#212529]">Investment in stock exchange, mutual funds or in debentures</h3>
+                        <h3 className="text-lg font-black text-[#212529]">{t('investment_stock_exchange')}</h3>
                     </div>
                     <div className="p-6 border-l-4 border-[#4299E1] bg-gray-50 rounded-r-xl shadow-sm">
-                        <h3 className="text-lg font-black text-[#212529]">Investment in Savings Certificates</h3>
+                        <h3 className="text-lg font-black text-[#212529]">{t('investment_savings_certificates')}</h3>
                     </div>
                     <div className="p-6 border-l-4 border-[#48BB78] bg-gray-50 rounded-r-xl shadow-sm">
-                        <h3 className="text-lg font-black text-[#212529]">Investment in deposit pension scheme</h3>
+                        <h3 className="text-lg font-black text-[#212529]">{t('investment_dps_mobile')}</h3>
                     </div>
                 </div>
 

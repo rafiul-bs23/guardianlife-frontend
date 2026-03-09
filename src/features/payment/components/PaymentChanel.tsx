@@ -1,13 +1,9 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { mockPaymentChanelData } from '../api/mockData';
 import type { PaymentTab, PaymentPartner } from '../types';
 
-const TABS = [
-    { id: 'mobile_banking', label: 'MOBILE BANKING' },
-    { id: 'cards', label: 'CARDS' },
-    { id: 'internet_banking', label: 'INTERNET BANKING' },
-    { id: 'direct_bank', label: 'DIRECT BANK' },
-] as const;
+const TAB_IDS: PaymentTab[] = ['mobile_banking', 'cards', 'internet_banking', 'direct_bank'];
 
 const PartnerGrid = ({ partners }: { partners: PaymentPartner[] }) => {
     return (
@@ -32,14 +28,17 @@ const PartnerGrid = ({ partners }: { partners: PaymentPartner[] }) => {
 };
 
 const PaymentChanel = () => {
+    const { t } = useTranslation('payment');
     const [activeTab, setActiveTab] = useState<PaymentTab>('mobile_banking');
     const data = mockPaymentChanelData;
+
+    const TABS = TAB_IDS.map((id) => ({ id, label: t(`tabs.${id}`) }));
 
     return (
         <section className="w-full py-16 px-4 md:px-8 bg-white">
             <div className="max-w-7xl mx-auto flex flex-col items-center">
                 <h2 className="text-2xl md:text-3xl font-bold uppercase text-gray-900 mb-8 tracking-wider">
-                    Payment we support
+                    {t('section.title')}
                 </h2>
 
                 {/* Tabs */}
@@ -49,7 +48,7 @@ const PaymentChanel = () => {
                         return (
                             <button
                                 key={tab.id}
-                                onClick={() => setActiveTab(tab.id as PaymentTab)}
+                                onClick={() => setActiveTab(tab.id)}
                                 className={`
                                     min-w-[150px] md:min-w-[200px] xl:min-w-[240px] py-3 px-6 rounded-full font-medium text-sm md:text-base border transition-colors duration-300
                                     ${isActive
@@ -74,13 +73,13 @@ const PaymentChanel = () => {
                             <table className="w-full text-left border-collapse min-w-[800px]">
                                 <thead>
                                     <tr className="bg-[#FFF3E6]">
-                                        <th className="p-4 border border-[#E5E7EB] font-semibold text-[#262161] whitespace-nowrap">SL No.</th>
-                                        <th className="p-4 border border-[#E5E7EB] font-semibold text-[#262161]">Name of Bank</th>
-                                        <th className="p-4 border border-[#E5E7EB] font-semibold text-[#262161]">Account Name</th>
-                                        <th className="p-4 border border-[#E5E7EB] font-semibold text-[#262161]">A/C Type</th>
-                                        <th className="p-4 border border-[#E5E7EB] font-semibold text-[#262161] whitespace-nowrap">A/C No</th>
-                                        <th className="p-4 border border-[#E5E7EB] font-semibold text-[#262161] whitespace-nowrap">Routing No.</th>
-                                        <th className="p-4 border border-[#E5E7EB] font-semibold text-[#262161]">Branch Name</th>
+                                        <th className="p-4 border border-[#E5E7EB] font-semibold text-[#262161] whitespace-nowrap">{t('table.sl')}</th>
+                                        <th className="p-4 border border-[#E5E7EB] font-semibold text-[#262161]">{t('table.bank_name')}</th>
+                                        <th className="p-4 border border-[#E5E7EB] font-semibold text-[#262161]">{t('table.account_name')}</th>
+                                        <th className="p-4 border border-[#E5E7EB] font-semibold text-[#262161]">{t('table.account_type')}</th>
+                                        <th className="p-4 border border-[#E5E7EB] font-semibold text-[#262161] whitespace-nowrap">{t('table.account_no')}</th>
+                                        <th className="p-4 border border-[#E5E7EB] font-semibold text-[#262161] whitespace-nowrap">{t('table.routing_no')}</th>
+                                        <th className="p-4 border border-[#E5E7EB] font-semibold text-[#262161]">{t('table.branch_name')}</th>
                                     </tr>
                                 </thead>
                                 <tbody>

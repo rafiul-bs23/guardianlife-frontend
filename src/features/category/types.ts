@@ -1,7 +1,7 @@
 export interface CategoryProduct {
     title: string;
     product_code: string;
-    logoUrl: string | null;
+    logo_url: string | null;
     thumbnail_url: string;
     description: string;
     footer: string | null;

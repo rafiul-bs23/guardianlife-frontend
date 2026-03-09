@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import type { PartnerChannel } from '../types';
 
 /* ─── Single partner card ─── */
@@ -40,6 +41,7 @@ interface PartnerGridProps {
 }
 
 const PartnerGrid = ({ partner_channels, is_loading, error }: PartnerGridProps) => {
+    const { t } = useTranslation('partner_channels');
     if (error) {
         return (
             <div className="flex items-center justify-center py-24 text-gray-500 text-[14px]">
@@ -55,10 +57,10 @@ const PartnerGrid = ({ partner_channels, is_loading, error }: PartnerGridProps) 
                 {/* Section heading */}
                 <div className="text-center mb-10 lg:mb-14">
                     <h2 className="font-extrabold text-[20px] lg:text-[26px] uppercase leading-[1.3] tracking-[0.01em] text-gray-900">
-                        Our Corporate Partners
+                        {t('section.title')}
                     </h2>
                     <p className="mt-3 text-[14px] lg:text-[15px] text-gray-500 font-normal">
-                        Trusted by leading organizations across industries
+                        {t('section.subtitle')}
                     </p>
                 </div>
 
@@ -80,7 +82,7 @@ const PartnerGrid = ({ partner_channels, is_loading, error }: PartnerGridProps) 
                 {/* Empty state */}
                 {!is_loading && partner_channels?.length === 0 && (
                     <div className="flex items-center justify-center py-16 text-gray-400 text-[14px]">
-                        No partners found.
+                        {t('section.empty')}
                     </div>
                 )}
             </div>

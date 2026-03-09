@@ -1,4 +1,4 @@
-import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { HeaderData } from '../../../shared/types/header';
 import GenericHeader from '../../../shared/Components/GenericHeader';
 import Button from '../../../shared/Components/Button';
@@ -9,10 +9,11 @@ interface TaxRebateHeaderProps {
 }
 
 const TaxRebateHeader: React.FC<TaxRebateHeaderProps> = ({ data }) => {
+    const { t } = useTranslation('tax_rebate');
     const { showPopup } = usePopup();
     const actions = (
         <Button
-            label="Tax Rebate Calculator"
+            label={t('tax_rebate_calculator')}
             variant="outline-white"
             onClick={() => showPopup()}
         />

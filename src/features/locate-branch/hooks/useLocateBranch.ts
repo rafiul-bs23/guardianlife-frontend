@@ -22,8 +22,7 @@ export const useLocateBranch = (): UseLocateBranchResult => {
 
         try {
             const response = await getBranches(params);
-
-            if (response.success) {
+            if (response.status) {
                 setBranches(response.data.branches);
                 setPagination(response.data.pagination);
             } else {

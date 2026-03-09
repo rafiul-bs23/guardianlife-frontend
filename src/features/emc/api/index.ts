@@ -2,7 +2,7 @@ import type { EmcApiResponse } from "../types";
 import { getRealEmcData } from "./emcApi";
 import { getMockEmcData } from "./mockEmcApi";
 
-const USE_MOCK = import.meta.env.VITE_USE_MOCK_API === 'true';
+const USE_MOCK = import.meta.env.VITE_USE_MOCK_API === 'false';
 
 export const getEmcData = async (): Promise<EmcApiResponse> => {
     if (USE_MOCK) {

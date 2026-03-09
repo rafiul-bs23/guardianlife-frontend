@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import DirectorCard from './DirectorCard';
 import type { BoardDirectorsData } from '../types';
 
@@ -7,12 +8,14 @@ interface BoardDirectorsListProps {
 }
 
 const BoardDirectorsList: React.FC<BoardDirectorsListProps> = ({ data }) => {
+    const { t } = useTranslation('board_directors');
+
     return (
         <section className="py-24 bg-gray-50">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-20">
                     <h2 className="text-3xl md:text-4xl font-black text-[#111827] uppercase tracking-widest">
-                        BOARD OF DIRECTORS
+                        {t('list.section_title')}
                     </h2>
                 </div>
                 {data?.directors?.length > 0 ? (
@@ -23,10 +26,9 @@ const BoardDirectorsList: React.FC<BoardDirectorsListProps> = ({ data }) => {
                     </div>
                 ) : (
                     <div className="text-center">
-                        <p className="text-gray-500">No board directors found</p>
+                        <p className="text-gray-500">{t('list.empty_state')}</p>
                     </div>
                 )}
-
             </div>
         </section>
     );

@@ -1,8 +1,10 @@
+import { useTranslation } from 'react-i18next';
 import AgentListHeader from "./components/AgentListHeader";
 import AgentTable from "./components/AgentTable";
 import { useAgentList } from "./hooks/useAgentList";
 
 const AgentList = () => {
+    const { t } = useTranslation('agent_list');
     const { agents, pagination, is_loading, error, current_page, go_to_page } = useAgentList();
 
     return (
@@ -13,12 +15,13 @@ const AgentList = () => {
                 {/* Section Title */}
                 <div className="mb-6">
                     <h2 className="text-2xl font-bold text-gray-800 uppercase tracking-tight">
-                        Agent List
+                        {t('section.title')}
                     </h2>
                     <p className="text-sm text-gray-500 mt-1">
-                        Browse all licensed Guardian Life agents.
+                        {t('section.description')}
                     </p>
                 </div>
+
 
                 {/* Table */}
                 <AgentTable

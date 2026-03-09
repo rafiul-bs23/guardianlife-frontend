@@ -1,3 +1,9 @@
+export interface OutPatientCard {
+  title: string;
+  description: string;
+  points: string[];
+}
+
 export interface LifeCoverageType {
   id: number;
   title: string;

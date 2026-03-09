@@ -1,7 +1,7 @@
 import type { BranchApiSuccessResponse } from '../types';
 
 export const mockBranchData: BranchApiSuccessResponse = {
-    success: true,
+    status: true,
     transaction_id: "GLIL-TXN-ID",
     data: {
         pagination: {

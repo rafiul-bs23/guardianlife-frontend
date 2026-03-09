@@ -1,0 +1,26 @@
+{
+  "form": {
+    "title": "Please fill up the form"
+  },
+  "info": {
+    "visit_us": {
+      "title": "Visit Us",
+      "subtitle": "Come say hello at our office HQ",
+      "address": "Police Plaza Concord (13th Floor), Tower- 02, Plot # 02, Road # 144, Gulshan Avenue, Dhaka- 1212."
+    },
+    "call_us": {
+      "title": "Call Us",
+      "subtitle": "Sunday to Thursday, 10 AM to 6 PM, except government holidays",
+      "phone1": "+880 9666716622",
+      "phone2": "16622 (24/7 Customer Care)"
+    },
+    "chat_with_us": {
+      "title": "Chat with us",
+      "subtitle": "Our Friendly Team is here to help",
+      "email": "info@guardianlife.com.bd"
+    },
+    "social_media": {
+      "title": "Social Media"
+    }
+  }
+}

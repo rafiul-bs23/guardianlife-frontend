@@ -9,11 +9,11 @@ import AppDownloadSection from '../../shared/Components/AppDownloadSection';
 import CashlessNetwork from '../../shared/Components/CashlessNetwork';
 import { mockMicroData } from './api/mockData';
 import MicroHeader from './components/MicroHeader';
-import { useHeader } from './hooks/useHeader';
 import FAQ from '../../shared/Components/Faq';
+import { useHeader } from '../../shared/hooks/useHeader';
 
 const Micro = () => {
-  const { data: headerData, isLoading: isHeaderLoading } = useHeader();
+  const { data: headerData, isLoading: isHeaderLoading } = useHeader('micro-info');
   const solutionsRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
 

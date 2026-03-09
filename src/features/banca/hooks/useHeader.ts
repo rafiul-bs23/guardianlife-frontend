@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { MOCK_HEADER_DATA } from '../api/mockData';
+import { mock_header_data } from '../api/mockData';
 import type { HeaderData } from '../../../shared/types/header';
 
 export const useHeader = () => {
@@ -12,7 +12,7 @@ export const useHeader = () => {
             try {
                 // Simulate API call delay
                 await new Promise(resolve => setTimeout(resolve, 800));
-                setData(MOCK_HEADER_DATA.data);
+                setData(mock_header_data?.data);
             } catch (err) {
                 setError(err as Error);
             } finally {

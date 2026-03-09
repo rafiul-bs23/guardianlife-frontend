@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { HeaderData } from '../../../shared/types/header';
 import GenericHeader from '../../../shared/Components/GenericHeader';
 import Button from '../../../shared/Components/Button';
@@ -9,17 +10,18 @@ interface CategoryHeaderProps {
 }
 
 const CategoryHeader: React.FC<CategoryHeaderProps> = ({ data, onExploreClick }) => {
+    const { t } = useTranslation('category');
 
     const actions = (
         <>
             <Button
-                label="Explore Our Products"
+                label={t('header.explore_btn')}
                 variant="outline-white"
                 className="!py-1"
                 onClick={onExploreClick || (() => console.log('Explore Our Products clicked'))}
             />
             <Button
-                label="Get A Quote"
+                label={t('header.quote_btn')}
                 variant="solid-white"
                 className="!py-1"
                 href='https://saleslead.myguardianbd.com/lead-form'

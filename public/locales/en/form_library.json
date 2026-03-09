@@ -1,0 +1,13 @@
+{
+    "header": {
+        "title": "FORM LIBRARY"
+    },
+    "list": {
+        "search_placeholder": "Search",
+        "table_header_file": "File Name",
+        "table_header_action": "Action",
+        "download_btn": "Download",
+        "loading": "Loading forms...",
+        "no_forms": "No forms found matching \"{{query}}\""
+    }
+}

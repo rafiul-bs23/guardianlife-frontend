@@ -11,7 +11,7 @@ export interface BancaProduct {
     description: string;
     logo_url: string; // Used as the top-left icon in new design
     thumbnail_url: string; // Used as the large center image in new design
-    subtitle: string;
+    subtitle?: string;
     subtitle_description: string;
 }
 

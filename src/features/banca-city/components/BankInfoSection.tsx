@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { BancaBank } from '../types';
 import { CheckCircle2 } from 'lucide-react';
 
@@ -7,6 +8,7 @@ interface BankInfoSectionProps {
 }
 
 const BankInfoSection: React.FC<BankInfoSectionProps> = ({ data }) => {
+    const { t } = useTranslation('banca_city');
     return (
         <section className="py-20 bg-[#F6F7F9]">
             <div className="max-w-[1200px] mx-auto px-4">
@@ -14,7 +16,7 @@ const BankInfoSection: React.FC<BankInfoSectionProps> = ({ data }) => {
                     {/* Left: Text Content */}
                     <div className="w-full lg:w-1/2 flex flex-col gap-5">
                         <h2 className="text-[19px] font-extrabold text-[#212529] tracking-tight">
-                            {data.title || "Partnership Introduction"}
+                            {data.title || t('bank_info.fallback_title')}
                         </h2>
 
                         {/* Assuming description might be long or have newlines, we preserve whitespace or just display it cleanly */}

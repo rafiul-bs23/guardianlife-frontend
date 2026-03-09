@@ -1,0 +1,29 @@
+{
+    "header": {
+        "title": "B Locate a Branch"
+    },
+    "page": {
+        "title": "B Find a Branch",
+        "description": "B Use the filters below to locate a Guardian Life branch near you."
+    },
+    "filter": {
+        "label": "B Search Branches",
+        "placeholder": "B Search by name, category, division, district, area or address...",
+        "reset_btn": "B Reset"
+    },
+    "table": {
+        "headers": {
+            "sl": "B SL",
+            "category": "B Office Category",
+            "name": "B Office Name",
+            "division": "B Division",
+            "district": "B District",
+            "area": "B Area",
+            "address": "B Address",
+            "contact": "B Contact Person",
+            "map": "B View On Map"
+        },
+        "map_btn": "B Map",
+        "no_branches": "B No branches found for the selected filters."
+    }
+}

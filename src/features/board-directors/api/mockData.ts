@@ -13,7 +13,7 @@ export const MOCK_BOARD_DIRECTOR_DATA: BoardDirectorApiResponse = {
     data: [
         {
             id: "1",
-            name: "MR. SAMUEL S CHOWDHURY",
+            name: "MR. SAMUEL S ",
             designation: "CHAIRMAN",
             image_url: "assets/images/boardDirectors/1.png"
         },

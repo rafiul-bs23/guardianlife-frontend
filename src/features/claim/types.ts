@@ -11,8 +11,8 @@ export interface FeaturesSection {
 }
 
 export interface ClaimDocument {
-    fileName: string;
-    pdfDownloadLink: string;
+    file_name: string;
+    pdf_download_link: string;
 }
 
 export interface ClaimCategory {
@@ -27,24 +27,24 @@ export interface ClaimDocumentsData {
 export interface TimelineItem {
     label: string;
     date: string;
-    isCompleted: boolean;
+    is_completed: boolean;
 }
 
 export interface ClaimStatus {
-    trackingTitle: string;
-    trackingSubtitle: string;
+    tracking_title: string;
+    tracking_subtitle: string;
     timeline: TimelineItem[];
 }
 
 export interface CustomerStoriesData {
     title: string;
     subtitle: string;
-    videoThumbnail: string;
-    videoUrl: string;
+    video_thumbnail: string;
+    video_url: string;
 }
 
 export interface ClaimData {
-    featuresSection: FeaturesSection;
-    claimStatus: ClaimStatus;
-    customerStories: CustomerStoriesData;
+    features_section: FeaturesSection;
+    claim_status: ClaimStatus;
+    customer_stories: CustomerStoriesData;
 }

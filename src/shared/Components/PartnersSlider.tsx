@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useTranslation } from "react-i18next";
 import { usePartners } from '../hooks/usePartners';
 
 interface PartnersSliderProps {
@@ -9,13 +10,17 @@ interface PartnersSliderProps {
 
 const PartnersSlider: React.FC<PartnersSliderProps> = ({
     channel,
-    title = 'OUR MAJOR PARTNERS',
-    subtitle = 'OUR MAJOR PARTNERS',
+    title,
+    subtitle,
 }) => {
+    const { t } = useTranslation('shared');
     const { data: partners, is_loading, error } = usePartners(channel);
     const [activeIndex, setActiveIndex] = useState(0);
     const [visibleCount, setVisibleCount] = useState(5);
     const scrollRef = useRef<HTMLDivElement>(null);
+
+    const displayTitle = title ?? t('partners.title');
+    const displaySubtitle = subtitle ?? t('partners.subtitle');
 
     const totalLogos = partners?.length || 0;
     const dotCount = Math.max(0, totalLogos - visibleCount + 1);
@@ -70,10 +75,10 @@ const PartnersSlider: React.FC<PartnersSliderProps> = ({
             <div className="max-w-[1400px] mx-auto px-4">
                 <div className="text-center mb-16 space-y-3">
                     <h2 className="text-[26px] font-extrabold text-[#111827] uppercase tracking-wider">
-                        {title}
+                        {displayTitle}
                     </h2>
                     <p className="text-gray-500 text-[13px] font-bold uppercase tracking-[0.2em] opacity-80">
-                        {subtitle}
+                        {displaySubtitle}
                     </p>
                 </div>
 
@@ -92,7 +97,7 @@ const PartnersSlider: React.FC<PartnersSliderProps> = ({
                             ))
                         ) : error ? (
                             <div className="w-full text-center py-10">
-                                <p className="text-red-500 font-bold">Failed to load partners</p>
+                                <p className="text-red-500 font-bold">{t('partners.error_loading')}</p>
                             </div>
                         ) : (
                             partners?.map((partner, index) => (
@@ -132,11 +137,10 @@ const PartnersSlider: React.FC<PartnersSliderProps> = ({
                             <button
                                 key={dotIndex}
                                 onClick={() => scrollTo(dotIndex)}
-                                className={`h-2.5 transition-all duration-500 rounded-full cursor-pointer ${
-                                    activeIndex === dotIndex
-                                        ? 'w-10 bg-[#EF6925]'
-                                        : 'w-2.5 bg-[#FDBA74] hover:bg-[#FB923C]'
-                                }`}
+                                className={`h-2.5 transition-all duration-500 rounded-full cursor-pointer ${activeIndex === dotIndex
+                                    ? 'w-10 bg-[#EF6925]'
+                                    : 'w-2.5 bg-[#FDBA74] hover:bg-[#FB923C]'
+                                    }`}
                                 aria-label={`Go to slide ${dotIndex + 1}`}
                             />
                         ))}
@@ -146,5 +150,6 @@ const PartnersSlider: React.FC<PartnersSliderProps> = ({
         </section>
     );
 };
+
 
 export default PartnersSlider;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { footerLinksData } from '../api/mockData';
+import { footerLinksData } from '../constants/footerData';
 
 const Footer: React.FC = () => {
   // Split links into columns of 6

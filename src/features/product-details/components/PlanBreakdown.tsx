@@ -61,7 +61,11 @@ const BreakdownBlock: React.FC<{ item: BreakdownItem }> = ({ item }) => {
     );
 };
 
+import { motion, AnimatePresence } from 'framer-motion';
+
 const EligibilityScale: React.FC<{ min: number; max: number }> = ({ min, max }) => {
+    const [isLeftHovered, setIsLeftHovered] = React.useState(false);
+    const [isRightHovered, setIsRightHovered] = React.useState(false);
 
     const labels = [20, 30, 40, 60, 50, 65];
     const maxScaleVal = 65;
@@ -69,6 +73,25 @@ const EligibilityScale: React.FC<{ min: number; max: number }> = ({ min, max }) 
 
     // Calculate percentage positions for labels for a 20-65 range
     const getPos = (val: number) => ((val - minScaleVal) / (maxScaleVal - minScaleVal)) * 100;
+
+    const Tooltip = ({ value, show }: { value: number; show: boolean }) => (
+        <AnimatePresence>
+            {show && (
+                <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.9, x: '-50%' }}
+                    animate={{ opacity: 1, y: 0, scale: 1, x: '-50%' }}
+                    exit={{ opacity: 0, y: 10, scale: 0.9, x: '-50%' }}
+                    className="absolute -top-12 left-1/2 z-10"
+                >
+                    <div className="bg-primary text-white text-xs font-bold py-1.5 px-3 rounded-lg shadow-lg relative whitespace-nowrap">
+                        {value} Years
+                        {/* Tooltip Arrow */}
+                        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-primary rotate-45"></div>
+                    </div>
+                </motion.div>
+            )}
+        </AnimatePresence>
+    );
 
     return (
         <div className="mt-8 mb-12 px-4">
@@ -96,9 +119,20 @@ const EligibilityScale: React.FC<{ min: number; max: number }> = ({ min, max }) 
                     style={{ left: `${getPos(min)}%`, right: `${100 - getPos(max)}%` }}
                 >
                     {/* Left Handle */}
-                    <div className="w-8 h-8 bg-[#EB6925] rounded-full border-4 border-white shadow-md -ml-0 shrink-0 transition-transform hover:scale-110"></div>
-                    {/* Right Handle */}
-                    <div className="w-8 h-8 bg-[#EB6925] rounded-full border-4 border-white shadow-md -mr-0 shrink-0 transition-transform hover:scale-110"></div>
+                    <div
+                        className="relative w-8 h-8 bg-[#EB6925] rounded-full border-4 border-white shadow-md -ml-0 shrink-0 transition-transform hover:scale-110 cursor-pointer"
+                        onMouseEnter={() => setIsLeftHovered(true)}
+                        onMouseLeave={() => setIsLeftHovered(false)}
+                    >
+                        <Tooltip value={min} show={isLeftHovered} />
+                    </div>
+                    <div
+                        className="relative w-8 h-8 bg-[#EB6925] rounded-full border-4 border-white shadow-md -mr-0 shrink-0 transition-transform hover:scale-110 cursor-pointer"
+                        onMouseEnter={() => setIsRightHovered(true)}
+                        onMouseLeave={() => setIsRightHovered(false)}
+                    >
+                        <Tooltip value={max} show={isRightHovered} />
+                    </div>
                 </div>
             </div>
         </div>

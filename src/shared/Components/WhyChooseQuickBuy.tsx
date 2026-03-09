@@ -1,48 +1,38 @@
 import { Zap, Smartphone, Shield } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
-type Feature = {
+type FeatureLocale = {
   id: number;
-  icon: React.ReactNode;
   title: string;
   description: string;
 };
 
-const features: Feature[] = [
-  {
-    id: 1,
-    icon: <Zap size={48} strokeWidth={2.5} className="text-[#FDB022]" />,
-    title: "Instant Approval",
-    description: "Get covered in minutes",
-  },
-  {
-    id: 2,
-    icon: <Smartphone size={48} strokeWidth={2.5} className="text-[#2C3E50]" />,
-    title: "Digital Process",
-    description: "100% paperless",
-  },
-  {
-    id: 3,
-    icon: <Shield size={48} strokeWidth={2.5} className="text-[#E74C3C]" />,
-    title: "Immediate Coverage",
-    description: "Protection starts now",
-  },
+const ICONS = [
+  <Zap size={48} strokeWidth={2.5} className="text-[#FDB022]" />,
+  <Smartphone size={48} strokeWidth={2.5} className="text-[#2C3E50]" />,
+  <Shield size={48} strokeWidth={2.5} className="text-[#E74C3C]" />,
 ];
 
 export function WhyChooseQuickBuy() {
+  const { t } = useTranslation('shared');
+
+  const localizedFeatures = t('why_choose_quick_buy.features', { returnObjects: true });
+  const features = Array.isArray(localizedFeatures) ? (localizedFeatures as FeatureLocale[]) : [];
+
   return (
     <div className="w-full flex justify-center">
       <div className="max-w-[903px] w-full flex flex-col items-center gap-[20px] bg-white py-8">
         <h2 className="m-0 text-[32px] font-bold text-[#1a1a2e] text-center">
-          Why Choose Quick Buy?
+          {t('why_choose_quick_buy.title')}
         </h2>
 
         <div className="flex items-start justify-between w-full gap-[40px]">
-          {features.map((feature) => (
+          {features.map((feature, index) => (
             <div
               key={feature.id}
               className="flex-1 flex flex-col items-center text-center"
             >
-              <div className="mb-[8px]">{feature.icon}</div>
+              <div className="mb-[8px]">{ICONS[index]}</div>
               <h3 className="m-0 text-[22px] font-bold text-[#1a1a2e]">
                 {feature.title}
               </h3>

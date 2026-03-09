@@ -1,9 +1,18 @@
 import React from 'react';
+import { useTranslation } from "react-i18next";
 import Button from './Button';
 import { sharedCashlessNetworkData } from '../api/mockData';
 
 const CashlessNetwork: React.FC = () => {
+    const { t } = useTranslation('shared');
     const data = sharedCashlessNetworkData;
+
+    // Load translated data
+    const localizedStats = t('cashless_network.stats', { returnObjects: true });
+    const stats = Array.isArray(localizedStats) ? localizedStats : [];
+
+    const localizedSteps = t('cashless_network.steps', { returnObjects: true });
+    const steps = Array.isArray(localizedSteps) ? localizedSteps : [];
 
     return (
         <section className="py-20 bg-white">
@@ -12,15 +21,15 @@ const CashlessNetwork: React.FC = () => {
                     {/* Content Left */}
                     <div className="flex-1 space-y-10">
                         <div className="space-y-4">
-                            <h2 className="text-xl font-bold text-gray-900 tracking-tight">{data.title}</h2>
+                            <h2 className="text-xl font-bold text-gray-900 tracking-tight">{t('cashless_network.title')}</h2>
                             <p className="text-gray-700 text-[15px] font-medium leading-relaxed max-w-xl">
-                                {data.description}
+                                {t('cashless_network.description')}
                             </p>
                         </div>
 
                         {/* Stats */}
                         <div className="flex gap-16 lg:gap-24">
-                            {data.stats.map((stat, index) => (
+                            {stats.map((stat: any, index: number) => (
                                 <div key={index} className="flex flex-col gap-1">
                                     <div className="text-4xl font-black text-gray-900 leading-none">{stat.value}</div>
                                     <div className="text-xs font-bold text-gray-500 uppercase tracking-widest">{stat.label}</div>
@@ -30,9 +39,9 @@ const CashlessNetwork: React.FC = () => {
 
                         {/* How it works */}
                         <div className="space-y-6 pt-4">
-                            <h3 className="text-base font-extrabold text-gray-900">{data.stepsTitle}</h3>
+                            <h3 className="text-base font-extrabold text-gray-900">{t('cashless_network.steps_title')}</h3>
                             <div className="space-y-4">
-                                {data.steps.map((step, index) => (
+                                {steps.map((step: any, index: number) => (
                                     <div key={index} className="flex items-center gap-4">
                                         <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-black text-xs shrink-0 shadow-lg shadow-orange-500/20">
                                             {index + 1}
@@ -46,14 +55,14 @@ const CashlessNetwork: React.FC = () => {
                         {/* CTA */}
                         <div className="pt-4 flex gap-4">
                             <Button
-                                label="Cashless"
+                                label={t('cashless_network.buttons.cashless')}
                                 variant="solid-orange"
                                 className="rounded-full "
                                 labelClass="text-sm font-bold"
                                 href='https://acps.myguardianbd.com/claim/online/gop/request/'
                             />
                             <Button
-                                label="Hospital List"
+                                label={t('cashless_network.buttons.hospital_list')}
                                 variant="outline-orange"
                                 className="rounded-full"
                                 labelClass="text-sm font-bold"
@@ -61,6 +70,7 @@ const CashlessNetwork: React.FC = () => {
                             />
                         </div>
                     </div>
+
 
                     {/* Image Right */}
                     <div className="flex-1 w-full max-w-[550px]">

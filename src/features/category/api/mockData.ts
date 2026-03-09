@@ -42,7 +42,7 @@ export const retailProducts = {
       {
         title: "Guardian Sanchay",
         product_code: "G-SANCHAY",
-        logoUrl: null,
+        logo_url: null,
         thumbnail_url: "https://glilapi.guardianlife.com.bd/images/1725266333392-993441724-Guardian-Sanchay---(490X311).jpg",
         description: "Guardian Sanchay offers comprehensive life coverage with flexible premium options to ensure your family's financial security.",
         footer: null,
@@ -56,7 +56,7 @@ export const retailProducts = {
       {
         title: "Guardian Probriddhi",
         product_code: "G-PROBRIDDHI",
-        logoUrl: null,
+        logo_url: null,
         thumbnail_url: "https://glilapi.guardianlife.com.bd/images/1725266364185-895682768-Guardian-Probridhi---(490X311).jpg",
         description: "Guardian Probriddhi is designed for long-term growth and protection, providing tax benefits and financial peace of mind.",
         footer: null,
@@ -70,7 +70,7 @@ export const retailProducts = {
       {
         title: "Guardian Shommriddhi",
         product_code: "G-SHOMMRIDDHI",
-        logoUrl: null,
+        logo_url: null,
         thumbnail_url: "https://glilapi.guardianlife.com.bd/images/1725266431711-114846372-Guardian-Shomriddhi---(490X311).jpg",
         description: "Guardian Shommriddhi focuses on wealth accumulation while maintaining robust life coverage for you and your loved ones.",
         footer: null,
@@ -84,7 +84,7 @@ export const retailProducts = {
       {
         title: "NRB Savings Plan",
         product_code: "NRB-SP",
-        logoUrl: null,
+        logo_url: null,
         thumbnail_url: "https://glilapi.guardianlife.com.bd/images/1762859381808-599365885-nrb%20-%20retail.png",
         description: "Specially tailored for Non-Resident Bangladeshis, this plan offers secure savings and life protection.",
         footer: null,
@@ -98,7 +98,7 @@ export const retailProducts = {
       {
         title: "Guardian 3 Stage Plan",
         product_code: "G-3STAGE",
-        logoUrl: null,
+        logo_url: null,
         thumbnail_url: "https://i.ibb.co/KyLW7c0/Guardian-Care-Free-3-Stage.jpg",
         description: "Guardian 3 Stage Plan provides payouts at three critical intervals, combined with full life coverage.",
         footer: null,
@@ -112,7 +112,7 @@ export const retailProducts = {
       {
         title: "Guardian 4 Stage Plan",
         product_code: "G-4STAGE",
-        logoUrl: null,
+        logo_url: null,
         thumbnail_url: "https://glilapi.guardianlife.com.bd/images/1725266480434-403208201-Guardian-Care-Free-Pro-(4-Stage)---(490X311).jpg",
         description: "Guardian 4 Stage Plan ensures periodic financial support throughout the policy term with comprehensive protection.",
         footer: null,
@@ -138,7 +138,7 @@ export const digitalProducts = {
       {
         title: "Jaya",
         product_code: "JAYA-01",
-        logoUrl: null,
+        logo_url: null,
         thumbnail_url: "https://i.ibb.co/sj4mtsK/women-savings-plan-1.jpg",
         description: "Jaya offers monthly savings with a coverage & critical illness benefit specially designed for women. Start from 350 taka monthly deposit & get up to 5 lac taka critical illness coverage. To get maximum interest or bonus choose a longer period of the policy term.",
         footer: null,
@@ -152,7 +152,7 @@ export const digitalProducts = {
       {
         title: "Easylife Special",
         product_code: "EL-SPECIAL",
-        logoUrl: null,
+        logo_url: null,
         thumbnail_url: "https://i.ibb.co/YXpMwrR/term-life-insurance-1-3b98e12a92e112574358.jpg",
         description: "Jaya offers monthly savings with a coverage & critical illness benefit specially designed for women. Start from 350 taka monthly deposit & get up to 5 lac taka critical illness coverage. To get maximum interest or bonus choose a longer period of the policy term.",
         footer: null,
@@ -166,7 +166,7 @@ export const digitalProducts = {
       {
         title: "Guardian Cancer Care",
         product_code: "CANCER-CARE",
-        logoUrl: null,
+        logo_url: null,
         thumbnail_url: "https://guardianlife.com.bd/static/media/cancer-plans.4a9a4e6c40fdd47901e1.jpg",
         description: "Jaya offers monthly savings with a coverage & critical illness benefit specially designed for women. Start from 350 taka monthly deposit & get up to 5 lac taka critical illness coverage. To get maximum interest or bonus choose a longer period of the policy term.",
         footer: null,
@@ -180,7 +180,7 @@ export const digitalProducts = {
       {
         title: "Guardian Accident Care",
         product_code: "ACCIDENT-CARE",
-        logoUrl: null,
+        logo_url: null,
         thumbnail_url: "https://guardianlife.com.bd/static/media/GUARDIAN-ACCIDENT-CARE.ea94cb0b9866dd8e914a.jpg",
         description: "Jaya offers monthly savings with a coverage & critical illness benefit specially designed for women. Start from 350 taka monthly deposit & get up to 5 lac taka critical illness coverage. To get maximum interest or bonus choose a longer period of the policy term.",
         footer: null,

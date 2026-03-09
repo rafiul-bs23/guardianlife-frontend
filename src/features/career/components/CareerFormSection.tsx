@@ -1,9 +1,10 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-
+import { useTranslation } from "react-i18next";
 import ContactForm from '../../../shared/Components/ContactForm';
 
 const CareerFormSection = () => {
+    const { t } = useTranslation('career');
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, amount: 0.2 });
 
@@ -18,7 +19,7 @@ const CareerFormSection = () => {
             >
                 <img
                     src="/assets/images/home/GetInTouch.png"
-                    alt="Career Application"
+                    alt={t('form_section.image_alt')}
                     className="w-full h-full object-cover"
                 />
             </motion.div>
@@ -34,8 +35,8 @@ const CareerFormSection = () => {
                     channel="Career"
                     type="job"
                     variant="flat"
-                    title="Apply Today"
-                    subtitle="Join our team and help us build the future of insurance."
+                    title={t('form_section.form_title')}
+                    subtitle={t('form_section.form_subtitle')}
                     className="p-6 sm:p-12 lg:p-16 lg:mr-16"
                 />
             </motion.div>

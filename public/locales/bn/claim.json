@@ -1,0 +1,69 @@
+{
+    "header": {
+        "submit_claim": "B Submit Your Claim",
+        "track_claim": "B Track Your Claim"
+    },
+    "features": {
+        "title": "B FEATURES",
+        "subtitle": "B Discover how GLIL has revolutionized claims processing through strategic technology implementation and innovation-driven solutions.",
+        "items": [
+            {
+                "title": "B Strategic Utilization of Digital Technology",
+                "description": "B GLIL has effectively leveraged digital technology and its own resources to enhance its operations."
+            },
+            {
+                "title": "B Innovation-Driven Claims Processing System",
+                "description": "B The implementation of an innovation-driven claims processing system has significantly improved the quality of claim processing."
+            },
+            {
+                "title": "B Overcoming Geographical Barriers",
+                "description": "B Guardian Brac Bima (GBB), an agreement between Brac Microfinance and GLIL has successfully overcome geographical barriers."
+            },
+            {
+                "title": "B Enhanced Commitment to Claim Settlement",
+                "description": "B GLIL has placed a strong emphasis on ensuring prompt and fair claim settlements, acknowledging the critical importance of fulfilling its responsibilities to policyholders."
+            },
+            {
+                "title": "B Enhanced Transparency",
+                "description": "B Insured individuals can easily submit and track the status of their claims at any time."
+            },
+            {
+                "title": "B Simplified Claims and Data Capture",
+                "description": "B GLIL's claim process is user-friendly, ensuring a seamless experience for customers."
+            },
+            {
+                "title": "B Streamlined Workflow and Efficiency",
+                "description": "B Digitization in claim has streamlined workflows within GLIL, resulting in increased operational efficiency and optimized resource utilization."
+            },
+            {
+                "title": "B Breaking Records",
+                "description": "B This ambitious endeavor has resulted in the settlement of 9,644 claims, marking a significant milestone."
+            }
+        ]
+    },
+    "claim_status": {
+        "title": "B TRACK YOUR CLAIM",
+        "subtitle": "B Stay updated on your claim status with our transparent tracking system. Get instant notifications and estimated completion dates.",
+        "timeline": [
+            { "label": "B Claim Submission" },
+            { "label": "B HR Approval" },
+            { "label": "B Claim Information" },
+            { "label": "B Claim Review By Analyst" },
+            { "label": "B Claim Approval" },
+            { "label": "B Claim Is Settled" }
+        ]
+    },
+    "customer_stories": {
+        "title": "B STORIES FROM OUR CUSTOMERS",
+        "subtitle": "B See how we've helped thousands of families during their most challenging times. These are real experiences from real customers."
+    },
+    "documents": {
+        "heading": "B FORMS AND STATEMENT",
+        "table_headers": {
+            "category": "B Form Category",
+            "file_name": "B File Name",
+            "action": "B Action"
+        },
+        "download_btn": "B Download"
+    }
+}

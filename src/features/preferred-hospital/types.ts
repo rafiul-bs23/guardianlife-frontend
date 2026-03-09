@@ -3,6 +3,8 @@ export type HospitalType = 'national_hospital' | 'national_diagnostic' | 'intern
 
 // Hospital Data (snake_case as per rules1.md)
 export interface Hospital {
+    hospital_type: string;
+    hospital_category: string;
     country_name: string | null;
     hospital_name: string;
     division_name: string | null;
@@ -17,13 +19,16 @@ export interface Hospital {
 
 // API Response Types
 export interface HospitalApiSuccessResponse {
-    success: true;
+    status: boolean;
     transaction_id: string;
-    data: Hospital[];
+    data: {
+        pagination: PaginationData;
+        hospitals: Hospital[];
+    };
 }
 
 export interface HospitalApiErrorResponse {
-    success: false;
+    status: boolean;
     transaction_id: string;
     message: string;
 }
@@ -34,6 +39,8 @@ export type HospitalApiResult = HospitalApiSuccessResponse | HospitalApiErrorRes
 export interface HospitalQueryParams {
     type?: HospitalType;
     hospital_name?: string;
+    page?: number;
+    page_size?: number;
 }
 
 // Frontend filter state
@@ -45,18 +52,23 @@ export interface HospitalFrontendFilters {
     country_name: string;
 }
 
+import type { PaginationData } from '../../shared/types/pagination';
+
 // Hook Result
 export interface UsePreferredHospitalResult {
     hospitals: Hospital[];
     filtered_hospitals: Hospital[];
+    paginated_hospitals: Hospital[];
     is_loading: boolean;
     error: string | null;
     active_type: HospitalType;
     frontend_filters: HospitalFrontendFilters;
+    current_page: number;
+    pagination: PaginationData | null;
     set_active_type: (type: HospitalType) => void;
     set_frontend_filters: (filters: HospitalFrontendFilters) => void;
     reset_filters: () => void;
-    // Derived filter options
+    go_to_page: (page: number) => void;
     division_options: string[];
     district_options: string[];
     area_options: string[];

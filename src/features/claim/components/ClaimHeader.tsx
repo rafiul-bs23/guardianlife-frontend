@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { HeaderData } from '../../../shared/types/header';
 import GenericHeader from '../../../shared/Components/GenericHeader';
 import Button from '../../../shared/Components/Button';
@@ -8,15 +9,17 @@ interface ClaimHeaderProps {
 }
 
 const ClaimHeader: React.FC<ClaimHeaderProps> = ({ data }) => {
+    const { t } = useTranslation('claim');
+
     const actions = (
         <>
             <Button
-                label="Submit Your Claim"
+                label={t('header.submit_claim')}
                 variant="outline-white"
                 href='https://acps.myguardianbd.com/client_login/'
             />
             <Button
-                label="Track Your Claim"
+                label={t('header.track_claim')}
                 variant="solid-white"
                 href='https://acps.myguardianbd.com/client_login/'
             />

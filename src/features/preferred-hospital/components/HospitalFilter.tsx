@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import type { HospitalType, HospitalFrontendFilters } from '../types';
 
 interface HospitalFilterProps {
@@ -12,11 +13,6 @@ interface HospitalFilterProps {
     on_reset: () => void;
 }
 
-const NAT_SUB_TABS: { label: string; value: HospitalType }[] = [
-    { label: 'Hospital', value: 'national_hospital' },
-    { label: 'Diagnostic Center', value: 'national_diagnostic' },
-];
-
 const HospitalFilter = ({
     active_type,
     frontend_filters,
@@ -28,8 +24,14 @@ const HospitalFilter = ({
     on_filter_change,
     on_reset,
 }: HospitalFilterProps) => {
+    const { t } = useTranslation('preferred_hospital');
     const is_international = active_type === 'international_hospital';
     const is_national = !is_international;
+
+    const NAT_SUB_TABS: { label: string; value: HospitalType }[] = [
+        { label: t('filter.sub_hospital'), value: 'national_hospital' },
+        { label: t('filter.sub_diagnostic'), value: 'national_diagnostic' },
+    ];
 
     const handle_division_change = (value: string) => {
         on_filter_change({
@@ -59,7 +61,7 @@ const HospitalFilter = ({
                             : 'bg-white text-primary border-primary hover:bg-primary/10'
                         }`}
                 >
-                    National
+                    {t('filter.type_national')}
                 </button>
                 <button
                     onClick={() => on_type_change('international_hospital')}
@@ -68,7 +70,7 @@ const HospitalFilter = ({
                             : 'bg-white text-primary border-primary hover:bg-primary/10'
                         }`}
                 >
-                    International
+                    {t('filter.type_international')}
                 </button>
             </div>
 
@@ -99,7 +101,7 @@ const HospitalFilter = ({
                         {/* Hospital Name */}
                         <div className="flex flex-col gap-1">
                             <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                                Hospital Name
+                                {t('filter.name_label')}
                             </label>
                             <div className="relative">
                                 <svg
@@ -118,7 +120,7 @@ const HospitalFilter = ({
                                 </svg>
                                 <input
                                     type="text"
-                                    placeholder="Search hospital..."
+                                    placeholder={t('filter.name_placeholder')}
                                     value={frontend_filters?.hospital_name ?? ''}
                                     onChange={(e) =>
                                         on_filter_change({
@@ -134,14 +136,14 @@ const HospitalFilter = ({
                         {/* Division */}
                         <div className="flex flex-col gap-1">
                             <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                                Choose Division
+                                {t('filter.division_label')}
                             </label>
                             <select
                                 value={frontend_filters?.division_name ?? ''}
                                 onChange={(e) => handle_division_change(e.target.value)}
                                 className="border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
                             >
-                                <option value="">All Divisions</option>
+                                <option value="">{t('filter.all_divisions')}</option>
                                 {division_options?.map((d) => (
                                     <option key={d} value={d}>{d}</option>
                                 ))}
@@ -151,7 +153,7 @@ const HospitalFilter = ({
                         {/* District */}
                         <div className="flex flex-col gap-1">
                             <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                                Select District
+                                {t('filter.district_label')}
                             </label>
                             <select
                                 value={frontend_filters?.district_name ?? ''}
@@ -159,7 +161,7 @@ const HospitalFilter = ({
                                 disabled={!frontend_filters?.division_name}
                                 className="border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                <option value="">All Districts</option>
+                                <option value="">{t('filter.all_districts')}</option>
                                 {district_options?.map((d) => (
                                     <option key={d} value={d}>{d}</option>
                                 ))}
@@ -169,7 +171,7 @@ const HospitalFilter = ({
                         {/* Area */}
                         <div className="flex flex-col gap-1">
                             <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                                Select Area
+                                {t('filter.area_label')}
                             </label>
                             <select
                                 value={frontend_filters?.area_name ?? ''}
@@ -182,7 +184,7 @@ const HospitalFilter = ({
                                 disabled={!frontend_filters?.district_name}
                                 className="border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                <option value="">All Areas</option>
+                                <option value="">{t('filter.all_areas')}</option>
                                 {area_options?.map((a) => (
                                     <option key={a} value={a}>{a}</option>
                                 ))}
@@ -197,7 +199,7 @@ const HospitalFilter = ({
                         {/* Hospital Name – 3/4 */}
                         <div className="flex flex-col gap-1 flex-[3]">
                             <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                                Hospital Name
+                                {t('filter.name_label')}
                             </label>
                             <div className="relative">
                                 <svg
@@ -216,7 +218,7 @@ const HospitalFilter = ({
                                 </svg>
                                 <input
                                     type="text"
-                                    placeholder="Search international hospital..."
+                                    placeholder={t('filter.name_placeholder_intl')}
                                     value={frontend_filters?.hospital_name ?? ''}
                                     onChange={(e) =>
                                         on_filter_change({
@@ -232,7 +234,7 @@ const HospitalFilter = ({
                         {/* Country – 1/4 */}
                         <div className="flex flex-col gap-1 flex-[1]">
                             <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                                Choose Country
+                                {t('filter.country_label')}
                             </label>
                             <select
                                 value={frontend_filters?.country_name ?? ''}
@@ -244,7 +246,7 @@ const HospitalFilter = ({
                                 }
                                 className="border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
                             >
-                                <option value="">All Countries</option>
+                                <option value="">{t('filter.all_countries')}</option>
                                 {country_options?.map((c) => (
                                     <option key={c} value={c}>{c}</option>
                                 ))}
@@ -273,7 +275,7 @@ const HospitalFilter = ({
                                 d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
                             />
                         </svg>
-                        Reset
+                        {t('filter.reset_btn')}
                     </button>
                 </div>
             </div>

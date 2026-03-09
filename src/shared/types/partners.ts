@@ -5,13 +5,13 @@ export interface Partner {
 }
 
 export interface PartnersSuccessResponse {
-    success: true;
+    status: true;
     transaction_id: string;
     data: Partner[];
 }
 
 export interface PartnersErrorResponse {
-    success: false;
+    status: false;
     transaction_id: string;
     message: string;
 }

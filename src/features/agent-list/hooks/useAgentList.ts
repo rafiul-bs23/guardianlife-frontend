@@ -1,9 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { AxiosError } from 'axios';
+import { useTranslation } from 'react-i18next';
 import { get_agents } from '../api/index';
 import type { Agent, Pagination, UseAgentListResult } from '../types';
 
 export const useAgentList = (): UseAgentListResult => {
+    const { t } = useTranslation('agent_list');
     const [agents, set_agents] = useState<Agent[]>([]);
     const [pagination, set_pagination] = useState<Pagination | null>(null);
     const [is_loading, set_is_loading] = useState<boolean>(true);
@@ -16,24 +18,26 @@ export const useAgentList = (): UseAgentListResult => {
 
         try {
             const response = await get_agents({ page, limit: 10 });
+            console.log(response);
 
-            if (response?.success) {
+            if (response?.status) {
                 set_agents(response?.data?.agents ?? []);
                 set_pagination(response?.data?.pagination ?? null);
             } else {
-                set_error(response?.message ?? 'Failed to fetch agents.');
+                set_error(response?.message ?? t('errors.fetch_failed'));
                 set_agents([]);
                 set_pagination(null);
             }
         } catch (err) {
             const axios_error = err as AxiosError;
-            set_error(axios_error?.message ?? 'An unexpected error occurred.');
+            set_error(axios_error?.message ?? t('errors.unexpected'));
             set_agents([]);
             set_pagination(null);
         } finally {
             set_is_loading(false);
         }
-    }, []);
+    }, [t]);
+
 
     useEffect(() => {
         fetch_agents(current_page);

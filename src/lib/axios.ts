@@ -1,10 +1,10 @@
 
 import axios, { AxiosError } from 'axios';
 
-import type { 
-  AxiosInstance, 
-  AxiosResponse, 
-  InternalAxiosRequestConfig 
+import type {
+  AxiosInstance,
+  AxiosResponse,
+  InternalAxiosRequestConfig
 } from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
@@ -13,7 +13,6 @@ const axiosClient: AxiosInstance = axios.create({
   baseURL: API_URL,
   timeout: 10000,
   headers: {
-    'Content-Type': 'application/json',
     Accept: 'application/json',
   },
 });
