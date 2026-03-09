@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Info, Check } from 'lucide-react';
+import { X, Info, Check, Calendar } from 'lucide-react';
 import PremiumDetailsModal from './PremiumDetailsModal';
 import Button from "../../../shared/Components/Button.tsx";
 
@@ -15,6 +15,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [dob, setDob] = useState('');
+  const [displayDob, setDisplayDob] = useState('');
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('Male');
 
@@ -27,6 +28,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [hiOption, setHiOption] = useState('BRONZE');
   const [hiBeneficiary, setHiBeneficiary] = useState('Self');
   const [spouseDob, setSpouseDob] = useState('');
+  const [displaySpouseDob, setDisplaySpouseDob] = useState('');
   const [spouseAge, setSpouseAge] = useState('');
   const [childrenCount, setChildrenCount] = useState('');
   const [maternityPlan, setMaternityPlan] = useState('Standard');
@@ -36,6 +38,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
   const [pdabEnabled, setPdabEnabled] = useState(false);
   const [diabEnabled, setDiabEnabled] = useState(false);
+
+
 
   // Body scroll lock
   useEffect(() => {
@@ -77,16 +81,49 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
     return years.toString();
   };
 
-  const handleDobChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    setDob(val);
-    setAge(calculateCeilAge(val));
+  const handleNativeDobChange = (e: React.ChangeEvent<HTMLInputElement>, setDate: any, setDisplay: any, setAgeState: any) => {
+    const val = e.target.value; // YYYY-MM-DD
+    setDate(val);
+    if (val) {
+      const parts = val.split('-');
+      if (parts.length === 3) {
+        setDisplay(`${parts[2]}/${parts[1]}/${parts[0]}`);
+      }
+      setAgeState(calculateCeilAge(val));
+    } else {
+      setDisplay('');
+      setAgeState('');
+    }
   };
 
-  const handleSpouseDobChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    setSpouseDob(val);
-    setSpouseAge(calculateCeilAge(val));
+  const handleTextDobChange = (e: React.ChangeEvent<HTMLInputElement>, setDate: any, setDisplay: any, setAgeState: any) => {
+    let val = e.target.value.replace(/\D/g, '');
+    if (val.length > 8) val = val.slice(0, 8);
+
+    let formatted = val;
+    if (val.length > 4) {
+      formatted = `${val.slice(0, 2)}/${val.slice(2, 4)}/${val.slice(4)}`;
+    } else if (val.length > 2) {
+      formatted = `${val.slice(0, 2)}/${val.slice(2)}`;
+    }
+
+    setDisplay(formatted);
+
+    if (formatted.length === 10) {
+      const parts = formatted.split('/');
+      const isoDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+      // Basic validation
+      const d = parseInt(parts[0], 10);
+      const m = parseInt(parts[1], 10);
+      const y = parseInt(parts[2], 10);
+      if (d > 0 && d <= 31 && m > 0 && m <= 12 && y > 1900) {
+        setDate(isoDate);
+        setAgeState(calculateCeilAge(isoDate));
+      }
+    } else {
+      setDate('');
+      setAgeState('');
+    }
   };
 
   const handleToggle = (setter: React.Dispatch<React.SetStateAction<boolean>>, currentValue: boolean, isPdab: boolean = false, isDiab: boolean = false) => {
@@ -173,8 +210,24 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Date of Birth <span className="text-red-500">*</span></label>
-                <div className="relative">
-                  <input type="date" placeholder="DD/MM/YY" value={dob} onChange={handleDobChange} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+                <div className="relative flex items-center border border-gray-300 rounded-md focus-within:ring-1 focus-within:ring-[#F37021] focus-within:border-[#F37021] bg-white overflow-hidden">
+                  <input
+                    type="text"
+                    placeholder="DD/MM/YYYY"
+                    value={displayDob}
+                    onChange={(e) => handleTextDobChange(e, setDob, setDisplayDob, setAge)}
+                    className="w-full px-4 py-2.5 outline-none bg-transparent"
+                    maxLength={10}
+                  />
+                  <div className="relative flex items-center justify-center p-3 border-l border-gray-200 hover:bg-gray-50 transition-colors">
+                    <Calendar size={20} className="text-gray-500" />
+                    <input
+                      type="date"
+                      value={dob}
+                      onChange={(e) => handleNativeDobChange(e, setDob, setDisplayDob, setAge)}
+                      className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                    />
+                  </div>
                 </div>
               </div>
               <div>
@@ -339,8 +392,24 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                           <>
                             <div>
                               <label className="block text-sm font-medium text-gray-700 mb-2">Spouse Date Of Birth</label>
-                              <div className="relative">
-                                <input type="date" placeholder="DD/MM/YY" value={spouseDob} onChange={handleSpouseDobChange} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+                              <div className="relative flex items-center border border-gray-300 rounded-md focus-within:ring-1 focus-within:ring-[#F37021] focus-within:border-[#F37021] bg-white overflow-hidden">
+                                <input
+                                  type="text"
+                                  placeholder="DD/MM/YYYY"
+                                  value={displaySpouseDob}
+                                  onChange={(e) => handleTextDobChange(e, setSpouseDob, setDisplaySpouseDob, setSpouseAge)}
+                                  className="w-full px-4 py-2.5 outline-none bg-transparent"
+                                  maxLength={10}
+                                />
+                                <div className="relative flex items-center justify-center p-3 border-l border-gray-200 hover:bg-gray-50 transition-colors">
+                                  <Calendar size={20} className="text-gray-500" />
+                                  <input
+                                    type="date"
+                                    value={spouseDob}
+                                    onChange={(e) => handleNativeDobChange(e, setSpouseDob, setDisplaySpouseDob, setSpouseAge)}
+                                    className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                                  />
+                                </div>
                               </div>
                             </div>
                             <div>
