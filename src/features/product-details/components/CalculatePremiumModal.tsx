@@ -257,17 +257,17 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                   <label className="block text-sm font-medium text-gray-700 mb-2">Sum Assured</label>
                   <div className="relative max-w-full">
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                      <span className="text-gray-900 font-medium">৳</span>
+                      <span className="text-gray-900 font-medium"></span>
                     </div>
                     <input
                       type="text"
-                      placeholder="1,00,000"
+                      placeholder="0"
                       value={sumAssured}
                       onChange={handleSumAssuredChange}
                       className="w-full border border-gray-300 rounded-md py-3 pl-8 pr-4 text-center font-semibold text-lg focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none"
                     />
                   </div>
-                  <p className="text-xs text-gray-400 mt-2">Suggested <span className="text-[#F37021] font-medium">50,000</span> BDT</p>
+                  <p className="text-xs text-gray-400 mt-2">(50000 - 1000000)</p>
                 </div>
 
                 {/* Health Insurance Section */}
