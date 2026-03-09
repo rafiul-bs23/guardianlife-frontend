@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { X, Calendar, Info, Check } from 'lucide-react';
+import { X, Info, Check, Calendar } from 'lucide-react';
 import PremiumDetailsModal from './PremiumDetailsModal';
+import Button from "../../../shared/Components/Button.tsx";
 
 interface CalculatePremiumModalProps {
   isOpen: boolean;
@@ -9,10 +10,12 @@ interface CalculatePremiumModalProps {
 
 const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, onClose }) => {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [isProcessed, setIsProcessed] = useState(false);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [dob, setDob] = useState('');
+  const [displayDob, setDisplayDob] = useState('');
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('Male');
 
@@ -25,6 +28,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [hiOption, setHiOption] = useState('BRONZE');
   const [hiBeneficiary, setHiBeneficiary] = useState('Self');
   const [spouseDob, setSpouseDob] = useState('');
+  const [displaySpouseDob, setDisplaySpouseDob] = useState('');
   const [spouseAge, setSpouseAge] = useState('');
   const [childrenCount, setChildrenCount] = useState('');
   const [maternityPlan, setMaternityPlan] = useState('Standard');
@@ -34,6 +38,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
   const [pdabEnabled, setPdabEnabled] = useState(false);
   const [diabEnabled, setDiabEnabled] = useState(false);
+
+
 
   // Body scroll lock
   useEffect(() => {
@@ -47,9 +53,78 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
     };
   }, [isOpen]);
 
+  const handleClose = () => {
+    setIsProcessed(false);
+    onClose();
+  };
+
   if (!isOpen) return null;
 
   const isSumAssuredFilled = parseFloat(sumAssured.replace(/,/g, '')) > 0;
+
+  const calculateCeilAge = (dateString: string) => {
+    if (!dateString) return '';
+    const dobDate = new Date(dateString);
+    const now = new Date();
+    if (isNaN(dobDate.getTime()) || now < dobDate) return '';
+
+    let years = now.getFullYear() - dobDate.getFullYear();
+
+    // Check if we are past the birthday this year
+    if (
+      now.getMonth() > dobDate.getMonth() ||
+      (now.getMonth() === dobDate.getMonth() && now.getDate() > dobDate.getDate())
+    ) {
+      years++;
+    }
+
+    return years.toString();
+  };
+
+  const handleNativeDobChange = (e: React.ChangeEvent<HTMLInputElement>, setDate: any, setDisplay: any, setAgeState: any) => {
+    const val = e.target.value; // YYYY-MM-DD
+    setDate(val);
+    if (val) {
+      const parts = val.split('-');
+      if (parts.length === 3) {
+        setDisplay(`${parts[2]}/${parts[1]}/${parts[0]}`);
+      }
+      setAgeState(calculateCeilAge(val));
+    } else {
+      setDisplay('');
+      setAgeState('');
+    }
+  };
+
+  const handleTextDobChange = (e: React.ChangeEvent<HTMLInputElement>, setDate: any, setDisplay: any, setAgeState: any) => {
+    let val = e.target.value.replace(/\D/g, '');
+    if (val.length > 8) val = val.slice(0, 8);
+
+    let formatted = val;
+    if (val.length > 4) {
+      formatted = `${val.slice(0, 2)}/${val.slice(2, 4)}/${val.slice(4)}`;
+    } else if (val.length > 2) {
+      formatted = `${val.slice(0, 2)}/${val.slice(2)}`;
+    }
+
+    setDisplay(formatted);
+
+    if (formatted.length === 10) {
+      const parts = formatted.split('/');
+      const isoDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+      // Basic validation
+      const d = parseInt(parts[0], 10);
+      const m = parseInt(parts[1], 10);
+      const y = parseInt(parts[2], 10);
+      if (d > 0 && d <= 31 && m > 0 && m <= 12 && y > 1900) {
+        setDate(isoDate);
+        setAgeState(calculateCeilAge(isoDate));
+      }
+    } else {
+      setDate('');
+      setAgeState('');
+    }
+  };
 
   const handleToggle = (setter: React.Dispatch<React.SetStateAction<boolean>>, currentValue: boolean, isPdab: boolean = false, isDiab: boolean = false) => {
     if (!isSumAssuredFilled) return; // cannot turn on if sum assured is empty
@@ -102,10 +177,10 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
       <div className={`fixed inset-0 z-[99999] flex justify-center items-start overflow-y-auto bg-black/40 backdrop-blur-sm p-4 sm:p-6 lg:p-10 ${isDetailsModalOpen ? 'hidden' : ''}`}>
         <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-[1428px] mx-auto p-6 sm:p-8 lg:p-12">
           <button
-            onClick={onClose}
-            className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full bg-orange-100 text-orange-500 hover:bg-orange-200 transition-colors"
+            onClick={handleClose}
+            className="absolute top-6 right-6 w-[50px] h-[50px] flex items-center justify-center rounded-full bg-orange-100 text-orange-500 hover:bg-orange-200 transition-colors"
           >
-            <X size={18} />
+            <X size={27} />
           </button>
 
           <div className="mb-8">
@@ -135,265 +210,305 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Date of Birth <span className="text-red-500">*</span></label>
-                <div className="relative">
-                  <input type="text" placeholder="DD/MM/YY" value={dob} onChange={e => setDob(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 pr-10 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
-                  <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                <div className="relative flex items-center border border-gray-300 rounded-md focus-within:ring-1 focus-within:ring-[#F37021] focus-within:border-[#F37021] bg-white overflow-hidden">
+                  <input
+                    type="text"
+                    placeholder="DD/MM/YYYY"
+                    value={displayDob}
+                    onChange={(e) => handleTextDobChange(e, setDob, setDisplayDob, setAge)}
+                    className="w-full px-4 py-2.5 outline-none bg-transparent"
+                    maxLength={10}
+                  />
+                  <div className="relative flex items-center justify-center p-3 border-l border-gray-200 hover:bg-gray-50 transition-colors">
+                    <Calendar size={20} className="text-gray-500" />
+                    <input
+                      type="date"
+                      value={dob}
+                      onChange={(e) => handleNativeDobChange(e, setDob, setDisplayDob, setAge)}
+                      className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                    />
+                  </div>
                 </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
-                <input type="text" placeholder="30 Years" value={age} onChange={e => setAge(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+                <input type="text" placeholder="0" value={age} disabled className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-gray-50 text-gray-500 cursor-not-allowed outline-none" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Gender <span className="text-red-500">*</span></label>
                 <select value={gender} onChange={e => setGender(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none bg-white">
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
-                  <option value="Other">Other</option>
                 </select>
               </div>
             </div>
 
-            {/* Mode Options */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-3">Mode</label>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {['Yearly', 'Half-Yearly', 'Quarterly', 'Monthly'].map(m => (
-                  <OptionButton key={m} label={m} selected={mode === m} onClick={() => setMode(m)} />
-                ))}
-              </div>
-            </div>
-
-            {/* Term Slider */}
-            <div className="pt-2">
-              <label className="block text-sm font-medium text-gray-700 mb-6">Term</label>
-              <div className="relative pt-8 pb-4">
-                {/* Tick Labels */}
-                <div className="absolute top-0 w-full flex justify-between px-2">
-                  {[10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25].map(t => (
-                    <span key={t} className={`text-[11px] font-bold ${t === term ? 'text-[#F37021] opacity-0' : 'text-gray-300'}`}>
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Selected Indicator */}
-                <div
-                  className="absolute top-0 flex flex-col items-center -translate-x-1/2 transition-all duration-150 pointer-events-none"
-                  style={{
-                    left: `calc(14px + (${((term - 10) / 15) * 100}% - ${((term - 10) / 15) * 28}px))`
-                  }}
-                >
-                  <span className="text-[11px] font-extrabold text-[#1E3161] whitespace-nowrap mb-1 uppercase">
-                    {term} YEARS
-                  </span>
-                  <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-[#F37021]"></div>
-                </div>
-
-                <input
-                  type="range"
-                  min="10"
-                  max="25"
-                  value={term}
-                  onChange={(e) => setTerm(parseInt(e.target.value))}
-                  className="w-full h-4 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                  style={{
-                    background: `linear-gradient(to right, #F37021 0%, #F37021 ${((term - 10) / 15) * 100}%, #E5E7EB ${((term - 10) / 15) * 100}%, #E5E7EB 100%)`
-                  }}
+            {/* Process Button */}
+            {!isProcessed && (
+              <div className="flex justify-center pt-4">
+                <Button
+                  label="Process"
+                  onClick={() => setIsProcessed(true)}
                 />
               </div>
-            </div>
+            )}
 
-            {/* Sum Assured */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Sum Assured</label>
-              <div className="relative max-w-full">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <span className="text-gray-900 font-medium">৳</span>
-                </div>
-                <input
-                  type="text"
-                  placeholder="1,00,000"
-                  value={sumAssured}
-                  onChange={handleSumAssuredChange}
-                  className="w-full border border-gray-300 rounded-md py-3 pl-8 pr-4 text-center font-semibold text-lg focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none"
-                />
-              </div>
-              <p className="text-xs text-gray-400 mt-2">Suggested <span className="text-[#F37021] font-medium">50,000</span> BDT</p>
-            </div>
-
-            {/* Health Insurance Section */}
-            <div className="border-t border-gray-100 pt-6">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-semibold text-gray-800">Health Insurance (HI)</h3>
-                <button
-                  onClick={() => handleToggle(setHiEnabled, hiEnabled)}
-                  className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${hiEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-                >
-                  <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${hiEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
-                    {hiEnabled && <Check size={10} className="text-[#F37021]" />}
-                  </div>
-                </button>
-              </div>
-
-              {hiEnabled && (
-                <div className="space-y-6 pt-2">
-                  {/* HI Options */}
+            {isProcessed && (
+              <>
+                {/* Mode Options */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-3">Mode</label>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {[
-                      { name: 'BRONZE', value: '50,000', color: '#D28E5D' },
-                      { name: 'SILVER', value: '150,000', color: '#B0B6BA' },
-                      { name: 'GOLD', value: '300,000', color: '#FBB03B' },
-                      { name: 'PLATINUM', value: '500,000', color: '#6F7678' }
-                    ].map(opt => (
-                      <div
-                        key={opt.name}
-                        onClick={() => setHiOption(opt.name)}
-                        className={`border rounded-lg flex flex-col overflow-hidden cursor-pointer transition-all bg-white ${hiOption === opt.name ? 'border-[#F37021] shadow-md ring-2 ring-[#F37021] ring-opacity-20' : 'border-orange-100 hover:border-orange-300'}`}
-                      >
-                        <div
-                          className="w-full pt-2 pb-6 text-center text-[13px] font-bold text-[#464646] uppercase relative flex items-start justify-center"
-                          style={{
-                            backgroundColor: opt.color,
-                            maskImage: 'url("data:image/svg+xml,%3Csvg preserveAspectRatio=\'none\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0,0 L100,0 L100,70 Q50,100 0,70 Z\'/%3E%3C/svg%3E")',
-                            WebkitMaskImage: 'url("data:image/svg+xml,%3Csvg preserveAspectRatio=\'none\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0,0 L100,0 L100,70 Q50,100 0,70 Z\'/%3E%3C/svg%3E")',
-                            maskSize: '100% 100%',
-                            WebkitMaskSize: '100% 100%',
-                          }}
-                        >
-                          <span className="relative z-10 pt-1 tracking-wider">{opt.name}</span>
-                        </div>
-                        <div className="pt-2 pb-4 text-center font-bold text-gray-900 text-lg">
-                          {opt.value}
-                        </div>
-                      </div>
+                    {['Yearly', 'Half-Yearly', 'Quarterly', 'Monthly'].map(m => (
+                      <OptionButton key={m} label={m} selected={mode === m} onClick={() => setMode(m)} />
                     ))}
                   </div>
+                </div>
 
-                  {/* Beneficiary */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-3">Beneficiary</label>
-                    <div className="flex flex-wrap gap-4">
-                      {['Self', 'Couple', 'Family', 'Children'].map(ben => (
-                        <label key={ben} onClick={() => setHiBeneficiary(ben)} className={`flex items-center gap-2 px-5 py-2.5 rounded-lg border cursor-pointer transition-colors ${hiBeneficiary === ben ? 'border-[#F37021] bg-orange-50/50' : 'border-gray-200 hover:border-[#F37021]'}`}>
-                          <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${hiBeneficiary === ben ? 'border-[#F37021]' : 'border-gray-300'}`}>
-                            {hiBeneficiary === ben && <div className="w-2 h-2 bg-[#F37021] rounded-full"></div>}
-                          </div>
-                          <span className="text-sm font-medium text-gray-700">{ben}</span>
-                        </label>
+                {/* Term Slider */}
+                <div className="pt-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-6">Term</label>
+                  <div className="relative pt-8 pb-4">
+                    {/* Tick Labels */}
+                    <div className="absolute top-0 w-full flex justify-between px-2">
+                      {[10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25].map(t => (
+                        <span key={t} className={`text-[11px] font-bold ${t === term ? 'text-[#F37021] opacity-0' : 'text-gray-300'}`}>
+                          {t}
+                        </span>
                       ))}
                     </div>
-                  </div>
 
-                  {/* Conditional Fields for Beneficiary */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {['Couple', 'Family'].includes(hiBeneficiary) && (
-                      <>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">Spouse Date Of Birth</label>
-                          <div className="relative">
-                            <input type="text" placeholder="DD/MM/YY" value={spouseDob} onChange={e => setSpouseDob(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 pr-10 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
-                            <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                          </div>
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
-                          <input type="text" placeholder="12" value={spouseAge} onChange={e => setSpouseAge(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
-                        </div>
-                      </>
-                    )}
-                    {['Family', 'Children'].includes(hiBeneficiary) && (
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Number of Children</label>
-                        <input type="number" placeholder="Enter Number of Children" value={childrenCount} onChange={e => setChildrenCount(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+                    {/* Selected Indicator */}
+                    <div
+                      className="absolute top-0 flex flex-col items-center -translate-x-1/2 transition-all duration-150 pointer-events-none"
+                      style={{
+                        left: `calc(14px + (${((term - 10) / 15) * 100}% - ${((term - 10) / 15) * 28}px))`
+                      }}
+                    >
+                      <span className="text-[11px] font-extrabold text-[#1E3161] whitespace-nowrap mb-1 uppercase">
+                        {term} YEARS
+                      </span>
+                      <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-[#F37021]"></div>
+                    </div>
+
+                    <input
+                      type="range"
+                      min="10"
+                      max="25"
+                      value={term}
+                      onChange={(e) => setTerm(parseInt(e.target.value))}
+                      className="w-full h-4 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                      style={{
+                        background: `linear-gradient(to right, #F37021 0%, #F37021 ${((term - 10) / 15) * 100}%, #E5E7EB ${((term - 10) / 15) * 100}%, #E5E7EB 100%)`
+                      }}
+                    />
+                  </div>
+                </div>
+
+                {/* Sum Assured */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Sum Assured</label>
+                  <div className="relative max-w-full">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <span className="text-gray-900 font-medium"></span>
+                    </div>
+                    <input
+                      type="text"
+                      placeholder="0"
+                      value={sumAssured}
+                      onChange={handleSumAssuredChange}
+                      className="w-full border border-gray-300 rounded-md py-3 pl-8 pr-4 text-center font-semibold text-lg focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none"
+                    />
+                  </div>
+                  <p className="text-xs text-gray-400 mt-2">(50000 - 1000000)</p>
+                </div>
+
+                {/* Health Insurance Section */}
+                <div className="border-t border-gray-100 pt-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-sm font-semibold text-gray-800">Health Insurance (HI)</h3>
+                    <button
+                      onClick={() => handleToggle(setHiEnabled, hiEnabled)}
+                      className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${hiEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                    >
+                      <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${hiEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
+                        {hiEnabled && <Check size={10} className="text-[#F37021]" />}
                       </div>
-                    )}
+                    </button>
                   </div>
 
-                  {/* Maternity Plan (Couple/Family only) */}
-                  {['Couple', 'Family'].includes(hiBeneficiary) && (
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-3">Maternity Plan</label>
-                      <div className="flex flex-wrap gap-4">
-                        {['Standard', 'Delux', 'No Maternity'].map(plan => (
-                          <OptionButton key={plan} label={plan} selected={maternityPlan === plan} onClick={() => setMaternityPlan(plan)} />
+                  {hiEnabled && (
+                    <div className="space-y-6 pt-2">
+                      {/* HI Options */}
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {[
+                          { name: 'BRONZE', value: '50,000', color: '#D28E5D' },
+                          { name: 'SILVER', value: '150,000', color: '#B0B6BA' },
+                          { name: 'GOLD', value: '300,000', color: '#FBB03B' },
+                          { name: 'PLATINUM', value: '500,000', color: '#6F7678' }
+                        ].map(opt => (
+                          <div
+                            key={opt.name}
+                            onClick={() => setHiOption(opt.name)}
+                            className={`border rounded-lg flex flex-col overflow-hidden cursor-pointer transition-all bg-white ${hiOption === opt.name ? 'border-[#F37021] shadow-md ring-2 ring-[#F37021] ring-opacity-20' : 'border-orange-100 hover:border-orange-300'}`}
+                          >
+                            <div
+                              className="w-full pt-2 pb-6 text-center text-[13px] font-bold text-[#464646] uppercase relative flex items-start justify-center"
+                              style={{
+                                backgroundColor: opt.color,
+                                maskImage: 'url("data:image/svg+xml,%3Csvg preserveAspectRatio=\'none\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0,0 L100,0 L100,70 Q50,100 0,70 Z\'/%3E%3C/svg%3E")',
+                                WebkitMaskImage: 'url("data:image/svg+xml,%3Csvg preserveAspectRatio=\'none\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0,0 L100,0 L100,70 Q50,100 0,70 Z\'/%3E%3C/svg%3E")',
+                                maskSize: '100% 100%',
+                                WebkitMaskSize: '100% 100%',
+                              }}
+                            >
+                              <span className="relative z-10 pt-1 tracking-wider">{opt.name}</span>
+                            </div>
+                            <div className="pt-2 pb-4 text-center font-bold text-gray-900 text-lg">
+                              {opt.value}
+                            </div>
+                          </div>
                         ))}
                       </div>
+
+                      {/* Beneficiary */}
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-3">Beneficiary</label>
+                        <div className="flex flex-wrap gap-4">
+                          {['Self', 'Couple', 'Family', 'Children'].map(ben => (
+                            <label key={ben} onClick={() => setHiBeneficiary(ben)} className={`flex items-center gap-2 px-5 py-2.5 rounded-lg border cursor-pointer transition-colors ${hiBeneficiary === ben ? 'border-[#F37021] bg-orange-50/50' : 'border-gray-200 hover:border-[#F37021]'}`}>
+                              <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${hiBeneficiary === ben ? 'border-[#F37021]' : 'border-gray-300'}`}>
+                                {hiBeneficiary === ben && <div className="w-2 h-2 bg-[#F37021] rounded-full"></div>}
+                              </div>
+                              <span className="text-sm font-medium text-gray-700">{ben}</span>
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Conditional Fields for Beneficiary */}
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {['Couple', 'Family'].includes(hiBeneficiary) && (
+                          <>
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-2">Spouse Date Of Birth</label>
+                              <div className="relative flex items-center border border-gray-300 rounded-md focus-within:ring-1 focus-within:ring-[#F37021] focus-within:border-[#F37021] bg-white overflow-hidden">
+                                <input
+                                  type="text"
+                                  placeholder="DD/MM/YYYY"
+                                  value={displaySpouseDob}
+                                  onChange={(e) => handleTextDobChange(e, setSpouseDob, setDisplaySpouseDob, setSpouseAge)}
+                                  className="w-full px-4 py-2.5 outline-none bg-transparent"
+                                  maxLength={10}
+                                />
+                                <div className="relative flex items-center justify-center p-3 border-l border-gray-200 hover:bg-gray-50 transition-colors">
+                                  <Calendar size={20} className="text-gray-500" />
+                                  <input
+                                    type="date"
+                                    value={spouseDob}
+                                    onChange={(e) => handleNativeDobChange(e, setSpouseDob, setDisplaySpouseDob, setSpouseAge)}
+                                    className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
+                              <input type="text" placeholder="12" value={spouseAge} disabled className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-gray-50 text-gray-500 cursor-not-allowed outline-none" />
+                            </div>
+                          </>
+                        )}
+                        {['Family', 'Children'].includes(hiBeneficiary) && (
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Number of Children</label>
+                            <input type="number" placeholder="Enter Number of Children" value={childrenCount} onChange={e => setChildrenCount(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Maternity Plan (Couple/Family only) */}
+                      {['Couple', 'Family'].includes(hiBeneficiary) && (
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-3">Maternity Plan</label>
+                          <div className="flex flex-wrap gap-4">
+                            {['Standard', 'Delux', 'No Maternity'].map(plan => (
+                              <OptionButton key={plan} label={plan} selected={maternityPlan === plan} onClick={() => setMaternityPlan(plan)} />
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
-              )}
-            </div>
 
-            {/* Critical Illness (CI) */}
-            <div className="border-t border-gray-100 pt-6">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-semibold text-gray-800">Critical Illness (CI)</h3>
-                <button
-                  onClick={() => handleToggle(setCiEnabled, ciEnabled)}
-                  className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${ciEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-                >
-                  <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${ciEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
-                    {ciEnabled && <Check size={10} className="text-[#F37021]" />}
+                {/* Critical Illness (CI) */}
+                <div className="border-t border-gray-100 pt-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-sm font-semibold text-gray-800">Critical Illness (CI)</h3>
+                    <button
+                      onClick={() => handleToggle(setCiEnabled, ciEnabled)}
+                      className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${ciEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                    >
+                      <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${ciEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
+                        {ciEnabled && <Check size={10} className="text-[#F37021]" />}
+                      </div>
+                    </button>
                   </div>
-                </button>
-              </div>
 
-              {ciEnabled && (
-                <div className="flex gap-4 pt-2">
-                  {['50%', '100%'].map(opt => (
-                    <OptionButton key={opt} label={opt} selected={ciOption === opt} onClick={() => setCiOption(opt)} />
-                  ))}
+                  {ciEnabled && (
+                    <div className="flex gap-4 pt-2">
+                      {['50%', '100%'].map(opt => (
+                        <OptionButton key={opt} label={opt} selected={ciOption === opt} onClick={() => setCiOption(opt)} />
+                      ))}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
 
-            {/* PDAB */}
-            <div className="border-t border-gray-100 pt-6 flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
-                Permanent Disability Accidental Benefit (PDAB)
-                <Info size={14} className="text-gray-400" />
-              </h3>
-              <button
-                onClick={() => handleToggle(setPdabEnabled, pdabEnabled, true, false)}
-                className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${pdabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-              >
-                <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${pdabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
-                  {pdabEnabled && <Check size={10} className="text-[#F37021]" />}
+                {/* PDAB */}
+                <div className="border-t border-gray-100 pt-6 flex items-center justify-between">
+                  <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
+                    Permanent Disability Accidental Benefit (PDAB)
+                    <Info size={14} className="text-gray-400" />
+                  </h3>
+                  <button
+                    onClick={() => handleToggle(setPdabEnabled, pdabEnabled, true, false)}
+                    className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${pdabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                  >
+                    <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${pdabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
+                      {pdabEnabled && <Check size={10} className="text-[#F37021]" />}
+                    </div>
+                  </button>
                 </div>
-              </button>
-            </div>
 
-            {/* DIAB */}
-            <div className="pt-2 flex items-center justify-between pb-6">
-              <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
-                Double Indemnity Accidental Benefit (DIAB)
-                <Info size={14} className="text-gray-400" />
-              </h3>
-              <button
-                onClick={() => handleToggle(setDiabEnabled, diabEnabled, false, true)}
-                className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${diabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-              >
-                <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${diabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
-                  {diabEnabled && <Check size={10} className="text-[#F37021]" />}
+                {/* DIAB */}
+                <div className="pt-2 flex items-center justify-between pb-6">
+                  <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
+                    Double Indemnity Accidental Benefit (DIAB)
+                    <Info size={14} className="text-gray-400" />
+                  </h3>
+                  <button
+                    onClick={() => handleToggle(setDiabEnabled, diabEnabled, false, true)}
+                    className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${diabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                  >
+                    <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${diabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
+                      {diabEnabled && <Check size={10} className="text-[#F37021]" />}
+                    </div>
+                  </button>
                 </div>
-              </button>
-            </div>
+              </>
+            )}
 
           </div>
 
           {/* Footer */}
-          <div className="mt-8 flex justify-center">
-            <button
-              onClick={() => setIsDetailsModalOpen(true)}
-              className="bg-[#F37021] text-white px-8 py-3 rounded-full font-semibold flex items-center gap-3 hover:bg-[#E06015] transition-colors"
-            >
-              Check Premium
-              <div className="bg-white text-[#F37021] rounded-full p-1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
-              </div>
-            </button>
-          </div>
+          {isProcessed && (
+            <div className="mt-8 flex justify-center">
+              <Button
+                label="Check Premium"
+                onClick={() => setIsDetailsModalOpen(true)}
+              />
+            </div>
+          )}
         </div>
       </div>
 
@@ -401,7 +516,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
         isOpen={isDetailsModalOpen}
         onClose={() => {
           setIsDetailsModalOpen(false);
-          onClose(); // Close both modals
+          handleClose(); // Close both modals
         }}
         onCheckAgain={() => setIsDetailsModalOpen(false)}
       />

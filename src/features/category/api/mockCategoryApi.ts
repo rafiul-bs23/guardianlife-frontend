@@ -20,7 +20,6 @@ export const getMockCategoryProducts = async (
     }
     return new Promise((resolve) => {
         setTimeout(() => {
-            // Create a cloned response so we can modify the channel/category fields to match request
             const response = {
                 ...products,
                 data: {

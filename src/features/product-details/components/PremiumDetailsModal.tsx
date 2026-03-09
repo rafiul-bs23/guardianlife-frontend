@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { X, Info, ChevronRight } from 'lucide-react';
+import { X, Info } from 'lucide-react';
+import Button from "../../../shared/Components/Button.tsx";
 
 interface PremiumDetailsModalProps {
     isOpen: boolean;
@@ -26,9 +27,9 @@ const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, onClo
             <div className="relative bg-white rounded-3xl shadow-xl w-full max-w-[900px] mx-auto p-6 sm:p-8 lg:p-10">
                 <button
                     onClick={onClose}
-                    className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-orange-100 text-[#F37021] hover:bg-orange-200 transition-colors"
+                    className="absolute top-6 right-6 w-[50px] h-[50px] flex items-center justify-center rounded-full bg-orange-100 text-[#F37021] hover:bg-orange-200 transition-colors"
                 >
-                    <X size={20} strokeWidth={2.5} />
+                    <X size={27}/>
                 </button>
 
                 <div className="mb-6">
@@ -80,22 +81,14 @@ const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, onClo
                 </div>
 
                 <div className="mt-12 flex flex-col sm:flex-row justify-center items-center gap-4">
-                    <button
-                        onClick={onCheckAgain}
-                        className="group flex items-center justify-between w-full sm:w-auto min-w-[200px] border border-[#F37021] rounded-full pl-6 pr-2 py-2 hover:bg-orange-50 transition-colors"
-                    >
-                        <span className="text-[#F37021] font-medium text-sm mr-4">Check Again</span>
-                        <div className="w-8 h-8 rounded-full bg-[#F37021] flex items-center justify-center text-white group-hover:bg-[#E06015] transition-colors">
-                            <ChevronRight size={18} strokeWidth={3} />
-                        </div>
-                    </button>
-
-                    <button className="group flex items-center justify-between w-full sm:w-auto min-w-[240px] bg-[#F37021] rounded-full pl-6 pr-2 py-2 hover:bg-[#E06015] transition-colors shadow-sm">
-                        <span className="text-white font-medium text-sm mr-4">Proceed To Proposal</span>
-                        <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#F37021]">
-                            <ChevronRight size={18} strokeWidth={3} />
-                        </div>
-                    </button>
+                    <Button
+                      label="Check Again"
+                      onClick={onCheckAgain}
+                      variant="outline-orange"
+                    />
+                    <Button
+                      label="Proceed To Proposal"
+                    />
                 </div>
             </div>
         </div>
