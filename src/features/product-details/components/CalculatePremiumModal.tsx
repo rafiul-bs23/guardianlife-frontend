@@ -555,7 +555,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                             </div>
                           </>
                         )}
-                        {['Family', 'Children'].includes(hiBeneficiary.toLowerCase()) && (
+                        {['family', 'children'].includes(hiBeneficiary.toLowerCase()) && (
                           <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">Number of Children</label>
                             <input type="number" placeholder="Enter Number of Children" value={childrenCount} onChange={e => setChildrenCount(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
