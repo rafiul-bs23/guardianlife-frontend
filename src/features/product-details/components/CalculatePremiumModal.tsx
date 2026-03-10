@@ -45,6 +45,11 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [pdabEnabled, setPdabEnabled] = useState(false);
   const [diabEnabled, setDiabEnabled] = useState(false);
 
+  const [hiBeneficiaries, setHiBeneficiaries] = useState<any[]>([]);
+  const [hiMaternityPlans, setHiMaternityPlans] = useState<any[]>([]);
+  const [hiHealthPlans, setHiHealthPlans] = useState<any[]>([]);
+  const [ciPercentages, setCiPercentages] = useState<any[]>([]);
+
 
 
   // Body scroll lock
@@ -199,6 +204,38 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
           };
           const response = await getSupplementaryInfo(payload);
           console.log('Supplementary API Response:', response);
+
+          if (response && response.status && response.data) {
+            const hiData = response.data.find((item: any) => item.supplementary_name === 'HI');
+            if (hiData) {
+              setHiBeneficiaries(hiData.beneficiaries || []);
+              setHiMaternityPlans(hiData.hi_maternity_plan || []);
+              setHiHealthPlans(hiData.health_insurance || []);
+              
+              // Set defaults if currently empty or not in new list
+              if (hiData.health_insurance?.length > 0) {
+                const names = hiData.health_insurance.map((h: any) => h.name);
+                if (!names.includes(hiOption)) setHiOption(names[0]);
+              }
+              if (hiData.beneficiaries?.length > 0) {
+                const names = hiData.beneficiaries.map((b: any) => b.name);
+                if (!names.includes(hiBeneficiary.toLowerCase())) setHiBeneficiary(names[0]);
+              }
+              if (hiData.hi_maternity_plan?.length > 0) {
+                const names = hiData.hi_maternity_plan.map((m: any) => m.name);
+                if (!names.includes(maternityPlan)) setMaternityPlan(names[0]);
+              }
+            }
+
+            const ciData = response.data.find((item: any) => item.supplementary_name === 'CI');
+            if (ciData) {
+              setCiPercentages(ciData.ci_percentage || []);
+              if (ciData.ci_percentage?.length > 0) {
+                const opts = ciData.ci_percentage.map((c: any) => c.percentage + '%');
+                if (!opts.includes(ciOption)) setCiOption(opts[0]);
+              }
+            }
+          }
         } catch (error) {
           console.error('Error fetching supplementary info:', error);
         }
@@ -443,46 +480,44 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                     <div className="space-y-6 pt-2">
                       {/* HI Options */}
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {[
-                          { name: 'BRONZE', value: '50,000', color: '#D28E5D' },
-                          { name: 'SILVER', value: '150,000', color: '#B0B6BA' },
-                          { name: 'GOLD', value: '300,000', color: '#FBB03B' },
-                          { name: 'PLATINUM', value: '500,000', color: '#6F7678' }
-                        ].map(opt => (
-                          <div
-                            key={opt.name}
-                            onClick={() => setHiOption(opt.name)}
-                            className={`border rounded-lg flex flex-col overflow-hidden cursor-pointer transition-all bg-white ${hiOption === opt.name ? 'border-[#F37021] shadow-md ring-2 ring-[#F37021] ring-opacity-20' : 'border-orange-100 hover:border-orange-300'}`}
-                          >
+                        {hiHealthPlans.map((opt, idx) => {
+                          const colors = ['#D28E5D', '#B0B6BA', '#FBB03B', '#6F7678'];
+                          return (
                             <div
-                              className="w-full pt-2 pb-6 text-center text-[13px] font-bold text-[#464646] uppercase relative flex items-start justify-center"
-                              style={{
-                                backgroundColor: opt.color,
-                                maskImage: 'url("data:image/svg+xml,%3Csvg preserveAspectRatio=\'none\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0,0 L100,0 L100,70 Q50,100 0,70 Z\'/%3E%3C/svg%3E")',
-                                WebkitMaskImage: 'url("data:image/svg+xml,%3Csvg preserveAspectRatio=\'none\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0,0 L100,0 L100,70 Q50,100 0,70 Z\'/%3E%3C/svg%3E")',
-                                maskSize: '100% 100%',
-                                WebkitMaskSize: '100% 100%',
-                              }}
+                              key={opt.id || opt.name}
+                              onClick={() => setHiOption(opt.name)}
+                              className={`border rounded-lg flex flex-col overflow-hidden cursor-pointer transition-all bg-white ${hiOption === opt.name ? 'border-[#F37021] shadow-md ring-2 ring-[#F37021] ring-opacity-20' : 'border-orange-100 hover:border-orange-300'}`}
                             >
-                              <span className="relative z-10 pt-1 tracking-wider">{opt.name}</span>
+                              <div
+                                className="w-full pt-2 pb-6 text-center text-[13px] font-bold text-[#464646] uppercase relative flex items-start justify-center"
+                                style={{
+                                  backgroundColor: colors[idx % colors.length],
+                                  maskImage: 'url("data:image/svg+xml,%3Csvg preserveAspectRatio=\'none\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0,0 L100,0 L100,70 Q50,100 0,70 Z\'/%3E%3C/svg%3E")',
+                                  WebkitMaskImage: 'url("data:image/svg+xml,%3Csvg preserveAspectRatio=\'none\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0,0 L100,0 L100,70 Q50,100 0,70 Z\'/%3E%3C/svg%3E")',
+                                  maskSize: '100% 100%',
+                                  WebkitMaskSize: '100% 100%',
+                                }}
+                              >
+                                <span className="relative z-10 pt-1 tracking-wider">{opt.name}</span>
+                              </div>
+                              <div className="pt-2 pb-4 text-center font-bold text-gray-900 text-lg">
+                                {new Intl.NumberFormat('en-IN').format(Number(opt.sum_assured))}
+                              </div>
                             </div>
-                            <div className="pt-2 pb-4 text-center font-bold text-gray-900 text-lg">
-                              {opt.value}
-                            </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
 
                       {/* Beneficiary */}
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-3">Beneficiary</label>
                         <div className="flex flex-wrap gap-4">
-                          {['Self', 'Couple', 'Family', 'Children'].map(ben => (
-                            <label key={ben} onClick={() => setHiBeneficiary(ben)} className={`flex items-center gap-2 px-5 py-2.5 rounded-lg border cursor-pointer transition-colors ${hiBeneficiary === ben ? 'border-[#F37021] bg-orange-50/50' : 'border-gray-200 hover:border-[#F37021]'}`}>
-                              <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${hiBeneficiary === ben ? 'border-[#F37021]' : 'border-gray-300'}`}>
-                                {hiBeneficiary === ben && <div className="w-2 h-2 bg-[#F37021] rounded-full"></div>}
+                          {hiBeneficiaries.map(ben => (
+                            <label key={ben.id || ben.name} onClick={() => setHiBeneficiary(ben.name)} className={`flex items-center gap-2 px-5 py-2.5 rounded-lg border cursor-pointer transition-colors ${hiBeneficiary.toLowerCase() === ben.name.toLowerCase() ? 'border-[#F37021] bg-orange-50/50' : 'border-gray-200 hover:border-[#F37021]'}`}>
+                              <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${hiBeneficiary.toLowerCase() === ben.name.toLowerCase() ? 'border-[#F37021]' : 'border-gray-300'}`}>
+                                {hiBeneficiary.toLowerCase() === ben.name.toLowerCase() && <div className="w-2 h-2 bg-[#F37021] rounded-full"></div>}
                               </div>
-                              <span className="text-sm font-medium text-gray-700">{ben}</span>
+                              <span className="text-sm font-medium text-gray-700 capitalize">{ben.name}</span>
                             </label>
                           ))}
                         </div>
@@ -490,7 +525,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
                       {/* Conditional Fields for Beneficiary */}
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {['Couple', 'Family'].includes(hiBeneficiary) && (
+                        {['couple', 'family'].includes(hiBeneficiary.toLowerCase()) && (
                           <>
                             <div>
                               <label className="block text-sm font-medium text-gray-700 mb-2">Spouse Date Of Birth</label>
@@ -520,7 +555,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                             </div>
                           </>
                         )}
-                        {['Family', 'Children'].includes(hiBeneficiary) && (
+                        {['Family', 'Children'].includes(hiBeneficiary.toLowerCase()) && (
                           <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">Number of Children</label>
                             <input type="number" placeholder="Enter Number of Children" value={childrenCount} onChange={e => setChildrenCount(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
@@ -529,12 +564,12 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                       </div>
 
                       {/* Maternity Plan (Couple/Family only) */}
-                      {['Couple', 'Family'].includes(hiBeneficiary) && (
+                      {['couple', 'family'].includes(hiBeneficiary.toLowerCase()) && (
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-3">Maternity Plan</label>
                           <div className="flex flex-wrap gap-4">
-                            {['Standard', 'Delux', 'No Maternity'].map(plan => (
-                              <OptionButton key={plan} label={plan} selected={maternityPlan === plan} onClick={() => setMaternityPlan(plan)} />
+                            {hiMaternityPlans.map(plan => (
+                              <OptionButton key={plan.id || plan.name} label={plan.name} selected={maternityPlan === plan.name} onClick={() => setMaternityPlan(plan.name)} />
                             ))}
                           </div>
                         </div>
@@ -559,8 +594,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
                   {ciEnabled && (
                     <div className="flex gap-4 pt-2">
-                      {['50%', '100%'].map(opt => (
-                        <OptionButton key={opt} label={opt} selected={ciOption === opt} onClick={() => setCiOption(opt)} />
+                      {ciPercentages.map(opt => (
+                        <OptionButton key={opt.percentage} label={opt.percentage + '%'} selected={ciOption === opt.percentage + '%'} onClick={() => setCiOption(opt.percentage + '%')} />
                       ))}
                     </div>
                   )}
