@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Info, Check, Calendar } from 'lucide-react';
+import { getPlanInformation } from '../api';
 import PremiumDetailsModal from './PremiumDetailsModal';
 import Button from "../../../shared/Components/Button.tsx";
 
@@ -11,6 +12,7 @@ interface CalculatePremiumModalProps {
 const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, onClose }) => {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -19,10 +21,14 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('Male');
 
+  const [availableModes, setAvailableModes] = useState<string[]>(['Yearly', 'Half-Yearly', 'Quarterly', 'Monthly']);
   const [mode, setMode] = useState('Yearly');
+  const [availableTerms, setAvailableTerms] = useState<number[]>([10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]);
   const [term, setTerm] = useState(20);
 
   const [sumAssured, setSumAssured] = useState('');
+  const [minSumAss, setMinSumAss] = useState<number>(50000);
+  const [maxSumAss, setMaxSumAss] = useState<number>(1000000);
 
   const [hiEnabled, setHiEnabled] = useState(false);
   const [hiOption, setHiOption] = useState('BRONZE');
@@ -123,6 +129,61 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
     } else {
       setDate('');
       setAgeState('');
+    }
+  };
+
+  const handleProcess = async () => {
+    if (!dob) {
+      // Just a simple validation prompt or alert.
+      alert("Please enter a valid Date of Birth");
+      return;
+    }
+
+    let apiDob = '';
+    const parts = dob.split('-');
+    if (parts.length === 3) {
+      apiDob = `${parts[2]}-${parts[1]}-${parts[0]}`;
+    }
+
+    try {
+      setIsLoading(true);
+      const data = await getPlanInformation({
+        date_of_birth: apiDob,
+        plan_no: "03"
+      });
+
+      console.log('API Response:', data);
+
+      if (data && data.status && data.data) {
+        const { payment_mode, term: apiTerms, min_sumass, max_sumass } = data.data;
+
+        // Update modes
+        if (payment_mode && Array.isArray(payment_mode)) {
+          const modes = payment_mode.map((m: any) => m.name);
+          setAvailableModes(modes);
+          if (modes.length > 0 && !modes.includes(mode)) {
+            setMode(modes[0]);
+          }
+        }
+
+        // Update terms
+        if (apiTerms && Array.isArray(apiTerms)) {
+          const termsList = apiTerms.map((t: any) => t.term).sort((a: number, b: number) => a - b);
+          setAvailableTerms(termsList);
+          if (termsList.length > 0 && !termsList.includes(term)) {
+            setTerm(termsList[0]);
+          }
+        }
+
+        // Update sum assured min-max
+        if (min_sumass) setMinSumAss(Number(min_sumass));
+        if (max_sumass) setMaxSumAss(Number(max_sumass));
+      }
+    } catch (error) {
+      console.error('Error fetching plan info:', error);
+    } finally {
+      setIsLoading(false);
+      setIsProcessed(true);
     }
   };
 
@@ -247,8 +308,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
             {!isProcessed && (
               <div className="flex justify-center pt-4">
                 <Button
-                  label="Process"
-                  onClick={() => setIsProcessed(true)}
+                  label={isLoading ? "Processing..." : "Process"}
+                  onClick={isLoading ? undefined : handleProcess}
                 />
               </div>
             )}
@@ -259,7 +320,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-3">Mode</label>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {['Yearly', 'Half-Yearly', 'Quarterly', 'Monthly'].map(m => (
+                    {availableModes.map(m => (
                       <OptionButton key={m} label={m} selected={mode === m} onClick={() => setMode(m)} />
                     ))}
                   </div>
@@ -271,7 +332,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                   <div className="relative pt-8 pb-4">
                     {/* Tick Labels */}
                     <div className="absolute top-0 w-full flex justify-between px-2">
-                      {[10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25].map(t => (
+                      {availableTerms.map(t => (
                         <span key={t} className={`text-[11px] font-bold ${t === term ? 'text-[#F37021] opacity-0' : 'text-gray-300'}`}>
                           {t}
                         </span>
@@ -279,27 +340,42 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                     </div>
 
                     {/* Selected Indicator */}
-                    <div
-                      className="absolute top-0 flex flex-col items-center -translate-x-1/2 transition-all duration-150 pointer-events-none"
-                      style={{
-                        left: `calc(14px + (${((term - 10) / 15) * 100}% - ${((term - 10) / 15) * 28}px))`
-                      }}
-                    >
-                      <span className="text-[11px] font-extrabold text-[#1E3161] whitespace-nowrap mb-1 uppercase">
-                        {term} YEARS
-                      </span>
-                      <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-[#F37021]"></div>
-                    </div>
+                    {(() => {
+                      const index = availableTerms.indexOf(term) >= 0 ? availableTerms.indexOf(term) : 0;
+                      const maxIndex = availableTerms.length > 1 ? availableTerms.length - 1 : 1;
+                      const ratio = index / maxIndex;
+                      return (
+                        <div
+                          className="absolute top-0 flex flex-col items-center -translate-x-1/2 transition-all duration-150 pointer-events-none"
+                          style={{
+                            left: `calc(14px + (${ratio * 100}% - ${ratio * 28}px))`
+                          }}
+                        >
+                          <span className="text-[11px] font-extrabold text-[#1E3161] whitespace-nowrap mb-1 uppercase">
+                            {term} YEARS
+                          </span>
+                          <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-[#F37021]"></div>
+                        </div>
+                      );
+                    })()}
 
                     <input
                       type="range"
-                      min="10"
-                      max="25"
-                      value={term}
-                      onChange={(e) => setTerm(parseInt(e.target.value))}
+                      min="0"
+                      max={availableTerms.length > 1 ? availableTerms.length - 1 : 0}
+                      value={availableTerms.indexOf(term) >= 0 ? availableTerms.indexOf(term) : 0}
+                      onChange={(e) => {
+                        const idx = parseInt(e.target.value);
+                        if (availableTerms[idx]) setTerm(availableTerms[idx]);
+                      }}
                       className="w-full h-4 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                       style={{
-                        background: `linear-gradient(to right, #F37021 0%, #F37021 ${((term - 10) / 15) * 100}%, #E5E7EB ${((term - 10) / 15) * 100}%, #E5E7EB 100%)`
+                        background: (() => {
+                          const index = availableTerms.indexOf(term) >= 0 ? availableTerms.indexOf(term) : 0;
+                          const maxIndex = availableTerms.length > 1 ? availableTerms.length - 1 : 1;
+                          const ratio = index / maxIndex;
+                          return `linear-gradient(to right, #F37021 0%, #F37021 ${ratio * 100}%, #E5E7EB ${ratio * 100}%, #E5E7EB 100%)`;
+                        })()
                       }}
                     />
                   </div>
@@ -320,7 +396,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                       className="w-full border border-gray-300 rounded-md py-3 pl-8 pr-4 text-center font-semibold text-lg focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none"
                     />
                   </div>
-                  <p className="text-xs text-gray-400 mt-2">(50000 - 1000000)</p>
+                  <p className="text-xs text-gray-400 mt-2">({minSumAss} - {maxSumAss})</p>
                 </div>
 
                 {/* Health Insurance Section */}

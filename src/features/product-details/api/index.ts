@@ -11,3 +11,9 @@ export const getProductData = async (id: string): Promise<ProductApiResponse> =>
   const { data } = await axiosClient.get<ProductApiResponse>(`/products/${id}`);
   return data;
 };
+
+export const getPlanInformation = async (payload: { date_of_birth: string, plan_no: string }) => {
+  // Use the direct endpoint provided, using the global axiosClient if needed, or straight axios
+  const { data } = await axiosClient.post('https://webapi-staging.guardianlife.com.bd/api/v1/retail/plan/information', payload);
+  return data;
+};
