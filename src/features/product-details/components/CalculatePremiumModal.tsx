@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Info, Check, Calendar } from 'lucide-react';
-import { getPlanInformation } from '../api';
+import { getPlanInformation, getSupplementaryInfo } from '../api';
 import PremiumDetailsModal from './PremiumDetailsModal';
 import Button from "../../../shared/Components/Button.tsx";
 
@@ -64,9 +64,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
     onClose();
   };
 
-  if (!isOpen) return null;
-
-  const isSumAssuredFilled = parseFloat(sumAssured.replace(/,/g, '')) > 0;
+  const sumAssuredValue = parseFloat(sumAssured.replace(/,/g, '')) || 0;
+  const isValidSumAssured = sumAssuredValue >= minSumAss && sumAssuredValue <= maxSumAss;
 
   const calculateCeilAge = (dateString: string) => {
     if (!dateString) return '';
@@ -187,8 +186,29 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
     }
   };
 
+  useEffect(() => {
+    if (isValidSumAssured) {
+      const handler = setTimeout(async () => {
+        try {
+          const payload = {
+            plan_id: "03",
+            gender: gender.toLowerCase(),
+            sum_assured: sumAssuredValue.toString(),
+            age: Number(age),
+            term: Number(term)
+          };
+          const response = await getSupplementaryInfo(payload);
+          console.log('Supplementary API Response:', response);
+        } catch (error) {
+          console.error('Error fetching supplementary info:', error);
+        }
+      }, 500);
+      return () => clearTimeout(handler);
+    }
+  }, [sumAssuredValue, isValidSumAssured, gender, age, term]);
+
   const handleToggle = (setter: React.Dispatch<React.SetStateAction<boolean>>, currentValue: boolean, isPdab: boolean = false, isDiab: boolean = false) => {
-    if (!isSumAssuredFilled) return; // cannot turn on if sum assured is empty
+    if (!isValidSumAssured) return; // cannot turn on if sum assured is invalid
 
     const newValue = !currentValue;
     setter(newValue);
@@ -232,6 +252,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
       {label}
     </button>
   );
+
+  if (!isOpen) return null;
 
   return (
     <>
@@ -393,10 +415,14 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                       placeholder="0"
                       value={sumAssured}
                       onChange={handleSumAssuredChange}
-                      className="w-full border border-gray-300 rounded-md py-3 pl-8 pr-4 text-center font-semibold text-lg focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none"
+                      className={`w-full border ${sumAssuredValue > 0 && !isValidSumAssured ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-[#F37021] focus:border-[#F37021]'} rounded-md py-3 pl-8 pr-4 text-center font-semibold text-lg focus:ring-1 outline-none`}
                     />
                   </div>
-                  <p className="text-xs text-gray-400 mt-2">({minSumAss} - {maxSumAss})</p>
+                  <p className={`text-xs mt-2 ${sumAssuredValue > 0 && !isValidSumAssured ? 'text-red-500 font-medium' : 'text-gray-400'}`}>
+                    {sumAssuredValue > 0 && sumAssuredValue < minSumAss && `Minimum Sum Assured is ${new Intl.NumberFormat('en-IN').format(minSumAss)}`}
+                    {sumAssuredValue > maxSumAss && `Maximum Sum Assured is ${new Intl.NumberFormat('en-IN').format(maxSumAss)}`}
+                    {(sumAssuredValue === 0 || isValidSumAssured) && `(${new Intl.NumberFormat('en-IN').format(minSumAss)} - ${new Intl.NumberFormat('en-IN').format(maxSumAss)})`}
+                  </p>
                 </div>
 
                 {/* Health Insurance Section */}
@@ -405,7 +431,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                     <h3 className="text-sm font-semibold text-gray-800">Health Insurance (HI)</h3>
                     <button
                       onClick={() => handleToggle(setHiEnabled, hiEnabled)}
-                      className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${hiEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                      className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${hiEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isValidSumAssured ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                     >
                       <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${hiEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
                         {hiEnabled && <Check size={10} className="text-[#F37021]" />}
@@ -523,7 +549,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                     <h3 className="text-sm font-semibold text-gray-800">Critical Illness (CI)</h3>
                     <button
                       onClick={() => handleToggle(setCiEnabled, ciEnabled)}
-                      className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${ciEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                      className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${ciEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isValidSumAssured ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                     >
                       <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${ciEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
                         {ciEnabled && <Check size={10} className="text-[#F37021]" />}
@@ -548,7 +574,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                   </h3>
                   <button
                     onClick={() => handleToggle(setPdabEnabled, pdabEnabled, true, false)}
-                    className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${pdabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                    className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${pdabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isValidSumAssured ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                   >
                     <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${pdabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
                       {pdabEnabled && <Check size={10} className="text-[#F37021]" />}
@@ -564,7 +590,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                   </h3>
                   <button
                     onClick={() => handleToggle(setDiabEnabled, diabEnabled, false, true)}
-                    className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${diabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                    className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${diabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isValidSumAssured ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                   >
                     <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${diabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
                       {diabEnabled && <Check size={10} className="text-[#F37021]" />}

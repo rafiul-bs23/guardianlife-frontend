@@ -16,3 +16,8 @@ export const getPlanInformation = async (payload: { date_of_birth: string, plan_
   const { data } = await axiosClient.post('/retail/plan/information', payload);
   return data;
 };
+
+export const getSupplementaryInfo = async (payload: { plan_id: string, gender: string, sum_assured: string, age: number, term: number }) => {
+  const { data } = await axiosClient.post('/retail/plan/supplementary', payload);
+  return data;
+};
