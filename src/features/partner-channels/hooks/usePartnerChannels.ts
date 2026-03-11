@@ -12,12 +12,15 @@ const usePartnerChannels = (): UsePartnerChannelsResult => {
         set_error(null);
         try {
             const result = await get_partner_channels();
+            console.log(result);
             if (result?.status) {
                 set_partner_channels(result?.data ?? []);
             } else {
                 set_error('Failed to load partners.');
             }
         } catch (err) {
+            console.log(err);
+
             set_error(err instanceof Error ? err?.message : 'Failed to load partners.');
             set_partner_channels([]);
         } finally {

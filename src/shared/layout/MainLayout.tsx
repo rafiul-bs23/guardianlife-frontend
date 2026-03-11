@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../Components/Footer.tsx";
 
@@ -19,7 +19,9 @@ const MainLayout = () => {
 
       <main className="app-main">
         <ScrollToTop />
-        <Outlet />
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+          <Outlet />
+        </Suspense>
       </main>
       <Footer />
     </>

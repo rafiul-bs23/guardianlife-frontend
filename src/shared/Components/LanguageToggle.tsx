@@ -2,7 +2,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Globe } from 'lucide-react';
 
-const LanguageToggle: React.FC = () => {
+interface LanguageToggleProps {
+    scrolled?: boolean;
+}
+
+const LanguageToggle: React.FC<LanguageToggleProps> = ({ scrolled = false }) => {
     const { i18n, t } = useTranslation();
 
     const toggleLanguage = () => {
@@ -12,13 +16,17 @@ const LanguageToggle: React.FC = () => {
 
     const currentLangLabel = i18n.language === 'en' ? 'BN' : 'EN';
 
+    const colorClasses = scrolled
+        ? 'border-primary text-primary hover:bg-primary/10'
+        : 'border-white/20 text-white hover:border-white/50';
+
     return (
         <button
             onClick={toggleLanguage}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/20 hover:border-white/50 text-white hover:text-white transition-all duration-300 font-medium text-sm"
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-all duration-300 font-medium text-sm ${colorClasses}`}
             title={t('common:toggle_language')}
         >
-            <Globe size={16} className="text-white" />
+            <Globe size={16} className={scrolled ? 'text-primary' : 'text-white'} />
             <span>{currentLangLabel}</span>
         </button>
     );

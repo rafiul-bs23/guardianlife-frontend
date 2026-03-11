@@ -2,6 +2,6 @@ import axiosClient from '../../../lib/axios';
 import type { PartnerChannelsApiResult } from '../types';
 
 export const get_real_partner_channels = async (): Promise<PartnerChannelsApiResult> => {
-    const { data } = await axiosClient.get<PartnerChannelsApiResult>('/about/partners');
+    const { data } = await axiosClient.get<PartnerChannelsApiResult>('/about/partners/digital');
     return data;
 };

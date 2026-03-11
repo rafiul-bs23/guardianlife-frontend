@@ -14,10 +14,10 @@ const TrackClaim: React.FC<TrackClaimProps> = ({ data }) => {
                 {/* Header Section */}
                 <div className="text-center mb-16 max-w-[900px] mx-auto">
                     <h2 className="text-3xl font-extrabold text-gray-900 mb-6 uppercase tracking-wider">
-                        {data.trackingTitle}
+                        {data?.tracking_title}
                     </h2>
                     <p className="text-gray-600 text-lg font-medium leading-relaxed">
-                        {data.trackingSubtitle}
+                        {data?.tracking_subtitle}
                     </p>
                 </div>
 

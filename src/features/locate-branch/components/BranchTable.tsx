@@ -48,8 +48,7 @@ const BranchTable = ({
                                 { key: 'district', label: t('table.headers.district') },
                                 { key: 'area', label: t('table.headers.area') },
                                 { key: 'address', label: t('table.headers.address') },
-                                { key: 'contact', label: t('table.headers.contact') },
-                                { key: 'map', label: t('table.headers.map') },
+                                { key: 'contact', label: t('table.headers.contact') }
                             ].map((col) => (
                                 <th
                                     key={col.key}
@@ -125,35 +124,7 @@ const BranchTable = ({
                                             )}
                                         </div>
                                     </td>
-                                    <td className="px-4 py-3.5 whitespace-nowrap">
-                                        <a
-                                            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(branch.address)}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-primary hover:bg-primary/80 px-3 py-1.5 rounded-lg transition"
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                className="w-3.5 h-3.5"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke="currentColor"
-                                                strokeWidth={2}
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                                                />
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                                                />
-                                            </svg>
-                                            {t('table.map_btn')}
-                                        </a>
-                                    </td>
+
                                 </tr>
                             ))
                         )}

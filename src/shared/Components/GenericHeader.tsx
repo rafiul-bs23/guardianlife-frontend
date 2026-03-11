@@ -122,7 +122,7 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
                     className="absolute inset-0 z-0 pointer-events-none"
                     style={{ background: 'linear-gradient(180deg, rgba(243, 112, 33, 0.29) 0%, #F37021 100%)' }}
                 />
-                <div className="relative z-10 flex flex-col w-full h-full">
+                <div className="relative z-10 flex flex-col w-full h-full pt-20 md:pt-28">
                     <Navbar transparent />
                     <div className={`flex-grow flex items-center ${innerWrapperClassName}`}>
                         {children || headerContent}
@@ -135,7 +135,7 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
     return (
         <>
             <Navbar />
-            <section className={`bg-white px-4 md:px-10 lg:px-20 pb-12 pt-8 ${className}`}>
+            <section className={`bg-white px-4 md:px-10 lg:px-20 pb-12 pt-16 md:pt-32 ${className}`}>
                 <div
                     className="relative w-full rounded-[10px] md:rounded-[30px] overflow-hidden min-h-[450px] flex items-center shadow-lg bg-primary"
                     style={!data?.background_video_url ? bgStyles : {}}

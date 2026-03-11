@@ -10,7 +10,7 @@ interface PaginationProps {
 const Pagination: React.FC<PaginationProps> = ({ pagination, onPageChange, className = "" }) => {
     const { current_page, total_pages, total_records } = pagination;
 
-    if (total_pages <= 1) return null;
+    // if (total_pages <= 1) return null;
 
     const getPaginationRange = () => {
         const delta = 1; // neighbors
@@ -94,8 +94,8 @@ const Pagination: React.FC<PaginationProps> = ({ pagination, onPageChange, class
                                 key={pageNum}
                                 onClick={() => onPageChange(pageNum)}
                                 className={`min-w-[40px] h-10 px-2 rounded-lg text-[14px] font-bold transition-all duration-200 border ${isActive
-                                        ? 'bg-[#EB6925] border-[#EB6925] text-white shadow-md'
-                                        : 'bg-white border-[#E5E7EB] text-[#3B82F6] hover:border-[#3B82F6]'
+                                    ? 'bg-[#EB6925] border-[#EB6925] text-white shadow-md'
+                                    : 'bg-white border-[#E5E7EB] text-[#3B82F6] hover:border-[#3B82F6]'
                                     }`}
                             >
                                 {pageNum}

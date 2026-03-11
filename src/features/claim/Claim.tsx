@@ -19,20 +19,20 @@ const Claim = () => {
   // Get features and customer stories data from locale with fallback images from mockData
   const localizedFeatures = t('features', { returnObjects: true }) as FeaturesSection;
   const featuresData: FeaturesSection = {
-    title: localizedFeatures?.title || mockClaimData?.features_section?.title,
-    subtitle: localizedFeatures?.subtitle || mockClaimData?.features_section?.subtitle,
+    title: localizedFeatures?.title,
+    subtitle: localizedFeatures?.subtitle,
     items: Array.isArray(localizedFeatures?.items)
       ? (localizedFeatures.items as any[]).map((item, idx) => ({
-          ...item,
-          image: mockClaimData?.features_section?.items[idx]?.image || 'https://placehold.co/40x40',
-        }))
+        ...item,
+        image: mockClaimData?.features_section?.items[idx]?.image || 'https://placehold.co/40x40',
+      }))
       : mockClaimData?.features_section?.items || [],
   };
 
   const localizedStories = t('customer_stories', { returnObjects: true }) as CustomerStoriesData;
   const storiesData: CustomerStoriesData = {
-    title: localizedStories?.title || mockClaimData?.customer_stories?.title,
-    subtitle: localizedStories?.subtitle || mockClaimData?.customer_stories?.subtitle,
+    title: localizedStories?.title,
+    subtitle: localizedStories?.subtitle,
     video_thumbnail: mockClaimData?.customer_stories?.video_thumbnail || '',
     video_url: mockClaimData?.customer_stories?.video_url || '',
   };

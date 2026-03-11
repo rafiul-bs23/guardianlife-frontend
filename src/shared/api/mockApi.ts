@@ -70,7 +70,7 @@ export const get_mock_partners = async (_channel: string): Promise<PartnersApiRe
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({
-                success: true,
+                status: true,
                 transaction_id: mockPartnersResponse.transaction_id,
                 data: mockPartnersResponse.data,
             });
@@ -82,7 +82,7 @@ export const post_mock_lead = async (_payload: LeadRequest | FormData): Promise<
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({
-                success: true,
+                status: true,
                 transaction_id: 'GLIL-TXN-ID',
                 data: {
                     status: 'Submitted',

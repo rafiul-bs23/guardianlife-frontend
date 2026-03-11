@@ -77,7 +77,7 @@ const VideoThumbnail: React.FC<VideoThumbnailProps> = ({
             {/* Video Modal */}
             {isModalOpen && typeof document !== 'undefined' && createPortal(
                 <div
-                    className="fixed inset-0 !z-[1000] flex items-center justify-center bg-black/90 p-4 md:p-10"
+                    className="fixed inset-0 !z-[10000] flex items-center justify-center bg-black/70 p-4 md:p-10"
                     onClick={() => setIsModalOpen(false)}
                 >
                     <div

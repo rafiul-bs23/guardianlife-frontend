@@ -13,9 +13,9 @@ const QuickBuyCategory = () => {
   const { data: headerData, isLoading: isHeaderLoading } = useHeader('easylife-products-list');
 
   // Fetching products for the three specific categories without passing channel since it breaks the endpoint
-  const { data: termLifeProducts, isLoading: isTermLifeLoading } = useCategoryProducts(null, 'term-life', null);
-  const { data: savingsProducts, isLoading: isSavingsLoading } = useCategoryProducts(null, 'savings', null);
-  const { data: specialPlansProducts, isLoading: isSpecialPlansLoading } = useCategoryProducts(null, 'special-plans', null);
+  const { data: termLifeProducts, isLoading: isTermLifeLoading } = useCategoryProducts('digital', 'term-life', null);
+  const { data: savingsProducts, isLoading: isSavingsLoading } = useCategoryProducts('digital', 'savings', null);
+  const { data: specialPlansProducts, isLoading: isSpecialPlansLoading } = useCategoryProducts('digital', 'special-plans', null);
 
   if (isHeaderLoading) {
     return (

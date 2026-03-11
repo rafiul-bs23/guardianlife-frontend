@@ -27,14 +27,14 @@ export const MOCK_HEADER_DATA: HeaderResponse = {
 export const mockClaimData = {
     features_section: {
         items: [
-            { image: "https://placehold.co/40x40" },
-            { image: "https://placehold.co/40x40" },
-            { image: "https://placehold.co/40x40" },
-            { image: "https://placehold.co/40x40" },
-            { image: "https://placehold.co/40x40" },
-            { image: "https://placehold.co/40x40" },
-            { image: "https://placehold.co/40x40" },
-            { image: "https://placehold.co/40x40" }
+            { image: "/assets/images/claim/image 61.png" },
+            { image: "/assets/images/claim/image 62.png" },
+            { image: "/assets/images/claim/image 63.png" },
+            { image: "/assets/images/claim/image 61.png" },
+            { image: "/assets/images/claim/image 62.png" },
+            { image: "/assets/images/claim/image 63.png" },
+            { image: "/assets/images/claim/image 61.png" },
+            { image: "/assets/images/claim/image 62.png" }
         ]
     },
     claim_status: {},

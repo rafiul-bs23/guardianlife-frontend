@@ -58,11 +58,6 @@ const MicroImpact: React.FC = () => {
                                 </div>
                             ) : (
                                 metrics?.map((stat, index) => {
-                                    // Localize metric titles/descriptions if available in JSON
-                                    const metricKey = stat.title.toLowerCase().replace(/\s+/g, '_');
-                                    const localizedTitle = t(`impact.metrics.${metricKey}.title`);
-                                    const localizedDesc = t(`impact.metrics.${metricKey}.description`);
-
                                     return (
                                         <div
                                             key={index}
@@ -72,10 +67,10 @@ const MicroImpact: React.FC = () => {
                                                 {stat.metric}
                                             </span>
                                             <h4 className="text-[14px] font-extrabold text-[#111827] uppercase tracking-tight">
-                                                {localizedTitle}
+                                                {stat.title}
                                             </h4>
                                             <p className="text-gray-400 text-[12px] font-bold leading-relaxed">
-                                                {localizedDesc}
+                                                {stat.description}
                                             </p>
                                         </div>
                                     );

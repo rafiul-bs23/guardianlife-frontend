@@ -22,7 +22,7 @@ const MancomHero: React.FC<MancomHeroProps> = ({ data }) => {
                 {/* Shadow/Gradient overlay is built-in to the design usually, but we can add a subtle one if needed */}
                 <div className=" rounded-t-[40px] overflow-hidden w-full">
                     <img
-                        src={`/${data.image}`}
+                        src={`/${data?.image_url}`}
                         alt={t('hero.title')}
                         className="w-full h-auto object-cover"
                     />
