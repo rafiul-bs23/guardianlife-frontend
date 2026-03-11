@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Info, Check, Calendar } from 'lucide-react';
-import { getPlanInformation, getSupplementaryInfo } from '../api';
+import { getPlanInformation, getSupplementaryInfo, calculatePremium } from '../api';
 import PremiumDetailsModal from './PremiumDetailsModal';
 import Button from "../../../shared/Components/Button.tsx";
 
@@ -21,8 +21,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('Male');
 
-  const [availableModes, setAvailableModes] = useState<string[]>(['Yearly', 'Half-Yearly', 'Quarterly', 'Monthly']);
-  const [mode, setMode] = useState('Yearly');
+  const [availableModes, setAvailableModes] = useState<any[]>([]); // Store full mode objects
+  const [mode, setMode] = useState<any>(null); // Store selected mode object
   const [availableTerms, setAvailableTerms] = useState<number[]>([10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]);
   const [term, setTerm] = useState(20);
 
@@ -31,7 +31,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [maxSumAss, setMaxSumAss] = useState<number>(1000000);
 
   const [hiEnabled, setHiEnabled] = useState(false);
-  const [hiOption, setHiOption] = useState('BRONZE');
+  const [hiOption, setHiOption] = useState<any>(null); // Store selected plan object
   const [hiBeneficiary, setHiBeneficiary] = useState('Self');
   const [spouseDob, setSpouseDob] = useState('');
   const [displaySpouseDob, setDisplaySpouseDob] = useState('');
@@ -49,6 +49,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [hiMaternityPlans, setHiMaternityPlans] = useState<any[]>([]);
   const [hiHealthPlans, setHiHealthPlans] = useState<any[]>([]);
   const [ciPercentages, setCiPercentages] = useState<any[]>([]);
+  const [calculationData, setCalculationData] = useState<any>(null);
+  const [isCalculating, setIsCalculating] = useState(false);
 
 
 
@@ -163,10 +165,9 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
         // Update modes
         if (payment_mode && Array.isArray(payment_mode)) {
-          const modes = payment_mode.map((m: any) => m.name);
-          setAvailableModes(modes);
-          if (modes.length > 0 && !modes.includes(mode)) {
-            setMode(modes[0]);
+          setAvailableModes(payment_mode);
+          if (payment_mode.length > 0) {
+            setMode(payment_mode[0]);
           }
         }
 
@@ -214,8 +215,9 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
               
               // Set defaults if currently empty or not in new list
               if (hiData.health_insurance?.length > 0) {
-                const names = hiData.health_insurance.map((h: any) => h.name);
-                if (!names.includes(hiOption)) setHiOption(names[0]);
+                if (!hiOption || !hiData.health_insurance.find((h: any) => h.id === hiOption.id)) {
+                  setHiOption(hiData.health_insurance[0]);
+                }
               }
               if (hiData.beneficiaries?.length > 0) {
                 const names = hiData.beneficiaries.map((b: any) => b.name);
@@ -289,6 +291,56 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
       {label}
     </button>
   );
+
+  const handleCheckPremium = async () => {
+    let apiDob = '';
+    const partsArray = dob.split('-');
+    if (partsArray.length === 3) {
+      apiDob = `${partsArray[2]}-${partsArray[1]}-${partsArray[0]}`;
+    }
+
+    const selectedHiBeneficiary = hiBeneficiaries.find(b => b.name === hiBeneficiary);
+    const selectedMaternityPlan = hiMaternityPlans.find(m => m.name === maternityPlan);
+
+    const payload = {
+      date_of_birth: apiDob,
+      plan_no: "01", // Hardcoded as per request or should it be dynamic? The request says "01".
+      gender: gender.toLowerCase(),
+      term: term,
+      mode: mode?.id || 1,
+      annuity_pension_unit: sumAssuredValue,
+      channel: "retail",
+      hi: hiEnabled ? 1 : 0,
+      hi_plan: hiEnabled ? (hiOption?.id || 5) : null,
+      hi_beneficiary: hiEnabled ? (selectedHiBeneficiary?.id || 1) : null,
+      hi_spouse_date_of_birth: (hiEnabled && ['couple', 'family'].includes(hiBeneficiary.toLowerCase()) && spouseDob) ? (() => {
+        const p = spouseDob.split('-');
+        return `${p[2]}-${p[1]}-${p[0]}`;
+      })() : null,
+      hi_maternity_plan: (hiEnabled && ['couple', 'family'].includes(hiBeneficiary.toLowerCase())) ? (selectedMaternityPlan?.id || 1) : null,
+      hi_number_of_children: (hiEnabled && ['family', 'children'].includes(hiBeneficiary.toLowerCase())) ? childrenCount : null,
+      ci: ciEnabled ? 2 : 0,
+      ci_percentage: ciEnabled ? ciOption.replace('%', '') : null,
+      pdab: pdabEnabled ? 3 : 0,
+      diab: diabEnabled ? 4 : 0
+    };
+
+    try {
+      setIsCalculating(true);
+      const data = await calculatePremium(payload);
+      if (data && data.status) {
+        setCalculationData(data.data);
+        setIsDetailsModalOpen(true);
+      } else {
+        alert(data?.message || "Failed to calculate premium");
+      }
+    } catch (err) {
+      console.error("Calculation Error:", err);
+      alert("An error occurred while calculating premium");
+    } finally {
+      setIsCalculating(false);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -380,7 +432,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                   <label className="block text-sm font-medium text-gray-700 mb-3">Mode</label>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {availableModes.map(m => (
-                      <OptionButton key={m} label={m} selected={mode === m} onClick={() => setMode(m)} />
+                      <OptionButton key={m.id || m.name} label={m.name} selected={mode?.name === m.name} onClick={() => setMode(m)} />
                     ))}
                   </div>
                 </div>
@@ -485,8 +537,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                           return (
                             <div
                               key={opt.id || opt.name}
-                              onClick={() => setHiOption(opt.name)}
-                              className={`border rounded-lg flex flex-col overflow-hidden cursor-pointer transition-all bg-white ${hiOption === opt.name ? 'border-[#F37021] shadow-md ring-2 ring-[#F37021] ring-opacity-20' : 'border-orange-100 hover:border-orange-300'}`}
+                              onClick={() => setHiOption(opt)}
+                              className={`border rounded-lg flex flex-col overflow-hidden cursor-pointer transition-all bg-white ${hiOption?.name === opt.name ? 'border-[#F37021] shadow-md ring-2 ring-[#F37021] ring-opacity-20' : 'border-orange-100 hover:border-orange-300'}`}
                             >
                               <div
                                 className="w-full pt-2 pb-6 text-center text-[13px] font-bold text-[#464646] uppercase relative flex items-start justify-center"
@@ -551,7 +603,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                             </div>
                             <div>
                               <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
-                              <input type="text" placeholder="12" value={spouseAge} disabled className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-gray-50 text-gray-500 cursor-not-allowed outline-none" />
+                              <input type="text" placeholder="0" value={spouseAge} disabled className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-gray-50 text-gray-500 cursor-not-allowed outline-none" />
                             </div>
                           </>
                         )}
@@ -641,8 +693,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
           {isProcessed && (
             <div className="mt-8 flex justify-center">
               <Button
-                label="Check Premium"
-                onClick={() => setIsDetailsModalOpen(true)}
+                label={isCalculating ? "Calculating..." : "Check Premium"}
+                onClick={isCalculating ? undefined : handleCheckPremium}
               />
             </div>
           )}
@@ -651,6 +703,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
       <PremiumDetailsModal
         isOpen={isDetailsModalOpen}
+        data={calculationData}
+        pdabLabel={diabEnabled ? "DIAB" : "PDAB"}
         onClose={() => {
           setIsDetailsModalOpen(false);
           handleClose(); // Close both modals

@@ -4,11 +4,13 @@ import Button from "../../../shared/Components/Button.tsx";
 
 interface PremiumDetailsModalProps {
     isOpen: boolean;
+    data: any;
+    pdabLabel: string;
     onClose: () => void;
     onCheckAgain: () => void;
 }
 
-const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, onClose, onCheckAgain }) => {
+const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, data, pdabLabel, onClose, onCheckAgain }) => {
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
@@ -48,35 +50,35 @@ const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, onClo
                 <div className="space-y-4 text-gray-700 text-sm sm:text-base">
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
                         <span>Premium Rate</span>
-                        <span>৳134.53</span>
+                        <span>৳{data?.life_premium_rate || 0}</span>
                     </div>
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
                         <span>Basic Premium</span>
-                        <span>৳7063</span>
+                        <span>৳{new Intl.NumberFormat('en-IN').format(data?.life_premium || 0)}</span>
                     </div>
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
                         <span>Health Insurance Premium</span>
-                        <span>৳4253</span>
+                        <span>৳{new Intl.NumberFormat('en-IN').format(data?.total_hi_premium || 0)}</span>
                     </div>
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
                         <span>Critical Illness Premium</span>
-                        <span>৳77</span>
+                        <span>৳{new Intl.NumberFormat('en-IN').format(data?.ci_premium || 0)}</span>
                     </div>
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
                         <span className="flex items-center gap-1.5">
-                            PDAB
+                            {pdabLabel}
                             <Info size={14} className="text-gray-400" />
                         </span>
-                        <span>৳184</span>
+                        <span>৳{new Intl.NumberFormat('en-IN').format(data?.pdab_diab_premium || 0)}</span>
                     </div>
 
                     <div className="flex justify-between items-center pt-2 pb-3 font-bold text-gray-900 text-base sm:text-lg">
                         <span>Total Premium</span>
-                        <span>৳5,621</span>
+                        <span>৳{new Intl.NumberFormat('en-IN').format(data?.total_annual_premium || 0)}</span>
                     </div>
                     <div className="flex justify-between items-center font-bold text-gray-900 text-base sm:text-lg">
                         <span>Sum Assured</span>
-                        <span>৳100,000</span>
+                        <span>৳{new Intl.NumberFormat('en-IN').format(data?.sum_assured || 0)}</span>
                     </div>
                 </div>
 
