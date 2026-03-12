@@ -119,8 +119,8 @@ const HospitalTable = ({
                                     </td>
 
                                     {/* Hospital Name */}
-                                    <td className="px-4 py-3.5 whitespace-nowrap">
-                                        <span className="font-semibold text-gray-800">
+                                    <td className="px-4 py-3.5 min-w-[200px] max-w-[300px]">
+                                        <span className="font-semibold text-gray-800 line-clamp-2">
                                             {hospital?.hospital_name ?? '—'}
                                         </span>
                                     </td>

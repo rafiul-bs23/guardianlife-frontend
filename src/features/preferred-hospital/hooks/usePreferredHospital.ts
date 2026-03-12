@@ -20,10 +20,12 @@ const DEFAULT_FRONTEND_FILTERS: HospitalFrontendFilters = {
     country_name: '',
 };
 
-const ITEMS_PER_PAGE = 10;
+
 
 const unique_values = (arr: (string | null | undefined)[]): string[] =>
     [...new Set(arr.filter((v): v is string => !!v))].sort();
+
+const ITEMS_PER_PAGE = 10;
 
 export const usePreferredHospital = (): UsePreferredHospitalResult => {
     const [hospitals, set_hospitals] = useState<Hospital[]>([]);
@@ -33,42 +35,38 @@ export const usePreferredHospital = (): UsePreferredHospitalResult => {
     const [frontend_filters, set_frontend_filters_state] =
         useState<HospitalFrontendFilters>(DEFAULT_FRONTEND_FILTERS);
     const [current_page, set_current_page] = useState<number>(1);
-    const [pagination, set_pagination] = useState<PaginationData | null>(null);
 
-    const fetch_hospitals = useCallback(async (type: HospitalType, page: number) => {
+    const fetch_hospitals = useCallback(async (type: HospitalType) => {
         set_is_loading(true);
         set_error(null);
 
         try {
             const response = await get_hospitals({
                 type,
-                page,
-                page_size: ITEMS_PER_PAGE
+                // page,
+                // page_size: ITEMS_PER_PAGE
             });
 
             if (response?.status) {
                 // Nested data structure as per user's provided response
                 const data = (response as HospitalApiSuccessResponse).data;
                 set_hospitals(data?.hospitals ?? []);
-                set_pagination(data?.pagination ?? null);
             } else {
                 set_error((response as HospitalApiErrorResponse)?.message ?? 'Failed to fetch hospitals.');
                 set_hospitals([]);
-                set_pagination(null);
             }
         } catch (err) {
             const axios_error = err as AxiosError;
             set_error(axios_error?.message ?? 'An unexpected error occurred.');
             set_hospitals([]);
-            set_pagination(null);
         } finally {
             set_is_loading(false);
         }
     }, []);
 
     useEffect(() => {
-        fetch_hospitals(active_type, current_page);
-    }, [active_type, current_page, fetch_hospitals]);
+        fetch_hospitals(active_type);
+    }, [active_type, fetch_hospitals]);
 
     const set_active_type = useCallback((type: HospitalType) => {
         set_active_type_state(type);
@@ -148,8 +146,26 @@ export const usePreferredHospital = (): UsePreferredHospitalResult => {
         return result;
     }, [hospitals, frontend_filters]);
 
-    // Since API returns exactly what we need for the current page
-    const paginated_hospitals = filtered_hospitals;
+    // Calculate pagination data locally
+    const pagination = useMemo((): PaginationData => {
+        const total_records = filtered_hospitals.length;
+        const total_pages = Math.ceil(total_records / ITEMS_PER_PAGE);
+
+        return {
+            current_page,
+            total_pages: total_pages || 1,
+            total_records,
+            has_next: current_page < total_pages,
+            has_previous: current_page > 1,
+        };
+    }, [filtered_hospitals.length, current_page]);
+
+    // Slice hospitals for current page
+    const paginated_hospitals = useMemo(() => {
+        const start = (current_page - 1) * ITEMS_PER_PAGE;
+        const end = start + ITEMS_PER_PAGE;
+        return filtered_hospitals.slice(start, end);
+    }, [filtered_hospitals, current_page]);
 
     return {
         hospitals,

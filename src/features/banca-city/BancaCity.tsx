@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import BancaCityHeader from "./components/BancaCityHeader";
 import { useBancaBankInfo } from "./hooks/useBancaBankInfo";
 import BankInfoSection from "./components/BankInfoSection";
@@ -15,6 +15,9 @@ const BancaCity = () => {
   const { data: bankInfoData } = useBancaBankInfo(bank_code as string);
   const productsRef = useRef<HTMLDivElement>(null);
 
+  const [current_page, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 10;
+  
   const [filters, setFilters] = useState({
     division_name: '',
     district_name: '',
@@ -30,6 +33,7 @@ const BancaCity = () => {
 
   const onFilterChange = (newFilters: any) => {
     setFilters(newFilters);
+    setCurrentPage(1);
     if (newFilters.branch_name !== filters.branch_name) {
       updateParams({ branch_name: newFilters.branch_name });
     }
@@ -43,6 +47,7 @@ const BancaCity = () => {
       branch_name: '',
     };
     setFilters(resetFilters);
+    setCurrentPage(1);
     updateParams({ branch_name: '' });
   };
 
@@ -52,6 +57,23 @@ const BancaCity = () => {
     if (filters.area_name && branch.area_name !== filters.area_name) return false;
     return true;
   });
+
+  const pagination = useMemo(() => {
+    const total_records = filteredBranches.length;
+    const total_pages = Math.ceil(total_records / ITEMS_PER_PAGE);
+    return {
+      current_page,
+      total_pages: total_pages || 1,
+      total_records,
+      has_next: current_page < total_pages,
+      has_previous: current_page > 1,
+    };
+  }, [filteredBranches.length, current_page]);
+
+  const paginatedBranches = useMemo(() => {
+    const start = (current_page - 1) * ITEMS_PER_PAGE;
+    return filteredBranches.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredBranches, current_page]);
 
   const divisionOptions = Array.from(new Set(branches.map(b => b.division_name))).filter(Boolean);
   const districtOptions = Array.from(new Set(branches.filter(b => !filters.division_name || b.division_name === filters.division_name).map(b => b.district_name))).filter(Boolean);
@@ -91,9 +113,12 @@ const BancaCity = () => {
       />
 
       <BranchTableSection
-        branches={filteredBranches}
+        branches={paginatedBranches}
         is_loading={isBranchesLoading}
         error={null}
+        pagination={pagination}
+        current_page={current_page}
+        on_page_change={setCurrentPage}
       />
 
       <div className="container mx-auto px-4 py-16">
