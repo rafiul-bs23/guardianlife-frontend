@@ -145,16 +145,10 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
       return;
     }
 
-    let apiDob = '';
-    const parts = dob.split('-');
-    if (parts.length === 3) {
-      apiDob = `${parts[2]}-${parts[1]}-${parts[0]}`;
-    }
-
     try {
       setIsLoading(true);
       const data = await getPlanInformation({
-        date_of_birth: apiDob,
+        date_of_birth: dob,
         plan_no: "03"
       });
 
@@ -293,17 +287,11 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   );
 
   const handleCheckPremium = async () => {
-    let apiDob = '';
-    const partsArray = dob.split('-');
-    if (partsArray.length === 3) {
-      apiDob = `${partsArray[2]}-${partsArray[1]}-${partsArray[0]}`;
-    }
-
     const selectedHiBeneficiary = hiBeneficiaries.find(b => b.name === hiBeneficiary);
     const selectedMaternityPlan = hiMaternityPlans.find(m => m.name === maternityPlan);
 
     const payload = {
-      date_of_birth: apiDob,
+      date_of_birth: dob,
       plan_no: "01", // Hardcoded as per request or should it be dynamic? The request says "01".
       gender: gender.toLowerCase(),
       term: term,
@@ -313,10 +301,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
       hi: hiEnabled ? 1 : 0,
       hi_plan: hiEnabled ? (hiOption?.id || 5) : null,
       hi_beneficiary: hiEnabled ? (selectedHiBeneficiary?.id || 1) : null,
-      hi_spouse_date_of_birth: (hiEnabled && ['couple', 'family'].includes(hiBeneficiary.toLowerCase()) && spouseDob) ? (() => {
-        const p = spouseDob.split('-');
-        return `${p[2]}-${p[1]}-${p[0]}`;
-      })() : null,
+      hi_spouse_date_of_birth: (hiEnabled && ['couple', 'family'].includes(hiBeneficiary.toLowerCase()) && spouseDob) ? spouseDob : null,
       hi_maternity_plan: (hiEnabled && ['couple', 'family'].includes(hiBeneficiary.toLowerCase())) ? (selectedMaternityPlan?.id || 1) : null,
       hi_number_of_children: (hiEnabled && ['family', 'children'].includes(hiBeneficiary.toLowerCase())) ? childrenCount : null,
       ci: ciEnabled ? 2 : 0,
