@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
-import { X, Info } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { X, Info, Download } from 'lucide-react';
 import Button from "../../../shared/Components/Button.tsx";
+import { getPremiumDocument } from '../api';
 
 interface PremiumDetailsModalProps {
     isOpen: boolean;
@@ -11,6 +12,8 @@ interface PremiumDetailsModalProps {
 }
 
 const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, data, pdabLabel, onClose, onCheckAgain }) => {
+    const [isDownloading, setIsDownloading] = useState(false);
+
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
@@ -21,6 +24,44 @@ const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, data,
             document.body.style.overflow = '';
         };
     }, [isOpen]);
+
+    const handleDownloadDetails = async () => {
+        if (!data?.docPayload) {
+            alert("Document data not available");
+            return;
+        }
+
+        try {
+            setIsDownloading(true);
+            const response = await getPremiumDocument(data.docPayload);
+            if (response && response.status && response.data?.document) {
+                const base64String = response.data.document;
+                const byteCharacters = atob(base64String);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                const blob = new Blob([byteArray], { type: 'application/pdf' });
+                
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'premium-details.pdf');
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode?.removeChild(link);
+                window.URL.revokeObjectURL(url);
+            } else {
+                alert(response?.message || "Failed to download document");
+            }
+        } catch (error) {
+            console.error("Download Error:", error);
+            alert("Error downloading document");
+        } finally {
+            setIsDownloading(false);
+        }
+    };
 
     if (!isOpen) return null;
 
@@ -42,8 +83,17 @@ const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, data,
 
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                     <h3 className="text-xl sm:text-2xl font-medium text-gray-700">Benefit - Base Plan</h3>
-                    <button className="px-6 py-2 rounded-full border border-[#F37021] text-[#F37021] font-medium text-sm hover:bg-orange-50 transition-colors">
-                        Download Details
+                    <button 
+                        onClick={handleDownloadDetails}
+                        disabled={isDownloading}
+                        className="flex items-center gap-2 px-6 py-2 rounded-full border border-[#F37021] text-[#F37021] font-medium text-sm hover:bg-orange-50 transition-colors disabled:opacity-50"
+                    >
+                        {isDownloading ? "Downloading..." : (
+                            <>
+                                <Download size={18} />
+                                Download Details
+                            </>
+                        )}
                     </button>
                 </div>
 

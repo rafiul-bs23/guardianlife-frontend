@@ -139,6 +139,10 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   };
 
   const handleProcess = async () => {
+    if (!name.trim()) {
+      alert("Please enter your name");
+      return;
+    }
     if (!dob) {
       // Just a simple validation prompt or alert.
       alert("Please enter a valid Date of Birth");
@@ -314,7 +318,26 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
       setIsCalculating(true);
       const data = await calculatePremium(payload);
       if (data && data.status) {
-        setCalculationData(data.data);
+        // Collect extra info for PDF document request
+        const docPayload = {
+          name: name,
+          age: Number(age),
+          gender: gender.toLowerCase(),
+          date_of_birth: dob, // Already in "YYYY-MM-DD" format from state
+          plan_no: "101", // Hardcoded 101 as per request
+          term: term,
+          payment_mode: mode?.name || "Yearly",
+          sum_assured: sumAssuredValue,
+          life_sum_assured: sumAssuredValue,
+          installment_premium: data.data.total_annual_premium,
+          life_premium: data.data.life_premium,
+          ci_premium: data.data.ci_premium || null,
+          diab_premium: diabEnabled ? data.data.pdab_diab_premium : null,
+          pdab_premium: pdabEnabled ? data.data.pdab_diab_premium : null,
+          hi_premium: data.data.total_hi_premium || null,
+          hi_sum_assured: hiEnabled ? (hiOption?.sum_assured || null) : null
+        };
+        setCalculationData({ ...data.data, docPayload });
         setIsDetailsModalOpen(true);
       } else {
         alert(data?.message || "Failed to calculate premium");

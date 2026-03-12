@@ -25,4 +25,9 @@ export const getSupplementaryInfo = async (payload: { plan_id: string, gender: s
 export const calculatePremium = async (payload: any) => {
   const { data } = await axiosClient.post('/retail/premium/calculate', payload);
   return data;
+};
+
+export const getPremiumDocument = async (payload: any) => {
+  const { data } = await axiosClient.post('/retail/premium/document', payload);
+  return data;
 };
