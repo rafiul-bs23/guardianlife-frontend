@@ -53,7 +53,13 @@ export interface PlanBreakdownSection {
 
 // LearnMoreSection is now imported from shared
 
+export interface PlanNumber {
+  plan_no: string;
+  name: string;
+}
+
 export interface ProductData {
+  plan_numbers: PlanNumber[];
   quick_product_section: QuickProductSection;
   product_journey_section: ProductJourneySection;
   key_highlights_section: KeyHighlightsSection;

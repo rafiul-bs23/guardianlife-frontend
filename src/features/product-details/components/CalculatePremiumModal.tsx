@@ -7,9 +7,17 @@ import Button from "../../../shared/Components/Button.tsx";
 interface CalculatePremiumModalProps {
   isOpen: boolean;
   onClose: () => void;
+  planNumbers?: any[];
 }
 
-const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, onClose }) => {
+const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, onClose, planNumbers }) => {
+  const [selectedPlan, setSelectedPlan] = useState<any>(null);
+
+  useEffect(() => {
+    if (planNumbers && planNumbers.length > 0 && !selectedPlan) {
+      setSelectedPlan(planNumbers[0]);
+    }
+  }, [planNumbers, selectedPlan]);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -153,7 +161,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
       setIsLoading(true);
       const data = await getPlanInformation({
         date_of_birth: dob,
-        plan_no: "03"
+        plan_no: selectedPlan?.plan_no || "03"
       });
 
       console.log('API Response:', data);
@@ -296,7 +304,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
     const payload = {
       date_of_birth: dob,
-      plan_no: "01", // Hardcoded as per request or should it be dynamic? The request says "01".
+      plan_no: selectedPlan?.plan_no || "01",
       gender: gender.toLowerCase(),
       term: term,
       mode: mode?.id || 1,
@@ -324,7 +332,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
           age: Number(age),
           gender: gender.toLowerCase(),
           date_of_birth: dob, // Already in "YYYY-MM-DD" format from state
-          plan_no: "101", // Hardcoded 101 as per request
+          plan_no: selectedPlan?.plan_no || "101",
           term: term,
           payment_mode: mode?.name || "Yearly",
           sum_assured: sumAssuredValue,
@@ -364,10 +372,29 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
           </button>
 
           <div className="mb-8">
-            <p className="text-sm text-gray-500 font-medium mb-1">Calculate</p>
-            <h2 className="text-2xl sm:text-3xl font-black text-gray-900 uppercase tracking-tight">GUARDIAN 3 STAGE PLAN</h2>
-            <div className="h-px bg-orange-200 w-full mt-4"></div>
+            <h2 className="text-xl sm:text-2xl font-black text-gray-900 uppercase tracking-tight mb-2">
+              Calculate Premium
+            </h2>
+            <div className="h-1 bg-orange-500 w-24"></div>
           </div>
+
+          {planNumbers && planNumbers.length > 0 && (
+            <div className="mb-8">
+              <label className="block text-sm font-bold text-gray-900 uppercase tracking-wider mb-3">
+                Select Plan
+              </label>
+              <div className="flex flex-wrap gap-3">
+                {planNumbers.map((p) => (
+                  <OptionButton
+                    key={p.plan_no}
+                    label={p.name}
+                    selected={selectedPlan?.plan_no === p.plan_no}
+                    onClick={() => setSelectedPlan(p)}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="space-y-8">
             {/* Row 1: Name, Phone, Email */}
@@ -434,7 +461,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
             )}
 
             {isProcessed && (
-              <>
+              <div className="space-y-8 animate-in fade-in slide-in-from-top-4 duration-500">
                 {/* Mode Options */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-3">Mode</label>
@@ -449,7 +476,6 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                 <div className="pt-2">
                   <label className="block text-sm font-medium text-gray-700 mb-6">Term</label>
                   <div className="relative pt-8 pb-4">
-                    {/* Tick Labels */}
                     <div className="absolute top-0 w-full flex justify-between px-2">
                       {availableTerms.map(t => (
                         <span key={t} className={`text-[11px] font-bold ${t === term ? 'text-[#F37021] opacity-0' : 'text-gray-300'}`}>
@@ -458,7 +484,6 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                       ))}
                     </div>
 
-                    {/* Selected Indicator */}
                     {(() => {
                       const index = availableTerms.indexOf(term) >= 0 ? availableTerms.indexOf(term) : 0;
                       const maxIndex = availableTerms.length > 1 ? availableTerms.length - 1 : 1;
@@ -503,16 +528,13 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                 {/* Sum Assured */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Sum Assured</label>
-                  <div className="relative max-w-full">
-                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                      <span className="text-gray-900 font-medium"></span>
-                    </div>
+                  <div className="relative">
                     <input
                       type="text"
                       placeholder="0"
                       value={sumAssured}
                       onChange={handleSumAssuredChange}
-                      className={`w-full border ${sumAssuredValue > 0 && !isValidSumAssured ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-[#F37021] focus:border-[#F37021]'} rounded-md py-3 pl-8 pr-4 text-center font-semibold text-lg focus:ring-1 outline-none`}
+                      className={`w-full border ${sumAssuredValue > 0 && !isValidSumAssured ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-[#F37021] focus:border-[#F37021]'} rounded-md py-3 px-4 text-center font-semibold text-lg focus:ring-1 outline-none`}
                     />
                   </div>
                   <p className={`text-xs mt-2 ${sumAssuredValue > 0 && !isValidSumAssured ? 'text-red-500 font-medium' : 'text-gray-400'}`}>
@@ -538,7 +560,6 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
                   {hiEnabled && (
                     <div className="space-y-6 pt-2">
-                      {/* HI Options */}
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {hiHealthPlans.map((opt, idx) => {
                           const colors = ['#D28E5D', '#B0B6BA', '#FBB03B', '#6F7678'];
@@ -568,7 +589,6 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                         })}
                       </div>
 
-                      {/* Beneficiary */}
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-3">Beneficiary</label>
                         <div className="flex flex-wrap gap-4">
@@ -583,7 +603,6 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                         </div>
                       </div>
 
-                      {/* Conditional Fields for Beneficiary */}
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {['couple', 'family'].includes(hiBeneficiary.toLowerCase()) && (
                           <>
@@ -623,7 +642,6 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                         )}
                       </div>
 
-                      {/* Maternity Plan (Couple/Family only) */}
                       {['couple', 'family'].includes(hiBeneficiary.toLowerCase()) && (
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-3">Maternity Plan</label>
@@ -638,7 +656,6 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                   )}
                 </div>
 
-                {/* Critical Illness (CI) */}
                 <div className="border-t border-gray-100 pt-6">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-sm font-semibold text-gray-800">Critical Illness (CI)</h3>
@@ -661,7 +678,6 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                   )}
                 </div>
 
-                {/* PDAB */}
                 <div className="border-t border-gray-100 pt-6 flex items-center justify-between">
                   <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
                     Permanent Disability Accidental Benefit (PDAB)
@@ -677,7 +693,6 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                   </button>
                 </div>
 
-                {/* DIAB */}
                 <div className="pt-2 flex items-center justify-between pb-6">
                   <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
                     Double Indemnity Accidental Benefit (DIAB)
@@ -692,20 +707,17 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                     </div>
                   </button>
                 </div>
-              </>
+
+                {/* Footer / Results Button */}
+                <div className="mt-8 flex justify-center border-t border-gray-100 pt-8">
+                  <Button
+                    label={isCalculating ? "Calculating..." : "Check Premium"}
+                    onClick={isCalculating ? undefined : handleCheckPremium}
+                  />
+                </div>
+              </div>
             )}
-
           </div>
-
-          {/* Footer */}
-          {isProcessed && (
-            <div className="mt-8 flex justify-center">
-              <Button
-                label={isCalculating ? "Calculating..." : "Check Premium"}
-                onClick={isCalculating ? undefined : handleCheckPremium}
-              />
-            </div>
-          )}
         </div>
       </div>
 

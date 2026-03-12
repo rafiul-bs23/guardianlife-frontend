@@ -7,9 +7,10 @@ import CalculatePremiumModal from './CalculatePremiumModal';
 
 interface ProductHeaderProps {
     data: HeaderData;
+    planNumbers?: any[];
 }
 
-const ProductHeader: React.FC<ProductHeaderProps> = ({ data }) => {
+const ProductHeader: React.FC<ProductHeaderProps> = ({ data, planNumbers }) => {
     const { showPopup } = usePopup();
     const [isCalculateModalOpen, setIsCalculateModalOpen] = useState(false);
 
@@ -34,6 +35,7 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({ data }) => {
             <CalculatePremiumModal
                 isOpen={isCalculateModalOpen}
                 onClose={() => setIsCalculateModalOpen(false)}
+                planNumbers={planNumbers}
             />
         </>
     );
