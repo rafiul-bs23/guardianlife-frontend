@@ -30,4 +30,10 @@ export const calculatePremium = async (payload: any) => {
 export const getPremiumDocument = async (payload: any) => {
   const { data } = await axiosClient.post('/retail/premium/document', payload);
   return data;
-};
+};
+
+export const createProposal = async (payload: any) => {
+  const { data } = await axiosClient.post('/proposals/create', payload);
+  return data;
+};
+

@@ -119,3 +119,33 @@ export interface BoostCoverageItem {
 }
 
 export type BoostYourCoverage = Record<string, BoostCoverageItem>;
+
+export interface ProposalCreatePayload {
+  full_name: string;
+  contact_no: string;
+  date_of_birth: string;
+  gender: string;
+  plan_no: string;
+  policy_term: number;
+  annuity_pension_unit: number;
+  hi_premium: number;
+  maternity_premium: number;
+  ci_premium: number;
+  pdab_premium: number;
+  diab_premium: number;
+  supplementary_premium: number;
+  total_premium: number;
+  hi_sum_assured: number;
+  ci_sum_assured: number;
+  pdab_sum_assured: number;
+  diab_sum_assured: number;
+  sum_assured: number;
+  sum_at_risk: number;
+  pay_mode: number;
+}
+
+export interface ProposalCreateResponse {
+  status: boolean;
+  message: string;
+  transactionId?: string;
+}

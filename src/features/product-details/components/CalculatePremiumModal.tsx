@@ -343,7 +343,9 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
           diab_premium: diabEnabled ? data.data.pdab_diab_premium : null,
           pdab_premium: pdabEnabled ? data.data.pdab_diab_premium : null,
           hi_premium: data.data.total_hi_premium || null,
-          hi_sum_assured: hiEnabled ? (hiOption?.sum_assured || null) : null
+          hi_sum_assured: hiEnabled ? (hiOption?.sum_assured || null) : null,
+          phone: phone,
+          payment_mode_id: mode?.id || 1
         };
         setCalculationData({ ...data.data, docPayload });
         setIsDetailsModalOpen(true);

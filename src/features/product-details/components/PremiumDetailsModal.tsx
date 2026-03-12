@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { X, Info, Download } from 'lucide-react';
 import Button from "../../../shared/Components/Button.tsx";
-import { getPremiumDocument } from '../api';
+import { getPremiumDocument, createProposal } from '../api';
+import { CheckCircle } from 'lucide-react';
 
 interface PremiumDetailsModalProps {
     isOpen: boolean;
@@ -13,6 +14,8 @@ interface PremiumDetailsModalProps {
 
 const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, data, pdabLabel, onClose, onCheckAgain }) => {
     const [isDownloading, setIsDownloading] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showToast, setShowToast] = useState(false);
 
     useEffect(() => {
         if (isOpen) {
@@ -60,6 +63,53 @@ const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, data,
             alert("Error downloading document");
         } finally {
             setIsDownloading(false);
+        }
+    };
+
+    const handleProceedToProposal = async () => {
+        if (!data?.docPayload) {
+            alert("Proposal data not available");
+            return;
+        }
+
+        const payload = {
+            full_name: data.docPayload.name,
+            contact_no: data.docPayload.phone,
+            date_of_birth: data.docPayload.date_of_birth,
+            gender: data.docPayload.gender,
+            plan_no: data.docPayload.plan_no,
+            policy_term: data.docPayload.term,
+            annuity_pension_unit: data.docPayload.sum_assured,
+            hi_premium: data.total_hi_premium || 0,
+            maternity_premium: 0,
+            ci_premium: data.ci_premium || 0,
+            pdab_premium: pdabLabel === "PDAB" ? (data.pdab_diab_premium || 0) : 0,
+            diab_premium: pdabLabel === "DIAB" ? (data.pdab_diab_premium || 0) : 0,
+            supplementary_premium: (data.total_hi_premium || 0) + (data.ci_premium || 0) + (data.pdab_diab_premium || 0),
+            total_premium: data.total_annual_premium || 0,
+            hi_sum_assured: data.docPayload.hi_sum_assured || 0,
+            ci_sum_assured: 0,
+            pdab_sum_assured: 0,
+            diab_sum_assured: 0,
+            sum_assured: data.sum_assured || 0,
+            sum_at_risk: data.sum_assured || 0,
+            pay_mode: data.docPayload.payment_mode_id
+        };
+
+        try {
+            setIsSubmitting(true);
+            const response = await createProposal(payload);
+            if (response && response.status) {
+                setShowToast(true);
+                setTimeout(() => setShowToast(false), 3000);
+            } else {
+                alert(response?.message || "Failed to submit proposal");
+            }
+        } catch (error) {
+            console.error("Submission Error:", error);
+            alert("Error submitting proposal");
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -139,9 +189,20 @@ const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, data,
                       variant="outline-orange"
                     />
                     <Button
-                      label="Proceed To Proposal"
+                      label={isSubmitting ? "Submitting..." : "Proceed To Proposal"}
+                      onClick={isSubmitting ? undefined : handleProceedToProposal}
                     />
                 </div>
+                {/* Toast Notification */}
+                {showToast && (
+                    <div className="fixed bottom-8 right-8 z-[100000] flex items-center gap-3 bg-green-600 text-white px-6 py-4 rounded-xl shadow-2xl animate-in slide-in-from-right-10 duration-300">
+                        <CheckCircle size={24} />
+                        <div>
+                            <p className="font-bold">Success!</p>
+                            <p className="text-sm opacity-90">submitted</p>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
