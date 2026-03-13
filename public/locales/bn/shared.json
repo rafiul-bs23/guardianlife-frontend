@@ -1,39 +1,39 @@
 {
     "cashless_network": {
-        "title": "B Cashless Hospital Network",
-        "description": "B Get Treatment At 100+ Network Hospitals Without Paying Upfront. Our Cashless Facility Ensures You Focus On Recovery, Not Paperwork.",
+        "title": "ক্যাশলেস হাসপাতাল নেটওয়ার্ক",
+        "description": "১০০+ নেটওয়ার্ক হাসপাতালে আগাম অর্থ প্রদান ছাড়াই চিকিৎসা নিন। আমাদের ক্যাশলেস সুবিধা নিশ্চিত করে যে আপনি কাগজপত্রের ঝামেলা নয়, সুস্থতায় মনোযোগ দিতে পারবেন।",
         "stats": [
             {
-                "value": "100+",
-                "label": "B Network Hospitals"
+                "value": "১০০+",
+                "label": "নেটওয়ার্ক হাসপাতাল"
             },
             {
-                "value": "24/7",
-                "label": "B Pre-Authorization"
+                "value": "২৪/৭",
+                "label": "পূর্ব-অনুমোদন সেবা"
             }
         ],
-        "steps_title": "B How Cashless Works:",
+        "steps_title": "ক্যাশলেস কীভাবে কাজ করে:",
         "steps": [
-            "B Show Your Policy Card At Network Hospital",
-            "B Hospital Requests Pre-Authorization",
-            "B Get Treatment Without Payment"
+            "নেটওয়ার্ক হাসপাতালে পলিসি কার্ড দেখান",
+            "হাসপাতাল পূর্ব-অনুমোদনের অনুরোধ করে",
+            "কোনো অর্থ প্রদান ছাড়াই চিকিৎসা নিন"
         ],
         "buttons": {
-            "cashless": "B Cashless",
-            "hospital_list": "B Hospital List"
+            "cashless": "ক্যাশলেস",
+            "hospital_list": "হাসপাতাল লিষ্ট"
         }
     },
     "partners": {
-        "title": "B OUR MAJOR PARTNERS",
-        "subtitle": "B OUR MAJOR PARTNERS",
+        "title": "আমাদের উল্লেখযোগ্য পার্টনার্স সমূহ",
+        "subtitle": "আমাদের উল্লেখযোগ্য পার্টনার্স সমূহ",
         "error_loading": "B Failed to load partners"
     },
     "app_download": {
-        "title": "B DOWNLOAD OUR APP",
-        "subtitle": "B The Guardian Life app puts hassle-free coverage in your hands. Download now on Android & iOS to manage your insurance anytime, anywhere.",
+        "title": "আমাদের অ্যাপ ডাউনলোড করুন",
+        "subtitle": "গার্ডিয়ান লাইফ অ্যাপ দিয়ে যেকোনো সময়, যেকোনো জায়গা থেকে আপনার বীমা পরিচালনা করুন। এখনই ডাউনলোড করুন অ্যান্ড্রয়েড ও আইওএসে।",
         "buttons": {
-            "google_play": "B Google Play",
-            "app_store": "B App Store"
+            "google_play": "Google Play",
+            "app_store": "App Store"
         }
     },
     "product_card": {
@@ -45,38 +45,50 @@
     "why_choose_quick_buy": {
         "title": "B Why Choose Quick Buy?",
         "features": [
-            { "id": 1, "title": "B Instant Approval", "description": "B Get covered in minutes" },
-            { "id": 2, "title": "B Digital Process", "description": "B 100% paperless" },
-            { "id": 3, "title": "B Immediate Coverage", "description": "B Protection starts now" }
+            {
+                "id": 1,
+                "title": "B Instant Approval",
+                "description": "B Get covered in minutes"
+            },
+            {
+                "id": 2,
+                "title": "B Digital Process",
+                "description": "B 100% paperless"
+            },
+            {
+                "id": 3,
+                "title": "B Immediate Coverage",
+                "description": "B Protection starts now"
+            }
         ]
     },
     "contact_form": {
         "titles": {
-            "default": "B Get in touch",
+            "default": "যোগাযোগ করুন",
             "card": "B Please fill up the form"
         },
         "labels": {
-            "full_name": "B Full Name",
-            "email": "B Email",
-            "phone_number": "B Phone number",
-            "applying_position": "B Applying Position",
-            "upload_cv": "B Upload CV",
-            "message": "B Message",
+            "full_name": "পূর্ণ নাম",
+            "email": "ইমেল",
+            "phone_number": "ফোন নম্বর",
+            "applying_position": "আবেদনকৃত পদ",
+            "upload_cv": "সিভি আপলোড করুন",
+            "message": "বার্তা",
             "privacy_policy_intro": "B You agree to our",
             "privacy_policy_link": "B privacy policy"
         },
         "placeholders": {
-            "full_name": "B Enter Name Here",
-            "email": "B name@company.com",
-            "phone_number": "B +88 (017) 000-0000",
-            "applying_position": "B Enter Position Here",
-            "upload_cv": "B Selection CV (PDF, DOC, DOCX)",
-            "message": "B Your message..."
+            "full_name": "আপনার পূর্ণ নাম লিখুন",
+            "email": "আপনার ইমেল লিখুন",
+            "phone_number": "আপনার ফোন নম্বর লিখুন",
+            "applying_position": "আপনি যে পদের জন্য আবেদন করছেন",
+            "upload_cv": "সিভি আপলোড করুন",
+            "message": "আপনার বার্তা"
         },
         "buttons": {
-            "browse": "B Browse",
+            "browse": "ব্রাউজ করুন",
             "sending": "B Sending...",
-            "send_message": "B Send Message"
+            "send_message": "বার্তা পাঠান"
         },
         "messages": {
             "success_title": "B Message sent successfully!",

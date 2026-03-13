@@ -4,38 +4,38 @@
         "button_contact": "B Get Protected Today"
     },
     "why_micro_matters": {
-        "title": "B WHY MICROINSURANCE MATTERS",
-        "subtitle": "B Microinsurance is designed for real lives and real challenges. Because one unexpected event should never destroy a lifetime of hard work.",
+        "title": "কেন মাইক্রোইন্স্যুরেন্স গুরুত্বপূর্ণ",
+        "subtitle": "মাইক্রোইন্স্যুরেন্স হলো সেই সুরক্ষা যা সত্যিকারের প্রয়োজনে আপনার পরিবারের পাশে দাঁড়ায়। এটি নিম্ন আয়ের পরিবারগুলোকে সাশ্রয়ী মূল্যে বীমা সুবিধা প্রদান করে।",
         "list_title": "B It helps families:",
         "benefits": [
             {
-                "title": "B Stay Financially Protected",
-                "description": "B Against Life And Health Risks That Could Devastate Family Finances"
+                "title": "বড় পরিবারের সুরক্ষা",
+                "description": "পরিবারের প্রতিটি সদস্যকে একটি পলিসির আওতায় সুরক্ষিত রাখুন এবং ভবিষ্যতের অনিশ্চয়তা থেকে রক্ষা পান।"
             },
             {
-                "title": "B Access Affordable Insurance",
-                "description": "B Plans Specifically Designed For Low-Income Households"
+                "title": "সাশ্রয়ী মূল্যে বীমা",
+                "description": "কম প্রিমিয়ামে ব্যাপক সুরক্ষা — যা সবার নাগালের মধ্যে।"
             },
             {
-                "title": "B Understand Policies Easily",
-                "description": "B Simple Terms With Minimal Exclusions And Clear Benefits"
+                "title": "সহজবোধ্য পলিসি",
+                "description": "সরল ভাষায় লেখা পলিসি যা বোঝা সহজ এবং দাবি করা আরও সহজ।"
             },
             {
                 "title": "B Feel Secure And Peaceful",
                 "description": "B Knowing Protection Is There When Life Takes Unexpected Turns"
             },
             {
-                "title": "B Submit Claims Simply",
-                "description": "B Hassle-Free Process With Fast Settlement And Support"
+                "title": "দ্রুত দাবি নিষ্পত্তি",
+                "description": "দ্রুত ও ঝামেলামুক্ত দাবি নিষ্পত্তি প্রক্রিয়া — যখন সবচেয়ে বেশি প্রয়োজন তখনই সহায়তা।"
             },
             {
-                "title": "B Improve Living Standards",
-                "description": "B Building Financial Resilience And Long-Term Security Over Time"
+                "title": "জীবনমান উন্নয়ন",
+                "description": "বীমা সুরক্ষার মাধ্যমে পরিবারের জীবনমান উন্নত করুন এবং আর্থিক স্থিতিশীলতা অর্জন করুন।"
             }
         ]
     },
     "why_guardian_micro": {
-        "title": "B WHY GUARDIAN LIFE'S MICROINSURANCE",
+        "title": "কেন গার্ডিয়ান লাইফের মাইক্রোইন্স্যুরেন্স বেছে নেবেন?",
         "subtitle": "B Families trust Guardian Life because we go beyond policies.",
         "features": [
             {
@@ -64,7 +64,7 @@
         ]
     },
     "impact": {
-        "title": "B OUR IMPACT AT A GLANCE",
+        "title": "আমাদের প্রভাব — একনজরে",
         "subtitle": "B Behind every number is a family that didn't fall behind.",
         "recognition_title": "B Recognition & Awards",
         "awards": [
@@ -80,8 +80,8 @@
         "error_message": "B Failed to load impact metrics"
     },
     "products": {
-        "title": "B MICROINSURANCE SOLUTIONS WE OFFER",
-        "subtitle": "B Comprehensive protection designed for real lives and real challenges, with affordable plans that fit your needs.",
+        "title": "আমাদের মাইক্রোইন্স্যুরেন্স সমাধান",
+        "subtitle": "আপনার পরিবারের সুরক্ষার জন্য সর্বোত্তম পরিকল্পনা বেছে নিন — সহজ, সাশ্রয়ী এবং কার্যকর।",
         "error_prefix": "B Failed to load solutions: ",
         "data_not_found": "B Data not found"
     }

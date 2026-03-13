@@ -57,7 +57,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
 
     return (
         <GenericHeader data={data} variant="immersive" className='min-h-[600px] lg:min-h-[780px] max-h-[600px] lg:max-h-[780px]'>
-            <div className="absolute top-0 left-0 w-full h-full min-h-[600px] lg:min-h-[780px]  flex flex-col items-center justify-center px-4 overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-full min-h-[600px] lg:min-h-[780px]  flex flex-col items-center justify-center px-4">
 
                 {/* Bottom White Gradient/Fade Area */}
                 <div className="absolute bottom-0 left-0 right-0 h-[40%] bg-gradient-to-t from-[#F4F4F4] via-white/100 to-transparent z-10" />
@@ -168,46 +168,58 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                     </div>
                 </div>
 
-                {/* Large Bottom Text: LET'S TALK ABOUT LIFE. MORE! */}
-                <div className="absolute bottom-24 md:bottom-20 lg:bottom-24 w-full text-center px-4 z-30">
+                {/* Large Bottom Text */}
+                <div className="absolute bottom-24 md:bottom-20 lg:bottom-24 w-full text-center px-4 z-30 ">
                     <h1 className="text-2xl md:text-5xl lg:text-[70px] xl:text-[90px] font-black tracking-tighter leading-none [text-wrap:balance]">
                         <motion.span
-                            className="text-primary block flex flex-wrap justify-center overflow-hidden"
+                            className="text-primary block flex flex-wrap justify-center "
                             initial="hidden"
                             animate="visible"
                             variants={{
                                 visible: {
                                     transition: {
                                         staggerChildren: 0.05,
-                                        delayChildren: 1.0, // Wait for badges to finish
+                                        delayChildren: 1.0,
                                     },
                                 },
                             }}
                         >
-                            {t('header.hero_text').split(" ").map((word, wordIndex) => (
-                                <span key={wordIndex} className="inline-block whitespace-nowrap">
-                                    {word.split("").map((char, charIndex) => (
-                                        <motion.span
-                                            key={`${wordIndex}-${charIndex}`}
-                                            variants={{
-                                                hidden: { y: 50, opacity: 0 },
-                                                visible: {
-                                                    y: 0,
-                                                    opacity: 1,
-                                                    transition: { type: "spring", damping: 12, stiffness: 100 }
-                                                },
-                                            }}
-                                            className="inline-block"
-                                        >
-                                            {char}
-                                        </motion.span>
-                                    ))}
-                                    {/* Add space after each word except the last one */}
-                                    {wordIndex < t('header.hero_text').split(" ").length - 1 && (
-                                        <span className="whitespace-pre"> </span>
-                                    )}
-                                </span>
-                            ))}
+                            {(() => {
+                                const heroText = t('header.hero_text');
+                                const words = heroText.split(" ");
+                                // Use Intl.Segmenter to split by grapheme clusters instead of
+                                // raw code units — this correctly handles complex scripts like
+                                // Bengali where a single visible character (e.g. "জী") is made
+                                // up of multiple Unicode code points.
+                                const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+                                return words.map((word, wordIndex) => {
+                                    const graphemes = Array.from(segmenter.segment(word), s => s.segment);
+                                    return (
+                                        <span key={wordIndex} className="inline-block whitespace-nowrap">
+                                            {graphemes.map((char, charIndex) => (
+                                                <motion.span
+                                                    key={`${wordIndex}-${charIndex}`}
+                                                    variants={{
+                                                        hidden: { y: 50, opacity: 0 },
+                                                        visible: {
+                                                            y: 0,
+                                                            opacity: 1,
+                                                            transition: { type: "spring", damping: 12, stiffness: 100 }
+                                                        },
+                                                    }}
+                                                    className="inline-block"
+                                                >
+                                                    {char}
+                                                </motion.span>
+                                            ))}
+                                            {/* Add space after each word except the last one */}
+                                            {wordIndex < words.length - 1 && (
+                                                <span className="whitespace-pre"> </span>
+                                            )}
+                                        </span>
+                                    );
+                                });
+                            })()}
                         </motion.span>
                     </h1>
                 </div>

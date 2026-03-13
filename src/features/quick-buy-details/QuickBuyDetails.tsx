@@ -17,9 +17,14 @@ const QuickBuyDetails = () => {
   const planId = data?.glil_plan_id;
   const planNo = data?.plan_numbers?.[0]?.plan_no;
 
-  const { data: calcData, isLoading: isCalcLoading } = useProductInformation(planId, planNo);
+  const isCalculatorRestricted = product_code === 'cancer-care-plan' || product_code === 'accident-care';
 
-  if (isLoading || isHeaderLoading || isCalcLoading) {
+  const { data: calcData, isLoading: isCalcLoading } = useProductInformation(
+    !isCalculatorRestricted ? planId : undefined,
+    !isCalculatorRestricted ? planNo : undefined
+  );
+
+  if (isLoading || isHeaderLoading || (!isCalculatorRestricted && isCalcLoading)) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#EB6925]"></div>
@@ -50,7 +55,7 @@ const QuickBuyDetails = () => {
       )}
 
       {/* Product Calculator - Interactive section from screenshot */}
-      {calcData && <ProductCalculator dynamicData={calcData} />}
+      {!isCalculatorRestricted && calcData && <ProductCalculator dynamicData={calcData} />}
 
       {/* Plan Benefits - Reused from product-details if structure matches */}
       {data?.plan_benefits_section && <PlanBenefitsSection data={data?.plan_benefits_section as any} />}
