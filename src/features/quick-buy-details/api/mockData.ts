@@ -1,4 +1,4 @@
-import type { QuickBuySuccessResponse, QuickBuyErrorResponse } from "../types";
+import type { QuickBuySuccessResponse, QuickBuyErrorResponse, ProductInformationResponse, PremiumCalculationResponse } from "../types";
 import type { HeaderResponse } from "../../../shared/types/header";
 
 export const MOCK_HEADER_DATA: HeaderResponse = {
@@ -29,6 +29,13 @@ export const MOCK_SUCCESS_DATA: QuickBuySuccessResponse = {
     status: true,
     transactionId: "GLIL-TXN-ID-SUCCESS-001",
     data: {
+        plan_numbers: [
+            {
+                plan_no: "17",
+                name: "Easylife Special"
+            }
+        ],
+        glil_plan_id: 3,
         quick_product_section: {
             content: [
                 { title: "COVERAGE", description: "1 to 10 Lac" },
@@ -137,4 +144,119 @@ export const MOCK_ERROR_DATA: QuickBuyErrorResponse = {
             message: "Quick buy details not found "
         }
     ]
+};
+
+export const MOCK_PRODUCT_INFORMATION: ProductInformationResponse = {
+    "status": true,
+    "transaction_id": "J1PEJZBXZ8APW",
+    "data": {
+        "id": 3,
+        "plan_no": "17",
+        "plan_name": "Easylife Special",
+        "category": "Life",
+        "tag": "Life Insurance",
+        "remarks": "Term life insurance with low premium",
+        "min_premium": 170,
+        "coverages": [
+            100000,
+            200000,
+            300000,
+            400000,
+            500000,
+            600000,
+            700000,
+            800000,
+            900000,
+            1000000
+        ],
+        "terms": [
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25
+        ],
+        "mode": "Yearly",
+        "max_coverage": 1000000,
+        "benefits": {
+            "Death/TPD Benefit": "Full Sum Assured",
+            "Premium Payment Mode": "Yearly Throughout The Policy Term",
+            "Sum Assured": "Maximum BDT 10 Lac",
+            "Term": "10 to 25 Years",
+            "Age": "18 to 45 Years Nearest Birthday"
+        },
+        "features": [],
+        "options": [],
+        "descriptions": [],
+        "is_dependent_required": false,
+        "is_nominee_required": true,
+        "terms_conditions": ""
+    }
+};
+
+export const MOCK_PREMIUM_CALCULATION: PremiumCalculationResponse = {
+    "status": true,
+    "transaction_id": "LXUTM0ANBH23T",
+    "data": {
+        "view": {
+            "product_name": {
+                "title": "Product Name",
+                "value": "Jaya"
+            },
+            "premium": {
+                "title": "Monthly Premium",
+                "value": "BDT 350"
+            },
+            "coverage": null,
+            "stamp_cost": null,
+            "pay_mod": {
+                "title": "Payment Mode",
+                "value": "Monthly"
+            },
+            "term": {
+                "title": "Policy Term (Years Of Coveage)",
+                "value": "5 Years"
+            },
+            "total": {
+                "title": "Total",
+                "value": "BDT 352"
+            },
+            "surrender_value": {
+                "title": "Surrender Value",
+                "value": "Yes"
+            },
+            "premium_refund": null,
+            "life_coverage_from_day_one": {
+                "title": "Life Coverage From Day One",
+                "value": "Yes"
+            }
+        },
+        "calculation": {
+            "product_name": "Jaya",
+            "rate": 0.0,
+            "premium": 350,
+            "hi_premium": 0,
+            "ci_premium": 2,
+            "pdab_premium": 0,
+            "diab_premium": 0,
+            "total_premium": 350,
+            "sum_assured": 16273,
+            "ci_sum_assured": 16273,
+            "ci_rate": 0.0,
+            "stamp_cost": 0,
+            "total": 352,
+            "price": 0
+        }
+    }
 };

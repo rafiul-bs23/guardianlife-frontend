@@ -8,7 +8,6 @@ import type { HeaderResponse } from '../../../shared/types/header';
 export const fetchHeaderData = async (): Promise<HeaderResponse> => {
     return new Promise((resolve) => {
         setTimeout(() => {
-            console.log('Fetching header data for claim feature');
             resolve(MOCK_HEADER_DATA);
         }, 500);
     });

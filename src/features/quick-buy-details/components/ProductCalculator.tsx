@@ -1,41 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import type { ProductCalculatorSection } from '../types';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import type { ProductInformationData, PremiumViewItem } from '../types';
 import Button from '../../../shared/Components/Button';
 import { usePopup } from '../../../shared/context/PopupContext';
+import { usePremiumCalculation } from '../hooks/usePremiumCalculation';
 
 interface ProductCalculatorProps {
-    data: ProductCalculatorSection;
+    dynamicData: ProductInformationData;
 }
 
-const ProductCalculator: React.FC<ProductCalculatorProps> = ({ data }) => {
-    const [dob, setDob] = useState<string>('2002-01-10');
-    const [term, setTerm] = useState<number>(data?.term || 10);
-    const [coverage, setCoverage] = useState<number>((data?.sum_assured || 100000) / 100000); // In Lakhs
+const ProductCalculator: React.FC<ProductCalculatorProps> = ({ dynamicData }) => {
+    const [dob, setDob] = useState<string>('2006-03-13');
+    const [term, setTerm] = useState<number>(dynamicData?.terms?.[0] || 10);
+    const [coverage, setCoverage] = useState<number>(dynamicData?.coverages?.[0] || 100000);
+    const [showDetails, setShowDetails] = useState(false);
 
-    // Calculation states (simulated)
-    const [yearlyPremium, setYearlyPremium] = useState<number>(data?.yearly_premium || 0);
-    const [total, setTotal] = useState<number>(data?.total || 0);
+    const { calculate, data: calcData, isLoading: isCalculating } = usePremiumCalculation();
 
-    // Dynamic calculation simulation
-    useEffect(() => {
-        // Just a simple simulation to make the values change
-        const baseRate = 0.0035; // 0.35%
-        const termFactor = (30 - term) / 10;
-        const calculatedPremium = Math.round(coverage * 100000 * baseRate * termFactor);
-
-        setYearlyPremium(calculatedPremium);
-        setTotal(calculatedPremium + (data?.stamp_fee || 0));
-    }, [term, coverage, data?.stamp_fee]);
-
-    const formatCurrency = (val: number) => {
-        return `BDT ${val.toLocaleString()}`;
+    const handleCalculate = async () => {
+        const payload = {
+            product_id: dynamicData.id,
+            category: dynamicData.category,
+            plan_no: dynamicData.plan_no,
+            date_of_birth: dob,
+            term: term,
+            sum_assured: null,
+            premium: coverage,
+            mode: dynamicData.mode || 'Yearly',
+            validity: null
+        };
+        const result = await calculate(payload);
+        console.log({ result });
+        if (result) {
+            setShowDetails(true);
+        }
     };
+
     const { showPopup } = usePopup();
+
+    const minTerm = dynamicData?.terms?.[0] ?? 10;
+    const maxTerm = dynamicData?.terms?.[dynamicData.terms.length - 1] ?? 25;
+    const termStep = 1;
+
     return (
         <section className="w-full bg-[#F8F9FA] py-16">
-            <div className="max-w-[1000px] mx-auto px-4">
+            <div className="px-2 md:px-10 xl:px-28  mx-auto">
                 {/* Inputs Section */}
-                <div className="flex flex-col gap-12 mb-16">
+                <div className="flex flex-col gap-12 mb-8">
                     {/* DOB Row */}
                     <div className="grid grid-cols-1 md:grid-cols-[150px_1fr] items-center gap-6">
                         <label className="text-xl font-bold text-gray-800">DOB</label>
@@ -43,7 +54,10 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ data }) => {
                             <input
                                 type="date"
                                 value={dob}
-                                onChange={(e) => setDob(e.target.value)}
+                                onChange={(e) => {
+                                    setDob(e.target.value);
+                                    setShowDetails(false);
+                                }}
                                 className="w-full bg-[#FFEEE5] border border-[#EB6925] rounded-[14px] px-8 py-4 text-[#EB6925] text-xl font-bold focus:outline-none appearance-none cursor-pointer"
                             />
                         </div>
@@ -55,7 +69,7 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ data }) => {
                         <div className="relative pt-8 pb-4">
                             {/* Tick Labels */}
                             <div className="absolute top-0 w-full flex justify-between px-2">
-                                {[10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25].map(t => (
+                                {dynamicData?.terms?.map(t => (
                                     <span key={t} className={`text-[11px] font-bold ${t === term ? 'text-[#EB6925] opacity-0' : 'text-gray-300'}`}>
                                         {t}
                                     </span>
@@ -66,7 +80,7 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ data }) => {
                             <div
                                 className="absolute top-0 flex flex-col items-center -translate-x-1/2 transition-all duration-150 pointer-events-none"
                                 style={{
-                                    left: `calc(14px + (${((term - 10) / 15) * 100}% - ${((term - 10) / 15) * 28}px))`
+                                    left: `calc(14px + (${((term - minTerm) / (maxTerm - minTerm)) * 100}% - ${((term - minTerm) / (maxTerm - minTerm)) * 28}px))`
                                 }}
                             >
                                 <span className="text-[11px] font-extrabold text-[#2A2B68] whitespace-nowrap mb-1 uppercase">
@@ -77,114 +91,145 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ data }) => {
 
                             <input
                                 type="range"
-                                min="10"
-                                max="25"
+                                min={minTerm}
+                                max={maxTerm}
+                                step={termStep}
                                 value={term}
-                                onChange={(e) => setTerm(parseInt(e.target.value))}
+                                onChange={(e) => {
+                                    setTerm(parseInt(e.target.value));
+                                    setShowDetails(false);
+                                }}
                                 className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer range-orange"
                                 style={{
-                                    background: `linear-gradient(to right, #EB6925 0%, #EB6925 ${((term - 10) / 15) * 100}%, #E5E7EB ${((term - 10) / 15) * 100}%, #E5E7EB 100%)`
+                                    background: `linear-gradient(to right, #EB6925 0%, #EB6925 ${((term - minTerm) / (maxTerm - minTerm)) * 100}%, #E5E7EB ${((term - minTerm) / (maxTerm - minTerm)) * 100}%, #E5E7EB 100%)`
                                 }}
                             />
                         </div>
                     </div>
 
-                    {/* COVERAGE Slider */}
+                    {/* COVERAGE Dropdown */}
                     <div className="grid grid-cols-1 md:grid-cols-[150px_1fr] items-center gap-6">
                         <label className="text-xl font-bold text-gray-800 uppercase">COVERAGE</label>
-                        <div className="relative pt-8 pb-4">
-                            {/* Tick Labels */}
-                            <div className="absolute top-0 w-full flex justify-between px-2">
-                                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(c => (
-                                    <span key={c} className={`text-[11px] font-bold ${c === coverage ? 'text-[#EB6925] opacity-0' : 'text-gray-300'}`}>
-                                        {c}
-                                    </span>
-                                ))}
-                            </div>
-
-                            {/* Selected Indicator */}
-                            <div
-                                className="absolute top-0 flex flex-col items-center -translate-x-1/2 transition-all duration-150 pointer-events-none"
-                                style={{
-                                    left: `calc(14px + (${((coverage - 1) / 9) * 100}% - ${((coverage - 1) / 9) * 28}px))`
-                                }}
-                            >
-                                <span className="text-[11px] font-extrabold text-[#2A2B68] whitespace-nowrap mb-1 uppercase">
-                                    {coverage} LAKH
-                                </span>
-                                <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-[#EB6925]"></div>
-                            </div>
-
-                            <input
-                                type="range"
-                                min="1"
-                                max="10"
+                        <div className="relative">
+                            <select
                                 value={coverage}
-                                onChange={(e) => setCoverage(parseInt(e.target.value))}
-                                className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer range-orange"
-                                style={{
-                                    background: `linear-gradient(to right, #EB6925 0%, #EB6925 ${((coverage - 1) / 9) * 100}%, #E5E7EB ${((coverage - 1) / 9) * 100}%, #E5E7EB 100%)`
+                                onChange={(e) => {
+                                    setCoverage(parseInt(e.target.value));
+                                    setShowDetails(false);
                                 }}
-                            />
+                                className="w-full bg-[#FFEEE5] border border-[#EB6925] rounded-[14px] px-8 py-4 text-[#EB6925] text-xl font-bold focus:outline-none appearance-none cursor-pointer"
+                            >
+                                {dynamicData?.coverages?.map(c => (
+                                    <option key={c} value={c}>
+                                        {c >= 100000 ? `${c / 100000} Lac` : c} (BDT {c.toLocaleString()})
+                                    </option>
+                                ))}
+                            </select>
+                            <div className="absolute inset-y-0 right-0 flex items-center px-6 pointer-events-none">
+                                <svg className="w-6 h-6 text-[#EB6925]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
                         </div>
                     </div>
+                </div>
+
+                <div className="flex justify-center mb-10">
+                    <Button
+                        label={isCalculating ? "Calculating..." : "Calculate"}
+                        variant="solid-orange"
+                        className="rounded-lg min-w-[150px]"
+                        onClick={handleCalculate}
+                        disabled={isCalculating}
+                    />
                 </div>
 
                 {/* Details Section */}
-                <div className="text-center mb-10">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-2 uppercase tracking-tight">DETAILS OF THE PRODUCT</h2>
-                    <p className="text-gray-500 text-[13px] font-medium italic">
-                        automatic calculate value by changing the term and coverage
-                    </p>
-                </div>
+                <AnimatePresence>
+                    {showDetails && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 20 }}
+                            transition={{ duration: 0.5, ease: "easeOut" }}
+                        >
+                            <div className="text-center mb-10">
+                                <h2 className="text-3xl font-bold text-gray-900 mb-2 uppercase tracking-tight">DETAILS OF THE PRODUCT</h2>
+                                <p className="text-gray-500 text-[13px] font-medium italic">
+                                    calculated value based on selected term and coverage
+                                </p>
+                            </div>
 
-                <div className="bg-white rounded-[24px] p-10 shadow-sm border border-gray-100 mb-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-4">
-                        {/* Left Column */}
-                        <div className="flex flex-col gap-4 border-r-0 lg:border-r border-gray-100 pr-0 lg:pr-12">
-                            <DetailRow label="Product Name" value={data?.product_name || ''} />
-                            <DetailRow label="Sum Assured" value={`BDT ${coverage} Lac`} />
-                            <DetailRow label="Term" value={`${term} years`} />
-                            <DetailRow label="Yearly Premium" value={formatCurrency(yearlyPremium)} />
-                            <DetailRow label="Stamp Fee (One Time Payment)" value={formatCurrency(data?.stamp_fee || 0)} />
-                            <DetailRow label="Total" value={formatCurrency(total)} bold />
-                        </div>
+                            <div className="bg-white rounded-[24px] p-10 shadow-sm border border-gray-100 mb-8">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-4">
+                                    {calcData?.view && (
+                                        <>
+                                            {/* Left Column */}
+                                            <div className="flex flex-col gap-4 border-r-0 lg:border-r border-gray-100 pr-0 lg:pr-12">
+                                                {Object.entries(calcData.view)
+                                                    .filter(([_, item]) => item !== null && item !== undefined)
+                                                    .filter((_, index, filteredItems) => index < Math.ceil(filteredItems.length / 2))
+                                                    .map(([key, item]) => {
+                                                        const viewItem = item as PremiumViewItem;
+                                                        return (
+                                                            <DetailRow
+                                                                key={key}
+                                                                label={viewItem.title}
+                                                                value={viewItem.value}
+                                                                bold={key === 'total'}
+                                                            />
+                                                        );
+                                                    })}
+                                            </div>
 
-                        {/* Right Column */}
-                        <div className="flex flex-col gap-4">
-                            <DetailRow label="Life Coverage From Day One" value={data?.life_coverage_from_day_one ? 'Yes' : 'No'} />
-                            <DetailRow label="Premium Payment Mode" value={data?.premium_payment_mode || ''} />
-                            <DetailRow label="Age" value={`${data?.min_age} to ${data?.max_age} years nearest birthday`} />
-                            <DetailRow label="Medical Test" value={data?.medical_test || ''} />
-                            <DetailRow label="Maturity Benefit" value={data?.maturity_benefit ? 'Yes' : 'No'} />
-                            <DetailRow label="Surrender Option" value={data?.surrender_option ? 'Yes' : 'No'} />
-                        </div>
-                    </div>
-                </div>
+                                            {/* Right Column */}
+                                            <div className="flex flex-col gap-4">
+                                                {Object.entries(calcData.view)
+                                                    .filter(([_, item]) => item !== null && item !== undefined)
+                                                    .filter((_, index, filteredItems) => index >= Math.ceil(filteredItems.length / 2))
+                                                    .map(([key, item]) => {
+                                                        const viewItem = item as PremiumViewItem;
+                                                        return (
+                                                            <DetailRow
+                                                                key={key}
+                                                                label={viewItem.title}
+                                                                value={viewItem.value}
+                                                                bold={key === 'total'}
+                                                            />
+                                                        );
+                                                    })}
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+                            </div>
 
-                {/* Footer Section */}
-                <div className="flex flex-col items-left gap-8">
-                    <div className="flex items-center gap-2">
-                        <input
-                            type="checkbox"
-                            id="terms"
-                            className="w-4 h-4 rounded border-gray-300 text-[#EB6925] focus:ring-[#EB6925]"
-                            defaultChecked
-                        />
-                        <label htmlFor="terms" className="text-sm font-medium text-gray-500">
-                            Terms and Conditions (<span className="text-[#EB6925] cursor-pointer">Read and Agree</span>)
-                        </label>
-                    </div>
+                            {/* Footer Section */}
+                            <div className="flex flex-col items-left gap-8">
+                                <div className="flex items-center gap-2">
+                                    <input
+                                        type="checkbox"
+                                        id="terms"
+                                        className="w-4 h-4 rounded border-gray-300 text-[#EB6925] focus:ring-[#EB6925]"
+                                        defaultChecked
+                                    />
+                                    <label htmlFor="terms" className="text-sm font-medium text-gray-500">
+                                        Terms and Conditions (<span className="text-[#EB6925] cursor-pointer">Read and Agree</span>)
+                                    </label>
+                                </div>
 
-                    <div className="w-full flex items-center justify-center">
-                        <Button
-                            label="Buy Now"
-                            variant="solid-orange"
-                            className="  rounded-lg"
-                            onClick={() => showPopup({ title: "", message: "Log in to your profile and grab your QuickBuy products in seconds. Fast, simple, and hassle-free." })}
-                        />
-                    </div>
-                </div>
+                                <div className="w-full flex items-center justify-center">
+                                    <Button
+                                        label="Buy Now"
+                                        variant="solid-orange"
+                                        className="rounded-lg"
+                                        onClick={() => showPopup({ title: "", message: "Log in to your profile and grab your QuickBuy products in seconds. Fast, simple, and hassle-free." })}
+                                    />
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
 
             <style>{`
@@ -221,5 +266,4 @@ const DetailRow: React.FC<{ label: string; value: string; bold?: boolean }> = ({
         </span>
     </div>
 );
-
 export default ProductCalculator;
