@@ -1,12 +1,12 @@
 import MancomHeader from './components/MancomHeader';
-import { HEADER_DATA, mockMancomData } from './api/mockData';
-import MancomHero from './components/MancomHero';
+import { HEADER_DATA } from './api/mockData';
+import MancomSection from './components/MancomSection';
 
 const Mancom = () => {
   return (
     <main className="min-h-screen w-full bg-white">
       <MancomHeader data={HEADER_DATA} />
-      <MancomHero data={mockMancomData.hero} />
+      <MancomSection />
     </main>
   );
 };

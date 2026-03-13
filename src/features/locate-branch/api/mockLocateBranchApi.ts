@@ -31,7 +31,7 @@ export const getMockBranches = async (params?: BranchQueryParams): Promise<Branc
             const paginated = filtered.slice(start, start + limit);
 
             resolve({
-                success: true,
+                status: true,
                 transaction_id: "GLIL-TXN-ID",
                 data: {
                     pagination: {

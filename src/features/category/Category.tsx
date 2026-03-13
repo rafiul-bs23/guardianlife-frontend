@@ -20,8 +20,15 @@ const TAB_VALUES = [
 
 const Category = () => {
   const { t } = useTranslation('category');
-  const { data: headerData, isLoading: isHeaderLoading } = useHeader('retail-products-list');
   const { categoryName } = useParams<{ categoryName: string }>();
+  const activeIndex = useMemo(() => {
+    if (!categoryName) return 0;
+    const index = TAB_VALUES.findIndex(tab => tab.value === categoryName);
+    return index >= 0 ? index : 0;
+  }, [categoryName]);
+
+  const activeSubcategory = useMemo(() => TAB_VALUES[activeIndex]?.value || 'for-you', [activeIndex]);
+  const { data: headerData, isLoading: isHeaderLoading } = useHeader(`retail-products-list-${activeSubcategory}`);
   const navigate = useNavigate();
   const tabsRef = useRef<HTMLDivElement>(null);
 
@@ -32,19 +39,10 @@ const Category = () => {
     { ...TAB_VALUES[3], title: t('tabs.islamic') },
   ];
 
-  const activeIndex = useMemo(() => {
-    if (!categoryName) return 0;
-    const index = TAB_VALUES.findIndex(tab => tab.value === categoryName);
-    return index >= 0 ? index : 0;
-  }, [categoryName]);
-
   const handleTabClick = (index: number) => {
     navigate(`/category/${TAB_VALUES[index].value}`);
     tabsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
-
-  // Derive active subcategory from selected tab
-  const activeSubcategory = useMemo(() => TAB_VALUES[activeIndex]?.value || null, [activeIndex]);
 
   // Fetch Retail channel products (for ProductCardCompact)
   const {

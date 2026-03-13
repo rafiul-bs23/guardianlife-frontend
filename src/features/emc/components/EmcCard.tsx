@@ -3,27 +3,38 @@ import type { EmcMember } from '../types';
 
 interface EmcCardProps {
     member: EmcMember;
+    /** 1 = default (shows ~70% of portrait width)
+     *  hoverGrow = shows ~100% of natural image width */
+    flexGrow: number;
+    onMouseEnter: () => void;
+    onMouseLeave: () => void;
 }
 
-const EmcCard: React.FC<EmcCardProps> = ({ member }) => {
+const EmcCard: React.FC<EmcCardProps> = ({ member, flexGrow, onMouseEnter, onMouseLeave }) => {
     return (
         <motion.div
-
-
-            className="relative overflow-hidden rounded-xl group flex-auto w-[40%] sm:w-[25%] md:w-[20%] lg:w-[13%] hover:w-[50%] sm:hover:w-[35%] md:hover:w-[30%] lg:hover:w-[20%] h-[300px] sm:h-[350px] md:h-[400px] lg:h-[460px] transition-all duration-300 ease-out"
+            className="relative overflow-hidden rounded-2xl h-full min-w-0 cursor-pointer"
+            /* flexBasis:0 → all width distributed purely via flexGrow ratio */
+            style={{ flexBasis: 0, flexShrink: 1 }}
+            animate={{ flexGrow }}
+            transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
         >
-            <motion.img
-
+            <img
                 src={member.image_url}
                 alt={member.name}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-center"
             />
-            {/* Overlay with gradient at the bottom only */}
-            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/95 via-black/60 to-transparent flex flex-col justify-end p-4 pb-6">
-                <h3 className="text-white text-sm font-bold text-center leading-tight mb-0.5">
+
+            {/* Gradient overlay — name & designation */}
+            <div className="absolute inset-x-0 bottom-0 h-2/5
+                            bg-gradient-to-t from-black/90 via-black/50 to-transparent
+                            flex flex-col justify-end px-3 pb-4">
+                <h3 className="text-white text-xs md:text-sm font-bold text-center leading-snug">
                     {member.name}
                 </h3>
-                <p className="text-white/80 text-[9px] text-center uppercase tracking-wider font-medium">
+                <p className="text-white/70 text-[8px] md:text-xs text-center uppercase tracking-wider font-medium mt-0.5">
                     {member.designation}
                 </p>
             </div>

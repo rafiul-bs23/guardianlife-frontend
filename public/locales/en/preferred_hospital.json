@@ -25,16 +25,16 @@
         "reset_btn": "Reset"
     },
     "table": {
-        "col_sl": "SL",
-        "col_hospital_name": "Hospital Name",
-        "col_division": "Division",
-        "col_district": "District",
-        "col_area": "Area",
-        "col_address": "Address",
-        "col_facilities": "Facilities",
-        "col_contact_details": "Contact Details",
-        "col_remark": "Remark",
-        "col_country": "Country",
+        "col_sl": "B SL",
+        "col_hospital_name": "B Hospital Name",
+        "col_division": "B Division",
+        "col_district": "B District",
+        "col_area": "B Area",
+        "col_address": "B Address",
+        "col_facilities": "B Facilities",
+        "col_contact_details": "B Contact Details",
+        "col_remark": "B Remark",
+        "col_country": "B Country",
         "empty": "No hospitals found for the selected filters."
     }
 }

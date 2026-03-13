@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import type { HeaderData } from '../../../shared/types/header';
 import GenericHeader from '../../../shared/Components/GenericHeader';
 import Button from '../../../shared/Components/Button';
-import { usePopup } from '../../../shared/context/PopupContext';
+import { openReveChat } from '../../../shared/utils/revechat';
 
 interface QuickBuyHeaderProps {
     data: HeaderData;
@@ -11,12 +11,11 @@ interface QuickBuyHeaderProps {
 
 const QuickBuyHeader: React.FC<QuickBuyHeaderProps> = ({ data }) => {
     const { t } = useTranslation('quick_buy_details');
-    const { showPopup } = usePopup();
     const actions = (
         <Button
             label={t('header.ai_assistant')}
             variant="solid-white"
-            onClick={() => showPopup()}
+            onClick={openReveChat}
         />
     );
 

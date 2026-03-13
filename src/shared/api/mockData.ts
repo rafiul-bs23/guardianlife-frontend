@@ -1,4 +1,4 @@
-import type { AppDownloadData, CashlessNetworkData } from '../types';
+import type { AppDownloadData } from '../types';
 
 export const sharedAppDownloadData: AppDownloadData = {
     image: "assets/images/shared/Subtract.png",

@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from '../../../shared/Components/Button';
-import { usePopup } from '../../../shared/context/PopupContext';
 import { motion } from 'framer-motion';
 import { useIsMobile } from '../../../shared/hooks/useMediaQuery';
 import { useTranslation } from 'react-i18next';
+import { openReveChat } from '../../../shared/utils/revechat';
 
 interface GuideYouProps {
     data: {
@@ -13,7 +13,6 @@ interface GuideYouProps {
 
 const GuideYou: React.FC<GuideYouProps> = ({ data }) => {
     const { t } = useTranslation('home');
-    const { showPopup } = usePopup();
     const isMobile = useIsMobile();
     return (
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-8 h-auto lg:h-[437px] w-full mt-16 lg:mt-[140px] px-4 lg:px-0">
@@ -45,7 +44,7 @@ const GuideYou: React.FC<GuideYouProps> = ({ data }) => {
                 <Button
                     label={t('guide_you.button')}
                     className=""
-                    onClick={() => showPopup()}
+                    onClick={openReveChat}
                 />
             </motion.div >
         </div >

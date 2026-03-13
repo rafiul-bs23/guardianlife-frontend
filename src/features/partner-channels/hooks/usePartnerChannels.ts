@@ -18,6 +18,7 @@ const usePartnerChannels = (): UsePartnerChannelsResult => {
                 set_error('Failed to load partners.');
             }
         } catch (err) {
+
             set_error(err instanceof Error ? err?.message : 'Failed to load partners.');
             set_partner_channels([]);
         } finally {
