@@ -1,238 +1,238 @@
 {
     "benefits_section": {
         "header": {
-            "title": "B Why Group Insurance Matters for Your Organization",
-            "description": "B A Smarter Way to Care for Your Employees"
+            "title": "কেন গ্রুপ বীমা আপনার প্রতিষ্ঠানের জন্য জরুরি?",
+            "description": "আপনার কর্মীদের আর্থিক সুবিধার একটি স্মার্ট উপায়"
         },
         "benefits": [
             {
                 "id": 1,
-                "title": "B Enhances Employee Loyalty and Retention",
-                "description": "B Build stronger relationships with your workforce through comprehensive benefits that show you care about their well-being."
+                "title": "কর্মী আনুগত্য ও আর্থিক সুরক্ষা",
+                "description": "আর্থিক সুবিধার মাধ্যমে কর্মীদের সাথে শক্তিশালী সম্পর্ক গড়ুন এবং তাদের সুস্থতার প্রতি আপনার আন্তরিক যত্নের প্রকাশ ঘটান।"
             },
             {
                 "id": 2,
-                "title": "B Demonstrates Organizational Commitment",
-                "description": "B Show your dedication to employee well-being and create a positive workplace culture that attracts top talent."
+                "title": "প্রতিষ্ঠানের প্রতিশ্রুতির প্রমাণ",
+                "description": "কর্মী কল্যাণে আপনার নিষ্ঠা প্রদর্শন করুন এবং একটি ইতিবাচক কর্মক্ষেত্রের সংস্কৃতি তৈরি করুন যা শ্রেষ্ঠ প্রতিভাদের আকর্ষণ করে।"
             },
             {
                 "id": 3,
-                "title": "B Reduces Financial Stress",
-                "description": "B Provide peace of mind during medical or life emergencies, allowing employees to focus on their work and recovery."
+                "title": "আর্থিক চাপ হ্রাস",
+                "description": "চিকিৎসা বা জীবনের জরুরি মুহূর্তে মানসিক শান্তি প্রদান করুন, যাতে কর্মীরা কাজ ও সুস্থতায় মনোযোগ দিতে পারেন।"
             },
             {
                 "id": 4,
-                "title": "B Strengthens Employer Branding",
-                "description": "B Enhance your corporate governance and reputation as a responsible employer in the marketplace."
+                "title": "নিয়োগকর্তার ব্র্যান্ড শক্তিশালী করা",
+                "description": "জব মার্কেটে একজন দায়িত্বশীল নিয়োগকর্তা হিসেবে আপনার কর্পোরেট সুশাসন ও সুনাম উন্নত করুন।"
             },
             {
                 "id": 5,
-                "title": "B Cost-Effective Coverage",
-                "description": "B Offer comprehensive protection at lower costs compared to individual insurance policies, maximizing your benefits budget."
+                "title": "সাশ্রয়ী ব্যাপক কভারেজ",
+                "description": "ব্যক্তিগত বীমার তুলনায় কম খরচে ব্যাপক সুরক্ষা প্রদান করুন এবং আপনার সুবিধা বাজেটের সর্বোচ্চ ব্যবহার নিশ্চিত করুন।"
             }
         ]
     },
     "coverage_section": {
         "header": {
-            "title": "B Comprehensive Coverage Under One Group Policy",
-            "description": "B Guardian Life offers a complete range of group insurance coverages that can be tailored to your organization's size, industry, and budget."
+            "title": "একটি গ্রুপ বীমা পলিসিতে কভারেজ",
+            "description": "গার্ডিয়ান লাইফ গ্রুপ বীমার সম্পূর্ণ পরিসর প্রদান করে যা আপনার প্রতিষ্ঠানের আকার, শিল্প এবং বাজেট অনুযায়ী কাস্টমাইজ করা যায়।"
         },
         "coverages": [
             {
                 "id": 1,
                 "iconName": "ShieldIcon",
                 "iconColor": "#4A90D9",
-                "title": "B Life Coverage",
-                "description": "B Comprehensive life insurance including death benefits, accidental death, disability coverage, and critical illness protection for complete financial security."
+                "title": "লাইফ কাভারেজ",
+                "description": "মৃত্যু সুবিধা, দুর্ঘটনাজনিত মৃত্যু, অক্ষমতা কভারেজ এবং সম্পূর্ণ আর্থিক নিরাপত্তার জন্য গুরুতর অসুস্থতা সুরক্ষা সহ ব্যাপক জীবন বীমা।"
             },
             {
                 "id": 2,
                 "iconName": "HeartIcon",
                 "iconColor": "#4CAF82",
-                "title": "B Health Coverage",
-                "description": "B Extensive medical coverage including in-patient treatment, maternity benefits, and out-patient care for everyday medical needs."
+                "title": "স্বাস্থ্য বীমা কভারেজ",
+                "description": "হাসপাতালে ভর্তির চিকিৎসা, মাতৃত্ব সুবিধা এবং প্রতিদিনের স্বাস্থ্যসেবার জন্য আউটপেশেন্ট সেবাসহ বিস্তৃত চিকিৎসা কভারেজ।"
             },
             {
                 "id": 3,
                 "iconName": "StarIcon",
                 "iconColor": "#9B6FD4",
-                "title": "B Specialized Benefits",
-                "description": "B Additional coverage for dental and optical care, ensuring comprehensive healthcare support for all aspects of employee well-being."
+                "title": "স্পেশাল বীমা সুবিধা",
+                "description": "ডেন্টাল ও অপটিক্যাল সেবার জন্য অতিরিক্ত কভারেজ — কর্মীদের সকল দিকের স্বাস্থ্যসেবা সহায়তা নিশ্চিত করে।"
             }
         ]
     },
     "life_coverage_section": {
         "header": {
-            "title": "B Life Coverage for Financial Protection & Peace of Mind",
-            "description": "B Group Life Insurance ensures financial security for employees and their families while reinforcing an organization's commitment to long-term employee welfare. This coverage helps mitigate uncertainty and provides assurance during life-altering events"
+            "title": "আর্থিক সুরক্ষা ও মানসিক শান্তির জন্য জীবন বীমা কভারেজ",
+            "description": "গ্রুপ লাইফ ইন্স্যুরেন্স কর্মী ও তাদের পরিবারের আর্থিক নিরাপত্তা নিশ্চিত করে এবং দীর্ঘমেয়াদি কর্মী কল্যাণে প্রতিষ্ঠানের প্রতিশ্রুতি পুনরায় নিশ্চিত করে।"
         },
         "coverages": [
             {
                 "id": 1,
-                "title": "B Death Benefit (Natural Death)",
-                "description": "B If an insured employee passes away due to natural causes during the policy period, Guardian Life Insurance, upon receiving written proof of death, will pay the sum insured to the organization or the nominated beneficiary of the employee."
+                "title": "মৃত্যু সুবিধা (স্বাভাবিক মৃত্যু)",
+                "description": "বীমা মেয়াদকালে স্বাভাবিক কারণে কোনো বীমাকৃত কর্মী মারা গেলে, মৃত্যুর লিখিত প্রমাণ পাওয়ার পর গার্ডিয়ান লাইফ প্রতিষ্ঠান বা মনোনীত সুবিধাভোগীকে বীমা সুমা পরিশোধ করবে।"
             },
             {
                 "id": 2,
-                "title": "B Accidental Death Benefit (ADB)",
-                "description": "B In the event of an insured employee's death caused directly by an accident involving external and violent means, the Accidental Death Benefit provides an additional sum insured over and above the standard death benefit."
+                "title": "দুর্ঘটনাজনিত মৃত্যু সুবিধা (ADB)",
+                "description": "বাইরের ও সহিংস উপায়ে সরাসরি দুর্ঘটনার কারণে কর্মীর মৃত্যু হলে, দুর্ঘটনাজনিত মৃত্যু সুবিধা স্বাভাবিক মৃত্যু সুবিধার পাশাপাশি অতিরিক্ত বীমা সুমা প্রদান করে।"
             },
             {
                 "id": 3,
-                "title": "B Permanent & Total Disability (PTD)",
-                "description": "B If an insured employee becomes permanently and totally disabled due to an accident resulting in bodily injury, Guardian Life will pay the full sum insured to the organization, offering financial support during a life-changing situation."
+                "title": "স্থায়ী ও সম্পূর্ণ অক্ষমতা (PTD)",
+                "description": "কোনো দুর্ঘটনায় শারীরিক আঘাতের ফলে কর্মী স্থায়ীভাবে ও সম্পূর্ণরূপে অক্ষম হলে, জীবন পরিবর্তনকারী এই পরিস্থিতিতে আর্থিক সহায়তা হিসেবে গার্ডিয়ান লাইফ সম্পূর্ণ বীমা সুমা প্রতিষ্ঠানকে পরিশোধ করবে।"
             },
             {
                 "id": 4,
-                "title": "B Permanent Partial Disability (PPD)",
-                "description": "B When an accident results in permanent partial disability, Guardian Life provides fixed financial benefits to the employer or employee in accordance with the Labor Law of Bangladesh, ensuring continued financial stability."
+                "title": "স্থায়ী আংশিক অক্ষমতা (PPD)",
+                "description": "দুর্ঘটনার ফলে স্থায়ী আংশিক অক্ষমতা হলে, গার্ডিয়ান লাইফ বাংলাদেশের শ্রম আইন অনুযায়ী নিয়োগকর্তা বা কর্মীকে নির্ধারিত আর্থিক সুবিধা প্রদান করে, যা আর্থিক স্থিতিশীলতা নিশ্চিত করে।"
             }
         ]
     },
     "critical_illness_section": {
         "header": {
-            "title": "B Protection Against Major Life-Threatening Diseases",
-            "description": "B The Critical Illness Benefit is a supplementary coverage designed to support employees and their families financially if diagnosed with any of the specified critical illnesses. This benefit helps manage high treatment costs and income disruption."
+            "title": "ক্রিটিক্যাল ইলনেস - প্রাণঘাতী রোগের বিরুদ্ধে সুরক্ষা",
+            "description": "ক্রিটিক্যাল ইলনেস বেনিফিট একটি সম্পূরক কভারেজ যা নির্দিষ্ট গুরুতর রোগ নির্ণয়ের ক্ষেত্রে কর্মী ও তাদের পরিবারকে আর্থিকভাবে সহায়তা করে।"
         },
         "illnesses": [
             {
                 "id": 1,
-                "name": "B Cancer"
+                "name": "ক্যান্সার"
             },
             {
                 "id": 2,
-                "name": "B Heart Attack (Myocardial Infarction)"
+                "name": "হার্ট অ্যাটাক"
             },
             {
                 "id": 3,
-                "name": "B Stroke"
+                "name": "স্ট্রোক"
             },
             {
                 "id": 4,
-                "name": "B Coronary Artery Bypass Surgery"
+                "name": "করোনারি আর্টারি বাইপাস সার্জারি"
             },
             {
                 "id": 5,
-                "name": "B Kidney Failure (End Stage Renal Disease)"
+                "name": "কিডনি বিকলতা"
             },
             {
                 "id": 6,
-                "name": "B Major Organ Transplantation"
+                "name": "প্রধান অঙ্গ প্রতিস্থাপন"
             },
             {
                 "id": 7,
-                "name": "B Paralysis"
+                "name": "পক্ষাঘাত"
             },
             {
                 "id": 8,
-                "name": "B Multiple Sclerosis"
+                "name": "মাল্টিপল স্ক্লেরোসিস"
             },
             {
                 "id": 9,
-                "name": "B Loss of Limbs"
+                "name": "অঙ্গহানি"
             },
             {
                 "id": 10,
-                "name": "B Blindness / Loss of Sight"
+                "name": "অন্ধত্ব / দৃষ্টিশক্তি হারানো"
             },
             {
                 "id": 11,
-                "name": "B Heart Valve Replacement"
+                "name": "হার্ট ভাল্ব প্রতিস্থাপন"
             },
             {
                 "id": 12,
-                "name": "B Surgery of Aorta"
+                "name": "অ্যাওর্টার অস্ত্রোপচার"
             },
             {
                 "id": 13,
-                "name": "B Aplastic Anemia"
+                "name": "অ্যাপ্লাস্টিক অ্যানিমিয়া"
             },
             {
                 "id": 14,
-                "name": "B Benign Brain Tumor"
+                "name": "সৌম্য ব্রেইন টিউমার"
             },
             {
                 "id": 15,
-                "name": "B Chronic Lung Disease / End Stage Lung Disease"
+                "name": "দীর্ঘস্থায়ী ফুসফুসের রোগ"
             },
             {
                 "id": 16,
-                "name": "B Deafness / Loss of Hearing"
+                "name": "বধিরতা / শ্রবণশক্তি হারানো"
             },
             {
                 "id": 17,
-                "name": "B Major Head Trauma"
+                "name": "মারাত্মক মাথার আঘাত"
             },
             {
                 "id": 18,
-                "name": "B Loss of Speech"
+                "name": "বাকশক্তি হারানো"
             }
         ]
     },
     "treatment_plan_section": {
         "header": {
-            "title": "B Health Coverage That Supports Everyday Medical Needs",
-            "description": "B With rising healthcare costs and evolving family responsibilities, Guardian Life's Group Health Insurance plans are designed to provide extensive medical coverage—both for hospitalization and routine medical expenses."
+            "title": "প্রতিদিনের স্বাস্থ্যসেবার চাহিদা মেটানো জন্য হেলথ কভারেজ",
+            "description": "ক্রমবর্ধমান চিকিৎসা ব্যয় ও পরিবারের দায়িত্বের কথা মাথায় রেখে গার্ডিয়ান লাইফের গ্রুপ হেলথ ইন্স্যুরেন্স পরিকল্প হাসপাতাল ভর্তি ও নিয়মিত চিকিৎসা উভয় ক্ষেত্রেই বিস্তৃত সুরক্ষা প্রদান করে।"
         },
         "plans": [
             {
                 "id": 1,
-                "title": "B In-Patient Treatment (IPD) Plan",
-                "description": "B The In-Patient Treatment plan provides financial protection for medical expenses incurred during hospitalization of at least 24 hours due to illness or accidental injury within the policy period."
+                "title": "ইন-পেশেন্ট চিকিৎসা (IPD) পরিকল্পনা",
+                "description": "বীমা মেয়াদে অসুস্থতা বা দুর্ঘটনাজনিত আঘাতের কারণে কমপক্ষে ২৪ ঘণ্টার হাসপাতাল ভর্তির সময় চিকিৎসা ব্যয়ে আর্থিক সুরক্ষা প্রদান করে।"
             },
             {
                 "id": 2,
-                "title": "B General Out-Patient Treatment (OPD) Plan",
-                "description": "B The OPD plan covers medical expenses that do not require hospitalization, allowing employees to claim for routine healthcare costs.",
+                "title": "সাধারণ আউট-পেশেন্ট চিকিৎসা (OPD) পরিকল্পনা",
+                "description": "হাসপাতালে ভর্তির প্রয়োজন নেই এমন চিকিৎসা ব্যয় কভার করে।",
                 "bulletPoints": [
-                    "B Doctor Consultation Fees",
-                    "B Medicine Costs",
-                    "B Diagnostic & Investigation Expenses"
+                    "ডাক্তারের পরামর্শ ফি",
+                    "ওষুধের খরচ",
+                    "ডায়াগনস্টিক ও তদন্ত ব্যয়"
                 ]
             }
         ]
     },
     "maternity_section": {
-        "title": "B Supporting Employees During Life's Important Moments",
-        "description": "B Maternity benefits offer financial assistance and peace of mind for female married employees or spouses up to 45 years of age",
+        "title": "মাতৃত্ব সুবিধা",
+        "description": "৪৫ বছর পর্যন্ত বিবাহিত নারী কর্মী বা স্ত্রীর জন্য আর্থিক সহায়তা প্রদান করে।",
         "items": [
             {
                 "id": 1,
-                "label": "B Normal Delivery"
+                "label": "স্বাভাবিক প্রসব"
             },
             {
                 "id": 2,
-                "label": "B Caesarean / Ectopic / Extra-uterine Pregnancy"
+                "label": "সিজারিয়ান / একটোপিক গর্ভাবস্থা"
             },
             {
                 "id": 3,
-                "label": "B Legal Abortion or Miscarriage"
+                "label": "আইনি গর্ভপাত বা মিসক্যারেজ"
             }
         ]
     },
     "outpatient_section": {
         "cards": [
             {
-                "title": "B Dental Out-Patient Treatment Benefit",
-                "description": "B Dental OPD coverage provides access to essential dental care without hospitalization.",
+                "title": "ডেন্টাল আউট-পেশেন্ট চিকিৎসা সুবিধা",
+                "description": "কর্মীদের সম্পূর্ণ স্বাস্থ্যসেবা নিশ্চিত করতে ডেন্টাল ও অপটিক্যাল সুবিধা প্রদান করা হয়।",
                 "points": [
-                    "B Doctor Consultation Fees",
-                    "B Amalgam, Resin Plastic & Temporary/Permanent Fillings",
-                    "B Routine Extraction",
-                    "B Medication",
-                    "B X-rays & Investigations",
-                    "B Root Canal Treatment (including bridging and capping)",
-                    "B Scaling & Polishing (once per year per member)"
+                    "ডাক্তারের পরামর্শ ফি",
+                    "অ্যামালগাম, রেজিন প্লাস্টিক ও ফিলিং",
+                    "নিয়মিত দাঁত তোলা",
+                    "ওষুধ",
+                    "এক্স-রে ও তদন্ত",
+                    "রুট ক্যানেল চিকিৎসা (ব্রিজিং ও ক্যাপিং সহ)",
+                    "স্কেলিং ও পলিশিং (বছরে একবার)"
                 ]
             },
             {
-                "title": "B Optical Out-Patient Treatment Benefit",
-                "description": "B Optical OPD benefits cover eye care and vision correction needs on an outpatient basis.",
+                "title": "অপটিক্যাল আউট-পেশেন্ট চিকিৎসা সুবিধা",
+                "description": "কর্মীদের সম্পূর্ণ স্বাস্থ্যসেবা নিশ্চিত করতে অপটিক্যাল সুবিধা প্রদান করা হয়।",
                 "points": [
-                    "B Consultation",
-                    "B Vision Tests for Refractive Errors",
-                    "B Medication",
-                    "B Lenses & Spectacles"
+                    "চক্ষু পরামর্শ",
+                    "রিফ্রেক্টিভ এরর পরীক্ষা",
+                    "ওষুধ",
+                    "লেন্স ও চশমা"
                 ]
             }
         ]
