@@ -156,6 +156,10 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
       alert("Please enter a valid Date of Birth");
       return;
     }
+    if (!age || Number(age) < 18) {
+      alert("Age must be at least 18 years");
+      return;
+    }
 
     try {
       setIsLoading(true);
@@ -189,12 +193,16 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
         // Update sum assured min-max
         if (min_sumass) setMinSumAss(Number(min_sumass));
         if (max_sumass) setMaxSumAss(Number(max_sumass));
+        
+        setIsProcessed(true);
+      } else {
+        alert(data?.message || "Failed to fetch plan information");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching plan info:', error);
+      alert(error?.response?.data?.message || error?.message || "An error occurred while fetching plan info");
     } finally {
       setIsLoading(false);
-      setIsProcessed(true);
     }
   };
 
