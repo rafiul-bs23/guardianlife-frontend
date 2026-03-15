@@ -148,4 +148,42 @@ export interface ProposalCreateResponse {
   status: boolean;
   message: string;
   transactionId?: string;
-}
+}
+
+export interface PlanNumber {
+  plan_no: string;
+  name: string;
+}
+export interface PaymentMode {
+  serial: number;
+  name: string;
+}
+// export interface HiOption {
+//   id: number;
+//   plan_no: string;
+//   name: string;
+// }
+export interface HiBeneficiary {
+  id: number;
+  name: string;
+}
+export interface HiMaternityPlan {
+  id: number;
+  name: string;
+}
+export interface HiHealthPlans {
+  id: number;
+  parent_id: string;
+  name: string;
+  max_age: string;
+  sum_assured: string;
+}
+
+export interface CiPercentage {
+  percentage: string;
+}
+
+export interface TermOption {
+  id: number;
+  term: number;
+}

@@ -4,10 +4,11 @@ import GenericHeader from '../../../shared/Components/GenericHeader';
 import Button from '../../../shared/Components/Button';
 import { usePopup } from '../../../shared/context/PopupContext';
 import CalculatePremiumModal from './CalculatePremiumModal';
+import type {PlanNumber} from "../types.ts";
 
 interface ProductHeaderProps {
     data: HeaderData;
-    planNumbers?: any[];
+    planNumbers?: PlanNumber[];
 }
 
 const ProductHeader: React.FC<ProductHeaderProps> = ({ data, planNumbers }) => {

@@ -3,15 +3,17 @@ import { X, Info, Check, Calendar } from 'lucide-react';
 import { getPlanInformation, getSupplementaryInfo, calculatePremium } from '../api';
 import PremiumDetailsModal from './PremiumDetailsModal';
 import Button from "../../../shared/Components/Button.tsx";
+import type {PlanNumber, PaymentMode, HiBeneficiary, HiMaternityPlan, HiHealthPlans, CiPercentage, TermOption} from "../types.ts";
+import axios, { AxiosError } from 'axios';
 
 interface CalculatePremiumModalProps {
   isOpen: boolean;
   onClose: () => void;
-  planNumbers?: any[];
+  planNumbers?: PlanNumber[];
 }
 
 const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, onClose, planNumbers }) => {
-  const [selectedPlan, setSelectedPlan] = useState<any>(null);
+  const [selectedPlan, setSelectedPlan] = useState<PlanNumber | null>(null);
 
   useEffect(() => {
     if (planNumbers && planNumbers.length > 0 && !selectedPlan) {
@@ -29,8 +31,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('Male');
 
-  const [availableModes, setAvailableModes] = useState<any[]>([]); // Store full mode objects
-  const [mode, setMode] = useState<any>(null); // Store selected mode object
+  const [availableModes, setAvailableModes] = useState<PaymentMode[]>([]);
+  const [mode, setMode] = useState<PaymentMode | null>(null);
   const [availableTerms, setAvailableTerms] = useState<number[]>([10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]);
   const [term, setTerm] = useState(20);
 
@@ -39,7 +41,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [maxSumAss, setMaxSumAss] = useState<number>(1000000);
 
   const [hiEnabled, setHiEnabled] = useState(false);
-  const [hiOption, setHiOption] = useState<any>(null); // Store selected plan object
+  const [hiOption, setHiOption] = useState<HiHealthPlans | null>(null); // Store selected plan object
   const [hiBeneficiary, setHiBeneficiary] = useState('Self');
   const [spouseDob, setSpouseDob] = useState('');
   const [displaySpouseDob, setDisplaySpouseDob] = useState('');
@@ -53,10 +55,10 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [pdabEnabled, setPdabEnabled] = useState(false);
   const [diabEnabled, setDiabEnabled] = useState(false);
 
-  const [hiBeneficiaries, setHiBeneficiaries] = useState<any[]>([]);
-  const [hiMaternityPlans, setHiMaternityPlans] = useState<any[]>([]);
-  const [hiHealthPlans, setHiHealthPlans] = useState<any[]>([]);
-  const [ciPercentages, setCiPercentages] = useState<any[]>([]);
+  const [hiBeneficiaries, setHiBeneficiaries] = useState<HiBeneficiary[]>([]);
+  const [hiMaternityPlans, setHiMaternityPlans] = useState<HiMaternityPlan[]>([]);
+  const [hiHealthPlans, setHiHealthPlans] = useState<HiHealthPlans[]>([]);
+  const [ciPercentages, setCiPercentages] = useState<CiPercentage[]>([]);
   const [calculationData, setCalculationData] = useState<any>(null);
   const [isCalculating, setIsCalculating] = useState(false);
 
@@ -101,8 +103,12 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
     return years.toString();
   };
 
-  const handleNativeDobChange = (e: React.ChangeEvent<HTMLInputElement>, setDate: any, setDisplay: any, setAgeState: any) => {
-    const val = e.target.value; // YYYY-MM-DD
+  const handleNativeDobChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setDate: React.Dispatch<React.SetStateAction<string>>,
+    setDisplay: React.Dispatch<React.SetStateAction<string>>,
+    setAgeState: React.Dispatch<React.SetStateAction<string>>
+  ) => {    const val = e.target.value; // YYYY-MM-DD
     setDate(val);
     if (val) {
       const parts = val.split('-');
@@ -116,8 +122,12 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
     }
   };
 
-  const handleTextDobChange = (e: React.ChangeEvent<HTMLInputElement>, setDate: any, setDisplay: any, setAgeState: any) => {
-    let val = e.target.value.replace(/\D/g, '');
+  const handleTextDobChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setDate: React.Dispatch<React.SetStateAction<string>>,
+    setDisplay: React.Dispatch<React.SetStateAction<string>>,
+    setAgeState: React.Dispatch<React.SetStateAction<string>>
+  ) => {    let val = e.target.value.replace(/\D/g, '');
     if (val.length > 8) val = val.slice(0, 8);
 
     let formatted = val;
@@ -183,7 +193,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
         // Update terms
         if (apiTerms && Array.isArray(apiTerms)) {
-          const termsList = apiTerms.map((t: any) => t.term).sort((a: number, b: number) => a - b);
+          const termsList = apiTerms.map((t: TermOption) => t.term).sort((a: number, b: number) => a - b);
           setAvailableTerms(termsList);
           if (termsList.length > 0 && !termsList.includes(term)) {
             setTerm(termsList[0]);
@@ -198,9 +208,13 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
       } else {
         alert(data?.message || "Failed to fetch plan information");
       }
-    } catch (error: any) {
-      console.error('Error fetching plan info:', error);
-      alert(error?.response?.data?.message || error?.message || "An error occurred while fetching plan info");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError<{ message: string }>;
+        alert(axiosError.response?.data?.message || axiosError.message || "An error occurred while fetching data");
+      } else {
+        alert("An unexpected error occurred");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -247,7 +261,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
             if (ciData) {
               setCiPercentages(ciData.ci_percentage || []);
               if (ciData.ci_percentage?.length > 0) {
-                const opts = ciData.ci_percentage.map((c: any) => c.percentage + '%');
+                const opts = ciData.ci_percentage.map((c: CiPercentage) => c.percentage + '%');
                 if (!opts.includes(ciOption)) setCiOption(opts[0]);
               }
             }
@@ -312,14 +326,14 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
     const payload = {
       date_of_birth: dob,
-      plan_no: selectedPlan?.plan_no || "01",
+      plan_no: selectedPlan?.plan_no,
       gender: gender.toLowerCase(),
       term: term,
-      mode: mode?.id || 1,
+      mode: mode?.serial,
       annuity_pension_unit: sumAssuredValue,
       channel: "retail",
       hi: hiEnabled ? 1 : 0,
-      hi_plan: hiEnabled ? (hiOption?.id || 5) : null,
+      hi_plan: hiEnabled ? hiOption?.id : null,
       hi_beneficiary: hiEnabled ? (selectedHiBeneficiary?.id || 1) : null,
       hi_spouse_date_of_birth: (hiEnabled && ['couple', 'family'].includes(hiBeneficiary.toLowerCase()) && spouseDob) ? spouseDob : null,
       hi_maternity_plan: (hiEnabled && ['couple', 'family'].includes(hiBeneficiary.toLowerCase())) ? (selectedMaternityPlan?.id || 1) : null,
@@ -353,7 +367,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
           hi_premium: data.data.total_hi_premium || null,
           hi_sum_assured: hiEnabled ? (hiOption?.sum_assured || null) : null,
           phone: phone,
-          payment_mode_id: mode?.id || 1
+          payment_mode_id: mode?.serial
         };
         setCalculationData({ ...data.data, docPayload });
         setIsDetailsModalOpen(true);
@@ -477,7 +491,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                   <label className="block text-sm font-medium text-gray-700 mb-3">Mode</label>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {availableModes.map(m => (
-                      <OptionButton key={m.id || m.name} label={m.name} selected={mode?.name === m.name} onClick={() => setMode(m)} />
+                      <OptionButton key={m.serial || m.name} label={m.name} selected={mode?.name === m.name} onClick={() => setMode(m)} />
                     ))}
                   </div>
                 </div>
@@ -573,6 +587,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {hiHealthPlans.map((opt, idx) => {
                           const colors = ['#D28E5D', '#B0B6BA', '#FBB03B', '#6F7678'];
+                          console.log("opt🟢" , opt)
                           return (
                             <div
                               key={opt.id || opt.name}
