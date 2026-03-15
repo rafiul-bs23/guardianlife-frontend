@@ -7,6 +7,7 @@ import type { HeaderResponse } from '../../../shared/types/header';
  * @returns Promise with header data.
  */
 export const fetchHeaderData = async (productId: string): Promise<HeaderResponse> => {
+    console.log(productId)
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(MOCK_HEADER_DATA);
