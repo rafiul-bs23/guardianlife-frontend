@@ -2,70 +2,71 @@
     "who_we_are": {
         "title": "B WHO WE ARE",
         "paragraphs": [
-            "B Guardian Life Insurance Limited commenced its business operations on 1st January 2014 with a clear purpose — to help build a safer and more secure future for the people of Bangladesh.",
-            "B With a paid-up capital of BDT 33.67 Crores and an authorized capital of BDT 200 Crores, Guardian Life has established a strong financial foundation backed by sound governance and prudent risk management.",
-            "B Through spontaneous service, ethical practices, and customer-centric innovation, Guardian Life continues to earn trust across the insurance ecosystem. Our dynamic, caring, and knowledge-driven workforce remains committed to exceeding customer expectations by delivering world-class insurance products and reliable service experiences.",
-            "B Innovation, disciplined investment strategies, and robust risk management remain our core tools for ensuring sustainable growth and maximum financial benefit for our valued customers."
+            "গার্ডিয়ান লাইফ ইন্স্যুরেন্স লিমিটেড বাংলাদেশের একটি শীর্ষস্থানীয় জীবন বীমা প্রতিষ্ঠান। ২০১৪ সালের ৯ জানুয়ারি গার্ডিয়ান লাইফ আনুষ্ঠানিকভাবে যাত্রা শুরু করে — বাংলাদেশের মানুষের জন্য সাশ্রয়ী, বিশ্বস্ত এবং উদ্ভাবনী বীমা সমাধান প্রদানের প্রতিশ্রুতি নিয়ে।",
+            "বিডিটি ৩৩.৬৭ কোটি টাকার অনুমোদিত মূলধন এবং বিডিটি ২০০ কোটি টাকার বিনিয়োগকৃত মূলধন নিয়ে গার্ডিয়ান লাইফ বাংলাদেশের বীমা খাতে একটি শক্তিশালী অবস্থান তৈরি করেছে।",
+            "প্রতিষ্ঠানটি ১:২১,২০০ এরও বেশি শেয়ারহোল্ডার দ্বারা সমর্থিত এবং একটি দক্ষ পরিচালনা পর্ষদ দ্বারা পরিচালিত। আমাদের দৃষ্টিভঙ্গি, সংগঠন এবং উদ্ভাবনী পণ্য গার্ডিয়ান লাইফকে বাংলাদেশের বীমা শিল্পে একটি আলাদা পরিচিতি দিয়েছে।",
+            "আমরা বিশ্বাস করি, দক্ষতা, স্বচ্ছতা এবং গ্রাহককেন্দ্রিক সেবার মাধ্যমে বাংলাদেশের প্রতিটি মানুষের কাছে মানসম্পন্ন বীমা সুরক্ষা পৌঁছে দেওয়া সম্ভব।"
         ],
         "stats": [
             {
-                "value": "BDT 33.67 CR",
-                "label": "B Paid-up Capital"
+                "value": "৩৩.৬৭ কোটি টাকা",
+                "label": "অনুমোদিত মূলধন"
             },
             {
-                "value": "BDT 200 CR",
-                "label": "B Authorized Capital"
+                "value": "২০০ কোটি টাকা",
+                "label": "বিনিয়োগকৃত মূলধন"
             }
         ]
     },
     "our_journey": {
-        "title": "B OUR JOURNEY",
-        "description": "B Since inception, Guardian Life Insurance Limited has grown steadily to become a respected name in Bangladesh's life insurance industry. Over the years, we have expanded our product portfolio, strengthened our operational capabilities, and embraced digital transformation to serve customers more efficiently.",
+        "title": "আমাদের যাত্রা",
+        "description": "গার্ডিয়ান লাইফ ইন্স্যুরেন্স লিঃ বাংলাদেশের বীমা শিল্পে ধারাবাহিকভাবে প্রবৃদ্ধি অর্জন করে আসছে। গত এক দশকেরও বেশি সময়ে আমরা আমাদের পণ্য পোর্টফোলিও, প্রযুক্তি অবকাঠামো এবং গ্রাহক সেবায় উল্লেখযোগ্য অগ্রগতি সাধন করেছি।",
         "cards": [
             {
-                "title": "B Steady Growth",
-                "description": "B Our journey reflects a consistent commitment to customer satisfaction, technological advancement, and long-term value creation."
+                "title": "স্থিতিশীল প্রবৃদ্ধি",
+                "description": "গার্ডিয়ান লাইফ ধারাবাহিকভাবে প্রিমিয়াম সংগ্রহ ও বিনিয়োগ বৃদ্ধির মাধ্যমে টেকসই প্রবৃদ্ধি অর্জন করে চলেছে।"
             },
             {
-                "title": "B Digital Transformation",
-                "description": "B We have embraced digital innovation to serve customers more efficiently and enhance their insurance experience."
+                "title": "ডিজিটাল রূপান্তর",
+                "description": "আমরা সফলভাবে একটি পূর্ণাঙ্গ ডিজিটাল প্ল্যাটফর্ম তৈরি করেছি যা গ্রাহকদের জন্য বীমা গ্রহণ ও পরিচালনা সহজ করেছে।"
             },
             {
-                "title": "B Trusted Partner",
-                "description": "B Positioning Guardian Life as a forward-thinking and reliable insurance partner for individuals and organizations."
+                "title": "বিশ্বস্ত অংশীদার",
+                "description": "গার্ডিয়ান লাইফ বাংলাদেশের লক্ষ লক্ষ পরিবারের বিশ্বস্ত আর্থিক অংশীদার হিসেবে নিজেকে প্রতিষ্ঠিত করেছে।"
             }
         ]
     },
     "mission_vision": {
-        "title": "B OUR MISSION & VISION",
-        "description": "B See how we've helped thousands of families during their most challenging times. These are real experiences from real customers.",
+        "title": "আমাদের মিশন, ও ভিশন",
+        "description": "বিশ্বাস, উদ্ভাবন ও মানুষের প্রতি আন্তরিক দায়বদ্ধতার মাধ্যমে বাংলাদেশের প্রতিটি পরিবারের কাছে সাশ্রয়ী আর্থিক সুরক্ষা পৌঁছে দেওয়াই আমাদের লক্ষ্য",
         "mission": {
-            "title": "B Mission",
+            "title": "মিশন (Mission)",
             "description": "B To become the most trusted life insurance brand in Bangladesh, driven by the philosophy of \"Insurance for All.\"",
             "points": [
-                "B Transform how insurance is sold and perceived in Bangladesh",
-                "B Create a global-standard local insurance brand",
-                "B Shift focus from selling products to delivering meaningful protection",
-                "B Expand insurance awareness through concept-driven engagement"
+                "বাংলাদেশের সেরা জীবন বীমা প্রতিষ্ঠান হওয়া — সকলের জন্য 'বীমা' দর্শন দ্বারা পরিচালিত।",
+                "একটি গ্লোবাল-ক্লাস বীমা ব্র্যান্ড গড়ে তোলা।",
+                "অর্থপূর্ণ দাবি নিষ্পত্তির মাধ্যমে সেরা শিল্প মান অর্জন।",
+                "ধারাবাহিক সম্পৃক্ততার মাধ্যমে বীমা সচেতনতা বৃদ্ধি।"
             ]
         },
         "vision": {
-            "title": "B Vision",
+            "title": "ভিশন (Vision)",
             "description": "B To change the landscape of the insurance industry in Bangladesh by becoming a torchbearer of ethical growth, innovation, and inclusive protection.",
             "points": [
-                "B Play an active role in the overall development of the insurance sector",
-                "B Promote inclusive insurance aligned with \"Insurance for All\"",
-                "B Help policyholders build a safer future through world-class products and service excellence"
+                "প্রযুক্তিগত প্রবৃদ্ধি, উদ্ভাবন এবং অন্তর্ভুক্তিমূলক প্রক্রিয়ার মাধ্যমে একটি বৈশ্বিক মানের বীমা সংস্থা হিসেবে বাংলাদেশের বীমা শিল্পের চেহারা পরিবর্তন করা।",
+                "প্রতিটি গ্রাহকের সন্তুষ্টি নিশ্চিত করা।",
+                "দেশের প্রতিটি জেলায় বীমা সেবা পৌঁছে দেওয়া।",
+                "টেকসই ও দায়িত্বশীল ব্যবসায়িক অনুশীলন বজায় রাখা।"
             ]
         }
     },
     "our_achievements": {
-        "title": "B OUR ACHIEVEMENTS",
-        "description": "B Each recognition reflects our commitment to excellence, innovation, and customer trust."
+        "title": "আমাদের অর্জনসমূহ",
+        "description": "প্রতিষ্ঠার পর থেকে গার্ডিয়ান লাইফ উদ্ভাবন, সেবা এবং বিশ্বাসযোগ্যতায় একটি অসাধারণ যাত্রা সম্পন্ন করেছে।"
     },
     "milestones": {
-        "title": "B MILESTONES WE ACHIEVED",
-        "description": "B Since inception, Guardian Life Insurance Limited has consistently progressed through innovation, expansion, and customer-centric transformation. Each milestone represents our dedication to growth, governance, and service excellence."
+        "title": "আমাদের মাইলফলক",
+        "description": "সূচনার পর থেকেই গার্ডিয়ান লাইফ ইন্স্যুরেন্স লিমিটেড ক্রমাগত বৃদ্ধি পেয়েছে এবং নিজেকে বীমা শিল্পে একটি বিশ্বস্ত নাম হিসাবে প্রতিষ্ঠিত করেছে। বছরের পর বছর ধরে, আমাদের কোম্পানির পণ্যের অফারগুলি প্রসারিত হয়েছে, বাজারের গতিশীলতার পরিবর্তনের সাথে খাপ খাইয়ে নিয়েছে এবং গ্রাহকদের আরও ভালভাবে সেবা দেওয়ার জন্য প্রযুক্তিগত অগ্রগতি গ্রহণ করেছে। কোম্পানির মাইলফলক হল গ্রাহক সন্তুষ্টি, উদ্ভাবনী সমাধান এবং শক্তিশালী নেতৃত্ব।"
     },
     "governance_trust": {
         "title": "B Governance & Trust",
