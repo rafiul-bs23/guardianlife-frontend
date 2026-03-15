@@ -3,7 +3,7 @@ import { X, Info, Check, Calendar } from 'lucide-react';
 import { getPlanInformation, getSupplementaryInfo, calculatePremium } from '../api';
 import PremiumDetailsModal from './PremiumDetailsModal';
 import Button from "../../../shared/Components/Button.tsx";
-import type {PlanNumber, PaymentMode, HiBeneficiary, HiMaternityPlan, HiHealthPlans, CiPercentage, TermOption} from "../types.ts";
+import type {PlanNumber, PaymentMode, HiBeneficiary, HiMaternityPlan, HiHealthPlans, CiPercentage, TermOption, CalculationResult, SupplementaryInfoItem} from "../types.ts";
 import axios, { AxiosError } from 'axios';
 
 interface CalculatePremiumModalProps {
@@ -59,7 +59,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [hiMaternityPlans, setHiMaternityPlans] = useState<HiMaternityPlan[]>([]);
   const [hiHealthPlans, setHiHealthPlans] = useState<HiHealthPlans[]>([]);
   const [ciPercentages, setCiPercentages] = useState<CiPercentage[]>([]);
-  const [calculationData, setCalculationData] = useState<any>(null);
+  const [calculationData, setCalculationData] = useState<CalculationResult | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
 
 
@@ -235,7 +235,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
           console.log('Supplementary API Response:', response);
 
           if (response && response.status && response.data) {
-            const hiData = response.data.find((item: any) => item.supplementary_name === 'HI');
+            const hiData = response.data.find((item: SupplementaryInfoItem) => item.supplementary_name === 'HI');
             if (hiData) {
               setHiBeneficiaries(hiData.beneficiaries || []);
               setHiMaternityPlans(hiData.hi_maternity_plan || []);
@@ -243,21 +243,21 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
               
               // Set defaults if currently empty or not in new list
               if (hiData.health_insurance?.length > 0) {
-                if (!hiOption || !hiData.health_insurance.find((h: any) => h.id === hiOption.id)) {
+                if (!hiOption || !hiData.health_insurance.find((h: HiHealthPlans) => h.id === hiOption.id)) {
                   setHiOption(hiData.health_insurance[0]);
                 }
               }
               if (hiData.beneficiaries?.length > 0) {
-                const names = hiData.beneficiaries.map((b: any) => b.name);
+                const names = hiData.beneficiaries.map((b: HiBeneficiary) => b.name);
                 if (!names.includes(hiBeneficiary.toLowerCase())) setHiBeneficiary(names[0]);
               }
               if (hiData.hi_maternity_plan?.length > 0) {
-                const names = hiData.hi_maternity_plan.map((m: any) => m.name);
+                const names = hiData.hi_maternity_plan.map((m: HiMaternityPlan) => m.name);
                 if (!names.includes(maternityPlan)) setMaternityPlan(names[0]);
               }
             }
 
-            const ciData = response.data.find((item: any) => item.supplementary_name === 'CI');
+            const ciData = response.data.find((item: SupplementaryInfoItem) => item.supplementary_name === 'CI');
             if (ciData) {
               setCiPercentages(ciData.ci_percentage || []);
               if (ciData.ci_percentage?.length > 0) {

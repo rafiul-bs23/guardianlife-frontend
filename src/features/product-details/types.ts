@@ -187,3 +187,41 @@ export interface TermOption {
   id: number;
   term: number;
 }
+
+export interface SupplementaryInfoItem {
+  supplementary_name: string;
+  beneficiaries?: HiBeneficiary[];
+  hi_maternity_plan?: HiMaternityPlan[];
+  health_insurance?: HiHealthPlans[];
+  ci_percentage?: CiPercentage[];
+}
+
+export interface CalculationDocPayload {
+  name: string;
+  age: number;
+  gender: string;
+  date_of_birth: string;
+  plan_no: string;
+  term: number;
+  payment_mode: string;
+  sum_assured: number;
+  life_sum_assured: number;
+  installment_premium: number;
+  life_premium: number;
+  ci_premium: number | null;
+  diab_premium: number | null;
+  pdab_premium: number | null;
+  hi_premium: number | null;
+  hi_sum_assured: string | null;
+  phone: string;
+  payment_mode_id?: number | null;
+}
+
+export interface CalculationResult {
+  total_premium: number;
+  life_premium: number;
+  ci_premium?: number;
+  pdab_diab_premium?: number;
+  total_hi_premium?: number;
+  docPayload?: CalculationDocPayload;
+}
