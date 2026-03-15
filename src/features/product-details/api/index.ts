@@ -11,3 +11,29 @@ export const getProductData = async (id: string): Promise<ProductApiResponse> =>
   const { data } = await axiosClient.get<ProductApiResponse>(`/products/${id}`);
   return data;
 };
+
+export const getPlanInformation = async (payload: { date_of_birth: string, plan_no: string }) => {
+  const { data } = await axiosClient.post('/retail/plan/information', payload);
+  return data;
+};
+
+export const getSupplementaryInfo = async (payload: { plan_id: string, gender: string, sum_assured: string, age: number, term: number }) => {
+  const { data } = await axiosClient.post('/retail/plan/supplementary', payload);
+  return data;
+};
+
+export const calculatePremium = async (payload: any) => {
+  const { data } = await axiosClient.post('/retail/premium/calculate', payload);
+  return data;
+};
+
+export const getPremiumDocument = async (payload: any) => {
+  const { data } = await axiosClient.post('/retail/premium/document', payload);
+  return data;
+};
+
+export const createProposal = async (payload: any) => {
+  const { data } = await axiosClient.post('/proposals/create', payload);
+  return data;
+};
+

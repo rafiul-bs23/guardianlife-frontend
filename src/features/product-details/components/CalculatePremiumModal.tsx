@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { X, Info, Check, Calendar } from 'lucide-react';
+import { getPlanInformation, getSupplementaryInfo, calculatePremium } from '../api';
 import PremiumDetailsModal from './PremiumDetailsModal';
 import Button from "../../../shared/Components/Button.tsx";
+import type {PlanNumber, PaymentMode, HiBeneficiary, HiMaternityPlan, HiHealthPlans, CiPercentage, TermOption, CalculationResult, SupplementaryInfoItem} from "../types.ts";
+import axios, { AxiosError } from 'axios';
 
 interface CalculatePremiumModalProps {
   isOpen: boolean;
   onClose: () => void;
+  planNumbers?: PlanNumber[];
 }
 
-const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, onClose }) => {
+const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, onClose, planNumbers }) => {
+  const [selectedPlan, setSelectedPlan] = useState<PlanNumber | null>(null);
+
+  useEffect(() => {
+    if (planNumbers && planNumbers.length > 0 && !selectedPlan) {
+      setSelectedPlan(planNumbers[0]);
+    }
+  }, [planNumbers, selectedPlan]);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -19,13 +31,17 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('Male');
 
-  const [mode, setMode] = useState('Yearly');
+  const [availableModes, setAvailableModes] = useState<PaymentMode[]>([]);
+  const [mode, setMode] = useState<PaymentMode | null>(null);
+  const [availableTerms, setAvailableTerms] = useState<number[]>([10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]);
   const [term, setTerm] = useState(20);
 
   const [sumAssured, setSumAssured] = useState('');
+  const [minSumAss, setMinSumAss] = useState<number>(50000);
+  const [maxSumAss, setMaxSumAss] = useState<number>(1000000);
 
   const [hiEnabled, setHiEnabled] = useState(false);
-  const [hiOption, setHiOption] = useState('BRONZE');
+  const [hiOption, setHiOption] = useState<HiHealthPlans | null>(null); // Store selected plan object
   const [hiBeneficiary, setHiBeneficiary] = useState('Self');
   const [spouseDob, setSpouseDob] = useState('');
   const [displaySpouseDob, setDisplaySpouseDob] = useState('');
@@ -38,6 +54,13 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
   const [pdabEnabled, setPdabEnabled] = useState(false);
   const [diabEnabled, setDiabEnabled] = useState(false);
+
+  const [hiBeneficiaries, setHiBeneficiaries] = useState<HiBeneficiary[]>([]);
+  const [hiMaternityPlans, setHiMaternityPlans] = useState<HiMaternityPlan[]>([]);
+  const [hiHealthPlans, setHiHealthPlans] = useState<HiHealthPlans[]>([]);
+  const [ciPercentages, setCiPercentages] = useState<CiPercentage[]>([]);
+  const [calculationData, setCalculationData] = useState<CalculationResult | null>(null);
+  const [isCalculating, setIsCalculating] = useState(false);
 
 
 
@@ -58,9 +81,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
     onClose();
   };
 
-  if (!isOpen) return null;
-
-  const isSumAssuredFilled = parseFloat(sumAssured.replace(/,/g, '')) > 0;
+  const sumAssuredValue = parseFloat(sumAssured.replace(/,/g, '')) || 0;
+  const isValidSumAssured = sumAssuredValue >= minSumAss && sumAssuredValue <= maxSumAss;
 
   const calculateCeilAge = (dateString: string) => {
     if (!dateString) return '';
@@ -81,8 +103,12 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
     return years.toString();
   };
 
-  const handleNativeDobChange = (e: React.ChangeEvent<HTMLInputElement>, setDate: any, setDisplay: any, setAgeState: any) => {
-    const val = e.target.value; // YYYY-MM-DD
+  const handleNativeDobChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setDate: React.Dispatch<React.SetStateAction<string>>,
+    setDisplay: React.Dispatch<React.SetStateAction<string>>,
+    setAgeState: React.Dispatch<React.SetStateAction<string>>
+  ) => {    const val = e.target.value; // YYYY-MM-DD
     setDate(val);
     if (val) {
       const parts = val.split('-');
@@ -96,8 +122,12 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
     }
   };
 
-  const handleTextDobChange = (e: React.ChangeEvent<HTMLInputElement>, setDate: any, setDisplay: any, setAgeState: any) => {
-    let val = e.target.value.replace(/\D/g, '');
+  const handleTextDobChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setDate: React.Dispatch<React.SetStateAction<string>>,
+    setDisplay: React.Dispatch<React.SetStateAction<string>>,
+    setAgeState: React.Dispatch<React.SetStateAction<string>>
+  ) => {    let val = e.target.value.replace(/\D/g, '');
     if (val.length > 8) val = val.slice(0, 8);
 
     let formatted = val;
@@ -126,8 +156,126 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
     }
   };
 
+  const handleProcess = async () => {
+    if (!name.trim()) {
+      alert("Please enter your name");
+      return;
+    }
+    if (!dob) {
+      // Just a simple validation prompt or alert.
+      alert("Please enter a valid Date of Birth");
+      return;
+    }
+    if (!age || Number(age) < 18) {
+      alert("Age must be at least 18 years");
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      const data = await getPlanInformation({
+        date_of_birth: dob,
+        plan_no: selectedPlan?.plan_no || "03"
+      });
+
+      console.log('API Response:', data);
+
+      if (data && data.status && data.data) {
+        const { payment_mode, term: apiTerms, min_sumass, max_sumass } = data.data;
+
+        // Update modes
+        if (payment_mode && Array.isArray(payment_mode)) {
+          setAvailableModes(payment_mode);
+          if (payment_mode.length > 0) {
+            setMode(payment_mode[0]);
+          }
+        }
+
+        // Update terms
+        if (apiTerms && Array.isArray(apiTerms)) {
+          const termsList = apiTerms.map((t: TermOption) => t.term).sort((a: number, b: number) => a - b);
+          setAvailableTerms(termsList);
+          if (termsList.length > 0 && !termsList.includes(term)) {
+            setTerm(termsList[0]);
+          }
+        }
+
+        // Update sum assured min-max
+        if (min_sumass) setMinSumAss(Number(min_sumass));
+        if (max_sumass) setMaxSumAss(Number(max_sumass));
+        
+        setIsProcessed(true);
+      } else {
+        alert(data?.message || "Failed to fetch plan information");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError<{ message: string }>;
+        alert(axiosError.response?.data?.message || axiosError.message || "An error occurred while fetching data");
+      } else {
+        alert("An unexpected error occurred");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isValidSumAssured) {
+      const handler = setTimeout(async () => {
+        try {
+          const payload = {
+            plan_id: "03",
+            gender: gender.toLowerCase(),
+            sum_assured: sumAssuredValue.toString(),
+            age: Number(age),
+            term: Number(term)
+          };
+          const response = await getSupplementaryInfo(payload);
+          console.log('Supplementary API Response:', response);
+
+          if (response && response.status && response.data) {
+            const hiData = response.data.find((item: SupplementaryInfoItem) => item.supplementary_name === 'HI');
+            if (hiData) {
+              setHiBeneficiaries(hiData.beneficiaries || []);
+              setHiMaternityPlans(hiData.hi_maternity_plan || []);
+              setHiHealthPlans(hiData.health_insurance || []);
+              
+              // Set defaults if currently empty or not in new list
+              if (hiData.health_insurance?.length > 0) {
+                if (!hiOption || !hiData.health_insurance.find((h: HiHealthPlans) => h.id === hiOption.id)) {
+                  setHiOption(hiData.health_insurance[0]);
+                }
+              }
+              if (hiData.beneficiaries?.length > 0) {
+                const names = hiData.beneficiaries.map((b: HiBeneficiary) => b.name);
+                if (!names.includes(hiBeneficiary.toLowerCase())) setHiBeneficiary(names[0]);
+              }
+              if (hiData.hi_maternity_plan?.length > 0) {
+                const names = hiData.hi_maternity_plan.map((m: HiMaternityPlan) => m.name);
+                if (!names.includes(maternityPlan)) setMaternityPlan(names[0]);
+              }
+            }
+
+            const ciData = response.data.find((item: SupplementaryInfoItem) => item.supplementary_name === 'CI');
+            if (ciData) {
+              setCiPercentages(ciData.ci_percentage || []);
+              if (ciData.ci_percentage?.length > 0) {
+                const opts = ciData.ci_percentage.map((c: CiPercentage) => c.percentage + '%');
+                if (!opts.includes(ciOption)) setCiOption(opts[0]);
+              }
+            }
+          }
+        } catch (error) {
+          console.error('Error fetching supplementary info:', error);
+        }
+      }, 500);
+      return () => clearTimeout(handler);
+    }
+  }, [sumAssuredValue, isValidSumAssured, gender, age, term]);
+
   const handleToggle = (setter: React.Dispatch<React.SetStateAction<boolean>>, currentValue: boolean, isPdab: boolean = false, isDiab: boolean = false) => {
-    if (!isSumAssuredFilled) return; // cannot turn on if sum assured is empty
+    if (!isValidSumAssured) return; // cannot turn on if sum assured is invalid
 
     const newValue = !currentValue;
     setter(newValue);
@@ -172,6 +320,70 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
     </button>
   );
 
+  const handleCheckPremium = async () => {
+    const selectedHiBeneficiary = hiBeneficiaries.find(b => b.name === hiBeneficiary);
+    const selectedMaternityPlan = hiMaternityPlans.find(m => m.name === maternityPlan);
+
+    const payload = {
+      date_of_birth: dob,
+      plan_no: selectedPlan?.plan_no,
+      gender: gender.toLowerCase(),
+      term: term,
+      mode: mode?.serial,
+      annuity_pension_unit: sumAssuredValue,
+      channel: "retail",
+      hi: hiEnabled ? 1 : 0,
+      hi_plan: hiEnabled ? hiOption?.id : null,
+      hi_beneficiary: hiEnabled ? (selectedHiBeneficiary?.id || 1) : null,
+      hi_spouse_date_of_birth: (hiEnabled && ['couple', 'family'].includes(hiBeneficiary.toLowerCase()) && spouseDob) ? spouseDob : null,
+      hi_maternity_plan: (hiEnabled && ['couple', 'family'].includes(hiBeneficiary.toLowerCase())) ? (selectedMaternityPlan?.id || 1) : null,
+      hi_number_of_children: (hiEnabled && ['family', 'children'].includes(hiBeneficiary.toLowerCase())) ? childrenCount : null,
+      ci: ciEnabled ? 2 : 0,
+      ci_percentage: ciEnabled ? ciOption.replace('%', '') : null,
+      pdab: pdabEnabled ? 3 : 0,
+      diab: diabEnabled ? 4 : 0
+    };
+
+    try {
+      setIsCalculating(true);
+      const data = await calculatePremium(payload);
+      if (data && data.status) {
+        // Collect extra info for PDF document request
+        const docPayload = {
+          name: name,
+          age: Number(age),
+          gender: gender.toLowerCase(),
+          date_of_birth: dob,
+          plan_no: selectedPlan?.plan_no || "101",
+          term: term,
+          payment_mode: mode?.name || "Yearly",
+          sum_assured: sumAssuredValue,
+          life_sum_assured: sumAssuredValue,
+          installment_premium: data.data.total_premium,
+          life_premium: data.data.life_premium,
+          ci_premium: data.data.ci_premium || null,
+          diab_premium: diabEnabled ? data.data.pdab_diab_premium : null,
+          pdab_premium: pdabEnabled ? data.data.pdab_diab_premium : null,
+          hi_premium: data.data.total_hi_premium || null,
+          hi_sum_assured: hiEnabled ? (hiOption?.sum_assured || null) : null,
+          phone: phone,
+          payment_mode_id: mode?.serial
+        };
+        setCalculationData({ ...data.data, docPayload });
+        setIsDetailsModalOpen(true);
+      } else {
+        alert(data?.message || "Failed to calculate premium");
+      }
+    } catch (err) {
+      console.error("Calculation Error:", err);
+      alert("An error occurred while calculating premium");
+    } finally {
+      setIsCalculating(false);
+    }
+  };
+
+  if (!isOpen) return null;
+
   return (
     <>
       <div className={`fixed inset-0 z-[99999] flex justify-center items-start overflow-y-auto bg-black/40 backdrop-blur-sm p-4 sm:p-6 lg:p-10 ${isDetailsModalOpen ? 'hidden' : ''}`}>
@@ -184,24 +396,43 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
           </button>
 
           <div className="mb-8">
-            <p className="text-sm text-gray-500 font-medium mb-1">Calculate</p>
-            <h2 className="text-2xl sm:text-3xl font-black text-gray-900 uppercase tracking-tight">GUARDIAN 3 STAGE PLAN</h2>
-            <div className="h-px bg-orange-200 w-full mt-4"></div>
+            <h2 className="text-xl sm:text-2xl font-black text-gray-900 uppercase tracking-tight mb-2">
+              Calculate Premium
+            </h2>
+            <div className="h-1 bg-orange-500 w-24"></div>
           </div>
+
+          {planNumbers && planNumbers.length > 0 && (
+            <div className="mb-8">
+              <label className="block text-sm font-bold text-gray-900 uppercase tracking-wider mb-3">
+                Select Plan
+              </label>
+              <div className="flex flex-wrap gap-3">
+                {planNumbers.map((p) => (
+                  <OptionButton
+                    key={p.plan_no}
+                    label={p.name}
+                    selected={selectedPlan?.plan_no === p.plan_no}
+                    onClick={() => setSelectedPlan(p)}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="space-y-8">
             {/* Row 1: Name, Phone, Email */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Name <span className="text-red-500">*</span></label>
                 <input type="text" placeholder="Your Name" value={name} onChange={e => setName(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Phone <span className="text-red-500">*</span></label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
                 <input type="tel" placeholder="01XXXXXXXXX" value={phone} onChange={e => setPhone(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Email <span className="text-red-500">*</span></label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
                 <input type="email" placeholder="Your Email" value={email} onChange={e => setEmail(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
               </div>
             </div>
@@ -247,20 +478,20 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
             {!isProcessed && (
               <div className="flex justify-center pt-4">
                 <Button
-                  label="Process"
-                  onClick={() => setIsProcessed(true)}
+                  label={isLoading ? "Processing..." : "Process"}
+                  onClick={isLoading ? undefined : handleProcess}
                 />
               </div>
             )}
 
             {isProcessed && (
-              <>
+              <div className="space-y-8 animate-in fade-in slide-in-from-top-4 duration-500">
                 {/* Mode Options */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-3">Mode</label>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {['Yearly', 'Half-Yearly', 'Quarterly', 'Monthly'].map(m => (
-                      <OptionButton key={m} label={m} selected={mode === m} onClick={() => setMode(m)} />
+                    {availableModes.map(m => (
+                      <OptionButton key={m.serial || m.name} label={m.name} selected={mode?.name === m.name} onClick={() => setMode(m)} />
                     ))}
                   </div>
                 </div>
@@ -269,37 +500,50 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                 <div className="pt-2">
                   <label className="block text-sm font-medium text-gray-700 mb-6">Term</label>
                   <div className="relative pt-8 pb-4">
-                    {/* Tick Labels */}
                     <div className="absolute top-0 w-full flex justify-between px-2">
-                      {[10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25].map(t => (
+                      {availableTerms.map(t => (
                         <span key={t} className={`text-[11px] font-bold ${t === term ? 'text-[#F37021] opacity-0' : 'text-gray-300'}`}>
                           {t}
                         </span>
                       ))}
                     </div>
 
-                    {/* Selected Indicator */}
-                    <div
-                      className="absolute top-0 flex flex-col items-center -translate-x-1/2 transition-all duration-150 pointer-events-none"
-                      style={{
-                        left: `calc(14px + (${((term - 10) / 15) * 100}% - ${((term - 10) / 15) * 28}px))`
-                      }}
-                    >
-                      <span className="text-[11px] font-extrabold text-[#1E3161] whitespace-nowrap mb-1 uppercase">
-                        {term} YEARS
-                      </span>
-                      <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-[#F37021]"></div>
-                    </div>
+                    {(() => {
+                      const index = availableTerms.indexOf(term) >= 0 ? availableTerms.indexOf(term) : 0;
+                      const maxIndex = availableTerms.length > 1 ? availableTerms.length - 1 : 1;
+                      const ratio = index / maxIndex;
+                      return (
+                        <div
+                          className="absolute top-0 flex flex-col items-center -translate-x-1/2 transition-all duration-150 pointer-events-none"
+                          style={{
+                            left: `calc(14px + (${ratio * 100}% - ${ratio * 28}px))`
+                          }}
+                        >
+                          <span className="text-[11px] font-extrabold text-[#1E3161] whitespace-nowrap mb-1 uppercase">
+                            {term} YEARS
+                          </span>
+                          <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-[#F37021]"></div>
+                        </div>
+                      );
+                    })()}
 
                     <input
                       type="range"
-                      min="10"
-                      max="25"
-                      value={term}
-                      onChange={(e) => setTerm(parseInt(e.target.value))}
+                      min="0"
+                      max={availableTerms.length > 1 ? availableTerms.length - 1 : 0}
+                      value={availableTerms.indexOf(term) >= 0 ? availableTerms.indexOf(term) : 0}
+                      onChange={(e) => {
+                        const idx = parseInt(e.target.value);
+                        if (availableTerms[idx]) setTerm(availableTerms[idx]);
+                      }}
                       className="w-full h-4 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                       style={{
-                        background: `linear-gradient(to right, #F37021 0%, #F37021 ${((term - 10) / 15) * 100}%, #E5E7EB ${((term - 10) / 15) * 100}%, #E5E7EB 100%)`
+                        background: (() => {
+                          const index = availableTerms.indexOf(term) >= 0 ? availableTerms.indexOf(term) : 0;
+                          const maxIndex = availableTerms.length > 1 ? availableTerms.length - 1 : 1;
+                          const ratio = index / maxIndex;
+                          return `linear-gradient(to right, #F37021 0%, #F37021 ${ratio * 100}%, #E5E7EB ${ratio * 100}%, #E5E7EB 100%)`;
+                        })()
                       }}
                     />
                   </div>
@@ -308,19 +552,20 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                 {/* Sum Assured */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Sum Assured</label>
-                  <div className="relative max-w-full">
-                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                      <span className="text-gray-900 font-medium"></span>
-                    </div>
+                  <div className="relative">
                     <input
                       type="text"
                       placeholder="0"
                       value={sumAssured}
                       onChange={handleSumAssuredChange}
-                      className="w-full border border-gray-300 rounded-md py-3 pl-8 pr-4 text-center font-semibold text-lg focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none"
+                      className={`w-full border ${sumAssuredValue > 0 && !isValidSumAssured ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-[#F37021] focus:border-[#F37021]'} rounded-md py-3 px-4 text-center font-semibold text-lg focus:ring-1 outline-none`}
                     />
                   </div>
-                  <p className="text-xs text-gray-400 mt-2">(50000 - 1000000)</p>
+                  <p className={`text-xs mt-2 ${sumAssuredValue > 0 && !isValidSumAssured ? 'text-red-500 font-medium' : 'text-gray-400'}`}>
+                    {sumAssuredValue > 0 && sumAssuredValue < minSumAss && `Minimum Sum Assured is ${new Intl.NumberFormat('en-IN').format(minSumAss)}`}
+                    {sumAssuredValue > maxSumAss && `Maximum Sum Assured is ${new Intl.NumberFormat('en-IN').format(maxSumAss)}`}
+                    {(sumAssuredValue === 0 || isValidSumAssured) && `(${new Intl.NumberFormat('en-IN').format(minSumAss)} - ${new Intl.NumberFormat('en-IN').format(maxSumAss)})`}
+                  </p>
                 </div>
 
                 {/* Health Insurance Section */}
@@ -329,7 +574,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                     <h3 className="text-sm font-semibold text-gray-800">Health Insurance (HI)</h3>
                     <button
                       onClick={() => handleToggle(setHiEnabled, hiEnabled)}
-                      className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${hiEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                      className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${hiEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isValidSumAssured ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                     >
                       <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${hiEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
                         {hiEnabled && <Check size={10} className="text-[#F37021]" />}
@@ -339,56 +584,52 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
                   {hiEnabled && (
                     <div className="space-y-6 pt-2">
-                      {/* HI Options */}
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {[
-                          { name: 'BRONZE', value: '50,000', color: '#D28E5D' },
-                          { name: 'SILVER', value: '150,000', color: '#B0B6BA' },
-                          { name: 'GOLD', value: '300,000', color: '#FBB03B' },
-                          { name: 'PLATINUM', value: '500,000', color: '#6F7678' }
-                        ].map(opt => (
-                          <div
-                            key={opt.name}
-                            onClick={() => setHiOption(opt.name)}
-                            className={`border rounded-lg flex flex-col overflow-hidden cursor-pointer transition-all bg-white ${hiOption === opt.name ? 'border-[#F37021] shadow-md ring-2 ring-[#F37021] ring-opacity-20' : 'border-orange-100 hover:border-orange-300'}`}
-                          >
+                        {hiHealthPlans.map((opt, idx) => {
+                          const colors = ['#D28E5D', '#B0B6BA', '#FBB03B', '#6F7678'];
+                          console.log("opt🟢" , opt)
+                          return (
                             <div
-                              className="w-full pt-2 pb-6 text-center text-[13px] font-bold text-[#464646] uppercase relative flex items-start justify-center"
-                              style={{
-                                backgroundColor: opt.color,
-                                maskImage: 'url("data:image/svg+xml,%3Csvg preserveAspectRatio=\'none\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0,0 L100,0 L100,70 Q50,100 0,70 Z\'/%3E%3C/svg%3E")',
-                                WebkitMaskImage: 'url("data:image/svg+xml,%3Csvg preserveAspectRatio=\'none\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0,0 L100,0 L100,70 Q50,100 0,70 Z\'/%3E%3C/svg%3E")',
-                                maskSize: '100% 100%',
-                                WebkitMaskSize: '100% 100%',
-                              }}
+                              key={opt.id || opt.name}
+                              onClick={() => setHiOption(opt)}
+                              className={`border rounded-lg flex flex-col overflow-hidden cursor-pointer transition-all bg-white ${hiOption?.name === opt.name ? 'border-[#F37021] shadow-md ring-2 ring-[#F37021] ring-opacity-20' : 'border-orange-100 hover:border-orange-300'}`}
                             >
-                              <span className="relative z-10 pt-1 tracking-wider">{opt.name}</span>
+                              <div
+                                className="w-full pt-2 pb-6 text-center text-[13px] font-bold text-[#464646] uppercase relative flex items-start justify-center"
+                                style={{
+                                  backgroundColor: colors[idx % colors.length],
+                                  maskImage: 'url("data:image/svg+xml,%3Csvg preserveAspectRatio=\'none\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0,0 L100,0 L100,70 Q50,100 0,70 Z\'/%3E%3C/svg%3E")',
+                                  WebkitMaskImage: 'url("data:image/svg+xml,%3Csvg preserveAspectRatio=\'none\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0,0 L100,0 L100,70 Q50,100 0,70 Z\'/%3E%3C/svg%3E")',
+                                  maskSize: '100% 100%',
+                                  WebkitMaskSize: '100% 100%',
+                                }}
+                              >
+                                <span className="relative z-10 pt-1 tracking-wider">{opt.name}</span>
+                              </div>
+                              <div className="pt-2 pb-4 text-center font-bold text-gray-900 text-lg">
+                                {new Intl.NumberFormat('en-IN').format(Number(opt.sum_assured))}
+                              </div>
                             </div>
-                            <div className="pt-2 pb-4 text-center font-bold text-gray-900 text-lg">
-                              {opt.value}
-                            </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
 
-                      {/* Beneficiary */}
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-3">Beneficiary</label>
                         <div className="flex flex-wrap gap-4">
-                          {['Self', 'Couple', 'Family', 'Children'].map(ben => (
-                            <label key={ben} onClick={() => setHiBeneficiary(ben)} className={`flex items-center gap-2 px-5 py-2.5 rounded-lg border cursor-pointer transition-colors ${hiBeneficiary === ben ? 'border-[#F37021] bg-orange-50/50' : 'border-gray-200 hover:border-[#F37021]'}`}>
-                              <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${hiBeneficiary === ben ? 'border-[#F37021]' : 'border-gray-300'}`}>
-                                {hiBeneficiary === ben && <div className="w-2 h-2 bg-[#F37021] rounded-full"></div>}
+                          {hiBeneficiaries.map(ben => (
+                            <label key={ben.id || ben.name} onClick={() => setHiBeneficiary(ben.name)} className={`flex items-center gap-2 px-5 py-2.5 rounded-lg border cursor-pointer transition-colors ${hiBeneficiary.toLowerCase() === ben.name.toLowerCase() ? 'border-[#F37021] bg-orange-50/50' : 'border-gray-200 hover:border-[#F37021]'}`}>
+                              <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${hiBeneficiary.toLowerCase() === ben.name.toLowerCase() ? 'border-[#F37021]' : 'border-gray-300'}`}>
+                                {hiBeneficiary.toLowerCase() === ben.name.toLowerCase() && <div className="w-2 h-2 bg-[#F37021] rounded-full"></div>}
                               </div>
-                              <span className="text-sm font-medium text-gray-700">{ben}</span>
+                              <span className="text-sm font-medium text-gray-700 capitalize">{ben.name}</span>
                             </label>
                           ))}
                         </div>
                       </div>
 
-                      {/* Conditional Fields for Beneficiary */}
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {['Couple', 'Family'].includes(hiBeneficiary) && (
+                        {['couple', 'family'].includes(hiBeneficiary.toLowerCase()) && (
                           <>
                             <div>
                               <label className="block text-sm font-medium text-gray-700 mb-2">Spouse Date Of Birth</label>
@@ -414,11 +655,11 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                             </div>
                             <div>
                               <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
-                              <input type="text" placeholder="12" value={spouseAge} disabled className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-gray-50 text-gray-500 cursor-not-allowed outline-none" />
+                              <input type="text" placeholder="0" value={spouseAge} disabled className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-gray-50 text-gray-500 cursor-not-allowed outline-none" />
                             </div>
                           </>
                         )}
-                        {['Family', 'Children'].includes(hiBeneficiary) && (
+                        {['family', 'children'].includes(hiBeneficiary.toLowerCase()) && (
                           <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">Number of Children</label>
                             <input type="number" placeholder="Enter Number of Children" value={childrenCount} onChange={e => setChildrenCount(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
@@ -426,13 +667,12 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                         )}
                       </div>
 
-                      {/* Maternity Plan (Couple/Family only) */}
-                      {['Couple', 'Family'].includes(hiBeneficiary) && (
+                      {['couple', 'family'].includes(hiBeneficiary.toLowerCase()) && (
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-3">Maternity Plan</label>
                           <div className="flex flex-wrap gap-4">
-                            {['Standard', 'Delux', 'No Maternity'].map(plan => (
-                              <OptionButton key={plan} label={plan} selected={maternityPlan === plan} onClick={() => setMaternityPlan(plan)} />
+                            {hiMaternityPlans.map(plan => (
+                              <OptionButton key={plan.id || plan.name} label={plan.name} selected={maternityPlan === plan.name} onClick={() => setMaternityPlan(plan.name)} />
                             ))}
                           </div>
                         </div>
@@ -441,13 +681,12 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                   )}
                 </div>
 
-                {/* Critical Illness (CI) */}
                 <div className="border-t border-gray-100 pt-6">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-sm font-semibold text-gray-800">Critical Illness (CI)</h3>
                     <button
                       onClick={() => handleToggle(setCiEnabled, ciEnabled)}
-                      className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${ciEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                      className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${ciEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isValidSumAssured ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                     >
                       <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${ciEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
                         {ciEnabled && <Check size={10} className="text-[#F37021]" />}
@@ -457,14 +696,13 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
                   {ciEnabled && (
                     <div className="flex gap-4 pt-2">
-                      {['50%', '100%'].map(opt => (
-                        <OptionButton key={opt} label={opt} selected={ciOption === opt} onClick={() => setCiOption(opt)} />
+                      {ciPercentages.map(opt => (
+                        <OptionButton key={opt.percentage} label={opt.percentage + '%'} selected={ciOption === opt.percentage + '%'} onClick={() => setCiOption(opt.percentage + '%')} />
                       ))}
                     </div>
                   )}
                 </div>
 
-                {/* PDAB */}
                 <div className="border-t border-gray-100 pt-6 flex items-center justify-between">
                   <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
                     Permanent Disability Accidental Benefit (PDAB)
@@ -472,7 +710,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                   </h3>
                   <button
                     onClick={() => handleToggle(setPdabEnabled, pdabEnabled, true, false)}
-                    className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${pdabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                    className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${pdabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isValidSumAssured ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                   >
                     <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${pdabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
                       {pdabEnabled && <Check size={10} className="text-[#F37021]" />}
@@ -480,7 +718,6 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                   </button>
                 </div>
 
-                {/* DIAB */}
                 <div className="pt-2 flex items-center justify-between pb-6">
                   <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
                     Double Indemnity Accidental Benefit (DIAB)
@@ -488,32 +725,31 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                   </h3>
                   <button
                     onClick={() => handleToggle(setDiabEnabled, diabEnabled, false, true)}
-                    className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${diabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isSumAssuredFilled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                    className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${diabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isValidSumAssured ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                   >
                     <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${diabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
                       {diabEnabled && <Check size={10} className="text-[#F37021]" />}
                     </div>
                   </button>
                 </div>
-              </>
+
+                {/* Footer / Results Button */}
+                <div className="mt-8 flex justify-center border-t border-gray-100 pt-8">
+                  <Button
+                    label={isCalculating ? "Calculating..." : "Check Premium"}
+                    onClick={isCalculating ? undefined : handleCheckPremium}
+                  />
+                </div>
+              </div>
             )}
-
           </div>
-
-          {/* Footer */}
-          {isProcessed && (
-            <div className="mt-8 flex justify-center">
-              <Button
-                label="Check Premium"
-                onClick={() => setIsDetailsModalOpen(true)}
-              />
-            </div>
-          )}
         </div>
       </div>
 
       <PremiumDetailsModal
         isOpen={isDetailsModalOpen}
+        data={calculationData}
+        pdabLabel={diabEnabled ? "DIAB" : "PDAB"}
         onClose={() => {
           setIsDetailsModalOpen(false);
           handleClose(); // Close both modals
