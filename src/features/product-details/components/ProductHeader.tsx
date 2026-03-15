@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import type { HeaderData } from '../../../shared/types/header';
 import GenericHeader from '../../../shared/Components/GenericHeader';
 import Button from '../../../shared/Components/Button';
-import { usePopup } from '../../../shared/context/PopupContext';
 import CalculatePremiumModal from './CalculatePremiumModal';
+import { openReveChat } from '../../../shared/utils/revechat';
 import type {PlanNumber} from "../types.ts";
 
 interface ProductHeaderProps {
@@ -12,7 +12,6 @@ interface ProductHeaderProps {
 }
 
 const ProductHeader: React.FC<ProductHeaderProps> = ({ data, planNumbers }) => {
-    const { showPopup } = usePopup();
     const [isCalculateModalOpen, setIsCalculateModalOpen] = useState(false);
 
     const actions = (
@@ -25,7 +24,7 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({ data, planNumbers }) => {
             <Button
                 label="AI Assistant"
                 variant="solid-white"
-                onClick={() => showPopup()}
+                onClick={openReveChat}
             />
         </>
     );

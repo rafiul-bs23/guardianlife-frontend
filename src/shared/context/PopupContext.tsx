@@ -21,7 +21,7 @@ export const PopupProvider = ({ children }: { children: React.ReactNode }) => {
   const [options, setOptions] = useState<PopupOptions>({});
 
   const showPopup = useCallback((opts?: PopupOptions) => {
-    console.log(opts);
+
     setOptions(opts ?? {});
     setIsOpen(true);
   }, []);

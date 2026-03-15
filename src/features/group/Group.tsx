@@ -13,11 +13,9 @@ import AppDownloadSection from "../../shared/Components/AppDownloadSection.tsx";
 import PartnersSlider from "../../shared/Components/PartnersSlider.tsx";
 import GroupContactForm from "./components/GroupContactForm.tsx";
 import { useHeader } from "../../shared/hooks/useHeader.ts";
-import { MOCK_GROUP_HEADER_DATA } from "./api/mockData.ts";
 
 const Group = () => {
-  const { data: headerData, isLoading: isHeaderLoading } = useHeader("group-info", true, MOCK_GROUP_HEADER_DATA);
-
+  const { data: headerData, isLoading: isHeaderLoading } = useHeader("group-info");
   if (isHeaderLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">

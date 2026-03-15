@@ -1,11 +1,15 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import type { BancaBranch } from '../types';
+import type { BancaBranch, PaginationData } from '../types';
+import Pagination from '../../../shared/Components/Pagination';
 
 interface BranchTableSectionProps {
     branches: BancaBranch[];
     is_loading: boolean;
     error: string | null;
+    pagination: PaginationData | null;
+    current_page: number;
+    on_page_change: (page: number) => void;
 }
 
 const SkeletonRow = ({ col_count }: { col_count: number }) => (
@@ -18,8 +22,18 @@ const SkeletonRow = ({ col_count }: { col_count: number }) => (
     </tr>
 );
 
-const BranchTableSection: React.FC<BranchTableSectionProps> = ({ branches, is_loading, error }) => {
+const BranchTableSection: React.FC<BranchTableSectionProps> = ({
+    branches,
+    is_loading,
+    error,
+    pagination,
+    current_page,
+    on_page_change
+}) => {
     const { t } = useTranslation('banca_city');
+    const ITEMS_PER_PAGE = 10;
+    const startIndex = (current_page - 1) * ITEMS_PER_PAGE;
+
     return (
         <section className="pb-20 bg-white">
             <div className="max-w-[1200px] mx-auto px-4">
@@ -51,7 +65,7 @@ const BranchTableSection: React.FC<BranchTableSectionProps> = ({ branches, is_lo
                                     branches.map((branch, index) => (
                                         <tr key={index} className="hover:bg-primary/10 transition-colors even:bg-gray-50">
                                             <td className="px-8 py-5 font-medium text-gray-500 whitespace-nowrap">
-                                                {index + 1}
+                                                {startIndex + index + 1}
                                             </td>
                                             <td className="px-8 py-5 whitespace-nowrap">
                                                 <span className="font-semibold text-gray-800">
@@ -88,10 +102,11 @@ const BranchTableSection: React.FC<BranchTableSectionProps> = ({ branches, is_lo
                             </tbody>
                         </table>
                     </div>
-                    {!is_loading && !error && branches.length > 0 && (
-                        <div className="px-8 py-3 border-t border-gray-100 bg-gray-50 text-sm text-gray-500">
-                            {t('table.footer.showing')} <span className="font-semibold text-gray-700">{branches.length}</span> {branches.length !== 1 ? t('table.footer.results_plural') : t('table.footer.results')}
-                        </div>
+                    {pagination && (
+                        <Pagination
+                            pagination={pagination}
+                            onPageChange={on_page_change}
+                        />
                     )}
                 </div>
             </div>

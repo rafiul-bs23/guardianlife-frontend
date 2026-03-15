@@ -20,7 +20,7 @@ const AgentTable = ({
     current_page,
     on_page_change,
 }: AgentTableProps) => {
-    const { t, i18n } = useTranslation('agent_list');
+    const { t } = useTranslation('agent_list');
     const start_index = (current_page - 1) * 10;
 
     const TABLE_COLUMNS = [
@@ -35,16 +35,6 @@ const AgentTable = ({
         t('table.headers.working_area'),
         t('table.headers.address'),
     ];
-
-    const format_date = (date_str?: string | null): string => {
-        if (!date_str) return '—';
-        const date = new Date(date_str);
-        return date.toLocaleDateString(i18n.language === 'bn' ? 'bn-BD' : 'en-GB', {
-            day: '2-digit',
-            month: 'short',
-            year: 'numeric',
-        });
-    };
 
     const is_expired = (expiry_date?: string | null): boolean => {
         if (!expiry_date) return false;
@@ -152,7 +142,7 @@ const AgentTable = ({
 
                                         {/* Issue Date */}
                                         <td className="px-4 py-3.5 text-gray-600 whitespace-nowrap">
-                                            {format_date(agent?.license_issue_date)}
+                                            {agent?.license_issue_date}
                                         </td>
 
                                         {/* Expiry Date */}
@@ -161,7 +151,7 @@ const AgentTable = ({
                                                 className={`text-sm font-medium ${expired ? 'text-red-500' : 'text-green-600'
                                                     }`}
                                             >
-                                                {format_date(agent?.license_expiry_date)}
+                                                {agent?.license_expiry_date}
                                             </span>
                                             {expired && (
                                                 <span className="ml-1.5 inline-block px-1.5 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-600 uppercase">

@@ -18,7 +18,6 @@ export const useAgentList = (): UseAgentListResult => {
 
         try {
             const response = await get_agents({ page, limit: 10 });
-            console.log(response);
 
             if (response?.status) {
                 set_agents(response?.data?.agents ?? []);

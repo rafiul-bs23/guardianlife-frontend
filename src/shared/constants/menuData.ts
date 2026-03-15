@@ -84,27 +84,27 @@ export const MENU_DATA: MenuItem[] = [
             {
                 label: "Term Life Insurance",
                 children: [
-                    { label: "Easylife Special", path: "/products/easylife-special" },
-                    { label: "Easylife Plus Special", path: "/products/easylife-plus-special" },
+                    { label: "Easylife Special", path: "/quick-buy-details/easylife-special" },
+                    { label: "Easylife Plus Special", path: "/quick-buy-details/easylife-plus-special" },
                 ]
             },
             {
                 label: "Savings Plan",
                 children: [
-                    { label: "Easylife MSP", path: "/products/easylife-msp" },
+                    { label: "Easylife MSP", path: "/quick-buy-details/easylife-msp" },
                 ]
             },
             {
                 label: "Women's Savings Plan",
                 children: [
-                    { label: "JAYA", path: "/products/jaya" },
+                    { label: "JAYA", path: "/quick-buy-details/jaya" },
                 ]
             },
             {
                 label: "Special Insurance Plans",
                 children: [
-                    { label: "Cancer Care", path: "/products/cancer-care-plan" },
-                    { label: "Guardian Accident Care", path: "/products/accident-care" },
+                    { label: "Cancer Care", path: "/quick-buy-details/cancer-care-plan" },
+                    { label: "Guardian Accident Care", path: "/quick-buy-details/accident-care" },
                 ]
             }
         ]

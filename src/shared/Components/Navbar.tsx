@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 
@@ -110,14 +110,34 @@ const NavItem: React.FC<{
 
 const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
     const [isOpened, setIsOpened] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
 
-    const HamburgerColor = transparent ? 'bg-white' : 'bg-primary';
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const HamburgerColor = (transparent && !isScrolled) ? 'bg-white' : 'bg-primary';
 
     const toggleDrawer = () => setIsOpened(!isOpened);
 
+    const navBackground = (transparent && !isScrolled)
+        ? 'bg-transparent'
+        : isScrolled
+            ? 'bg-white/80 backdrop-blur-md shadow-lg'
+            : 'bg-white';
+
     return (
         <>
-            <nav className={`w-full fixed top-0 left-0 ${transparent ? 'bg-transparent' : 'bg-white/80 backdrop-blur-md'} px-4 md:px-10 lg:px-20 md:h-28 h-20 flex items-center justify-between relative z-[900] transition-all duration-300`}>
+            <nav className={`w-full fixed top-0 left-0 ${navBackground} px-4 md:px-10 lg:px-20 ${isScrolled ? 'md:h-24 h-16' : 'md:h-28 h-20'} flex items-center justify-between z-[9999] transition-all duration-300`}>
 
                 <div className={`flex items-center ${GAPS.NAVBAR_LEFT_ITEMS}`}>
                     {/* Hamburger Menu Icon */}
@@ -134,11 +154,11 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
 
                 {/* Centered Logo in Orange Container */}
                 <Link to="/">
-                    <div className="absolute left-1/2 -translate-x-1/2 top-0 md:h-28 h-20 w-32 md:w-64 bg-primary rounded-b-[35px] flex items-center justify-center shadow-[0_10px_30px_rgba(235,105,37,0.3)] transition-all hover:h-30 group">
+                    <div className={`absolute left-1/2 -translate-x-1/2 top-0 ${isScrolled ? 'md:h-20 h-16 w-24 md:w-56' : 'md:h-28 h-20 w-32 md:w-64'} bg-primary rounded-b-[35px] flex items-center justify-center shadow-[0_10px_30px_rgba(235,105,37,0.3)] transition-all hover:h-30 group`}>
                         <img
                             src="/assets/images/shared/logo.png"
                             alt="Guardian Logo"
-                            className="w-[100px] md:w-[180px] object-contain mb-2 px-4 transition-transform group-hover:scale-110"
+                            className={`transition-all duration-300 ${isScrolled ? 'w-[70px] md:w-[130px]' : 'w-[100px] md:w-[180px]'} object-contain mb-2 px-4 group-hover:scale-110`}
                         />
                     </div>
                 </Link>
@@ -146,7 +166,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
                 {/* Right Side Actions */}
                 <div className={`flex items-center ${GAPS.NAVBAR_RIGHT_ACTIONS}`}>
 
-                    <LanguageToggle />
+                    <LanguageToggle scrolled={!transparent || isScrolled} />
                     <Button
                         label="Login"
                         variant='base'

@@ -1,5 +1,6 @@
 
 import axios, { AxiosError } from 'axios';
+import i18n from '../i18n';
 
 import type {
   AxiosInstance,
@@ -24,6 +25,12 @@ axiosClient.interceptors.request.use(
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
+    // Set Accept-Language header based on current i18n language
+    if (config.headers) {
+      config.headers['Accept-Language'] = i18n.language || 'en';
+    }
+
     return config;
   },
   (error: AxiosError) => {

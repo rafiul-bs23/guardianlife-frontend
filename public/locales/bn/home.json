@@ -1,5 +1,5 @@
 {
-    "sponsored_by": "B sponsored by",
+    "sponsored_by": "স্পন্সর",
     "header": {
         "help_question": "B How can we help?",
         "search_placeholder": "B How to claim online..",
@@ -7,45 +7,45 @@
         "live_coverage": "B Live Coverage",
         "quick_buy": "B Quick Buy",
         "claim_settlement": "B Claim Settlement",
-        "hero_text": "B LET'S TALK ABOUT LIFE. MORE!",
-        "scroll": "B Scroll"
+        "hero_text": "জীবনের ডাক শুনুন।",
+        "scroll": "স্ক্রল করুন"
     },
     "guide_you": {
-        "title": "B May i guide you",
-        "description": "B Let our AI Assistant help you find the best policy — just answer a few quick questions!",
-        "button": "B AI ASSISTANT"
+        "title": "আমি কি আপনাকে সাহায্য করতে পারি?",
+        "description": "আমাদের এআই সহকারী আপনার জন্য সেরা বীমা পলিসি খুঁজে দিতে সাহায্য করবে — মাত্র কয়েকটি সহজ প্রশ্নের উত্তর দিন!",
+        "button": "এআই সহকারী"
     },
     "solutions": {
-        "title": "B OUR SOLUTIONS",
-        "heading": "B SECURE YOUR FAMILY'S FUTURE, PLAN YOUR RETIREMENT, OR PROTECT YOUR HEALTH— WE'VE GOT YOU COVERED.",
+        "title": "আমাদের পলিসি সমূহ",
+        "heading": "আপনার ও আপনার পরিবারের সুরক্ষা, অবসর পরিকল্পনা বা স্বাস্থ্য বীমা — আমরা সব ক্ষেত্রেই আপনার আছি আপনার পাশে।",
         "tabs": {
-            "for_you": "B For You",
-            "for_your_family": "B For Your Family",
-            "retirement": "B Retirement",
-            "islamic": "B Islamic"
+            "for_you": "আপনার জন্য",
+            "for_your_family": "পরিবারের জন্য",
+            "retirement": "অবসর পরিকল্পনা",
+            "islamic": "ইসলামিক বীমা"
         }
     },
     "partners_bank": {
-        "title": "B OUR PARTNERS BANK",
-        "heading": "B DROP BY A PARTNER BANK OR HOP ONLINE TO EXPLORE AND GRAB YOUR GUARDIAN LIFE INSURANCE PLAN—SIMPLE AND TAILORED FOR YOU."
+        "title": "আমাদের পার্টনারস ব্যাংক",
+        "heading": "আমাদের যেকোনো পার্টনার ব্যাংকে গিয়ে বা অনলাইনে গার্ডিয়ান লাইফ ইন্স্যুরেন্স পরিকল্পনাগুলো খুঁজে নিন — সহজে এবং এগুলো শুধু আপনার জন্যই তৈরি।"
     },
     "business_partners": {
-        "title": "B Power up your business with\nGuardian Life Insurance.",
-        "description": "B Join 450+ organizations that trust us —\nthe industry leader in group coverage.\nThe best choice to protect and\nempower your employees.",
-        "button": "B Explore Opportunities"
+        "title": "আপনার ব্যবসাকে আরও শক্তিশালী করুন গার্ডিয়ান লাইফের সাথে।",
+        "description": "৪৫০+ প্রতিষ্ঠান আমাদের উপর আস্থা রাখেছে — গ্রুপ বীমায় আমরাই শীর্ষে।\nআপনার কর্মীদের সুরক্ষা ও উন্নতির সেরা পছন্দ।",
+        "button": "বিস্তারিত →"
     },
     "empowering_families": {
-        "title": "B Empowering Families with\nGuardian Life Insurance.",
-        "description": "B Join 10,000+ families that trust us —\nthe industry leader in microinsurance.\nAffordable protection for all —\nempowering underserved communities.",
-        "button": "B Check Services"
+        "title": "মাইক্রো ইন্স্যুরেন্স আপনার পরিবারের ক্ষমতায়নে - গার্ডিয়ান লাইফ ইন্স্যুরেন্স আছে আপনার সাথে।",
+        "description": "১০,০০০+ পরিবার আমাদের বিশ্বাস করে — মাইক্রো ইন্স্যুরেন্স-এ আমরাই সেরা। সাশ্রয়ী মূল্যে সুরক্ষা — সুবিধাবঞ্চিত সম্প্রদায়ের ক্ষমতায়নে।",
+        "button": "বিস্তারিত →"
     },
     "promotion": {
-        "title": "B OUR AMAZING NEW APP",
-        "heading": "B SEAMLESS INSURANCE AT YOUR FINGERTIPS",
-        "description": "B THE GUARDIAN LIFE APP PUTS HASSLE-FREE COVERAGE IN YOUR HANDS.\nDOWNLOAD NOW ON ANDROID & IOS TO MANAGE YOUR INSURANCE ANYTIME, ANYWHERE."
+        "title": "গার্ডিয়ান লাইফ অ্যাপ",
+        "heading": "নিরবচ্ছিন্ন বীমা এখন আপনার হাতের মুঠোয়",
+        "description": "গার্ডিয়ান লাইফ অ্যাপ দিয়ে যেকোনো সময়, যেকোনো জায়গা থেকে আপনার বীমা পরিচালনা করুন।\nএখনই ডাউনলোড করুন অ্যান্ড্রয়েড ও আইওএসে।"
     },
     "contact": {
-        "title": "B Get in touch",
-        "subtitle": "B Our team would love to hear from you."
+        "title": "যোগাযোগ করুন",
+        "subtitle": "আমাদের টিম আপনার কথা গুলো শুনতে প্রস্তুত।"
     }
 }

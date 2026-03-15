@@ -9,7 +9,6 @@ import type { HeaderResponse } from '../../../shared/types/header';
 export const fetchHeaderData = async (productId: string): Promise<HeaderResponse> => {
     return new Promise((resolve) => {
         setTimeout(() => {
-            console.log(`Fetching header data for quick-buy product: ${productId}`);
             resolve(MOCK_HEADER_DATA);
         }, 500);
     });
