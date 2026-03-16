@@ -387,7 +387,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   return (
     <>
       <div className={`fixed inset-0 z-[99999] flex justify-center items-start overflow-y-auto bg-black/40 backdrop-blur-sm p-4 sm:p-6 lg:p-10 ${isDetailsModalOpen ? 'hidden' : ''}`}>
-        <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-[1428px] mx-auto p-6 sm:p-8 lg:p-12">
+        <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-[900px] mx-auto p-6 sm:p-8 lg:p-12">
           <button
             onClick={handleClose}
             className="absolute top-6 right-6 w-[50px] h-[50px] flex items-center justify-center rounded-full bg-orange-100 text-orange-500 hover:bg-orange-200 transition-colors"
