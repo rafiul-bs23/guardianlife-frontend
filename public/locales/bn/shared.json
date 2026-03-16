@@ -109,5 +109,27 @@
             "message_required": "B Message is required.",
             "privacy_policy_required": "B You must agree to the privacy policy."
         }
+    },
+    "footer": {
+        "description": "গার্ডিয়ান লাইফ ইন্স্যুরেন্স লিমিটেড বিশ্বমানের বীমা সমাধান এবং ব্যতিক্রমী গ্রাহক সেবা প্রদানের মাধ্যমে তার সম্মানিত গ্রাহকদের জন্য একটি উন্নত এবং আরও সুরক্ষিত ভবিষ্যৎ তৈরি করার প্রতিশ্রুতি নিয়ে যাত্রা শুরু করেছে।",
+        "copyright": "© ২০২৫ গার্ডিয়ান লাইফ ইন্স্যুরেন্স - সর্বস্বত্ব সংরক্ষিত",
+        "links": {
+            "about_us": "আমাদের সম্পর্কে",
+            "bancassurance": "ব্যাংকাস্যুরেন্স",
+            "microinsurance": "মাইক্রো ইন্স্যুরেন্স",
+            "privacy_policies": "গোপনীয়তা নীতিমালা",
+            "term_life": "মেয়াদী বীমা",
+            "employee": "কর্মী বীমা",
+            "claims": "দাবি",
+            "careers": "ক্যারিয়ার",
+            "faqs": "জিজ্ঞাসিত প্রশ্ন",
+            "tax_certificate": "কর সনদ",
+            "payment_channels": "পেমেন্ট মাধ্যম",
+            "contact_us": "যোগাযোগ",
+            "savings": "সঞ্চয়",
+            "group_insurance": "গ্রুপ বীমা",
+            "partner_channels": "পার্টনার চ্যানেল",
+            "form_library": "ফর্ম লাইব্রেরি"
+        }
     }
 }
