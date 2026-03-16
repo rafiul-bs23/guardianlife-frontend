@@ -97,5 +97,27 @@
             "message_required": "Message is required.",
             "privacy_policy_required": "You must agree to the privacy policy."
         }
+    },
+    "footer": {
+        "description": "Guardian Life Insurance Limited began its journey with a commitment to creating a better and more secure future for its valued customers by offering world-class insurance solutions and exceptional customer service.",
+        "copyright": "© 2025 Guardian Life Insurance - All Rights Reserved",
+        "links": {
+            "about_us": "About Us",
+            "bancassurance": "Bancassurance",
+            "microinsurance": "Microinsurance",
+            "privacy_policies": "Privacy Policies",
+            "term_life": "Term Life",
+            "employee": "Employee",
+            "claims": "Claims",
+            "careers": "Careers",
+            "faqs": "FAQs",
+            "tax_certificate": "Tax Certificate",
+            "payment_channels": "Payment Channels",
+            "contact_us": "Contact Us",
+            "savings": "Savings",
+            "group_insurance": "Group Insurance",
+            "partner_channels": "Partner Channels",
+            "form_library": "Form Library"
+        }
     }
 }

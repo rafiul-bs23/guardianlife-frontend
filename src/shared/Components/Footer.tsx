@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { footerLinksData } from '../constants/footerData';
 
 const Footer: React.FC = () => {
+  const { t } = useTranslation('shared');
   // Split links into columns of 6
   const columns = [];
   for (let i = 0; i < footerLinksData.length; i += 6) {
@@ -22,9 +24,7 @@ const Footer: React.FC = () => {
               className="mx-auto lg:mx-0 w-auto h-[88px] mb-8"
             />
             <p className="not-italic font-normal text-[16px] leading-[24px]">
-              Guardian Life Insurance Limited began its journey with a commitment to creating a better and more secure
-              future for its valued customers by offering world-class insurance solutions and exceptional customer
-              service.
+              {t('footer.description')}
             </p>
           </div>
 
@@ -42,11 +42,11 @@ const Footer: React.FC = () => {
                           rel="noopener noreferrer"
                           className="hover:opacity-100 transition-opacity font-medium text-[16px] leading-[24px]"
                         >
-                          {link.name}
+                          {t(`footer.links.${link.name}`)}
                         </a>
                       ) : (
                         <Link to={link.path} className="hover:opacity-100 transition-opacity font-medium text-[16px] leading-[24px]">
-                          {link.name}
+                          {t(`footer.links.${link.name}`)}
                         </Link>
                       )}
                     </li>
@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
         {/* Copyright and Social Links */}
         <div className="border-t border-white/20 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm opacity-90">
-            © 2025 Guardian Life Insurance - All Rights Reserved
+            {t('footer.copyright')}
           </p>
           <div className="flex items-center gap-4">
             <a
