@@ -1,6 +1,6 @@
 {
     "who_we_are": {
-        "title": "B WHO WE ARE",
+        "title": "আমাদের সম্পর্কে",
         "paragraphs": [
             "গার্ডিয়ান লাইফ ইন্স্যুরেন্স লিমিটেড বাংলাদেশের একটি শীর্ষস্থানীয় জীবন বীমা প্রতিষ্ঠান। ২০১৪ সালের ৯ জানুয়ারি গার্ডিয়ান লাইফ আনুষ্ঠানিকভাবে যাত্রা শুরু করে — বাংলাদেশের মানুষের জন্য সাশ্রয়ী, বিশ্বস্ত এবং উদ্ভাবনী বীমা সমাধান প্রদানের প্রতিশ্রুতি নিয়ে।",
             "বিডিটি ৩৩.৬৭ কোটি টাকার অনুমোদিত মূলধন এবং বিডিটি ২০০ কোটি টাকার বিনিয়োগকৃত মূলধন নিয়ে গার্ডিয়ান লাইফ বাংলাদেশের বীমা খাতে একটি শক্তিশালী অবস্থান তৈরি করেছে।",
@@ -69,24 +69,24 @@
         "description": "সূচনার পর থেকেই গার্ডিয়ান লাইফ ইন্স্যুরেন্স লিমিটেড ক্রমাগত বৃদ্ধি পেয়েছে এবং নিজেকে বীমা শিল্পে একটি বিশ্বস্ত নাম হিসাবে প্রতিষ্ঠিত করেছে। বছরের পর বছর ধরে, আমাদের কোম্পানির পণ্যের অফারগুলি প্রসারিত হয়েছে, বাজারের গতিশীলতার পরিবর্তনের সাথে খাপ খাইয়ে নিয়েছে এবং গ্রাহকদের আরও ভালভাবে সেবা দেওয়ার জন্য প্রযুক্তিগত অগ্রগতি গ্রহণ করেছে। কোম্পানির মাইলফলক হল গ্রাহক সন্তুষ্টি, উদ্ভাবনী সমাধান এবং শক্তিশালী নেতৃত্ব।"
     },
     "governance_trust": {
-        "title": "B Governance & Trust",
-        "description": "B Guardian Life Insurance Limited operates under strong regulatory compliance and ethical governance frameworks. Regulated by the appropriate authorities, we emphasize transparency, accountability, and responsible risk management to safeguard the interests of our policyholders and stakeholders.",
+        "title": "সুশাসন ও আস্থা",
+        "description": "গার্ডিয়ান লাইফ ইন্স্যুরেন্স লিমিটেড একটি শক্তিশালী কর্পোরেট সুশাসন কাঠামোর উপর প্রতিষ্ঠিত। আমাদের পরিচালনা পর্ষদ, ব্যবস্থাপনা দল এবং অভ্যন্তরীণ নিয়ন্ত্রণ ব্যবস্থা নিশ্চিত করে যে প্রতিষ্ঠানটি সততা, স্বচ্ছতা এবং জবাবদিহিতার সর্বোচ্চ মান বজায় রাখে।",
         "points": [
             {
-                "title": "B IDRA Regulated",
-                "description": "B Fully compliant with Insurance Development & Regulatory Authority guidelines"
+                "title": "পরিচালনা পর্ষদ",
+                "description": "অভিজ্ঞ ও দক্ষ পরিচালকদের নিয়ে গঠিত পর্ষদ প্রতিষ্ঠানের দীর্ঘমেয়াদি কৌশল নির্ধারণ করে।"
             },
             {
-                "title": "B AA3 CRAB Rating",
-                "description": "B Recognized for financial stability and operational excellence"
+                "title": "আর্থিক স্বচ্ছতা",
+                "description": "নিয়মিত আর্থিক প্রতিবেদন ও নিরীক্ষার মাধ্যমে সম্পূর্ণ আর্থিক স্বচ্ছতা নিশ্চিত করা হয়।"
             },
             {
-                "title": "B Risk Management",
-                "description": "B Robust frameworks ensuring policyholder protection and sustainable growth"
+                "title": "ঝুঁকি ব্যবস্থাপনা",
+                "description": "একটি শক্তিশালী ঝুঁকি ব্যবস্থাপনা কাঠামো প্রতিষ্ঠানের স্থিতিশীলতা নিশ্চিত করে।"
             },
             {
-                "title": "B Strong Capital Base",
-                "description": "B BDT 33.67 Crores paid-up capital with BDT 200 Crores authorized capital"
+                "title": "নিয়ন্ত্রক সম্মতি",
+                "description": "বীমা উন্নয়ন ও নিয়ন্ত্রণ কর্তৃপক্ষের (আইডিআরএ) সকল নির্দেশনা মেনে চলা হয়।"
             }
         ]
     }
