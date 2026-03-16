@@ -3,8 +3,8 @@
         "title": "B FAQ"
     },
     "default": {
-        "title": "B FREQUENTLY ASKED QUESTIONS",
-        "subtitle": "B Get answers to common questions about Guardian Life insurance products and services.",
+        "title": "কিছু সাধারণ প্রশ্ন এবং তার উত্তর",
+        "subtitle": "মাইক্রোইন্স্যুরেন্স সম্পর্কে সাধারণ প্রশ্নের উত্তর পান।",
         "error_title": "B Failed to load FAQs"
     }
 }

@@ -74,8 +74,8 @@
             "applying_position": "আবেদনকৃত পদ",
             "upload_cv": "সিভি আপলোড করুন",
             "message": "বার্তা",
-            "privacy_policy_intro": "B You agree to our",
-            "privacy_policy_link": "B privacy policy"
+            "privacy_policy_intro": "বার্তা পাঠানোর মাধ্যমে আপনি সম্মত হচ্ছেন আমাদের",
+            "privacy_policy_link": "গোপনীয়তা নীতিতে"
         },
         "placeholders": {
             "full_name": "আপনার পূর্ণ নাম লিখুন",
