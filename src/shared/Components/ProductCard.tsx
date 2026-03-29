@@ -76,11 +76,12 @@ const ProductCardWithActionButton = ({
         )}
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 mt-auto pt-8">
+        <div className="flex flex-col sm:flex-row gap-4 mt-auto pt-8 mx-auto">
           <div className="flex-1">
             <Button
               label={t('product_card.view_details')}
               to={`/quick-buy-details/${product_code}`}
+              variant="outline-orange"
             />
           </div>
           <div className="flex-1">

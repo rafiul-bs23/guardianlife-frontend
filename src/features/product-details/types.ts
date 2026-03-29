@@ -53,7 +53,13 @@ export interface PlanBreakdownSection {
 
 // LearnMoreSection is now imported from shared
 
+export interface PlanNumber {
+  plan_no: string;
+  name: string;
+}
+
 export interface ProductData {
+  plan_numbers: PlanNumber[];
   quick_product_section: QuickProductSection;
   product_journey_section: ProductJourneySection;
   key_highlights_section: KeyHighlightsSection;
@@ -113,3 +119,109 @@ export interface BoostCoverageItem {
 }
 
 export type BoostYourCoverage = Record<string, BoostCoverageItem>;
+
+export interface ProposalCreatePayload {
+  full_name: string;
+  contact_no: string;
+  date_of_birth: string;
+  gender: string;
+  plan_no: string;
+  policy_term: number;
+  annuity_pension_unit: number;
+  hi_premium: number;
+  maternity_premium: number;
+  ci_premium: number;
+  pdab_premium: number;
+  diab_premium: number;
+  supplementary_premium: number;
+  total_premium: number;
+  hi_sum_assured: number;
+  ci_sum_assured: number;
+  pdab_sum_assured: number;
+  diab_sum_assured: number;
+  sum_assured: number;
+  sum_at_risk: number;
+  pay_mode: number;
+}
+
+export interface ProposalCreateResponse {
+  status: boolean;
+  message: string;
+  transactionId?: string;
+}
+
+export interface PlanNumber {
+  plan_no: string;
+  name: string;
+}
+export interface PaymentMode {
+  serial: number;
+  name: string;
+}
+// export interface HiOption {
+//   id: number;
+//   plan_no: string;
+//   name: string;
+// }
+export interface HiBeneficiary {
+  id: number;
+  name: string;
+}
+export interface HiMaternityPlan {
+  id: number;
+  name: string;
+}
+export interface HiHealthPlans {
+  id: number;
+  parent_id: string;
+  name: string;
+  max_age: string;
+  sum_assured: string;
+}
+
+export interface CiPercentage {
+  percentage: string;
+}
+
+export interface TermOption {
+  id: number;
+  term: number;
+}
+
+export interface SupplementaryInfoItem {
+  supplementary_name: string;
+  beneficiaries?: HiBeneficiary[];
+  hi_maternity_plan?: HiMaternityPlan[];
+  health_insurance?: HiHealthPlans[];
+  ci_percentage?: CiPercentage[];
+}
+
+export interface CalculationDocPayload {
+  name: string;
+  age: number;
+  gender: string;
+  date_of_birth: string;
+  plan_no: string;
+  term: number;
+  payment_mode: string;
+  sum_assured: number;
+  life_sum_assured: number;
+  installment_premium: number;
+  life_premium: number;
+  ci_premium: number | null;
+  diab_premium: number | null;
+  pdab_premium: number | null;
+  hi_premium: number | null;
+  hi_sum_assured: string | null;
+  phone: string;
+  payment_mode_id?: number | null;
+}
+
+export interface CalculationResult {
+  total_premium: number;
+  life_premium: number;
+  ci_premium?: number;
+  pdab_diab_premium?: number;
+  total_hi_premium?: number;
+  docPayload?: CalculationDocPayload;
+}

@@ -1,14 +1,22 @@
-import React, { useEffect } from 'react';
-import { X, Info } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { X, Info, Download } from 'lucide-react';
 import Button from "../../../shared/Components/Button.tsx";
+import { getPremiumDocument, createProposal } from '../api';
+import { CheckCircle } from 'lucide-react';
 
 interface PremiumDetailsModalProps {
     isOpen: boolean;
+    data: any;
+    pdabLabel: string;
     onClose: () => void;
     onCheckAgain: () => void;
 }
 
-const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, onClose, onCheckAgain }) => {
+const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, data, pdabLabel, onClose, onCheckAgain }) => {
+    const [isDownloading, setIsDownloading] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showToast, setShowToast] = useState(false);
+
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
@@ -19,6 +27,91 @@ const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, onClo
             document.body.style.overflow = '';
         };
     }, [isOpen]);
+
+    const handleDownloadDetails = async () => {
+        if (!data?.docPayload) {
+            alert("Document data not available");
+            return;
+        }
+
+        try {
+            setIsDownloading(true);
+            const response = await getPremiumDocument(data.docPayload);
+            if (response && response.status && response.data?.document) {
+                const base64String = response.data.document;
+                const byteCharacters = atob(base64String);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                const blob = new Blob([byteArray], { type: 'application/pdf' });
+                
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'premium-details.pdf');
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode?.removeChild(link);
+                window.URL.revokeObjectURL(url);
+            } else {
+                alert(response?.message || "Failed to download document");
+            }
+        } catch (error) {
+            console.error("Download Error:", error);
+            alert("Error downloading document");
+        } finally {
+            setIsDownloading(false);
+        }
+    };
+
+    const handleProceedToProposal = async () => {
+        if (!data?.docPayload) {
+            alert("Proposal data not available");
+            return;
+        }
+
+        const payload = {
+            full_name: data.docPayload.name,
+            contact_no: data.docPayload.phone,
+            date_of_birth: data.docPayload.date_of_birth,
+            gender: data.docPayload.gender,
+            plan_no: data.docPayload.plan_no,
+            policy_term: data.docPayload.term,
+            annuity_pension_unit: data.docPayload.sum_assured,
+            hi_premium: data.total_hi_premium || 0,
+            maternity_premium: 0,
+            ci_premium: data.ci_premium || 0,
+            pdab_premium: pdabLabel === "PDAB" ? (data.pdab_diab_premium || 0) : 0,
+            diab_premium: pdabLabel === "DIAB" ? (data.pdab_diab_premium || 0) : 0,
+            supplementary_premium: (data.total_hi_premium || 0) + (data.ci_premium || 0) + (data.pdab_diab_premium || 0),
+            total_premium: data.total_annual_premium || 0,
+            hi_sum_assured: data.docPayload.hi_sum_assured || 0,
+            ci_sum_assured: 0,
+            pdab_sum_assured: 0,
+            diab_sum_assured: 0,
+            sum_assured: data.sum_assured || 0,
+            sum_at_risk: data.sum_assured || 0,
+            pay_mode: data.docPayload.payment_mode_id
+        };
+
+        try {
+            setIsSubmitting(true);
+            const response = await createProposal(payload);
+            if (response && response.status) {
+                setShowToast(true);
+                setTimeout(() => setShowToast(false), 3000);
+            } else {
+                alert(response?.message || "Failed to submit proposal");
+            }
+        } catch (error) {
+            console.error("Submission Error:", error);
+            alert("Error submitting proposal");
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     if (!isOpen) return null;
 
@@ -40,43 +133,52 @@ const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, onClo
 
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                     <h3 className="text-xl sm:text-2xl font-medium text-gray-700">Benefit - Base Plan</h3>
-                    <button className="px-6 py-2 rounded-full border border-[#F37021] text-[#F37021] font-medium text-sm hover:bg-orange-50 transition-colors">
-                        Download Details
+                    <button 
+                        onClick={handleDownloadDetails}
+                        disabled={isDownloading}
+                        className="flex items-center gap-2 px-6 py-2 rounded-full border border-[#F37021] text-[#F37021] font-medium text-sm hover:bg-orange-50 transition-colors disabled:opacity-50"
+                    >
+                        {isDownloading ? "Downloading..." : (
+                            <>
+                                <Download size={18} />
+                                Download Details
+                            </>
+                        )}
                     </button>
                 </div>
 
                 <div className="space-y-4 text-gray-700 text-sm sm:text-base">
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
                         <span>Premium Rate</span>
-                        <span>৳134.53</span>
+                        <span>৳{data?.life_premium_rate || 0}</span>
                     </div>
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
                         <span>Basic Premium</span>
-                        <span>৳7063</span>
+                        <span>৳{new Intl.NumberFormat('en-IN').format(data?.life_premium || 0)}</span>
                     </div>
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
                         <span>Health Insurance Premium</span>
-                        <span>৳4253</span>
+                        <span>৳{new Intl.NumberFormat('en-IN').format(data?.total_hi_premium || 0)}</span>
                     </div>
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
                         <span>Critical Illness Premium</span>
-                        <span>৳77</span>
+                        <span>৳{new Intl.NumberFormat('en-IN').format(data?.ci_premium || 0)}</span>
                     </div>
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
                         <span className="flex items-center gap-1.5">
-                            PDAB
+                            {pdabLabel}
                             <Info size={14} className="text-gray-400" />
                         </span>
-                        <span>৳184</span>
+                        <span>৳{new Intl.NumberFormat('en-IN').format(data?.pdab_diab_premium || 0)}</span>
                     </div>
 
                     <div className="flex justify-between items-center pt-2 pb-3 font-bold text-gray-900 text-base sm:text-lg">
                         <span>Total Premium</span>
-                        <span>৳5,621</span>
+                        <span>৳{new Intl.NumberFormat('en-IN').format(data?.total_annual_premium || 0)}</span>
                     </div>
                     <div className="flex justify-between items-center font-bold text-gray-900 text-base sm:text-lg">
                         <span>Sum Assured</span>
-                        <span>৳100,000</span>
+                        <span>৳{new Intl.NumberFormat('en-IN').format(data?.sum_assured || 0)}</span>
                     </div>
                 </div>
 
@@ -87,9 +189,20 @@ const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, onClo
                       variant="outline-orange"
                     />
                     <Button
-                      label="Proceed To Proposal"
+                      label={isSubmitting ? "Submitting..." : "Proceed To Proposal"}
+                      onClick={isSubmitting ? undefined : handleProceedToProposal}
                     />
                 </div>
+                {/* Toast Notification */}
+                {showToast && (
+                    <div className="fixed bottom-8 right-8 z-[100000] flex items-center gap-3 bg-green-600 text-white px-6 py-4 rounded-xl shadow-2xl animate-in slide-in-from-right-10 duration-300">
+                        <CheckCircle size={24} />
+                        <div>
+                            <p className="font-bold">Success!</p>
+                            <p className="text-sm opacity-90">submitted</p>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

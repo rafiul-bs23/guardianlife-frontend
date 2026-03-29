@@ -97,5 +97,26 @@
             "message_required": "Message is required.",
             "privacy_policy_required": "You must agree to the privacy policy."
         }
+    },
+    "footer": {
+        "description": "Guardian Life Insurance Limited began its journey with a commitment to creating a better and more secure future for its valued customers by offering world-class insurance solutions and exceptional customer service.",
+        "copyright": "© 2025 Guardian Life Insurance - All Rights Reserved",
+        "links": {
+            "About Guardian": "About Guardian",
+            "Saving Plan": "Saving Plan",
+            "Early Cash": "Early Cash",
+            "Investment": "Investment",
+            "Term Life": "Term Life",
+            "Children Insurance": "Children Insurance",
+            "Retirement Policy": "Retirement Policy",
+            "Islamic/Takaful": "Islamic/Takaful",
+            "QuickBuy": "QuickBuy",
+            "Preferred Hospitals": "Preferred Hospitals",
+            "Branch Locations": "Branch Locations",
+            "Agent List": "Agent List",
+            "Form Library": "Form Library",
+            "Privacy Policy": "Privacy Policy",
+            "Contact Us": "Contact Us"
+        }
     }
 }

@@ -4,12 +4,14 @@ import GenericHeader from '../../../shared/Components/GenericHeader';
 import Button from '../../../shared/Components/Button';
 import CalculatePremiumModal from './CalculatePremiumModal';
 import { openReveChat } from '../../../shared/utils/revechat';
+import type {PlanNumber} from "../types.ts";
 
 interface ProductHeaderProps {
     data: HeaderData;
+    planNumbers?: PlanNumber[];
 }
 
-const ProductHeader: React.FC<ProductHeaderProps> = ({ data }) => {
+const ProductHeader: React.FC<ProductHeaderProps> = ({ data, planNumbers }) => {
     const [isCalculateModalOpen, setIsCalculateModalOpen] = useState(false);
 
     const actions = (
@@ -33,6 +35,7 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({ data }) => {
             <CalculatePremiumModal
                 isOpen={isCalculateModalOpen}
                 onClose={() => setIsCalculateModalOpen(false)}
+                planNumbers={planNumbers}
             />
         </>
     );

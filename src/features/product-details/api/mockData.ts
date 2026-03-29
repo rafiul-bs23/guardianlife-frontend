@@ -203,7 +203,12 @@ export const MOCK_SUCCESS_DATA: ProductSuccessResponse = {
                     video_url: "https://guardian-life-website-example.com/assets/videos/how-claims-work.mp4"
                 }
             ]
-        }
+        },
+        plan_numbers: [
+            { plan_no: "G3SP-001", name: "Basic Plan" },
+            { plan_no: "G3SP-002", name: "Standard Plan" },
+            { plan_no: "G3SP-003", name: "Premium Plan" }
+        ]
     }
 };
 
