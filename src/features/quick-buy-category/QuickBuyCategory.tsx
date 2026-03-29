@@ -50,6 +50,7 @@ const QuickBuyCategory = () => {
                 points={product.points}
                 description={product.description}
                 product_code={product.product_code}
+                is_women_product={product.is_women_product}
               />
             ))}
             {(!termLifeProducts || termLifeProducts.length === 0) && (
@@ -75,6 +76,7 @@ const QuickBuyCategory = () => {
                 points={product.points}
                 description={product.description}
                 product_code={product.product_code}
+                is_women_product={product.is_women_product}
               />
             ))}
             {(!savingsProducts || savingsProducts.length === 0) && (
@@ -100,6 +102,7 @@ const QuickBuyCategory = () => {
                 points={product.points}
                 description={product.description}
                 product_code={product.product_code}
+                is_women_product={product.is_women_product}
               />
             ))}
             {(!specialPlansProducts || specialPlansProducts.length === 0) && (
