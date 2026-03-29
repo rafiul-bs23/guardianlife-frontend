@@ -8,6 +8,7 @@ export interface ProductCardProps {
   points?: string[];
   description?: string | null;
   product_code: string;
+  is_women_product?: boolean;
 }
 
 const ProductCardWithActionButton = ({
@@ -16,10 +17,10 @@ const ProductCardWithActionButton = ({
   points = [],
   description,
   product_code,
+  is_women_product
 }: ProductCardProps) => {
   const { showPopup } = usePopup();
   const { t } = useTranslation('shared');
-
   return (
     <div className="w-full max-w-[643px] h-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl shadow-lg overflow-hidden flex flex-col">
       {/* Header Section with Quick Buy badge */}
@@ -29,6 +30,13 @@ const ProductCardWithActionButton = ({
             {t('product_card.badge')}
           </span>
         </div>
+        {is_women_product && (
+          <div className="absolute bottom-4 left-4 z-20">
+            <span className="bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-medium">
+              Women's Savings Plan
+            </span>
+          </div>
+        )}
 
         <div className="relative">
           {thumbnail_url && (

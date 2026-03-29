@@ -18,7 +18,7 @@ export const usePremiumCalculation = () => {
                 setData(response?.data);
                 return response.data;
             } else {
-                setError('Failed to calculate premium');
+                setError(response?.message || 'Failed to calculate premium');
                 return null;
             }
         } catch (err) {

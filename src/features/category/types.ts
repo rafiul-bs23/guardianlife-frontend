@@ -6,6 +6,7 @@ export interface CategoryProduct {
     description: string;
     footer: string | null;
     points: string[];
+    is_women_product?: boolean;
 }
 
 export interface CategoryProductsData {

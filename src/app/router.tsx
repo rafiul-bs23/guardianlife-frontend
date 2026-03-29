@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../shared/layout/MainLayout";
+import Login from "../features/login/Login";
 import Home from "../features/home/Home";
 import About from "../features/about/About";
 import Contact from "../features/contact/Contact";
@@ -64,6 +65,11 @@ export const NAV_ROUTES = [
 ];
 
 export const router = createBrowserRouter([
+  // Standalone route — no Navbar or Footer
+  {
+    path: "/login",
+    element: <Login />,
+  },
   {
     path: "/",
     element: <MainLayout />,

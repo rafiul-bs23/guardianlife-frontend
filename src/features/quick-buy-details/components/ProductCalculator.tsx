@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { ProductInformationData, PremiumViewItem } from '../types';
 import Button from '../../../shared/Components/Button';
@@ -14,25 +14,43 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ dynamicData }) =>
     const [term, setTerm] = useState<number>(dynamicData?.terms?.[0] || 10);
     const [coverage, setCoverage] = useState<number>(dynamicData?.coverages?.[0] || 100000);
     const [showDetails, setShowDetails] = useState(false);
+    const [localError, setLocalError] = useState<string | null>(null);
 
-    const { calculate, data: calcData, isLoading: isCalculating } = usePremiumCalculation();
+    useEffect(() => {
+        if (localError) {
+            const timer = setTimeout(() => {
+                setLocalError(null);
+            }, 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [localError]);
 
+    const { calculate, data: calcData, isLoading: isCalculating, error: calcError, reset: resetCalc } = usePremiumCalculation();
+    console.log({ dynamicData });
     const handleCalculate = async () => {
+        const premium = dynamicData.mode === 'Monthly';
         const payload = {
             product_id: dynamicData.id,
             category: dynamicData.category,
             plan_no: dynamicData.plan_no,
             date_of_birth: dob,
             term: term,
-            sum_assured: null,
-            premium: coverage,
-            mode: dynamicData.mode || 'Yearly',
+            sum_assured: premium ? null : coverage,
+            premium: premium ? coverage : null,
+            mode: dynamicData.mode,
             validity: null
         };
         const result = await calculate(payload);
         console.log({ result });
         if (result) {
             setShowDetails(true);
+            setLocalError(null);
+        } else {
+            if (calcError) {
+                setLocalError(calcError);
+            } else {
+                setLocalError('Failed to calculate premium');
+            }
         }
     };
 
@@ -57,6 +75,7 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ dynamicData }) =>
                                 onChange={(e) => {
                                     setDob(e.target.value);
                                     setShowDetails(false);
+                                    resetCalc();
                                 }}
                                 className="w-full bg-[#FFEEE5] border border-[#EB6925] rounded-[14px] px-8 py-4 text-[#EB6925] text-xl font-bold focus:outline-none appearance-none cursor-pointer"
                             />
@@ -98,6 +117,7 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ dynamicData }) =>
                                 onChange={(e) => {
                                     setTerm(parseInt(e.target.value));
                                     setShowDetails(false);
+                                    resetCalc();
                                 }}
                                 className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer range-orange"
                                 style={{
@@ -109,13 +129,16 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ dynamicData }) =>
 
                     {/* COVERAGE Dropdown */}
                     <div className="grid grid-cols-1 md:grid-cols-[150px_1fr] items-center gap-6">
-                        <label className="text-xl font-bold text-gray-800 uppercase">COVERAGE</label>
+                        <label className="text-xl font-bold text-gray-800 uppercase">
+                            {dynamicData.mode === 'Monthly' ? 'PREMIUM' : 'COVERAGE'}
+                        </label>
                         <div className="relative">
                             <select
                                 value={coverage}
                                 onChange={(e) => {
                                     setCoverage(parseInt(e.target.value));
                                     setShowDetails(false);
+                                    resetCalc();
                                 }}
                                 className="w-full bg-[#FFEEE5] border border-[#EB6925] rounded-[14px] px-8 py-4 text-[#EB6925] text-xl font-bold focus:outline-none appearance-none cursor-pointer"
                             >
@@ -134,7 +157,19 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ dynamicData }) =>
                     </div>
                 </div>
 
-                <div className="flex justify-center mb-10">
+                <div className="flex flex-col items-center mb-10">
+                    <AnimatePresence>
+                        {localError && (
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                className="mb-4 p-3 bg-red-100 border border-red-200 text-red-700 rounded-lg text-sm font-medium"
+                            >
+                                {localError}
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                     <Button
                         label={isCalculating ? "Calculating..." : "Calculate"}
                         variant="solid-orange"

@@ -65,7 +65,7 @@ export interface PremiumCalculationRequest {
     date_of_birth: string;
     term: number;
     sum_assured: number | null;
-    premium: number;
+    premium: number | null;
     mode: string;
     validity: string | null;
 }
@@ -114,6 +114,7 @@ export interface PremiumCalculationData {
 export interface PremiumCalculationResponse {
     status: boolean;
     transaction_id: string;
+    message?: string;
     data: PremiumCalculationData;
 }
 
