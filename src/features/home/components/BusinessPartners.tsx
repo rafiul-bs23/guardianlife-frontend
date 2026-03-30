@@ -8,7 +8,7 @@ const BusinessPartners = () => {
   return (
     <div className="bg-[#F4F4F4] w-full py-20">
       <PartnersBanner
-        image={"/assets/images/home/BusinessPartners/MainImage.jpg"}
+        image={"/assets/images/home/BusinessPartners/group-hero.png"}
         imageAlt="Business Partnership"
         title={t('business_partners.title')}
         description={t('business_partners.description')}

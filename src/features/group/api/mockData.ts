@@ -33,36 +33,36 @@ export const MOCK_GROUP_HEADER_DATA: HeaderResponse = {
 }
 
 export const MOCK_BENEFITS_DATA = {
-    image_url: "https://img.freepik.com/free-photo/businesspeople-having-good-time-meeting_1098-1786.jpg?semt=ais_hybrid",
+    image_url: "assets/images/group/why matters.png",
 };
 
 export const MOCK_COVERAGE_DATA = {
-    imgUrl: "https://glilapi.guardianlife.com.bd/images/1725268980177-483331562-Guardian%20Health%20Insurance.png",
+    imgUrl: "assets/images/group/Comprehensive Coverage.png",
 };
 
 export const MOCK_LIFE_COVERAGE_DATA = {
-    imgUrl: "https://glilapi.guardianlife.com.bd/images/1725268980177-483331562-Guardian%20Health%20Insurance.png",
+    imgUrl: "assets/images/group/life coverage.png",
 };
 
 export const MOCK_CRITICAL_ILLNESS_DATA = {
-    imgUrl: "https://glilapi.guardianlife.com.bd/images/1725268160788-397856237-Children.jpg",
+    imgUrl: "assets/images/group/protection.jpg",
 };
 
 export const MOCK_TREATMENT_PLAN_DATA = {
-    imgUrl: "https://glilapi.guardianlife.com.bd/images/1725268160788-397856237-Children.jpg",
+    imgUrl: "assets/images/group/health coverage.jpg",
 };
 
 export const MOCK_MATERNITY_DATA = {
-    imgUrl: "https://glilapi.guardianlife.com.bd/images/1725268160788-397856237-Children.jpg",
+    imgUrl: "assets/images/group/Supporting Employees.jpg",
 };
 
 export const MOCK_OUTPATIENT_DATA = [
     {
         "product_code": "NRB-SP",
-        "thumbnail_url": "https://i.ibb.co/hV3q6K9/term-life-insurance-2.png"
+        "thumbnail_url": "assets/images/group/dentist-s.jpg"
     },
     {
         "product_code": "JAYA-01",
-        "thumbnail_url": "https://i.ibb.co/hV3q6K9/term-life-insurance-2.png"
+        "thumbnail_url": "assets/images/group/optical.jpg"
     }
 ];

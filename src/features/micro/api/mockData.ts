@@ -33,7 +33,7 @@ export const mockMicroData: MicroData = {
     whyMicroMatters: {
         title: "",
         subtitle: "",
-        image: "assets/images/micro/1.png",
+        image: "assets/images/micro/WHY MICROINSURANCE MATTERS.jpg",
         benefits: []
     },
     whyMicroinsurance: {
@@ -67,12 +67,12 @@ export const mockMicroData: MicroData = {
         ],
         outcomesTitle: "",
         outcomes: [],
-        image: "assets/images/micro/2.png"
+        image: "assets/images/micro/why.jpg"
     },
     impactStatic: {
         title: "",
         subtitle: "",
-        image: "assets/images/micro/1.png",
+        image: "assets/images/micro/impact.jpg",
         awardsTitle: "",
         awards: [],
         bannerTitle: "",

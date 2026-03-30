@@ -36,7 +36,7 @@ export const bancassurance_benefits_sections: BenefitSection[] = [
                 />
             </svg>
         ),
-        image: "assets/images/banca/image 97.png",
+        image: "assets/images/banca/Benefits for Bank_s Customers.jpeg",
         dot_color: "bg-[#E8823A]",
         bg_color: "bg-[#F5E6DC]",
         points: [],
@@ -49,7 +49,7 @@ export const bancassurance_benefits_sections: BenefitSection[] = [
                 <circle cx="8" cy="8" r="3" fill="#4CAF82" />
             </svg>
         ),
-        image: "assets/images/banca/image 98.png",
+        image: "assets/images/banca/Benefits for Banks.jpeg",
         dot_color: "bg-[#3B6FD4]",
         bg_color: "bg-[#E8EDF5]",
         points: [],
@@ -59,17 +59,17 @@ export const bancassurance_benefits_sections: BenefitSection[] = [
 export const service_cards: ServiceCard[] = [
     {
         id: 1,
-        image: "assets/images/banca/image 93.png",
+        image: "assets/images/banca/Customized Solutions.webp",
         points: [],
     },
     {
         id: 2,
-        image: "assets/images/banca/image 94.png",
+        image: "assets/images/banca/Training  Support.webp",
         points: [],
     },
     {
         id: 3,
-        image: "assets/images/banca/image 95.png",
+        image: "assets/images/banca/Complete Management.webp",
         points: [],
     },
 ];
@@ -81,7 +81,7 @@ export const bank_partners: BankPartner[] = [
 ];
 
 export const mock_why_bancassurance_data = {
-    image_url: "assets/images/banca/image 91.png",
+    image_url: "assets/images/banca/What is Bancassurance.jpg",
 };
 
 export const mock_product_solutions_response: BancaProductsResponse = {

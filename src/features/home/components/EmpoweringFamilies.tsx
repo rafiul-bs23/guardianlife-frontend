@@ -8,7 +8,7 @@ const EmpoweringFamilies = () => {
   return (
     <div className="bg-[#F4F4F4] w-full py-20">
       <PartnersBanner
-        image={"/assets/images/home/EmpoweringFamilies/empoweringFamilies.jpg"}
+        image={"/assets/images/home/EmpoweringFamilies/matters.png"}
         imageAlt="Empowering Families"
         title={t('empowering_families.title')}
         description={t('empowering_families.description')}
