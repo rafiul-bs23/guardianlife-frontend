@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../shared/layout/MainLayout";
 import Login from "../features/login/Login";
 import Home from "../features/home/Home";
+import Dashboard from "../features/dashboard/Dashboard";
+import ProtectedRoute from "../shared/Components/ProtectedRoute";
 import About from "../features/about/About";
 import Contact from "../features/contact/Contact";
 import NotFound from "../shared/pages/NotFound";
@@ -76,6 +78,14 @@ export const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Home /> },
+      {
+        path: "dashboard",
+        element: (
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        ),
+      },
       ...NAV_ROUTES.filter(r => r.path !== "/").map(r => ({
         path: r.path.startsWith("/") ? r.path.slice(1) : r.path,
         element: r.element
