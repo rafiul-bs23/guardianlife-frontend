@@ -5,7 +5,7 @@ export const sharedAppDownloadData: AppDownloadData = {
 };
 
 export const sharedCashlessNetworkData = {
-    image: "assets/images/shared/cashlessHospital.png"
+    image: "assets/images/shared/hospital.jpg"
 };
 
 export const sharedCustomerStoriesData = {
