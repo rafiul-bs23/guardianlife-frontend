@@ -111,8 +111,10 @@ const NavItem: React.FC<{
 const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
     const [isOpened, setIsOpened] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
+        setIsLoggedIn(!!localStorage.getItem('token'));
         const handleScroll = () => {
             if (window.scrollY > 50) {
                 setIsScrolled(true);
@@ -168,9 +170,9 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
 
                     <LanguageToggle scrolled={!transparent || isScrolled} />
                     <Button
-                        label="Login"
+                        label={isLoggedIn ? "Profile" : "Login"}
                         variant='base'
-                        to="/login"
+                        to={isLoggedIn ? "/dashboard" : "/login"}
                         className="!w-[80px] md:!w-[130px] h-[40px] md:h-[45px] text-[13px] md:text-[16px]"
                     />
                 </div>

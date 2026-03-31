@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Navbar from '../../shared/Components/Navbar';
 
 const Dashboard = () => {
   const [user, setUser] = useState<{ full_name?: string; mobile?: string; gender?: string } | null>(null);
@@ -15,9 +16,11 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-12 min-h-[60vh]">
-      <div className="bg-white shadow drop-shadow-sm rounded-lg p-8 max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8 text-[#006A4E]">Dashboard</h1>
+    <div className="min-h-screen bg-gray-50">
+      <Navbar />
+      <div className="container mx-auto px-4 py-32 min-h-[60vh]">
+        <div className="bg-white shadow drop-shadow-sm rounded-lg p-8 max-w-4xl mx-auto">
+          <h1 className="text-3xl font-bold mb-8 text-[#006A4E]">Dashboard</h1>
         {user ? (
           <div>
             <h2 className="text-2xl font-semibold mb-6 text-gray-800">Welcome back, {user.full_name || 'User'}!</h2>
@@ -45,6 +48,7 @@ const Dashboard = () => {
           <p className="text-gray-600 text-lg">Loading user profile...</p>
         )}
       </div>
+    </div>
     </div>
   );
 };
