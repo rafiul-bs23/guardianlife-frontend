@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
           {/* Logo and Description */}
           <div className="mb-8 w-full lg:w-[320px] lg:ml-8 lg:mr-16 text-center lg:text-left">
             <img
-              src="/assets/images/guardian-logo-footer.png"
+              src="/assets/images/guardian-logo-footer.svg"
               alt="GuardianLife Hero"
               className="mx-auto lg:mx-0 w-auto h-[88px] mb-8"
             />
