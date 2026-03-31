@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Navbar from '../../shared/Components/Navbar';
+import { fetchDashboardDataApi } from './api';
 
 const Dashboard = () => {
   const [user, setUser] = useState<{ full_name?: string; mobile?: string; gender?: string } | null>(null);
@@ -13,6 +14,17 @@ const Dashboard = () => {
         console.error('Failed to parse user data from local storage', e);
       }
     }
+
+    const fetchDashboardData = async () => {
+      try {
+        const responseData = await fetchDashboardDataApi();
+        console.log('Dashboard API Response:', responseData);
+      } catch (error) {
+        console.error('Error fetching dashboard API:', error);
+      }
+    };
+
+    fetchDashboardData();
   }, []);
 
   return (
