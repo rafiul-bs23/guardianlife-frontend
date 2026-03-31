@@ -9,3 +9,7 @@ export const submitLogin = async (data: LoginRequest): Promise<LoginResponse> =>
   });
   return response.data;
 };
+
+export const submitLogout = async (): Promise<void> => {
+  await axiosClient.post(`${AUTH_BASE_URL}/logout`);
+};

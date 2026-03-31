@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../../shared/Components/Navbar';
 import { fetchDashboardDataApi } from './api';
+import { submitLogout } from '../login/api';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState<{ full_name?: string; mobile?: string; gender?: string } | null>(null);
 
   useEffect(() => {
@@ -27,12 +30,32 @@ const Dashboard = () => {
     fetchDashboardData();
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await submitLogout();
+    } catch (error) {
+      console.error('Logout API failed', error);
+    } finally {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      navigate('/login');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
       <div className="container mx-auto px-4 py-32 min-h-[60vh]">
         <div className="bg-white shadow drop-shadow-sm rounded-lg p-8 max-w-4xl mx-auto">
-          <h1 className="text-3xl font-bold mb-8 text-[#006A4E]">Dashboard</h1>
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="text-3xl font-bold text-[#006A4E]">Dashboard</h1>
+            <button
+              onClick={handleLogout}
+              className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-md font-medium transition-colors"
+            >
+              Logout
+            </button>
+          </div>
         {user ? (
           <div>
             <h2 className="text-2xl font-semibold mb-6 text-gray-800">Welcome back, {user.full_name || 'User'}!</h2>
