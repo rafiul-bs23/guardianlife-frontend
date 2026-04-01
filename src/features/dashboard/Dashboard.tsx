@@ -53,7 +53,7 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
       <div className="container mx-auto px-4 py-32 min-h-[60vh]">
-        <div className="bg-white shadow drop-shadow-sm rounded-lg p-8 max-w-4xl mx-auto">
+        <div className="bg-white shadow drop-shadow-sm rounded-lg p-8 max-w-5xl mx-auto">
           <div className="flex justify-between items-center mb-8">
             <h1 className="text-3xl font-bold text-[#006A4E]">Dashboard</h1>
             <button

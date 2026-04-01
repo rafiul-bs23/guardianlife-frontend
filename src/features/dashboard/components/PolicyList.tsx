@@ -18,9 +18,9 @@ const PolicyList: React.FC<PolicyListProps> = ({ policies = [] }) => {
 
   return (
     <div className="w-full">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6 px-1 flex justify-center">
+      <h3 className="text-xl font-bold text-gray-800 mb-4 px-1">
         My Policies
-      </h2>
+      </h3>
 
       <div className="flex gap-2 mb-6 px-1">
         <button
@@ -55,13 +55,13 @@ const PolicyList: React.FC<PolicyListProps> = ({ policies = [] }) => {
         </button>
       </div>
 
-      <div className="flex flex-col gap-4 px-1 pb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-1 pb-10">
         {filteredPolicies.length > 0 ? (
           filteredPolicies.map((policy) => (
             <PolicyCard key={policy.policyNumber} policy={policy} />
           ))
         ) : (
-          <div className="text-center py-8 text-gray-500 bg-white rounded-lg border border-gray-200">
+          <div className="text-center py-8 text-gray-500 bg-white rounded-lg border border-gray-200 col-span-1 md:col-span-2">
             No policies found for this category.
           </div>
         )}

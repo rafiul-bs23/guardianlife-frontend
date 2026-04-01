@@ -14,11 +14,9 @@ const ClaimsList: React.FC<ClaimsListProps> = ({ claims = [] }) => {
       <h3 className="text-xl font-bold text-gray-800 mb-4 px-1">
         CLAIMS ({claims.length})
       </h3>
-      <div className="flex overflow-x-auto gap-4 pb-4 snap-x hide-scroll-bar" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-1 pb-4">
         {claims.map((claim) => (
-          <div key={claim.intimationNo} className="snap-start">
-            <ClaimCard claim={claim} />
-          </div>
+          <ClaimCard key={claim.intimationNo} claim={claim} />
         ))}
       </div>
     </div>
