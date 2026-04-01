@@ -52,7 +52,7 @@ export const useLogin = () => {
             gender: response?.gender,
           })
         );
-        navigate('/');
+        navigate('/dashboard');
       } catch {
         setError('Invalid credentials. Please check your details and try again.');
       } finally {

@@ -13,3 +13,7 @@ export const submitLogin = async (_data: LoginRequest): Promise<LoginResponse> =
     }, 600);
   });
 };
+
+export const submitLogout = async (): Promise<void> => {
+  return new Promise((resolve) => setTimeout(resolve, 300));
+};
