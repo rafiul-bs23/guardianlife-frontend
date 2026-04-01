@@ -170,7 +170,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
 
                     <LanguageToggle scrolled={!transparent || isScrolled} />
                     <Button
-                        label={isLoggedIn ? "Profile" : "Login"}
+                        label={isLoggedIn ? "Dashboard" : "Login"}
                         variant='base'
                         to={isLoggedIn ? "/dashboard" : "/login"}
                         className="!w-[80px] md:!w-[130px] h-[40px] md:h-[45px] text-[13px] md:text-[16px]"

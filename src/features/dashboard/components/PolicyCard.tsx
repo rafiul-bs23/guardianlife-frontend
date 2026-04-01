@@ -29,7 +29,7 @@ const getBorderGradient = (status: string) => {
   if (normStatus === 'ACTIVE' || normStatus === 'INFORCE') {
     return 'from-blue-400 via-indigo-400 to-purple-400';
   } else if (normStatus === 'MATURED' || normStatus === 'LAPSE') {
-    return 'from-orange-400 to-yellow-400';
+    return 'from-orange-400 to-orange-200';
   }
   return 'from-gray-300 to-gray-400';
 };
