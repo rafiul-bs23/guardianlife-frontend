@@ -31,9 +31,9 @@ const ChairmanHeader: React.FC<ChairmanHeaderProps> = ({ data }) => {
                 {/* Chairman Image Layer - Bottom on Mobile, Left on Desktop */}
                 <div className="w-full lg:w-[45%] flex justify-center lg:justify-start items-end relative z-10 order-2 lg:order-1">
                     <img
-                        src="/assets/images/boardDirectors/1.png"
+                        src="/assets/images/chairman/hero.png"
                         alt={t('header.image_alt')}
-                        className="max-h-[300px] md:max-h-[450px] lg:max-h-[85%] object-contain"
+                        className=" w-[100%] lg:w-[80%] object-contain"
                     />
                 </div>
             </div>

@@ -181,7 +181,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
             {/* Navigation Drawer Menu */}
             {typeof document !== 'undefined' && createPortal(
                 <div
-                    className={`fixed inset-0 z-[1000] transition-all duration-500 ease-in-out ${isOpened ? 'visible opacity-100' : 'invisible opacity-0'}`}
+                    className={`fixed inset-0 z-[10001] transition-all duration-500 ease-in-out ${isOpened ? 'visible opacity-100' : 'invisible opacity-0'}`}
                 >
                     {/* Overlay */}
                     <div

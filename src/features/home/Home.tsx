@@ -43,7 +43,7 @@ const Home = () => {
             className="mx-auto w-auto h-[114px] my-auto"
           />
           <img
-            src="/assets/images/home/sponsore3.png"
+            src="/assets/images/home/brac-logo.svg"
             alt="sponsore-3"
             className="mx-auto w-auto h-[223px] my-auto"
           />

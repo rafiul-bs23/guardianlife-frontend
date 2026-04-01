@@ -104,31 +104,33 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
 
     if (isImmersive) {
         return (
-            <section
-                className={`relative w-full min-h-[600px] flex flex-col ${className} ${!data?.background_video_url ? 'bg-primary' : ''} overflow-hidden`}
-                style={!data?.background_video_url ? bgStyles : {}}
-            >
-                {data?.background_video_url && (
-                    <video
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="absolute inset-0 w-full h-full object-cover z-0"
-                        src={data?.background_video_url}
+            <>
+                <Navbar transparent />
+                <section
+                    className={`relative w-full min-h-[600px] flex flex-col ${className} ${!data?.background_video_url ? 'bg-primary' : ''} overflow-hidden`}
+                    style={!data?.background_video_url ? bgStyles : {}}
+                >
+                    {data?.background_video_url && (
+                        <video
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="absolute inset-0 w-full h-full object-cover z-0"
+                            src={data?.background_video_url}
+                        />
+                    )}
+                    <div
+                        className="absolute inset-0 z-0 pointer-events-none"
+                        style={{ background: 'linear-gradient(180deg, rgba(243, 112, 33, 0.29) 0%, #F37021 100%)' }}
                     />
-                )}
-                <div
-                    className="absolute inset-0 z-0 pointer-events-none"
-                    style={{ background: 'linear-gradient(180deg, rgba(243, 112, 33, 0.29) 0%, #F37021 100%)' }}
-                />
-                <div className="relative z-10 flex flex-col w-full h-full pt-20 md:pt-28">
-                    <Navbar transparent />
-                    <div className={`flex-grow flex items-center ${innerWrapperClassName}`}>
-                        {children || headerContent}
+                    <div className="relative z-10 flex flex-col w-full h-full pt-20 md:pt-28">
+                        <div className={`flex-grow flex items-center ${innerWrapperClassName}`}>
+                            {children || headerContent}
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </>
         );
     }
 

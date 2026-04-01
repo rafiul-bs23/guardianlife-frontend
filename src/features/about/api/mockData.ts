@@ -26,22 +26,22 @@ export const mockHeaderData: HeaderResponse = {
 
 export const mockAboutData: AboutData = {
     who_we_are: {
-        image: "assets/images/about/1.png",
+        image: "assets/images/about/who_we_are.jpg",
     } as any,
     our_journey: {
-        image: "assets/images/about/2.png",
+        image: "assets/images/about/journey.png",
     } as any,
     mission_vision: {
-        image: "assets/images/about/3.png"
+        image: "assets/images/about/Directors.jpeg"
     } as any,
     our_achievements: {
-        image: "assets/images/about/4.png",
+        image: "assets/images/about/award.jpg",
     } as any,
     milestones: {
-        image: "assets/images/about/5.png",
+        image: "assets/images/about/milestone.webp",
     } as any,
     governance_trust: {
-        image: "assets/images/about/6.png",
+        image: "assets/images/about/governerce.JPG",
         points: [
             {
                 icon: "Shield",

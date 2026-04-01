@@ -15,10 +15,10 @@ export type Partner = {
 
 export const MOCK_OUR_SOLUTIONS_DATA = {
     solutions: [
-        { id: 0, title: 'For You', image: "assets/images/home/Solutions/solutions1.png" },
-        { id: 1, title: 'For Your Family', image: "assets/images/home/Solutions/solutions2.png" },
-        { id: 2, title: 'Retirement', image: "assets/images/home/Solutions/solutions3.png" },
-        { id: 3, title: 'Islamic', image: "assets/images/home/Solutions/solutions4.png" },
+        { id: 0, title: 'For You', image: "assets/images/home/Solutions/retail-card-for-you-f1.jpg" },
+        { id: 1, title: 'For Your Family', image: "assets/images/home/Solutions/retail-card-for-your-family-f2.jpg" },
+        { id: 2, title: 'Retirement', image: "assets/images/home/Solutions/retail-card-RETIREMENT-f1.jpg" },
+        { id: 3, title: 'Islamic', image: "assets/images/home/Solutions/retail-card-islamic.jpg" },
     ]
 };
 
