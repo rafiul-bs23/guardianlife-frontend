@@ -3,10 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../../shared/Components/Navbar';
 import { fetchDashboardDataApi } from './api';
 import { submitLogout } from '../login/api';
+import ClaimsList from './components/ClaimsList';
+import PolicyList from './components/PolicyList';
+import type { DashboardApiResponse } from './types';
+
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<{ full_name?: string; mobile?: string; gender?: string } | null>(null);
+  const [dashboardData, setDashboardData] = useState<DashboardApiResponse | null>(null);
+
 
   useEffect(() => {
     const userData = localStorage.getItem('user');
@@ -22,6 +28,7 @@ const Dashboard = () => {
       try {
         const responseData = await fetchDashboardDataApi();
         console.log('Dashboard API Response:', responseData);
+        setDashboardData(responseData);
       } catch (error) {
         console.error('Error fetching dashboard API:', error);
       }
@@ -78,6 +85,13 @@ const Dashboard = () => {
                 )}
               </ul>
             </div>
+            
+            {dashboardData && (
+              <div className="mt-8 space-y-8">
+                <ClaimsList claims={dashboardData.claims} />
+                <PolicyList policies={dashboardData.policies} />
+              </div>
+            )}
           </div>
         ) : (
           <p className="text-gray-600 text-lg">Loading user profile...</p>
