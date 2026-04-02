@@ -11,6 +11,7 @@ export interface LoginResponse {
   fullName: string;
   gender: string | null;
   mobile: string;
+  email: string;
 }
 
 export interface LoginFormValues {

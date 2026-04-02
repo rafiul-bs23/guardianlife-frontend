@@ -3,6 +3,7 @@ import MainLayout from "../shared/layout/MainLayout";
 import Login from "../features/login/Login";
 import Home from "../features/home/Home";
 import Dashboard from "../features/dashboard/Dashboard";
+import ClaimSubmit from "../features/claim-submit/ClaimSubmit";
 import ProtectedRoute from "../shared/Components/ProtectedRoute";
 import About from "../features/about/About";
 import Contact from "../features/contact/Contact";
@@ -83,6 +84,14 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "dashboard/claims/:type",
+        element: (
+          <ProtectedRoute>
+            <ClaimSubmit />
           </ProtectedRoute>
         ),
       },
