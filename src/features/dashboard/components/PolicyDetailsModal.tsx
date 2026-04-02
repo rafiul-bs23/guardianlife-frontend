@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 import type { Policy } from '../types';
 import { usePolicyInformation } from '../hooks/usePolicyInformation';
@@ -19,14 +20,14 @@ const formatDate = (dateString?: string | null) => {
   });
 };
 
-const formatCurrency = (amount?: number | null) => {
-  if (amount === undefined || amount === null) return '';
+const formatCurrency = (amount?: number | string | null) => {
+  if (amount === undefined || amount === null || amount === '') return '';
   return new Intl.NumberFormat('en-BD', {
     style: 'currency',
     currency: 'BDT',
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-  }).format(amount).replace('BDT', '৳');
+  }).format(Number(amount)).replace('BDT', '৳');
 };
 
 const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose, policy }) => {
@@ -58,9 +59,9 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
 
   const tabs = ['Basic Info', 'Nominee', 'Supplementary', 'Claims', 'Premiums', 'Transactions', 'Loans'];
 
-  return (
-    <div className="fixed inset-0 z-[99999] flex justify-center items-start overflow-y-auto bg-black/40 backdrop-blur-sm p-4 sm:p-6 lg:p-10">
-      <div className="relative bg-gray-50 rounded-2xl shadow-xl w-full max-w-[600px] mx-auto overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+  const modalContent = (
+    <div className="fixed inset-0 z-[99999] flex justify-center items-center overflow-y-auto bg-black/50 backdrop-blur-sm p-4 sm:p-6 lg:p-10">
+      <div className="relative bg-gray-50 rounded-2xl shadow-xl w-full max-w-[600px] mx-auto overflow-hidden max-h-[90vh] flex flex-col">
         {/* Header */}
         <div className="bg-white border-b px-6 py-4 flex items-center justify-between sticky top-0 z-10">
           <h2 className="text-xl font-bold text-gray-900">Policy Details</h2>
@@ -72,7 +73,7 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
           </button>
         </div>
 
-        <div className="p-6">
+        <div className="p-6 overflow-y-auto flex-1">
           {/* Main Policy Card */}
           <div className="bg-white border rounded-xl p-5 mb-6 shadow-sm relative overflow-hidden" style={{ borderColor: '#F28C28', borderWidth: '1.5px' }}>
             <div className="flex justify-between items-start mb-4">
@@ -81,7 +82,7 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
                 <div className="text-gray-500 text-sm flex items-center gap-2 mt-1">
                   <span>#{policy.policyNumber}</span>
                   <span className="text-gray-300">|</span>
-                  <span className="text-gray-400 capitalize">{policy.policyStatus.toLowerCase()}</span>
+                  <span className="text-gray-400 capitalize">{policy.policyStatus?.toLowerCase() || 'Unknown'}</span>
                 </div>
               </div>
             </div>
@@ -160,7 +161,7 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
              ) : error ? (
                <div className="text-center text-red-500 py-8">{error}</div>
              ) : policyData ? (
-               <div className="animate-in fade-in duration-300">
+               <div className="duration-300">
                  {activeTab === 'Basic Info' && (
                    <div className="space-y-6">
                       <h4 className="font-semibold text-gray-800 text-[17px] border-b pb-2">Personal Details</h4>
@@ -282,6 +283,8 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
       `}</style>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 };
 
 export default PolicyDetailsModal;
