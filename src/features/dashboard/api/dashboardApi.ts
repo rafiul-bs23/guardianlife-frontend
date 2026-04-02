@@ -15,3 +15,13 @@ export const fetchPolicyInformationApi = async (policyNo: string) => {
   });
   return response.data;
 };
+
+export const fetchClaimDetailsApi = async (intimationNo: string, channelId: number) => {
+  const response = await axiosClient.get(`${DASHBOARD_BASE_URL}/claim/details`, {
+    params: {
+      IntimationNo: intimationNo,
+      ChannelId: channelId
+    }
+  });
+  return response.data;
+};
