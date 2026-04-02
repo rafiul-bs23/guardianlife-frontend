@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import type { Policy } from '../types';
 import PolicyCard from './PolicyCard';
+import PolicyDetailsModal from './PolicyDetailsModal';
 
 interface PolicyListProps {
   policies?: Policy[];
@@ -8,6 +9,7 @@ interface PolicyListProps {
 
 const PolicyList: React.FC<PolicyListProps> = ({ policies = [] }) => {
   const [activeTab, setActiveTab] = useState<'All' | 'Individual' | 'Group'>('All');
+  const [selectedPolicy, setSelectedPolicy] = useState<Policy | null>(null);
 
   const filteredPolicies = policies.filter((policy) => {
     if (activeTab === 'All') return true;
@@ -58,7 +60,11 @@ const PolicyList: React.FC<PolicyListProps> = ({ policies = [] }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-1 pb-10">
         {filteredPolicies.length > 0 ? (
           filteredPolicies.map((policy) => (
-            <PolicyCard key={policy.policyNumber} policy={policy} />
+            <PolicyCard 
+              key={policy.policyNumber} 
+              policy={policy} 
+              onClick={() => setSelectedPolicy(policy)} 
+            />
           ))
         ) : (
           <div className="text-center py-8 text-gray-500 bg-white rounded-lg border border-gray-200 col-span-1 md:col-span-2">
@@ -66,6 +72,12 @@ const PolicyList: React.FC<PolicyListProps> = ({ policies = [] }) => {
           </div>
         )}
       </div>
+
+      <PolicyDetailsModal 
+        isOpen={!!selectedPolicy} 
+        policy={selectedPolicy} 
+        onClose={() => setSelectedPolicy(null)} 
+      />
     </div>
   );
 };

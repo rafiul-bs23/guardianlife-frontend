@@ -3,6 +3,7 @@ import type { Claim } from '../types';
 
 interface ClaimCardProps {
   claim: Claim;
+  onClick?: () => void;
 }
 
 const formatDate = (dateString: string) => {
@@ -23,9 +24,12 @@ const formatCurrency = (amount: number) => {
   }).format(amount);
 };
 
-const ClaimCard: React.FC<ClaimCardProps> = ({ claim }) => {
+const ClaimCard: React.FC<ClaimCardProps> = ({ claim, onClick }) => {
   return (
-    <div className="w-full bg-gradient-to-r from-blue-400 to-purple-400 p-[1.5px] rounded-2xl shadow-sm cursor-pointer hover:shadow-md transition-shadow">
+    <div 
+      className="w-full bg-gradient-to-r from-blue-400 to-purple-400 p-[1.5px] rounded-2xl shadow-sm cursor-pointer hover:shadow-md transition-shadow"
+      onClick={onClick}
+    >
       <div className="bg-white rounded-2xl p-5 h-full flex flex-col justify-between">
         <div className="flex justify-between items-start mb-4">
           <div className="text-gray-600 text-lg">

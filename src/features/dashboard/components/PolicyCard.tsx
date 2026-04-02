@@ -3,6 +3,7 @@ import type { Policy } from '../types';
 
 interface PolicyCardProps {
   policy: Policy;
+  onClick?: () => void;
 }
 
 const formatDate = (dateString: string) => {
@@ -44,12 +45,15 @@ const getStatusColor = (status: string) => {
   return 'text-gray-500';
 };
 
-const PolicyCard: React.FC<PolicyCardProps> = ({ policy }) => {
+const PolicyCard: React.FC<PolicyCardProps> = ({ policy, onClick }) => {
   const gradientClass = getBorderGradient(policy.policyStatus);
   const statusColor = getStatusColor(policy.policyStatus);
 
   return (
-    <div className={`w-full bg-gradient-to-r ${gradientClass} p-[1.5px] rounded-2xl shadow-sm cursor-pointer hover:shadow-md transition-shadow`}>
+    <div 
+      className={`w-full bg-gradient-to-r ${gradientClass} p-[1.5px] rounded-2xl shadow-sm cursor-pointer hover:shadow-md transition-shadow`}
+      onClick={onClick}
+    >
       <div className="bg-white rounded-2xl px-5 py-4 w-full h-full">
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-[17px] font-semibold text-gray-900 leading-tight pr-4">
