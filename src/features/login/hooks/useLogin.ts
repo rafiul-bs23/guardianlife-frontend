@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { submitLogin } from '../api';
 import type { LoginRequest } from '../types';
+import { saveAuthData } from '../../../shared/utils/authUtils';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -43,15 +44,19 @@ export const useLogin = () => {
       setLoading(true);
       try {
         const response = await submitLogin(request);
-        localStorage.setItem('token', response?.token ?? '');
-        localStorage.setItem(
-          'user',
-          JSON.stringify({
-            full_name: response?.fullName,
-            mobile: response?.mobile,
-            gender: response?.gender,
-          })
-        );
+        if (response) {
+          saveAuthData({
+            token: response.token,
+            refreshToken: response.refreshToken,
+            refreshTokenExpiryTime: response.refreshTokenExpiryTime,
+            user: {
+              full_name: response.fullName,
+              mobile: response.mobile,
+              gender: response.gender,
+              email: response.email,
+            }
+          });
+        }
         navigate('/dashboard');
       } catch {
         setError('Invalid credentials. Please check your details and try again.');
