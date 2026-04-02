@@ -146,23 +146,23 @@ const ClaimDetailsModal: React.FC<ClaimDetailsModalProps> = ({ isOpen, onClose, 
                  {activeTab === 'Tracking' && (
                     <div className="relative pl-6 mt-6">
                        {/* Line connecting tracking nodes */}
-                       <div className="absolute left-[35px] top-6 bottom-8 w-0.5" style={{ background: 'linear-gradient(to bottom, #15803d 40%, rgba(181, 141, 61, 0.4) 60%, #e5e7eb) ' }}></div>
+                       <div className="absolute left-[35px] top-6 bottom-8 w-0.5 z-0" style={{ background: 'linear-gradient(to bottom, #15803d 40%, rgba(181, 141, 61, 0.4) 60%, #e5e7eb) ' }}></div>
 
                        {claimData.tracking?.map((track: any, idx: number) => {
                           const isCompleted = track.date !== null;
                           const isCurrent = !isCompleted && idx > 0 && claimData.tracking[idx-1]?.date !== null;
 
                           return (
-                            <div key={idx} className="relative flex gap-8 mb-8 group">
-                               <div className="absolute left-[-1px] top-1 bg-white rounded-full z-10 p-1">
+                            <div key={idx} className="relative flex gap-8 mb-8 group z-10">
+                               <div className="absolute left-[-1px] top-1 bg-white rounded-full p-1">
                                   {isCompleted ? (
                                     <div className="w-8 h-8 rounded-full border-2 border-green-700 bg-green-700 flex items-center justify-center">
                                       <Check className="w-5 h-5 text-white" strokeWidth={3} />
                                     </div>
                                   ) : isCurrent ? (
-                                    <div className="w-8 h-8 rounded-full border-[3px] border-[#B58D3D] bg-white"></div>
+                                    <div className="w-6 h-6 m-1 rounded-full border-[3.5px] border-[#B58D3D] bg-white"></div>
                                   ) : (
-                                    <div className="w-8 h-8 rounded-full border-2 border-gray-200 bg-gray-50"></div>
+                                    <div className="w-6 h-6 m-1 rounded-full border-[2px] border-gray-200 bg-gray-50"></div>
                                   )}
                                </div>
                                <div className="pl-14 pt-1">
