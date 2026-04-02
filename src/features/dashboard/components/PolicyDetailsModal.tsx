@@ -116,7 +116,7 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
               </div>
               <div>
                 <div className="text-gray-400 text-sm mb-1">No of Premium Due</div>
-                <div className="text-base font-medium text-gray-800">{policyData?.numberOfPremiumDue || '0'}</div>
+                <div className="text-base font-medium text-gray-800">{policyData?.noOfDue || '0'}</div>
               </div>
               <div>
                 <div className="text-gray-400 text-sm mb-1">Premium Due Amount</div>
@@ -168,37 +168,65 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
                       <div className="space-y-6">
                         <div>
                           <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Name</div>
-                          <div className="text-[17px] text-gray-800 uppercase">{policyData.personalInfo?.name || '-'}</div>
+                          <div className="text-[17px] text-gray-800 uppercase">{policyData.fullName || policyData.personalInfo?.name || '-'}</div>
                         </div>
                         <div>
                           <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Father Name</div>
-                          <div className="text-[17px] text-gray-800">{policyData.personalInfo?.fatherName || '-'}</div>
+                          <div className="text-[17px] text-gray-800">{policyData.fatherName || policyData.personalInfo?.fatherName || '-'}</div>
                         </div>
                         <div>
                           <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Mother Name</div>
-                          <div className="text-[17px] text-gray-800">{policyData.personalInfo?.motherName || '-'}</div>
+                          <div className="text-[17px] text-gray-800">{policyData.motherName || policyData.personalInfo?.motherName || '-'}</div>
                         </div>
                         <div>
                           <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Date of Birth</div>
-                          <div className="text-[17px] text-gray-800">{formatDate(policyData.personalInfo?.dob || policy.dateOfBirth)}</div>
+                          <div className="text-[17px] text-gray-800">{formatDate(policyData.birthDate || policyData.personalInfo?.dob || policy.dateOfBirth)}</div>
                         </div>
                       </div>
 
-                      {(policyData.contactInfo?.email || policyData.contactInfo?.address) && (
+                      {(policyData.email || policyData.contactNo || policyData.presentAddress || policyData.contactInfo?.email || policyData.contactInfo?.address) && (
                         <>
                           <h4 className="font-semibold text-gray-800 text-[20px] border-b pb-3 pt-5">Contact Details</h4>
                           <div className="space-y-6">
                             <div>
                               <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Mobile No</div>
-                              <div className="text-[17px] text-gray-800">{policyData.contactInfo?.mobileNo || policy.phoneNumber || '-'}</div>
+                              <div className="text-[17px] text-gray-800">{policyData.contactNo || policyData.contactInfo?.mobileNo || policy.phoneNumber || '-'}</div>
                             </div>
                             <div>
                               <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Email</div>
-                              <div className="text-[17px] text-gray-800">{policyData.contactInfo?.email || '-'}</div>
+                              <div className="text-[17px] text-gray-800">{policyData.email || policyData.contactInfo?.email || '-'}</div>
                             </div>
                             <div>
                               <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Address</div>
-                              <div className="text-[17px] text-gray-800">{policyData.contactInfo?.address || '-'}</div>
+                              <div className="text-[17px] text-gray-800">{policyData.presentAddress || policyData.contactInfo?.address || '-'}</div>
+                            </div>
+                          </div>
+                        </>
+                      )}
+
+                      {(policyData.accountName || policyData.accountNo || policyData.bankName) && (
+                        <>
+                          <h4 className="font-semibold text-gray-800 text-[20px] border-b pb-3 pt-5">Bank Info</h4>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                              <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Account Name</div>
+                              <div className="text-[17px] text-gray-800">{policyData.accountName || '-'}</div>
+                            </div>
+                            <div>
+                              <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Account No</div>
+                              <div className="text-[17px] text-gray-800">{policyData.accountNo || '-'}</div>
+                            </div>
+                            <div>
+                              <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Bank Name</div>
+                              <div className="text-[17px] text-gray-800">{policyData.bankName || '-'}</div>
+                            </div>
+                            <div>
+                              <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Branch</div>
+                              <div className="text-[17px] text-gray-800">{policyData.branchName || '-'}</div>
+                            </div>
+                            <div>
+                              <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Routing No</div>
+                              <div className="text-[17px] text-gray-800">{policyData.routingNo || '-'}</div>
                             </div>
                           </div>
                         </>
@@ -218,11 +246,11 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
                                 <div className="grid grid-cols-2 gap-5">
                                   <div>
                                     <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Relation</div>
-                                    <div className="text-base text-gray-800">{nominee.relation || '-'}</div>
+                                    <div className="text-base text-gray-800">{nominee.relationName || nominee.relation || '-'}</div>
                                   </div>
                                   <div>
                                     <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Share</div>
-                                    <div className="text-base text-gray-800">{nominee.sharePercentage ? `${nominee.sharePercentage}%` : '-'}</div>
+                                    <div className="text-base text-gray-800">{nominee.share ?? nominee.sharePercentage ? `${nominee.share ?? nominee.sharePercentage}%` : '-'}</div>
                                   </div>
                                   <div>
                                     <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Age</div>
@@ -230,7 +258,7 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
                                   </div>
                                   <div>
                                     <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Date of Birth</div>
-                                    <div className="text-base text-gray-800">{formatDate(nominee.dob) || '-'}</div>
+                                    <div className="text-base text-gray-800">{formatDate(nominee.dateOfBirth || nominee.dob) || '-'}</div>
                                   </div>
                                 </div>
                              </div>
