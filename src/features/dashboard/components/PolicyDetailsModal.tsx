@@ -182,14 +182,18 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
                           <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Date of Birth</div>
                           <div className="text-[17px] text-gray-800">{formatDate(policyData.birthDate || policyData.personalInfo?.dob || policy.dateOfBirth)}</div>
                         </div>
+                        <div>
+                          <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">NID/Passport</div>
+                          <div className="text-[17px] text-gray-800">{policyData.identityNumber ? `${policyData.identityType || ''} ${policyData.identityNumber}`.trim() : '-'}</div>
+                        </div>
                       </div>
 
-                      {(policyData.email || policyData.contactNo || policyData.presentAddress || policyData.contactInfo?.email || policyData.contactInfo?.address) && (
+                      {(policyData.email || policyData.contactNo || policyData.presentAddress || policyData.permanentAddress || policyData.contactInfo?.email || policyData.contactInfo?.address) && (
                         <>
-                          <h4 className="font-semibold text-gray-800 text-[20px] border-b pb-3 pt-5">Contact Details</h4>
+                          <h4 className="font-semibold text-gray-800 text-[20px] border-b pb-3 pt-5">Contact</h4>
                           <div className="space-y-6">
                             <div>
-                              <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Mobile No</div>
+                              <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Mobile Number</div>
                               <div className="text-[17px] text-gray-800">{policyData.contactNo || policyData.contactInfo?.mobileNo || policy.phoneNumber || '-'}</div>
                             </div>
                             <div>
@@ -197,8 +201,12 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
                               <div className="text-[17px] text-gray-800">{policyData.email || policyData.contactInfo?.email || '-'}</div>
                             </div>
                             <div>
-                              <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Address</div>
+                              <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Present Address</div>
                               <div className="text-[17px] text-gray-800">{policyData.presentAddress || policyData.contactInfo?.address || '-'}</div>
+                            </div>
+                            <div>
+                              <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Permanent Address</div>
+                              <div className="text-[17px] text-gray-800">{policyData.permanentAddress || '-'}</div>
                             </div>
                           </div>
                         </>
@@ -209,20 +217,16 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
                           <h4 className="font-semibold text-gray-800 text-[20px] border-b pb-3 pt-5">Bank Info</h4>
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                              <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Account Name</div>
-                              <div className="text-[17px] text-gray-800">{policyData.accountName || '-'}</div>
-                            </div>
-                            <div>
-                              <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Account No</div>
-                              <div className="text-[17px] text-gray-800">{policyData.accountNo || '-'}</div>
-                            </div>
-                            <div>
                               <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Bank Name</div>
                               <div className="text-[17px] text-gray-800">{policyData.bankName || '-'}</div>
                             </div>
                             <div>
-                              <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Branch</div>
+                              <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Branch Name</div>
                               <div className="text-[17px] text-gray-800">{policyData.branchName || '-'}</div>
+                            </div>
+                            <div>
+                              <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Account No</div>
+                              <div className="text-[17px] text-gray-800">{policyData.accountNo || '-'}</div>
                             </div>
                             <div>
                               <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Routing No</div>

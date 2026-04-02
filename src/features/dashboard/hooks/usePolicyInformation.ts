@@ -11,10 +11,11 @@ export const usePolicyInformation = () => {
             setIsLoading(true);
             setError(null);
             const response = await fetchPolicyInformationApi(policyNo);
-            if (response.status) {
-                setPolicyData(response.data);
+            if (response) {
+                // Some endpoints wrap with {status, data}, this one returns the policy object directly
+                setPolicyData(response.data !== undefined ? response.data : response);
             } else {
-                setError(response.message || 'Failed to fetch policy information');
+                setError(response?.message || 'Failed to fetch policy information');
             }
         } catch (err) {
             setError('An error occurred while fetching policy information');
