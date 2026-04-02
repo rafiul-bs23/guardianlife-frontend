@@ -61,10 +61,10 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
 
   const modalContent = (
     <div className="fixed inset-0 z-[99999] flex justify-center items-center overflow-y-auto bg-black/50 backdrop-blur-sm p-4 sm:p-6 lg:p-10">
-      <div className="relative bg-gray-50 rounded-2xl shadow-xl w-full max-w-[600px] mx-auto overflow-hidden max-h-[90vh] flex flex-col">
+      <div className="relative bg-gray-50 rounded-2xl shadow-xl w-full max-w-[720px] mx-auto overflow-hidden max-h-[90vh] flex flex-col">
         {/* Header */}
-        <div className="bg-white border-b px-6 py-4 flex items-center justify-between sticky top-0 z-10">
-          <h2 className="text-xl font-bold text-gray-900">Policy Details</h2>
+        <div className="bg-white border-b px-8 py-5 flex items-center justify-between sticky top-0 z-10">
+          <h2 className="text-2xl font-bold text-gray-900">Policy Details</h2>
           <button
             onClick={onClose}
             className="p-2 rounded-full hover:bg-gray-100 transition-colors"
@@ -73,13 +73,13 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
           </button>
         </div>
 
-        <div className="p-6 overflow-y-auto flex-1">
+        <div className="p-8 overflow-y-auto flex-1">
           {/* Main Policy Card */}
-          <div className="bg-white border rounded-xl p-5 mb-6 shadow-sm relative overflow-hidden" style={{ borderColor: '#F28C28', borderWidth: '1.5px' }}>
-            <div className="flex justify-between items-start mb-4">
+          <div className="bg-white border rounded-xl p-6 mb-6 shadow-sm relative overflow-hidden" style={{ borderColor: '#F28C28', borderWidth: '1.5px' }}>
+            <div className="flex justify-between items-start mb-5">
               <div>
-                <h3 className="text-lg font-semibold text-gray-800">{policy.planName}</h3>
-                <div className="text-gray-500 text-sm flex items-center gap-2 mt-1">
+                <h3 className="text-xl font-semibold text-gray-800">{policy.planName}</h3>
+                <div className="text-gray-500 text-base flex items-center gap-2 mt-1.5">
                   <span>#{policy.policyNumber}</span>
                   <span className="text-gray-300">|</span>
                   <span className="text-gray-400 capitalize">{policy.policyStatus?.toLowerCase() || 'Unknown'}</span>
@@ -89,46 +89,46 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
 
             <div className="border-t border-gray-100 my-4"></div>
 
-            <div className="grid grid-cols-2 gap-y-5 gap-x-4">
+            <div className="grid grid-cols-2 gap-y-6 gap-x-5">
               <div>
-                <div className="text-gray-400 text-xs mb-1">Commencement Date</div>
-                <div className="text-sm font-medium text-gray-800">{formatDate(policy.startDate)}</div>
+                <div className="text-gray-400 text-sm mb-1">Commencement Date</div>
+                <div className="text-base font-medium text-gray-800">{formatDate(policy.startDate)}</div>
               </div>
               <div>
-                <div className="text-gray-400 text-xs mb-1">Maturity Date</div>
-                <div className="text-sm font-medium text-gray-800">{formatDate(policy.maturityDate)}</div>
+                <div className="text-gray-400 text-sm mb-1">Maturity Date</div>
+                <div className="text-base font-medium text-gray-800">{formatDate(policy.maturityDate)}</div>
               </div>
               <div>
-                <div className="text-gray-400 text-xs mb-1">Term</div>
-                <div className="text-sm font-medium text-gray-800">{policy.policyTerm} Year(s)</div>
+                <div className="text-gray-400 text-sm mb-1">Term</div>
+                <div className="text-base font-medium text-gray-800">{policy.policyTerm} Year(s)</div>
               </div>
               <div>
-                <div className="text-gray-400 text-xs mb-1">Sum Assured</div>
-                <div className="text-sm font-medium text-gray-800">{formatCurrency(policy.sumAssured)}</div>
+                <div className="text-gray-400 text-sm mb-1">Sum Assured</div>
+                <div className="text-base font-medium text-gray-800">{formatCurrency(policy.sumAssured)}</div>
               </div>
               <div>
-                <div className="text-gray-400 text-xs mb-1">Next Due Date</div>
-                <div className="text-sm font-medium text-gray-800">{formatDate(policy.nextDueDate) || '-'}</div>
+                <div className="text-gray-400 text-sm mb-1">Next Due Date</div>
+                <div className="text-base font-medium text-gray-800">{formatDate(policy.nextDueDate) || '-'}</div>
               </div>
               <div>
-                <div className="text-gray-400 text-xs mb-1">Premium Amount</div>
-                <div className="text-sm font-medium text-gray-800">{formatCurrency(policy.premiumAmount)}</div>
+                <div className="text-gray-400 text-sm mb-1">Premium Amount</div>
+                <div className="text-base font-medium text-gray-800">{formatCurrency(policy.premiumAmount)}</div>
               </div>
               <div>
-                <div className="text-gray-400 text-xs mb-1">No of Premium Due</div>
-                <div className="text-sm font-medium text-gray-800">{policyData?.numberOfPremiumDue || '0'}</div>
+                <div className="text-gray-400 text-sm mb-1">No of Premium Due</div>
+                <div className="text-base font-medium text-gray-800">{policyData?.numberOfPremiumDue || '0'}</div>
               </div>
               <div>
-                <div className="text-gray-400 text-xs mb-1">Premium Due Amount</div>
-                <div className="text-sm font-medium text-gray-800">{formatCurrency(policy.dueAmount)}</div>
+                <div className="text-gray-400 text-sm mb-1">Premium Due Amount</div>
+                <div className="text-base font-medium text-gray-800">{formatCurrency(policy.dueAmount)}</div>
               </div>
               <div>
-                <div className="text-gray-400 text-xs mb-1">Suspense</div>
-                <div className="text-sm font-medium text-gray-800">{formatCurrency(policy.suspenseAmount)}</div>
+                <div className="text-gray-400 text-sm mb-1">Suspense</div>
+                <div className="text-base font-medium text-gray-800">{formatCurrency(policy.suspenseAmount)}</div>
               </div>
               <div>
-                <div className="text-gray-400 text-xs mb-1">Payable Amount with Late Fee</div>
-                <div className="text-sm font-medium text-gray-800">{formatCurrency(policy.totalDueAmount)}</div>
+                <div className="text-gray-400 text-sm mb-1">Payable Amount with Late Fee</div>
+                <div className="text-base font-medium text-gray-800">{formatCurrency(policy.totalDueAmount)}</div>
               </div>
             </div>
           </div>
@@ -140,7 +140,7 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`whitespace-nowrap px-5 py-2 rounded-lg text-sm font-medium border transition-colors ${
+                    className={`whitespace-nowrap px-6 py-2.5 rounded-xl text-base font-medium border transition-colors ${
                       activeTab === tab 
                         ? 'bg-[#F28C28] text-white border-[#F28C28] shadow-sm' 
                         : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-50'
@@ -153,7 +153,7 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
           </div>
 
           {/* Details Section */}
-          <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm min-h-[250px]">
+          <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm min-h-[300px]">
              {isLoading ? (
                <div className="flex justify-center items-center h-48">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#F28C28]"></div>
@@ -163,42 +163,42 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
              ) : policyData ? (
                <div className="duration-300">
                  {activeTab === 'Basic Info' && (
-                   <div className="space-y-6">
-                      <h4 className="font-semibold text-gray-800 text-[17px] border-b pb-2">Personal Details</h4>
-                      <div className="space-y-5">
+                   <div className="space-y-7">
+                      <h4 className="font-semibold text-gray-800 text-[20px] border-b pb-3">Personal Details</h4>
+                      <div className="space-y-6">
                         <div>
-                          <div className="text-gray-400 text-xs mb-1 uppercase tracking-wider">Name</div>
-                          <div className="text-[15px] text-gray-800 uppercase">{policyData.personalInfo?.name || '-'}</div>
+                          <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Name</div>
+                          <div className="text-[17px] text-gray-800 uppercase">{policyData.personalInfo?.name || '-'}</div>
                         </div>
                         <div>
-                          <div className="text-gray-400 text-xs mb-1 uppercase tracking-wider">Father Name</div>
-                          <div className="text-[15px] text-gray-800">{policyData.personalInfo?.fatherName || '-'}</div>
+                          <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Father Name</div>
+                          <div className="text-[17px] text-gray-800">{policyData.personalInfo?.fatherName || '-'}</div>
                         </div>
                         <div>
-                          <div className="text-gray-400 text-xs mb-1 uppercase tracking-wider">Mother Name</div>
-                          <div className="text-[15px] text-gray-800">{policyData.personalInfo?.motherName || '-'}</div>
+                          <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Mother Name</div>
+                          <div className="text-[17px] text-gray-800">{policyData.personalInfo?.motherName || '-'}</div>
                         </div>
                         <div>
-                          <div className="text-gray-400 text-xs mb-1 uppercase tracking-wider">Date of Birth</div>
-                          <div className="text-[15px] text-gray-800">{formatDate(policyData.personalInfo?.dob || policy.dateOfBirth)}</div>
+                          <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Date of Birth</div>
+                          <div className="text-[17px] text-gray-800">{formatDate(policyData.personalInfo?.dob || policy.dateOfBirth)}</div>
                         </div>
                       </div>
 
                       {(policyData.contactInfo?.email || policyData.contactInfo?.address) && (
                         <>
-                          <h4 className="font-semibold text-gray-800 text-[17px] border-b pb-2 pt-4">Contact Details</h4>
-                          <div className="space-y-5">
+                          <h4 className="font-semibold text-gray-800 text-[20px] border-b pb-3 pt-5">Contact Details</h4>
+                          <div className="space-y-6">
                             <div>
-                              <div className="text-gray-400 text-xs mb-1 uppercase tracking-wider">Mobile No</div>
-                              <div className="text-[15px] text-gray-800">{policyData.contactInfo?.mobileNo || policy.phoneNumber || '-'}</div>
+                              <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Mobile No</div>
+                              <div className="text-[17px] text-gray-800">{policyData.contactInfo?.mobileNo || policy.phoneNumber || '-'}</div>
                             </div>
                             <div>
-                              <div className="text-gray-400 text-xs mb-1 uppercase tracking-wider">Email</div>
-                              <div className="text-[15px] text-gray-800">{policyData.contactInfo?.email || '-'}</div>
+                              <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Email</div>
+                              <div className="text-[17px] text-gray-800">{policyData.contactInfo?.email || '-'}</div>
                             </div>
                             <div>
-                              <div className="text-gray-400 text-xs mb-1 uppercase tracking-wider">Address</div>
-                              <div className="text-[15px] text-gray-800">{policyData.contactInfo?.address || '-'}</div>
+                              <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Address</div>
+                              <div className="text-[17px] text-gray-800">{policyData.contactInfo?.address || '-'}</div>
                             </div>
                           </div>
                         </>
@@ -209,28 +209,28 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
                     <div className="space-y-4">
                       {policyData.nominees && policyData.nominees.length > 0 ? (
                         policyData.nominees.map((nominee: any, idx: number) => (
-                           <div key={idx} className="border border-gray-100 rounded-xl p-5 bg-gray-50/50 hover:bg-gray-50 transition-colors">
-                             <div className="space-y-4">
+                           <div key={idx} className="border border-gray-100 rounded-xl p-6 bg-gray-50/50 hover:bg-gray-50 transition-colors">
+                             <div className="space-y-5">
                                 <div>
-                                  <div className="text-gray-400 text-xs mb-1 uppercase tracking-wider">Name of Nominee</div>
-                                  <div className="text-[15px] font-medium text-gray-800 uppercase">{nominee.name || '-'}</div>
+                                  <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Name of Nominee</div>
+                                  <div className="text-lg font-medium text-gray-800 uppercase">{nominee.name || '-'}</div>
                                 </div>
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-2 gap-5">
                                   <div>
-                                    <div className="text-gray-400 text-xs mb-1 uppercase tracking-wider">Relation</div>
-                                    <div className="text-sm text-gray-800">{nominee.relation || '-'}</div>
+                                    <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Relation</div>
+                                    <div className="text-base text-gray-800">{nominee.relation || '-'}</div>
                                   </div>
                                   <div>
-                                    <div className="text-gray-400 text-xs mb-1 uppercase tracking-wider">Share</div>
-                                    <div className="text-sm text-gray-800">{nominee.sharePercentage ? `${nominee.sharePercentage}%` : '-'}</div>
+                                    <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Share</div>
+                                    <div className="text-base text-gray-800">{nominee.sharePercentage ? `${nominee.sharePercentage}%` : '-'}</div>
                                   </div>
                                   <div>
-                                    <div className="text-gray-400 text-xs mb-1 uppercase tracking-wider">Age</div>
-                                    <div className="text-sm text-gray-800">{nominee.age || '-'}</div>
+                                    <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Age</div>
+                                    <div className="text-base text-gray-800">{nominee.age || '-'}</div>
                                   </div>
                                   <div>
-                                    <div className="text-gray-400 text-xs mb-1 uppercase tracking-wider">Date of Birth</div>
-                                    <div className="text-sm text-gray-800">{formatDate(nominee.dob) || '-'}</div>
+                                    <div className="text-gray-400 text-sm mb-1 uppercase tracking-wider">Date of Birth</div>
+                                    <div className="text-base text-gray-800">{formatDate(nominee.dob) || '-'}</div>
                                   </div>
                                 </div>
                              </div>
@@ -245,9 +245,9 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
                     <div className="space-y-4">
                       {policyData.supplementary && policyData.supplementary.length > 0 ? (
                         policyData.supplementary.map((sup: any, idx: number) => (
-                           <div key={idx} className="flex justify-between items-center bg-gray-50 p-4 rounded-xl border border-gray-100">
-                             <span className="text-[15px] text-gray-700 font-medium">{sup.name || 'Supplementary Benefit'}</span>
-                             <span className="text-[15px] font-bold text-gray-900">{formatCurrency(sup.amount || 0)}</span>
+                           <div key={idx} className="flex justify-between items-center bg-gray-50 p-5 rounded-xl border border-gray-100">
+                             <span className="text-[17px] text-gray-700 font-medium">{sup.name || 'Supplementary Benefit'}</span>
+                             <span className="text-[17px] font-bold text-gray-900">{formatCurrency(sup.amount || 0)}</span>
                            </div>
                         ))
                       ) : (
