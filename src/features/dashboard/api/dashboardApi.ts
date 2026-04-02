@@ -8,3 +8,10 @@ export const fetchDashboardDataApi = async () => {
   });
   return response.data;
 };
+
+export const fetchPolicyInformationApi = async (policyNo: string) => {
+  const response = await axiosClient.post(`${DASHBOARD_BASE_URL}/policy/information`, {
+    policyNo
+  });
+  return response.data;
+};
