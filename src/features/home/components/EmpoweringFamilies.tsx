@@ -1,7 +1,7 @@
 import PartnersBanner from "../../../shared/Components/PartnersBanner";
 
 import { useTranslation } from 'react-i18next';
-import { partners2 } from "../api/mockData";
+import { microPartners } from "../api/mockData";
 
 const EmpoweringFamilies = () => {
   const { t } = useTranslation('home');
@@ -14,7 +14,7 @@ const EmpoweringFamilies = () => {
         description={t('empowering_families.description')}
         buttonLabel={t('empowering_families.button')}
         buttonTo="/micro"
-        partners={partners2}
+        partners={microPartners}
         reversed={true}
         maxWidth="max-w-[1440px]"
       />
