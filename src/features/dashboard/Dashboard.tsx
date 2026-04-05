@@ -7,6 +7,7 @@ import ClaimsList from './components/ClaimsList';
 import PolicyList from './components/PolicyList';
 import type { DashboardApiResponse } from './types';
 import Button from '../../shared/Components/Button';
+import { getUserData, clearAuthData } from '../../shared/utils/authUtils';
 
 
 const Dashboard = () => {
@@ -17,13 +18,9 @@ const Dashboard = () => {
 
 
   useEffect(() => {
-    const userData = localStorage.getItem('user');
+    const userData = getUserData();
     if (userData) {
-      try {
-        setUser(JSON.parse(userData));
-      } catch (e) {
-        console.error('Failed to parse user data from local storage', e);
-      }
+      setUser(userData);
     }
 
     const fetchDashboardData = async () => {
@@ -45,8 +42,7 @@ const Dashboard = () => {
     } catch (error) {
       console.error('Logout API failed', error);
     } finally {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
+      clearAuthData();
       navigate('/login');
     }
   };
