@@ -1,76 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import type { Policy } from '../types';
 import PolicyCard from './PolicyCard';
 import PolicyDetailsModal from './PolicyDetailsModal';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface PolicyListProps {
   policies?: Policy[];
 }
 
 const PolicyList: React.FC<PolicyListProps> = ({ policies = [] }) => {
-  const [activeTab, setActiveTab] = useState<'All' | 'Individual' | 'Group'>('All');
   const [selectedPolicy, setSelectedPolicy] = useState<Policy | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  const filteredPolicies = policies.filter((policy) => {
-    if (activeTab === 'All') return true;
-    if (activeTab === 'Individual') return policy.segment === 'INDIVIDUAL';
-    if (activeTab === 'Group') return policy.segment === 'GROUP';
-    return true;
-  });
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = 340; // Approx width of card + gap
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  if (!policies || policies.length === 0) {
+    return (
+      <div className="text-center py-12 bg-white rounded-2xl border-2 border-dashed border-gray-100">
+        <p className="text-gray-400 font-medium">No policies found.</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="w-full">
-      <h3 className="text-xl font-bold text-gray-800 mb-4 px-1">
-        My Policies
-      </h3>
-
-      <div className="flex gap-2 mb-6 px-1">
-        <button
-          onClick={() => setActiveTab('All')}
-          className={`px-5 py-2 rounded-lg text-sm font-medium transition-colors ${
-            activeTab === 'All'
-              ? 'bg-[#F28C28] text-white shadow-md'
-              : 'bg-white text-gray-600 border border-gray-300 hover:bg-gray-50'
-          }`}
-        >
-          All
-        </button>
-        <button
-          onClick={() => setActiveTab('Individual')}
-          className={`px-5 py-2 rounded-lg text-sm font-medium transition-colors ${
-            activeTab === 'Individual'
-              ? 'bg-[#F28C28] text-white shadow-md'
-              : 'bg-white text-gray-600 border border-gray-300 hover:bg-gray-50'
-          }`}
-        >
-          Individual
-        </button>
-        <button
-          onClick={() => setActiveTab('Group')}
-          className={`px-5 py-2 rounded-lg text-sm font-medium transition-colors ${
-            activeTab === 'Group'
-              ? 'bg-[#F28C28] text-white shadow-md'
-              : 'bg-white text-gray-600 border border-gray-300 hover:bg-gray-50'
-          }`}
-        >
-          Group
-        </button>
+    <div className="w-full relative group">
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-[22px] font-bold text-gray-800">
+          Policies <span className="text-[#f37021]/80 ml-1">({policies.length})</span>
+        </h3>
+        <div className="flex gap-2">
+          <button
+            onClick={() => scroll('left')}
+            className="p-2.5 rounded-full bg-white border border-gray-200 shadow-sm hover:border-[#f37021] hover:text-[#f37021] transition-all"
+            aria-label="Previous"
+          >
+            <ChevronLeft size={20} />
+          </button>
+          <button
+            onClick={() => scroll('right')}
+            className="p-2.5 rounded-full bg-white border border-gray-200 shadow-sm hover:border-[#f37021] hover:text-[#f37021] transition-all"
+            aria-label="Next"
+          >
+            <ChevronRight size={20} />
+          </button>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-1 pb-10">
-        {filteredPolicies.length > 0 ? (
-          filteredPolicies.map((policy) => (
+      <div 
+        ref={scrollRef}
+        className="flex gap-5 overflow-x-auto no-scrollbar pb-8 px-1 scroll-smooth snap-x snap-mandatory"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      >
+        {policies.map((policy) => (
+          <div key={policy.policyNumber} className="min-w-[320px] md:min-w-[360px] snap-start">
             <PolicyCard 
-              key={policy.policyNumber} 
               policy={policy} 
               onClick={() => setSelectedPolicy(policy)} 
             />
-          ))
-        ) : (
-          <div className="text-center py-8 text-gray-500 bg-white rounded-lg border border-gray-200 col-span-1 md:col-span-2">
-            No policies found for this category.
           </div>
-        )}
+        ))}
       </div>
 
       <PolicyDetailsModal 
@@ -78,6 +74,12 @@ const PolicyList: React.FC<PolicyListProps> = ({ policies = [] }) => {
         policy={selectedPolicy} 
         onClose={() => setSelectedPolicy(null)} 
       />
+
+      <style>{`
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </div>
   );
 };
