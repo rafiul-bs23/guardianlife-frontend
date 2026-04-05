@@ -81,7 +81,7 @@ const Login = () => {
         <div className="absolute top-6 right-6 z-20 hidden lg:block">
           <Link
             to="/"
-            className="flex items-center gap-2 text-gray-500 hover:text-primary transition-colors font-medium group"
+            className="flex items-center gap-2 text-gray-500 hover:text-primary transition-colors font-medium group border border-amber-500 px-4 py-2 rounded-xl"
           >
             <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
             <span>Back to Home</span>
