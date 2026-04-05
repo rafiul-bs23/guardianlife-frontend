@@ -1,4 +1,6 @@
 import { type Variants, motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import LoginForm from './components/LoginForm';
 
 const panelVariants: Variants = {
@@ -13,7 +15,7 @@ const formPanelVariants: Variants = {
 
 const Login = () => {
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row overflow-hidden">
+    <div className="min-h-screen flex flex-col lg:flex-row overflow-hidden relative">
 
       {/* ── Left branding panel ── */}
       <motion.div
@@ -73,15 +75,32 @@ const Login = () => {
         variants={formPanelVariants}
         initial="hidden"
         animate="visible"
-        className="flex-1 flex flex-col"
+        className="flex-1 flex flex-col relative"
       >
+        {/* Back to Home Button */}
+        <div className="absolute top-6 right-6 z-20 hidden lg:block">
+          <Link
+            to="/"
+            className="flex items-center gap-2 text-gray-500 hover:text-primary transition-colors font-medium group"
+          >
+            <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+            <span>Back to Home</span>
+          </Link>
+        </div>
         {/* Mobile-only top bar */}
-        <div className="lg:hidden flex items-center gap-4 bg-primary px-6 py-4">
+        <div className="lg:hidden flex items-center justify-between bg-primary px-6 py-4">
           <img
             src="/assets/images/shared/logo.png"
             alt="Guardian Life Insurance"
             className="h-8 object-contain"
           />
+          <Link
+            to="/"
+            className="flex items-center gap-1 text-white/90 hover:text-white transition-colors text-sm font-medium"
+          >
+            <ArrowLeft size={16} />
+            <span>Home</span>
+          </Link>
         </div>
 
         {/* Form area */}
