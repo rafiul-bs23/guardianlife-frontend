@@ -4,7 +4,7 @@ import GenericHeader from '../../../shared/Components/GenericHeader';
 
 export const HEADER_DATA: HeaderData = {
     title: [],
-    background_image_url: 'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=2070&auto=format&fit=crop',
+    background_image_url: '/assets/images/headers/form-library-hero.jpg',
 };
 
 const FormLibraryHeader = () => {

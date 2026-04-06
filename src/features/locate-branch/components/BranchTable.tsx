@@ -42,8 +42,8 @@ const BranchTable = ({
                         <tr>
                             {[
                                 { key: 'sl', label: t('table.headers.sl') },
-                                { key: 'category', label: t('table.headers.category') },
                                 { key: 'name', label: t('table.headers.name') },
+                                { key: 'category', label: t('table.headers.category') },
                                 { key: 'division', label: t('table.headers.division') },
                                 { key: 'district', label: t('table.headers.district') },
                                 { key: 'area', label: t('table.headers.area') },
@@ -89,13 +89,13 @@ const BranchTable = ({
                                     <td className="px-4 py-3.5 font-medium text-gray-500 whitespace-nowrap">
                                         {startIndex + index + 1}
                                     </td>
+                                    <td className="px-4 py-3.5 font-medium text-gray-800 whitespace-nowrap">
+                                        {branch.office_name}
+                                    </td>
                                     <td className="px-4 py-3.5 whitespace-nowrap">
                                         <span className="inline-block px-2.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">
                                             {branch.office_category}
                                         </span>
-                                    </td>
-                                    <td className="px-4 py-3.5 font-medium text-gray-800 whitespace-nowrap">
-                                        {branch.office_name}
                                     </td>
                                     <td className="px-4 py-3.5 text-gray-600 whitespace-nowrap">
                                         {branch.division_name}

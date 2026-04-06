@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { X, Info, Download } from 'lucide-react';
 import Button from "../../../shared/Components/Button.tsx";
 import { getPremiumDocument, createProposal } from '../api';
@@ -46,7 +47,7 @@ const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, data,
                 }
                 const byteArray = new Uint8Array(byteNumbers);
                 const blob = new Blob([byteArray], { type: 'application/pdf' });
-                
+
                 const url = window.URL.createObjectURL(blob);
                 const link = document.createElement('a');
                 link.href = url;
@@ -115,14 +116,14 @@ const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, data,
 
     if (!isOpen) return null;
 
-    return (
-        <div className="fixed inset-0 z-[99999] flex justify-center items-start overflow-y-auto bg-black/40 backdrop-blur-sm p-4 sm:p-6 lg:p-10">
+    return typeof document !== 'undefined' ? createPortal(
+        <div className="fixed inset-0 !z-[99999] flex justify-center items-start overflow-y-auto bg-black/40 backdrop-blur-sm p-4 sm:p-6 lg:p-10">
             <div className="relative bg-white rounded-3xl shadow-xl w-full max-w-[900px] mx-auto p-6 sm:p-8 lg:p-10">
                 <button
                     onClick={onClose}
                     className="absolute top-6 right-6 w-[50px] h-[50px] flex items-center justify-center rounded-full bg-orange-100 text-[#F37021] hover:bg-orange-200 transition-colors"
                 >
-                    <X size={27}/>
+                    <X size={27} />
                 </button>
 
                 <div className="mb-6">
@@ -133,7 +134,7 @@ const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, data,
 
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                     <h3 className="text-xl sm:text-2xl font-medium text-gray-700">Benefit - Base Plan</h3>
-                    <button 
+                    <button
                         onClick={handleDownloadDetails}
                         disabled={isDownloading}
                         className="flex items-center gap-2 px-6 py-2 rounded-full border border-[#F37021] text-[#F37021] font-medium text-sm hover:bg-orange-50 transition-colors disabled:opacity-50"
@@ -184,13 +185,13 @@ const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, data,
 
                 <div className="mt-12 flex flex-col sm:flex-row justify-center items-center gap-4">
                     <Button
-                      label="Check Again"
-                      onClick={onCheckAgain}
-                      variant="outline-orange"
+                        label="Check Again"
+                        onClick={onCheckAgain}
+                        variant="outline-orange"
                     />
                     <Button
-                      label={isSubmitting ? "Submitting..." : "Proceed To Proposal"}
-                      onClick={isSubmitting ? undefined : handleProceedToProposal}
+                        label={isSubmitting ? "Submitting..." : "Proceed To Proposal"}
+                        onClick={isSubmitting ? undefined : handleProceedToProposal}
                     />
                 </div>
                 {/* Toast Notification */}
@@ -204,8 +205,9 @@ const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, data,
                     </div>
                 )}
             </div>
-        </div>
-    );
+        </div>,
+        document.body
+    ) : null;
 };
 
 export default PremiumDetailsModal;

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X, Info, Check, Calendar } from 'lucide-react';
 import { getPlanInformation, getSupplementaryInfo, calculatePremium } from '../api';
 import PremiumDetailsModal from './PremiumDetailsModal';
 import Button from "../../../shared/Components/Button.tsx";
-import type {PlanNumber, PaymentMode, HiBeneficiary, HiMaternityPlan, HiHealthPlans, CiPercentage, TermOption, CalculationResult, SupplementaryInfoItem} from "../types.ts";
+import type { PlanNumber, PaymentMode, HiBeneficiary, HiMaternityPlan, HiHealthPlans, CiPercentage, TermOption, CalculationResult, SupplementaryInfoItem } from "../types.ts";
 import axios, { AxiosError } from 'axios';
 
 interface CalculatePremiumModalProps {
@@ -108,7 +109,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
     setDate: React.Dispatch<React.SetStateAction<string>>,
     setDisplay: React.Dispatch<React.SetStateAction<string>>,
     setAgeState: React.Dispatch<React.SetStateAction<string>>
-  ) => {    const val = e.target.value; // YYYY-MM-DD
+  ) => {
+    const val = e.target.value; // YYYY-MM-DD
     setDate(val);
     if (val) {
       const parts = val.split('-');
@@ -127,7 +129,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
     setDate: React.Dispatch<React.SetStateAction<string>>,
     setDisplay: React.Dispatch<React.SetStateAction<string>>,
     setAgeState: React.Dispatch<React.SetStateAction<string>>
-  ) => {    let val = e.target.value.replace(/\D/g, '');
+  ) => {
+    let val = e.target.value.replace(/\D/g, '');
     if (val.length > 8) val = val.slice(0, 8);
 
     let formatted = val;
@@ -203,7 +206,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
         // Update sum assured min-max
         if (min_sumass) setMinSumAss(Number(min_sumass));
         if (max_sumass) setMaxSumAss(Number(max_sumass));
-        
+
         setIsProcessed(true);
       } else {
         alert(data?.message || "Failed to fetch plan information");
@@ -240,7 +243,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
               setHiBeneficiaries(hiData.beneficiaries || []);
               setHiMaternityPlans(hiData.hi_maternity_plan || []);
               setHiHealthPlans(hiData.health_insurance || []);
-              
+
               // Set defaults if currently empty or not in new list
               if (hiData.health_insurance?.length > 0) {
                 if (!hiOption || !hiData.health_insurance.find((h: HiHealthPlans) => h.id === hiOption.id)) {
@@ -382,9 +385,9 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
     }
   };
 
-  if (!isOpen) return null;
+  if (!isOpen && !isDetailsModalOpen) return null;
 
-  return (
+  return typeof document !== 'undefined' ? createPortal(
     <>
       <div className={`fixed inset-0 z-[99999] flex justify-center items-start overflow-y-auto bg-black/40 backdrop-blur-sm p-4 sm:p-6 lg:p-10 ${isDetailsModalOpen ? 'hidden' : ''}`}>
         <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-[900px] mx-auto p-6 sm:p-8 lg:p-12">
@@ -587,7 +590,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {hiHealthPlans.map((opt, idx) => {
                           const colors = ['#D28E5D', '#B0B6BA', '#FBB03B', '#6F7678'];
-                          console.log("opt🟢" , opt)
+
                           return (
                             <div
                               key={opt.id || opt.name}
@@ -779,8 +782,9 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
       `}</style>
-    </>
-  );
+    </>,
+    document.body
+  ) : null;
 };
 
 export default CalculatePremiumModal;
