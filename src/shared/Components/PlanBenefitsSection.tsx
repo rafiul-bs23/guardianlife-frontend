@@ -62,13 +62,13 @@ const PlanBenefitsSection: React.FC<PlanBenefitsSectionProps> = ({ data }) => {
                         </div>
 
                         {/* Calculate Tax Button */}
-                        <div className="flex justify-start">
+                        {/* <div className="flex justify-start">
                             <Button
                                 label="Calculate Tax"
                                 variant="outline-orange"
                                 onClick={() => showPopup()}
                             />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

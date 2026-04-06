@@ -27,7 +27,7 @@ const TaxRebateHeader: React.FC<TaxRebateHeaderProps> = ({ data }) => {
             titleClassName="!text-5xl lg:!text-[64px] font-black tracking-tight mb-8"
             descriptionClassName="!text-black !text-base lg:!text-lg !font-bold !normal-case !tracking-normal max-w-xl !leading-relaxed !mb-12 text-justify"
             innerWrapperClassName="pt-12"
-            actions={actions}
+        // actions={actions}
         />
     );
 };

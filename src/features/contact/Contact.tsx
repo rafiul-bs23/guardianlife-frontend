@@ -1,10 +1,10 @@
 import ContactHeader from './components/ContactHeader';
 import ContactInfo from './components/ContactInfo';
 import ContactForm from './components/ContactForm';
-import { useHeader } from './hooks/useHeader';
+import { useHeader } from '../../shared/hooks/useHeader';
 
 const Contact = () => {
-  const { data: headerData, isLoading: isHeaderLoading } = useHeader();
+  const { data: headerData, isLoading: isHeaderLoading } = useHeader('contact-us');
 
   if (isHeaderLoading) {
     return (

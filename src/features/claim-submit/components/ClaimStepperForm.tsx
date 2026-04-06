@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useParams } from 'react-router-dom';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import type { Policy } from '../../dashboard/types';
 import { fetchMemberInfo, fetchHospitalAreaList, fetchHospitalList, fetchFileSettings, uploadFile, submitHiClaim, submitGopClaim } from '../api/claimSubmitApi';
-import type { MemberInfoResponse, MemberItem, ClaimTypeItem, HospitalItem, FileSettingsResponse } from '../types';
+import type { MemberInfoResponse, HospitalItem, FileSettingsResponse } from '../types';
 import { parseApiError } from '../../../shared/utils/api-error-handler';
 import { CheckCircle2, XCircle } from 'lucide-react';
 
@@ -18,7 +18,7 @@ interface ClaimFormData {
   area: string;
   hospitalId: string | number;
   physicianName: string;
-  cabinNo: string;
+  cabinNo: string
   claimedAmount: string | number;
   admissionReason: string;
   claimDocuments: number[];
@@ -132,11 +132,11 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
     }
   }, [watchArea, type]);
 
-  const filteredAreas = areas.filter(a => 
+  const filteredAreas = areas.filter(a =>
     a.toLowerCase().includes(areaSearch.toLowerCase())
   );
 
-  const filteredHospitals = hospitals.filter(h => 
+  const filteredHospitals = hospitals.filter(h =>
     h.name.toLowerCase().includes(hospitalSearch.toLowerCase())
   );
 
@@ -191,7 +191,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
           extension: extension,
           base64Data: base64Data
         });
-        
+
         const currentDocs = watch('claimDocuments') || [];
         setValue('claimDocuments', [...currentDocs, res.id]);
         setUploadedFiles(prev => [...prev, { id: res.id, name: file.name }]);
@@ -222,10 +222,10 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
           if (res.members.length > 0) {
             const firstMember = res.members[0];
             setValue('memberId', String(firstMember.id));
-            
+
             if (firstMember.claimTypes.length > 0) {
               const types = firstMember.claimTypes;
-              const initialType = type === 'cashless-payment' 
+              const initialType = type === 'cashless-payment'
                 ? types.find(t => t.name !== 'OPD') || types[0]
                 : types[0];
               setValue('claimTypeId', initialType.id);
@@ -267,7 +267,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
         fieldsToValidate.push('physicianName', 'claimedAmount');
       }
     }
-    
+
     const isValid = await trigger(fieldsToValidate);
     if (isValid && step < 3) {
       setStep(step + 1);
@@ -351,7 +351,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
           </span>
           <span className="text-gray-400 text-sm">Step {step} / 3</span>
         </div>
-        
+
         {/* Progress Bar */}
         <div className="px-6 w-full flex bg-gray-800 h-1 mb-4">
           <div className="h-full bg-[#F37021] transition-all duration-300" style={{ width: `${(step / 3) * 100}%` }} />
@@ -395,13 +395,13 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                     <label className="block text-sm text-gray-400 mb-2">Patient</label>
                     <div className="space-y-2">
                       {memberInfo?.members.map((m) => (
-                        <div 
+                        <div
                           key={m.policyNo}
                           className={`p-4 rounded-xl border ${watchMemberId === m.policyNo ? 'border-[#F37021] bg-[#1a1512]' : 'border-gray-700 bg-[#1f2128]'} flex items-center cursor-pointer transition-all`}
                           onClick={() => {
                             setValue('memberId', String(m.id));
                             if (m.claimTypes.length > 0) {
-                              const initialType = type === 'cashless-payment' 
+                              const initialType = type === 'cashless-payment'
                                 ? m.claimTypes.find(t => t.name !== 'OPD') || m.claimTypes[0]
                                 : m.claimTypes[0];
                               setValue('claimTypeId', initialType.id);
@@ -424,19 +424,19 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                     <>
                       <div>
                         <label className="block text-sm text-gray-400 mb-2">Member ID</label>
-                        <input 
-                          type="text" 
-                          readOnly 
-                          value={selectedPatient?.policyNo || ''} 
+                        <input
+                          type="text"
+                          readOnly
+                          value={selectedPatient?.policyNo || ''}
                           className="w-full bg-[#1b1c23] border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:border-gray-500 cursor-not-allowed"
                         />
                       </div>
                       <div>
                         <label className="block text-sm text-gray-400 mb-2">Organization</label>
-                        <input 
-                          type="text" 
-                          readOnly 
-                          value={memberInfo?.organization || ''} 
+                        <input
+                          type="text"
+                          readOnly
+                          value={memberInfo?.organization || ''}
                           className="w-full bg-[#1b1c23] border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:border-gray-500 cursor-not-allowed"
                         />
                       </div>
@@ -445,19 +445,19 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                     <>
                       <div>
                         <label className="block text-sm text-gray-400 mb-2">Policy no</label>
-                        <input 
-                          type="text" 
-                          readOnly 
-                          value={policy.policyNumber} 
+                        <input
+                          type="text"
+                          readOnly
+                          value={policy.policyNumber}
                           className="w-full bg-[#1b1c23] border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:border-gray-500 cursor-not-allowed"
                         />
                       </div>
                       <div>
                         <label className="block text-sm text-gray-400 mb-2">Policy name</label>
-                        <input 
-                          type="text" 
-                          readOnly 
-                          value={policy.planName} 
+                        <input
+                          type="text"
+                          readOnly
+                          value={policy.planName}
                           className="w-full bg-[#1b1c23] border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:border-gray-500 cursor-not-allowed"
                         />
                       </div>
@@ -470,7 +470,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                       {selectedPatient?.claimTypes
                         .filter(ct => type === 'cashless-payment' ? ct.name !== 'OPD' : true)
                         .map((ct) => (
-                          <button 
+                          <button
                             key={ct.id}
                             type="button"
                             onClick={() => setValue('claimTypeId', ct.id)}
@@ -488,8 +488,8 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                       <div>
                         <label className="block text-sm text-gray-400 mb-2">Admission/Treatment Date <span className="text-red-500">*</span></label>
                         <div className="relative">
-                          <input 
-                            type="date" 
+                          <input
+                            type="date"
                             {...register('admissionDate', { required: true })}
                             min={today}
                             max={next7Days}
@@ -500,7 +500,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                       </div>
                       <div>
                         <label className="block text-sm text-gray-400 mb-2">Mobile Number <span className="text-red-500">*</span></label>
-                        <input 
+                        <input
                           type="tel"
                           placeholder="+880"
                           {...register('mobileNumber', { required: true })}
@@ -514,8 +514,8 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                         <div>
                           <label className="block text-sm text-gray-400 mb-2">Treatment Date <span className="text-red-500">*</span></label>
                           <div className="relative">
-                            <input 
-                              type="date" 
+                            <input
+                              type="date"
                               {...register('treatmentDate', { required: true })}
                               max={today}
                               className={`w-full bg-transparent border ${formErrors.treatmentDate ? 'border-red-500' : 'border-gray-700'} rounded-lg p-3 text-white focus:outline-none focus:border-[#F37021] z-10 relative appearance-none date-input-custom`}
@@ -528,8 +528,8 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                           <div>
                             <label className="block text-sm text-gray-400 mb-2">Admission Date <span className="text-red-500">*</span></label>
                             <div className="relative">
-                              <input 
-                                type="date" 
+                              <input
+                                type="date"
                                 {...register('admissionDate', { required: true })}
                                 max={today}
                                 className={`w-full bg-transparent border ${formErrors.admissionDate ? 'border-red-500' : 'border-gray-700'} rounded-lg p-3 text-white focus:outline-none focus:border-[#F37021] z-10 relative appearance-none date-input-custom`}
@@ -540,8 +540,8 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                           <div>
                             <label className={`block text-sm ${!watchAdmissionDate ? 'text-gray-600' : 'text-gray-400'} mb-2`}>Discharge Date <span className="text-red-500">*</span></label>
                             <div className="relative">
-                              <input 
-                                type="date" 
+                              <input
+                                type="date"
                                 {...register('dischargeDate', { required: true })}
                                 disabled={!watchAdmissionDate}
                                 min={watchAdmissionDate}
@@ -565,7 +565,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
               <div>
                 <label className="block text-sm text-gray-400 mb-2">Area</label>
                 <div className="relative">
-                  <div 
+                  <div
                     className={`w-full bg-[#1b1c23] border ${formErrors.area ? 'border-red-500' : 'border-gray-700'} rounded-lg p-3 text-white cursor-pointer flex justify-between items-center transition-all`}
                     onClick={() => !loadingAreas && setIsAreaDropdownOpen(!isAreaDropdownOpen)}
                   >
@@ -580,10 +580,10 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                   {isAreaDropdownOpen && (
                     <div className="absolute z-50 mt-1 w-full bg-[#1f2128] border border-gray-700 rounded-lg shadow-xl overflow-hidden flex flex-col">
                       <div className="p-2 border-b border-gray-700 bg-[#1b1c23]">
-                        <input 
-                          type="text" 
+                        <input
+                          type="text"
                           autoFocus
-                          placeholder="Search area..." 
+                          placeholder="Search area..."
                           className="w-full bg-transparent p-2 text-white text-sm focus:outline-none"
                           value={areaSearch}
                           onChange={(e) => setAreaSearch(e.target.value)}
@@ -592,7 +592,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                       <div className="max-h-60 overflow-y-auto custom-scrollbar">
                         {filteredAreas.length > 0 ? (
                           filteredAreas.map(area => (
-                            <div 
+                            <div
                               key={area}
                               className="px-4 py-3 text-sm text-gray-300 hover:bg-[#F37021] hover:text-white cursor-pointer transition-colors"
                               onClick={() => {
@@ -620,7 +620,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
               <div>
                 <label className="block text-sm text-gray-400 mb-2">Hospital</label>
                 <div className="relative">
-                  <div 
+                  <div
                     className={`w-full bg-[#1b1c23] border ${formErrors.hospitalId ? 'border-red-500' : 'border-gray-700'} rounded-lg p-3 text-white cursor-pointer flex justify-between items-center`}
                     onClick={() => !loadingHospitals && watchArea && setIsHospitalDropdownOpen(!isHospitalDropdownOpen)}
                   >
@@ -635,10 +635,10 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                   {isHospitalDropdownOpen && (
                     <div className="absolute z-50 mt-1 w-full bg-[#1f2128] border border-gray-700 rounded-lg shadow-xl overflow-hidden flex flex-col">
                       <div className="p-2 border-b border-gray-700 bg-[#1b1c23]">
-                        <input 
-                          type="text" 
+                        <input
+                          type="text"
                           autoFocus
-                          placeholder="Search hospital..." 
+                          placeholder="Search hospital..."
                           className="w-full bg-transparent p-2 text-white text-sm focus:outline-none"
                           value={hospitalSearch}
                           onChange={(e) => setHospitalSearch(e.target.value)}
@@ -647,7 +647,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                       <div className="max-h-60 overflow-y-auto custom-scrollbar">
                         {filteredHospitals.length > 0 ? (
                           filteredHospitals.map(hospital => (
-                            <div 
+                            <div
                               key={hospital.id}
                               className="px-4 py-3 text-sm text-gray-300 hover:bg-[#F37021] hover:text-white cursor-pointer transition-colors"
                               onClick={() => {
@@ -675,17 +675,17 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                 <>
                   <div>
                     <label className="block text-sm text-gray-400 mb-2">Bed Number (optional)</label>
-                    <input 
-                      type="text" 
-                      placeholder="Enter Bed Number" 
+                    <input
+                      type="text"
+                      placeholder="Enter Bed Number"
                       {...register('cabinNo')}
                       className="w-full bg-transparent border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:border-[#F37021]"
                     />
                   </div>
                   <div>
                     <label className="block text-sm text-gray-400 mb-2">Cause of Admission (optional)</label>
-                    <textarea 
-                      placeholder="Enter Cause of Admission" 
+                    <textarea
+                      placeholder="Enter Cause of Admission"
                       {...register('admissionReason')}
                       className="w-full bg-transparent border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:border-[#F37021] h-24"
                     />
@@ -695,9 +695,9 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                 <>
                   <div>
                     <label className="block text-sm text-gray-400 mb-2">Physician/Doctor Name <span className="text-red-500">*</span></label>
-                    <input 
-                      type="text" 
-                      placeholder="Enter Physician/Doctor Name" 
+                    <input
+                      type="text"
+                      placeholder="Enter Physician/Doctor Name"
                       {...register('physicianName', { required: true })}
                       className={`w-full bg-transparent border ${formErrors.physicianName ? 'border-red-500' : 'border-gray-700'} rounded-lg p-3 text-white focus:outline-none focus:border-[#F37021]`}
                     />
@@ -706,9 +706,9 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                   {selectedClaimType?.name === 'MATERNITY' && (
                     <div>
                       <label className="block text-sm text-gray-400 mb-2">Bed/Cabin Number <span className="text-red-500">*</span></label>
-                      <input 
-                        type="text" 
-                        placeholder="Enter Cabin Number" 
+                      <input
+                        type="text"
+                        placeholder="Enter Cabin Number"
                         {...register('cabinNo', { required: true })}
                         className={`w-full bg-transparent border ${formErrors.cabinNo ? 'border-red-500' : 'border-gray-700'} rounded-lg p-3 text-white focus:outline-none focus:border-[#F37021]`}
                       />
@@ -717,9 +717,9 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
 
                   <div>
                     <label className="block text-sm text-gray-400 mb-2">Claim Amount <span className="text-red-500">*</span></label>
-                    <input 
-                      type="number" 
-                      placeholder="Enter Claim Amount" 
+                    <input
+                      type="number"
+                      placeholder="Enter Claim Amount"
                       {...register('claimedAmount', { required: true, min: 1 })}
                       className={`w-full bg-transparent border ${formErrors.claimedAmount ? 'border-red-500' : 'border-gray-700'} rounded-lg p-3 text-white focus:outline-none focus:border-[#F37021]`}
                     />
@@ -731,15 +731,15 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
 
           {step === 3 && (
             <div className="space-y-4 animate-fadeIn">
-              <input 
-                type="file" 
-                ref={fileInputRef} 
-                className="hidden" 
+              <input
+                type="file"
+                ref={fileInputRef}
+                className="hidden"
                 onChange={handleFileChange}
                 accept={fileSettings?.fileExtensions?.replace(/,/g, ', ')}
               />
-              
-              <div 
+
+              <div
                 className={`border-2 border-dashed ${isUploading ? 'border-[#F37021] bg-[#1a1512]' : 'border-gray-600 bg-[#1e1f26]'} rounded-xl p-8 hover:bg-[#252630] transition-colors cursor-pointer text-center flex flex-col items-center justify-center`}
                 onClick={() => !isUploading && fileInputRef.current?.click()}
               >
@@ -755,8 +755,8 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                     </svg>
                     <h3 className="text-white text-lg font-medium mb-2">Upload a file</h3>
                     <p className="text-sm text-gray-500 max-w-[250px] mx-auto">
-                      {fileSettings 
-                        ? `Upload ${fileSettings.fileExtensions}. Size per file ${fileSettings.minFileSize / 1024}MB to ${fileSettings.maxFileSize / 1024}MB.` 
+                      {fileSettings
+                        ? `Upload ${fileSettings.fileExtensions}. Size per file ${fileSettings.minFileSize / 1024}MB to ${fileSettings.maxFileSize / 1024}MB.`
                         : 'Loading requirements...'}
                     </p>
                   </>
@@ -774,7 +774,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                         </svg>
                         <span className="text-sm text-gray-200 truncate">{file.name}</span>
                       </div>
-                      <button 
+                      <button
                         type="button"
                         onClick={() => removeFile(file.id)}
                         className="text-gray-500 hover:text-red-500 transition-colors p-1"
@@ -794,7 +794,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
 
         {/* Footer actions */}
         <div className="p-6 border-t border-gray-800">
-          <button 
+          <button
             type="button"
             disabled={isSubmitting}
             onClick={step === 3 ? handleSubmit(onFinalSubmit) : nextStep}
@@ -816,11 +816,11 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
       {submissionStatus !== 'idle' && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           {/* Backdrop */}
-          <div 
-            className="absolute inset-0 bg-black/60 backdrop-blur-md animate-fadeIn" 
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-md animate-fadeIn"
             onClick={() => submissionStatus === 'error' && setSubmissionStatus('idle')}
           />
-          
+
           {/* Status Modal Container */}
           <div className="relative z-10 bg-[#121418] border border-gray-800 rounded-3xl shadow-2xl p-8 sm:p-10 max-w-sm w-full flex flex-col items-center gap-6 animate-scaleUp">
             {submissionStatus === 'success' ? (
@@ -831,7 +831,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                   </div>
                   <div className="absolute -inset-2 bg-green-500/20 rounded-full blur-xl animate-pulse" />
                 </div>
-                
+
                 <div className="text-center space-y-2">
                   <h2 className="text-2xl font-bold text-white tracking-tight">Submission Completed</h2>
                   <p className="text-sm text-gray-400">
@@ -856,7 +856,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                   </div>
                   <div className="absolute -inset-2 bg-red-500/20 rounded-full blur-xl animate-pulse" />
                 </div>
-                
+
                 <div className="text-center space-y-2">
                   <h2 className="text-2xl font-bold text-white tracking-tight">Submission Failed</h2>
                   <p className="text-sm text-gray-400">
