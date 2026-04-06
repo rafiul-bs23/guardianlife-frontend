@@ -49,8 +49,6 @@ const QuickBuyDetails = () => {
       {data?.quick_product_section && (
         <QuickProductView
           data={data?.quick_product_section}
-          title="QUICK PRODUCT VIEW"
-          subtitle="Key Plan Details at a glance"
         />
       )}
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import type { QuickProductSection, ContentItem } from '../types/product';
 import { Zap } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import Contentheader from "./Contentheader.tsx";
 
 interface QuickProductViewProps {
@@ -11,10 +12,15 @@ interface QuickProductViewProps {
 
 const QuickProductView: React.FC<QuickProductViewProps> = ({
     data,
-    title = "QUICK PRODUCT",
-    subtitle = "Key Plan Details At A Glance",
+    title,
+    subtitle,
 }) => {
+    const { t } = useTranslation('quick_buy_details');
+
     if (!data?.content?.length) return null;
+
+    const displayTitle = title || t('quick_product_view.title');
+    const displaySubtitle = subtitle || t('quick_product_view.subtitle');
 
     const itemCount = data.content.length;
     // Flexbox items will handle responsive widths dynamically
@@ -23,8 +29,8 @@ const QuickProductView: React.FC<QuickProductViewProps> = ({
         <div className='bg-[#F8F9FA]'>
             <div className="w-full max-w-[1514px] mx-auto py-16 px-4">
                 <Contentheader
-                  title={title}
-                  description={subtitle}
+                  title={displayTitle}
+                  description={displaySubtitle}
                 />
 
                 <div className="max-w-[1248px] mx-auto my-12">
