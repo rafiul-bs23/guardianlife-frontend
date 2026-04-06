@@ -12,16 +12,16 @@ const Footer: React.FC = () => {
   }
 
   return (
-    <footer className="bg-[var(--color-primary)] text-white px-4 lg:px-[100px] xl:px-[200px] py-12 lg:py-[64px] rounded-tl-[32px] rounded-tr-[32px]">
+    <footer className="bg-[var(--color-primary)] text-white px-4 lg:px-[100px] xl:px-[100px] py-12 lg:py-[20px] rounded-tl-[32px] rounded-tr-[32px]">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row">
 
           {/* Logo and Description */}
           <div className="mb-8 w-full lg:w-[320px] lg:ml-8 lg:mr-16 text-center lg:text-left">
             <img
-              src="/assets/images/guardian-logo-footer.png"
+              src="/assets/images/guardian-logo-footer.svg"
               alt="GuardianLife Hero"
-              className="mx-auto lg:mx-0 w-auto h-[88px] mb-8"
+              className="mx-auto w-auto h-[88px] mb-8"
             />
             <p className="not-italic font-normal text-[16px] leading-[24px]">
               {t('footer.description')}

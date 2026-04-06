@@ -15,8 +15,6 @@ import { useHeader } from '../../shared/hooks/useHeader';
 
 const ProductDetails = () => {
   const { product_code } = useParams();
-
-
   const { data: headerData, isLoading: isHeaderLoading } = useHeader(`product-${product_code}`);
   const { data } = useProduct(product_code as string);
 

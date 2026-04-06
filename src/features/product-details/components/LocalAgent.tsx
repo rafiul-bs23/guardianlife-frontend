@@ -15,7 +15,7 @@ const LocalAgent: React.FC<{ product_code: string }> = ({ product_code }) => {
                     object-contain object-right pointer-events-none z-0"
             />
 
-            <div className="max-w-[1514px] mx-auto flex flex-col lg:flex-row items-center lg:items-center justify-between px-4 lg:px-12 relative z-10">
+            <div className="max-w-[1248px] mx-auto flex flex-col lg:flex-row items-center lg:items-center justify-between px-4 lg:px-12 relative z-10">
 
                 {/* Left Side: Content */}
                 <div className="w-full lg:w-1/2 flex flex-col gap-8 text-center lg:text-left z-10 py-12 lg:py-24">

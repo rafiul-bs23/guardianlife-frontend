@@ -1,42 +1,42 @@
 {
     "error": {
-        "title": "B Error loading details"
+        "title": "বিস্তারিত লোড করতে সমস্যা হয়েছে"
     },
     "quick_product_view": {
-        "title": "B QUICK PRODUCT VIEW",
-        "subtitle": "B Key Plan Details at a glance"
+        "title": "কুইক প্রোডাক্ট",
+        "subtitle": "একনজরে প্রধান পরিকল্পনার বিবরণ"
     },
     "header": {
-        "ai_assistant": "B AI Assistant"
+        "ai_assistant": "এআই সহকারী"
     },
     "calculator": {
-        "label_dob": "B DOB",
-        "label_term": "B TERM",
-        "label_coverage": "B COVERAGE",
-        "unit_years": "B YEARS",
+        "label_dob": "জন্ম তারিখ",
+        "label_term": "টার্ম",
+        "label_coverage": "কভারেজ",
+        "unit_years": "বছর",
         "unit_lakh": "B LAKH",
         "unit_lac": "B Lac",
-        "unit_years_lower": "B years",
-        "details_title": "B DETAILS OF THE PRODUCT",
+        "unit_years_lower": "বছর",
+        "details_title": "প্রোডাক্টের বিস্তারিত",
         "details_subtitle": "B automatic calculate value by changing the term and coverage",
-        "row_product_name": "B Product Name",
+        "row_product_name": "প্রোডাক্টের নাম",
         "row_sum_assured": "B Sum Assured",
-        "row_term": "B Term",
+        "row_term": "টার্ম",
         "row_yearly_premium": "B Yearly Premium",
         "row_stamp_fee": "B Stamp Fee (One Time Payment)",
-        "row_total": "B Total",
+        "row_total": "মোট",
         "row_life_coverage": "B Life Coverage From Day One",
         "row_premium_mode": "B Premium Payment Mode",
-        "row_age": "B Age",
+        "row_age": "বয়স",
         "age_format": "{{min}} B to {{max}} B years nearest birthday",
         "row_medical_test": "B Medical Test",
         "row_maturity_benefit": "B Maturity Benefit",
         "row_surrender_option": "B Surrender Option",
-        "yes": "B Yes",
-        "no": "B No",
-        "terms_label": "B Terms and Conditions",
-        "terms_read": "B Read and Agree",
-        "buy_now": "B Buy Now",
+        "yes": "হ্যাঁ",
+        "no": "না",
+        "terms_label": "শর্তাবলী",
+        "terms_read": "পড়েছি এবং সম্মত আছি",
+        "buy_now": "এখনই কিনুন",
         "popup_message": "B Log in to your profile and grab your QuickBuy products in seconds. Fast, simple, and hassle-free."
     }
 }
