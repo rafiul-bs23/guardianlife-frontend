@@ -32,7 +32,7 @@ const SupplementaryBenefits: React.FC<SupplementaryBenefitsProps> = ({ data }) =
                     />
 
                     {/* Cards Grid */}
-                    <div className="flex flex-wrap justify-center gap-6  mt-12">
+                    <div className="flex flex-wrap justify-center gap-6 mt-12 max-w-[1248px] mx-auto">
                         {data?.content?.map((item, index) => (
                             <div
                                 key={index}

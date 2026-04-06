@@ -21,7 +21,7 @@ const PlanBenefitsSection: React.FC<PlanBenefitsSectionProps> = ({ data }) => {
                   description={data.description}
                 />
 
-                <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start mt-16">
+                <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start mt-16 max-w-[1248px] mx-auto">
                     {/* Left Side: Cards Grid */}
                     <div className="w-full lg:w-[55%] grid grid-cols-1 md:grid-cols-2 gap-6">
                         {data.cards.map((card, index) => (

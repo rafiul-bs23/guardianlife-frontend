@@ -9,7 +9,7 @@ const PlanBreakdown: React.FC<PlanBreakdownProps> = ({ data }) => {
     if (!data?.content?.length) return null;
 
     return (
-        <section className="w-full max-w-[1514px] mx-auto mb-16 px-4 py-8">
+        <section className="w-full max-w-[1248px] mx-auto mb-16 px-4 py-8">
             {/* Header */}
             <Contentheader
               title="Your Plan, Your Way"

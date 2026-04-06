@@ -16,7 +16,7 @@ const KeyHighlights: React.FC<KeyHighlightsProps> = ({ data }) => {
                 Key Highlights
             </h2>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start max-w-[1248px] mx-auto">
                 {/* Left Column: Description and Points */}
                 <div className="flex flex-col gap-8">
                     <p className="text-gray-700 leading-relaxed text-sm md:text-base">
