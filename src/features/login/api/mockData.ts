@@ -7,4 +7,5 @@ export const mockLoginResponse: LoginResponse = {
   fullName: 'Demo User',
   gender: null,
   mobile: '01678040024',
+  email: 'demo@example.com',
 };

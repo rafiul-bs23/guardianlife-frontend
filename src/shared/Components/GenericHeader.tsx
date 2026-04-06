@@ -102,6 +102,10 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
         </div>
     ) : null;
 
+    if (!data && !children) {
+        return <Navbar />;
+    }
+
     if (isImmersive) {
         return (
             <>

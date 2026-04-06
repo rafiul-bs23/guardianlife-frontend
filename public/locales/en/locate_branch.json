@@ -20,7 +20,7 @@
             "district": "District",
             "area": "Area",
             "address": "Address",
-            "contact": "Contact Person",
+            "contact": "Contact Details",
             "map": "View On Map"
         },
         "map_btn": "Map",
