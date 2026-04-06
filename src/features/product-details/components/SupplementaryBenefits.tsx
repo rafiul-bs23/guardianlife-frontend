@@ -4,6 +4,7 @@ import { Activity } from 'lucide-react';
 import Button from '../../../shared/Components/Button';
 import { BOOST_YOUR_COVERAGE } from '../api/mockData';
 import BoostCoverageModal from './BoostCoverageModal';
+import Contentheader from "../../../shared/Components/Contentheader.tsx";
 
 interface SupplementaryBenefitsProps {
     data: SupplementaryBenefitsSection;
@@ -25,15 +26,13 @@ const SupplementaryBenefits: React.FC<SupplementaryBenefitsProps> = ({ data }) =
             <section className="bg-[#FFEEE5] py-16 px-4">
                 <div className="max-w-[1514px] mx-auto text-center">
                     {/* Header */}
-                    <h2 className="text-3xl font-bold text-gray-900 mb-2 uppercase">
-                        BOOST YOUR COVERAGE
-                    </h2>
-                    <p className="text-gray-600 text-sm md:text-base mb-12">
-                        You Can Add Supplementary Benefits To Smart Add-Ons
-                    </p>
+                    <Contentheader
+                      title="BOOST YOUR COVERAGE"
+                      description="You Can Add Supplementary Benefits To Smart Add-Ons"
+                    />
 
                     {/* Cards Grid */}
-                    <div className="flex flex-wrap justify-center gap-6 ">
+                    <div className="flex flex-wrap justify-center gap-6  mt-12">
                         {data?.content?.map((item, index) => (
                             <div
                                 key={index}

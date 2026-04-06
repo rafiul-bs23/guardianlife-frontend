@@ -12,7 +12,7 @@ const KeyHighlights: React.FC<KeyHighlightsProps> = ({ data }) => {
     return (
         <section className="w-full max-w-[1514px] mx-auto mb-16 px-4 py-8">
             {/* Header */}
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12 uppercase">
+            <h2 className="text-4xl font-bold text-center text-gray-900 mb-12 uppercase">
                 Key Highlights
             </h2>
 

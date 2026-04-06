@@ -1,8 +1,8 @@
 import React from 'react';
 import type { PlanBenefitsSection as PlanBenefitsSectionType } from '../types/product';
-import Button from './Button';
 import { ShieldCheck } from 'lucide-react';
 import { usePopup } from '../context/PopupContext';
+import Contentheader from "./Contentheader.tsx";
 
 interface PlanBenefitsSectionProps {
     data: PlanBenefitsSectionType;
@@ -15,14 +15,13 @@ const PlanBenefitsSection: React.FC<PlanBenefitsSectionProps> = ({ data }) => {
         <section className="w-full bg-[#F4F7F9]">
             <div className="max-w-[1514px] mx-auto px-4 py-20 md:px-8">
                 {/* Header Section */}
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl lg:text-[42px] font-bold text-gray-900 mb-4 uppercase tracking-tight">PLAN BENEFITS</h2>
-                    <p className="text-gray-600 text-base md:text-lg max-w-3xl mx-auto leading-relaxed font-medium">
-                        {data.description}
-                    </p>
-                </div>
 
-                <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start">
+                <Contentheader
+                  title="PLAN BENEFITS"
+                  description={data.description}
+                />
+
+                <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start mt-16">
                     {/* Left Side: Cards Grid */}
                     <div className="w-full lg:w-[55%] grid grid-cols-1 md:grid-cols-2 gap-6">
                         {data.cards.map((card, index) => (

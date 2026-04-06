@@ -1,6 +1,7 @@
 import React from 'react';
 import type { QuickProductSection, ContentItem } from '../types/product';
 import { Zap } from 'lucide-react';
+import Contentheader from "./Contentheader.tsx";
 
 interface QuickProductViewProps {
     data: QuickProductSection;
@@ -21,18 +22,12 @@ const QuickProductView: React.FC<QuickProductViewProps> = ({
     return (
         <div className='bg-[#F8F9FA]'>
             <div className="w-full max-w-[1514px] mx-auto py-16 px-4">
-                {/* Title Section */}
-                <div className="text-center mb-12">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-2 uppercase tracking-wide">
-                        {title}
-                    </h2>
-                    <p className="text-gray-500 text-sm md:text-base font-medium">
-                        {subtitle}
-                    </p>
-                </div>
+                <Contentheader
+                  title={title}
+                  description={subtitle}
+                />
 
-                {/* Flex Container */}
-                <div className="max-w-[1248px] mx-auto">
+                <div className="max-w-[1248px] mx-auto my-12">
                     <div className="flex flex-wrap justify-center gap-6">
                         {data.content.map((item: ContentItem, index: number) => {
                             // Dynamic width based on total items to mimic grid
