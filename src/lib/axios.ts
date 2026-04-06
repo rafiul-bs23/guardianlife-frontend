@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import i18n from '../i18n';
-import { getAuthToken, getRefreshToken, saveAuthData, clearAuthData } from '../shared/utils/authUtils';
+import { getAuthToken, getRefreshToken, saveAuthData, clearAuthData, getUserData } from '../shared/utils/authUtils';
 
 import type {
   AxiosInstance,
@@ -9,7 +9,8 @@ import type {
 } from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
-const AUTH_REFRESH_URL = import.meta.env.VITE_AUTH_API_URL + '/refresh-token';
+const AUTH_BASE_URL = import.meta.env.VITE_AUTH_API_URL || 'https://gliapp-stg.myguardianbd.com/auth-gate/api/access';
+const AUTH_REFRESH_URL = `${AUTH_BASE_URL}/refresh-token`;
 
 const axiosClient: AxiosInstance = axios.create({
   baseURL: API_URL,
@@ -91,11 +92,20 @@ axiosClient.interceptors.response.use(
         const response = await axios.post(AUTH_REFRESH_URL, { refreshToken });
         const { token, refreshToken: newRefreshToken, refreshTokenExpiryTime, fullName, mobile, gender, email } = response.data;
 
+        // Obtain current user data to avoid overwriting with undefined if refresh response doesn't include it
+        const currentUser = getUserData();
+        const updatedUser = {
+          full_name: fullName || currentUser?.full_name,
+          mobile: mobile || currentUser?.mobile,
+          gender: gender || currentUser?.gender,
+          email: email || currentUser?.email,
+        };
+
         saveAuthData({
           token,
           refreshToken: newRefreshToken,
           refreshTokenExpiryTime,
-          user: { full_name: fullName, mobile, gender, email }
+          user: updatedUser
         });
 
         if (originalRequest.headers) {

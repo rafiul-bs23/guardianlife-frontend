@@ -7,6 +7,7 @@ import { MENU_DATA } from '../constants/menuData';
 import type { MenuItem } from '../types/menu';
 import Button from './Button';
 import LanguageToggle from './LanguageToggle';
+import { getAuthToken } from '../utils/authUtils';
 
 interface NavbarProps {
     transparent?: boolean;
@@ -114,7 +115,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        setIsLoggedIn(!!localStorage.getItem('token'));
+        setIsLoggedIn(!!getAuthToken());
         const handleScroll = () => {
             if (window.scrollY > 50) {
                 setIsScrolled(true);

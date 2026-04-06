@@ -7,6 +7,7 @@ import ClaimsList from './components/ClaimsList';
 import PolicyList from './components/PolicyList';
 import type { DashboardApiResponse } from './types';
 import Button from '../../shared/Components/Button';
+import { getUserData, clearAuthData } from '../../shared/utils/authUtils';
 
 
 const Dashboard = () => {
@@ -14,16 +15,13 @@ const Dashboard = () => {
   const [user, setUser] = useState<{ full_name?: string; mobile?: string; gender?: string } | null>(null);
   const [dashboardData, setDashboardData] = useState<DashboardApiResponse | null>(null);
   const [showClaimsMenu, setShowClaimsMenu] = useState(false);
+  const [activeTab, setActiveTab] = useState<'policies' | 'claims'>('policies');
 
 
   useEffect(() => {
-    const userData = localStorage.getItem('user');
+    const userData = getUserData();
     if (userData) {
-      try {
-        setUser(JSON.parse(userData));
-      } catch (e) {
-        console.error('Failed to parse user data from local storage', e);
-      }
+      setUser(userData);
     }
 
     const fetchDashboardData = async () => {
@@ -45,8 +43,7 @@ const Dashboard = () => {
     } catch (error) {
       console.error('Logout API failed', error);
     } finally {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
+      clearAuthData();
       navigate('/login');
     }
   };
@@ -124,9 +121,39 @@ const Dashboard = () => {
               </div>
 
               {dashboardData && (
-                <div className="mt-8 space-y-8">
-                  <ClaimsList claims={dashboardData.claims} />
-                  <PolicyList policies={dashboardData.policies} />
+                <div className="mt-8 space-y-6">
+                  {/* Tabs */}
+                  <div className="flex gap-4 p-1.5 bg-gray-100/80 rounded-2xl w-fit">
+                    <button
+                      onClick={() => setActiveTab('policies')}
+                      className={`px-8 py-3 rounded-xl text-[15px] font-bold transition-all duration-300 ${
+                        activeTab === 'policies'
+                          ? 'bg-[#f37021] text-white shadow-lg shadow-orange-900/20 scale-[1.02]'
+                          : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200/50'
+                      }`}
+                    >
+                      My Policies
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('claims')}
+                      className={`px-8 py-3 rounded-xl text-[15px] font-bold transition-all duration-300 ${
+                        activeTab === 'claims'
+                          ? 'bg-[#f37021] text-white shadow-lg shadow-orange-900/20 scale-[1.02]'
+                          : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200/50'
+                      }`}
+                    >
+                      My Claims
+                    </button>
+                  </div>
+
+                  {/* Content Area */}
+                  <div className="pt-4 min-h-[400px]">
+                    {activeTab === 'policies' ? (
+                      <PolicyList policies={dashboardData.policies} />
+                    ) : (
+                      <ClaimsList claims={dashboardData.claims} />
+                    )}
+                  </div>
                 </div>
               )}
             </div>
