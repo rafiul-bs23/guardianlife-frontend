@@ -16,6 +16,7 @@ const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState<DashboardApiResponse | null>(null);
   const [showClaimsMenu, setShowClaimsMenu] = useState(false);
   const [activeTab, setActiveTab] = useState<'policies' | 'claims'>('policies');
+  const [isLoading, setIsLoading] = useState(true);
 
 
   useEffect(() => {
@@ -26,11 +27,14 @@ const Dashboard = () => {
 
     const fetchDashboardData = async () => {
       try {
+        setIsLoading(true);
         const responseData = await fetchDashboardDataApi();
         console.log('Dashboard API Response:', responseData);
         setDashboardData(responseData);
       } catch (error) {
         console.error('Error fetching dashboard API:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -120,27 +124,29 @@ const Dashboard = () => {
                 </ul>
               </div>
 
-              {dashboardData && (
+              {isLoading ? (
+                <div className="mt-8 py-10 text-center">
+                  <p className="text-gray-500 font-medium">Loading...</p>
+                </div>
+              ) : dashboardData && (
                 <div className="mt-8 space-y-6">
                   {/* Tabs */}
                   <div className="flex gap-4 p-1.5 bg-gray-100/80 rounded-2xl w-fit">
                     <button
                       onClick={() => setActiveTab('policies')}
-                      className={`px-8 py-3 rounded-xl text-[15px] font-bold transition-all duration-300 ${
-                        activeTab === 'policies'
+                      className={`px-8 py-3 rounded-xl text-[15px] font-bold transition-all duration-300 ${activeTab === 'policies'
                           ? 'bg-[#f37021] text-white shadow-lg shadow-orange-900/20 scale-[1.02]'
                           : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200/50'
-                      }`}
+                        }`}
                     >
                       My Policies
                     </button>
                     <button
                       onClick={() => setActiveTab('claims')}
-                      className={`px-8 py-3 rounded-xl text-[15px] font-bold transition-all duration-300 ${
-                        activeTab === 'claims'
+                      className={`px-8 py-3 rounded-xl text-[15px] font-bold transition-all duration-300 ${activeTab === 'claims'
                           ? 'bg-[#f37021] text-white shadow-lg shadow-orange-900/20 scale-[1.02]'
                           : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200/50'
-                      }`}
+                        }`}
                     >
                       My Claims
                     </button>
