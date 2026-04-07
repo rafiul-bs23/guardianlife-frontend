@@ -7,6 +7,7 @@ export interface MancomMember {
     name: string;
     designation: string;
     image_url: string;
+    description: string | null;
 }
 
 export interface MancomResponse {

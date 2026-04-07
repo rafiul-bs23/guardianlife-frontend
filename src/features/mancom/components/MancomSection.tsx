@@ -3,7 +3,6 @@ import { useMancom } from '../hooks/useMancom';
 
 const MancomSection: React.FC = () => {
     const { members, isLoading, error } = useMancom();
-
     if (isLoading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
@@ -42,8 +41,11 @@ const MancomSection: React.FC = () => {
                                 <h3 className="font-bold text-lg leading-tight text-center duration-500 text-gray-900 group-hover:text-white ">
                                     {member?.name}
                                 </h3>
-                                <p className="font-semibold text-sm mt-1 uppercase tracking-wide leading-tight text-center duration-500 text-amber-500 group-hover:text-amber-400 ">
+                                <p className="font-semibold text-sm mt-1  tracking-wide leading-tight text-center duration-500 text-amber-500 group-hover:text-amber-400 ">
                                     {member?.designation}
+                                </p>
+                                <p className="text-sm tracking-wide leading-tight text-center text-white max-h-0 opacity-0 group-hover:max-h-96 group-hover:opacity-100 overflow-hidden transition-all duration-500 ease-in-out group-hover:mt-4">
+                                    {member?.description}
                                 </p>
                             </div>
                         </div>

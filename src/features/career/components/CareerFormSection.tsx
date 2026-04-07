@@ -3,13 +3,13 @@ import { motion, useInView } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import ContactForm from '../../../shared/Components/ContactForm';
 
-const CareerFormSection = () => {
+const CareerFormSection = ({ jobTitle }: { jobTitle?: string }) => {
     const { t } = useTranslation('career');
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, amount: 0.2 });
 
     return (
-        <div ref={ref} className="flex flex-col lg:flex-row gap-8 w-full px-4 xl:px-0 overflow-hidden my-20">
+        <div ref={ref} className="flex flex-col lg:flex-row gap-8 w-full px-4 xl:px-0 overflow-hidden my-10">
             {/* Left: image */}
             <motion.div
                 initial={{ opacity: 0, x: -100 }}
@@ -38,6 +38,7 @@ const CareerFormSection = () => {
                     title={t('form_section.form_title')}
                     subtitle={t('form_section.form_subtitle')}
                     className="p-6 sm:p-12 lg:p-16 lg:mr-16"
+                    initialValues={{ applyingPosition: jobTitle }}
                 />
             </motion.div>
             <div></div>

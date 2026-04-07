@@ -37,8 +37,10 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
     const isVideo = data?.media?.type === 'video';
     const isImmersive = variant === 'immersive';
 
+    console.log({ data });
+
     const bgStyles = data ? {
-        backgroundImage: `url(${data.background_image_url})`,
+        backgroundImage: `url(${data.media?.url})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
     } : customBgStyles;

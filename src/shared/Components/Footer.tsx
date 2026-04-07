@@ -14,10 +14,10 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-[var(--color-primary)] text-white px-4 lg:px-[100px] xl:px-[200px] py-12 lg:py-[64px] rounded-tl-[32px] rounded-tr-[32px]">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col lg:flex-row justify-between items-start">
 
           {/* Logo and Description */}
-          <div className="mb-8 w-full lg:w-[320px] lg:ml-8 lg:mr-16 text-center lg:text-left">
+          <div className="mb-10 w-full lg:w-[320px] text-center lg:text-left flex-shrink-0">
             <img
               src="/assets/images/guardian-logo-footer.png"
               alt="GuardianLife Hero"
@@ -28,11 +28,11 @@ const Footer: React.FC = () => {
             </p>
           </div>
 
-          {/* Footer Links Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-8 mt-10">
+          {/* Footer Links Grid - Flexbox for even distribution */}
+          <div className="flex-1 w-full lg:ml-16 flex flex-wrap justify-between gap-x-8 gap-y-10">
             {columns.map((column, columnIndex) => (
-              <div key={columnIndex}>
-                <ul className="space-y-2 text-sm opacity-90">
+              <div key={columnIndex} className="min-w-[140px]">
+                <ul className="space-y-3 text-sm opacity-90">
                   {column.map((link) => (
                     <li key={link.path}>
                       {link.path.startsWith('http') ? (
