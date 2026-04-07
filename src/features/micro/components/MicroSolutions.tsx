@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMicroSolutions } from '../hooks/useMicroSolutions';
 import { Check } from 'lucide-react';
+import Card from '../../../shared/Components/Card';
 
 const MicroSolutions: React.FC = () => {
     const { t } = useTranslation('micro');
@@ -46,7 +47,7 @@ const MicroSolutions: React.FC = () => {
                 <div className="flex flex-wrap justify-center gap-8">
                     {data.products.map((product, index) => {
                         return (
-                            <div
+                            <Card
                                 key={index}
                                 className="w-full md:w-[calc(50%-16px)] lg:w-[calc(33.33%-22px)] bg-white rounded-[32px] p-8 shadow-sm border border-gray-100 flex flex-col hover:shadow-xl transition-all duration-300 group"
                             >
@@ -89,7 +90,7 @@ const MicroSolutions: React.FC = () => {
                                         </p>
                                     </div>
                                 </div>
-                            </div>
+                            </Card>
                         );
                     })}
                 </div>

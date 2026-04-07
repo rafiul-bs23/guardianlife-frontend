@@ -140,7 +140,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
 
     return (
         <>
-            <nav className={`w-full fixed top-0 left-0 ${navBackground} px-4 md:px-10 lg:px-20 ${isScrolled ? 'md:h-24 h-16' : 'md:h-28 h-20'} flex items-center justify-between z-[9999] transition-all duration-300`}>
+            <nav className={`w-full fixed top-0 left-0 ${navBackground} px-4 md:px-10 lg:px-20 ${isScrolled ? 'md:h-20 h-16' : 'md:h-28 h-20'} flex items-center justify-between z-[9999] transition-all duration-300`}>
 
                 <div className={`flex items-center ${GAPS.NAVBAR_LEFT_ITEMS}`}>
                     {/* Hamburger Menu Icon */}
@@ -157,7 +157,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
 
                 {/* Centered Logo in Orange Container */}
                 <Link to="/">
-                    <div className={`absolute left-1/2 -translate-x-1/2 top-0 ${isScrolled ? 'md:h-20 h-16 w-24 md:w-56' : 'md:h-28 h-20 w-32 md:w-64'} bg-primary rounded-b-[35px] flex items-center justify-center shadow-[0_10px_30px_rgba(235,105,37,0.3)] transition-all hover:h-30 group`}>
+                    <div className={`absolute left-1/2 -translate-x-1/2 top-0 ${isScrolled ? 'md:h-16 h-12 w-24 md:w-56' : 'md:h-28 h-20 w-32 md:w-64'} bg-primary rounded-b-[35px] flex items-center justify-center shadow-[0_10px_30px_rgba(235,105,37,0.3)] transition-all hover:h-30 group`}>
                         <img
                             src="/assets/images/shared/logo.png"
                             alt="Guardian Logo"

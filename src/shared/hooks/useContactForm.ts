@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useState, useCallback } from 'react';
 import { post_lead } from '../api';
 
-interface FormData {
+export interface FormData {
     fullName: string;
     email: string;
     phoneNumber: string;
@@ -44,9 +44,19 @@ const initial_form: FormData = {
     agreeToPolicy: false,
 };
 
-export const useContactForm = (channel: string, type: 'lead' | 'job' = 'lead'): UseContactFormResult => {
+export const useContactForm = (
+    channel: string,
+    type: 'lead' | 'job' = 'lead',
+    initialValues?: Partial<FormData>
+): UseContactFormResult => {
     const { t } = useTranslation('shared');
-    const [formData, set_form_data] = useState<FormData>(initial_form);
+
+    const get_initial_data = useCallback(() => ({
+        ...initial_form,
+        ...initialValues,
+    }), [initialValues]);
+
+    const [formData, set_form_data] = useState<FormData>(get_initial_data());
     const [errors, set_errors] = useState<FormErrors>({});
     const [is_loading, set_is_loading] = useState(false);
     const [success, set_success] = useState(false);
@@ -146,7 +156,7 @@ export const useContactForm = (channel: string, type: 'lead' | 'job' = 'lead'): 
 
             if (response.status) {
                 set_success(true);
-                set_form_data(initial_form);
+                set_form_data(get_initial_data());
                 set_errors({});
             } else {
                 set_error(response.message ?? t('contact_form.messages.error_submission_failed'));
@@ -157,14 +167,14 @@ export const useContactForm = (channel: string, type: 'lead' | 'job' = 'lead'): 
         } finally {
             set_is_loading(false);
         }
-    }, [formData, channel, type, t, validate]);
+    }, [formData, channel, type, t, validate, get_initial_data]);
 
     const reset = useCallback(() => {
-        set_form_data(initial_form);
+        set_form_data(get_initial_data());
         set_errors({});
         set_success(false);
         set_error(null);
-    }, []);
+    }, [get_initial_data]);
 
     return { formData, errors, is_loading, success, error, handleChange, handleFileChange, handleSubmit, reset };
 };

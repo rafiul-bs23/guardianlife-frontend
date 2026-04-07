@@ -1,3 +1,5 @@
+import Card from "../../../shared/Components/Card";
+
 export interface ProductCardProps {
   thumbnail_url: string;
   title: string;
@@ -12,23 +14,23 @@ const ProductCardWithActionButton = ({
   description,
 }: ProductCardProps) => {
   return (
-    <div
-      className="w-full max-w-[643px] h-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl shadow-[0_4px_30px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col mx-auto">
+    <Card
+      className="w-full  max-w-[643px] h-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl shadow-[0_4px_30px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col mx-auto">
       {/* Header Section with Quick Buy badge */}
       <div className="relative">
 
-        <div className="relative">
+        <div className="px-[2px] py-[3px]">
           {thumbnail_url && (
             <img
               src={thumbnail_url}
               alt={title}
-              className="relative z-10 w-full h-[324px] object-cover"
+              className=" z-10 w-full h-[324px] object-cover  rounded-t-xl"
             />
           )}
         </div>
       </div>
 
-      <div className="flex-1 bg-white rounded-t-3xl pl-11 pr-[31px] pt-[27x] pb-[26px] flex flex-col">
+      <div className="flex-1  rounded-t-3xl pl-11 pr-[31px] pt-[27x] pb-[26px] flex flex-col">
 
         <p className="font-bold text-[24px] leading-[32px] tracking-[0.02em] mt-[27px] mb-1">
           {title}
@@ -55,7 +57,7 @@ const ProductCardWithActionButton = ({
           </ul>
         )}
       </div>
-    </div>
+    </Card>
   );
 };
 

@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { ArrowRight } from 'lucide-react';
 import Button from './Button';
+import type { FormData } from '../hooks/useContactForm';
 import { useContactForm } from '../hooks/useContactForm';
 
 interface ContactFormProps {
@@ -10,6 +11,7 @@ interface ContactFormProps {
     title?: string;
     subtitle?: string;
     className?: string;
+    initialValues?: Partial<FormData>;
 }
 
 const ContactForm = ({
@@ -19,10 +21,11 @@ const ContactForm = ({
     title,
     subtitle,
     className = '',
+    initialValues,
 }: ContactFormProps) => {
     const { t } = useTranslation('shared');
     const { formData, errors, is_loading, success, error, handleChange, handleFileChange, handleSubmit, reset } =
-        useContactForm(channel, type);
+        useContactForm(channel, type, initialValues);
 
     const displayTitle = title ?? (variant === 'card' ? t('contact_form.titles.card') : t('contact_form.titles.default'));
 
@@ -39,6 +42,8 @@ const ContactForm = ({
         variant === 'card'
             ? 'text-[15px] font-bold text-gray-700'
             : 'text-sm font-medium text-gray-700';
+
+    const isPositionLocked = type === 'job' && !!initialValues?.applyingPosition;
 
     /* ─── form body (shared between variants) ─── */
     const formBody = (
@@ -160,8 +165,9 @@ const ContactForm = ({
                             name="applyingPosition"
                             value={formData.applyingPosition}
                             onChange={handleChange}
+                            readOnly={isPositionLocked}
                             placeholder={t('contact_form.placeholders.applying_position')}
-                            className={`${inputBase} ${errors.applyingPosition ? inputError : ''}`}
+                            className={`${inputBase} ${errors.applyingPosition ? inputError : ''} ${isPositionLocked ? 'bg-gray-100 cursor-not-allowed opacity-70' : ''}`}
                         />
                         {errors.applyingPosition && <p className="text-xs text-red-500">{errors.applyingPosition}</p>}
                     </div>

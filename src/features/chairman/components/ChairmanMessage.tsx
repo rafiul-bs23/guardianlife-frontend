@@ -16,20 +16,20 @@ const ChairmanMessage: React.FC<ChairmanMessageProps> = ({ chairmanImageUrl }) =
         <section className="py-20 px-4 md:px-12 max-w-[1400px] mx-auto ">
             <div className=" rounded-lg p-4 md:p-12 xl:p-16  ">
                 <div className="text-center mb-12">
-                    <h2 className="text-2xl md:text-4xl font-extrabold text-[#212529] uppercase tracking-wide">
+                    <h2 className="text-2xl md:text-4xl font-extrabold text-[#212529]  tracking-wide">
                         {t('message.title')}
                     </h2>
                 </div>
 
                 <div className="space-y-12 text-[#212529]">
-                    <p className="text-base md:text-lg leading-relaxed text-justify font-bold uppercase">
+                    <p className="text-base md:text-lg leading-relaxed text-justify  ">
                         {paragraphs[0]}
                     </p>
 
                     <div className="flex flex-col md:flex-row gap-24 items-start">
                         <div className="md:w-1/2 space-y-12">
                             {paragraphs.slice(1).map((para, index) => (
-                                <p key={index} className="text-base md:text-lg leading-relaxed text-justify font-bold uppercase">
+                                <p key={index} className="text-base md:text-lg leading-relaxed text-justify  ">
                                     {para}
                                 </p>
                             ))}
@@ -44,16 +44,16 @@ const ChairmanMessage: React.FC<ChairmanMessageProps> = ({ chairmanImageUrl }) =
                                 />
                             </div>
                             <div className="space-y-1">
-                                <h3 className="text-2xl md:text-3xl font-black text-[#212529] uppercase">
+                                <h3 className="text-2xl md:text-3xl font-black text-[#212529] ">
                                     {t('message.chairman.name')}
                                 </h3>
-                                <p className="text-lg font-bold text-[#212529] uppercase">
+                                <p className="text-lg  text-[#212529] ">
                                     {t('message.chairman.designation')}
                                 </p>
-                                <p className="text-sm font-bold text-[#212529] uppercase tracking-tighter">
+                                <p className="text-sm  text-[#212529]  tracking-tighter">
                                     {t('message.labels.phone')}: {t('message.chairman.phone')}
                                 </p>
-                                <p className="text-sm font-bold text-[#212529] uppercase tracking-tighter">
+                                <p className="text-sm  text-[#212529]  tracking-tighter">
                                     {t('message.labels.email')}: {t('message.chairman.email')}
                                 </p>
                             </div>
