@@ -1,7 +1,6 @@
 import React from 'react';
 import type { PlanBenefitsSection as PlanBenefitsSectionType } from '../types/product';
 import { ShieldCheck } from 'lucide-react';
-import { usePopup } from '../context/PopupContext';
 import Contentheader from "./Contentheader.tsx";
 
 interface PlanBenefitsSectionProps {
@@ -10,15 +9,14 @@ interface PlanBenefitsSectionProps {
 
 const PlanBenefitsSection: React.FC<PlanBenefitsSectionProps> = ({ data }) => {
     if (!data) return null;
-    const { showPopup } = usePopup();
     return (
         <section className="w-full bg-[#F4F7F9]">
             <div className="max-w-[1514px] mx-auto px-4 py-20 md:px-8">
                 {/* Header Section */}
 
                 <Contentheader
-                  title="PLAN BENEFITS"
-                  description={data.description}
+                    title="PLAN BENEFITS"
+                    description={data.description}
                 />
 
                 <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start mt-16 max-w-[1248px] mx-auto">
