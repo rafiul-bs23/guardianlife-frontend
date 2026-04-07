@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFaq } from '../hooks/useFaq';
 import type { FaqItem } from '../types/faq';
+import Contentheader from "./Contentheader.tsx";
 
 interface FAQProps {
   title?: string;
@@ -46,17 +47,13 @@ const FAQ: React.FC<FAQProps> = ({
   return (
     <div className="w-full mx-auto px-4 py-16 bg-[#EFF0F1]">
       {/* Header Section */}
-      <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-gray-900 mb-4">
-          {displayTitle}
-        </h2>
-        <p className="text-gray-600 text-lg">
-          {displaySubtitle}
-        </p>
-      </div>
+      <Contentheader
+        title={displayTitle}
+        description={displaySubtitle}
+      />
 
       {/* FAQ Accordion Items */}
-      <div className="space-y-4 flex flex-col items-center">
+      <div className="space-y-4 flex flex-col items-center mt-[61px]">
         {faqs?.map((faq: FaqItem, index: number) => (
           <div
             key={faq.question_number}

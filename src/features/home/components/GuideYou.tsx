@@ -15,21 +15,19 @@ const GuideYou: React.FC<GuideYouProps> = ({ data }) => {
     const { t } = useTranslation('home');
     const isMobile = useIsMobile();
     return (
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-8 h-auto lg:h-[437px] w-full mt-16 lg:mt-[140px] px-4 lg:px-0">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-8 h-auto lg:h-[437px] w-full mt-16 lg:mt-[140px] px-4 lg:px-0 max-w-[1440px] mx-auto">
             <motion.div
                 initial={{ opacity: 0, x: -100 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
                 viewport={{ once: true, amount: isMobile ? 0.1 : 0.3 }}
-                className="flex-1 rounded-tr-[32px] rounded-br-[32px] rounded-[32px] lg:rounded-none lg:rounded-tr-[32px] lg:rounded-br-[32px] overflow-hidden hidden md:block"
+                className="flex-1 rounded-tr-[32px] rounded-br-[32px] rounded-[32px] lg:rounded-[32px] lg:rounded-tr-[32px] lg:rounded-br-[32px] overflow-hidden hidden md:block"
             >
-
                 <img
                     src={data.image}
                     alt="Guide You"
                     className="w-full h-[500px] lg:h-full object-cover"
                 />
-
             </motion.div>
             <motion.div
                 initial={{ opacity: 0, x: 100 }}

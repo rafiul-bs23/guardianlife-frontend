@@ -9,19 +9,15 @@ const PlanBreakdown: React.FC<PlanBreakdownProps> = ({ data }) => {
     if (!data?.content?.length) return null;
 
     return (
-        <section className="w-full max-w-[1514px] mx-auto mb-16 px-4 py-8">
+        <section className="w-full max-w-[1248px] mx-auto mb-16 px-4 py-8">
             {/* Header */}
-            <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold text-gray-900 mb-2 uppercase">
-                    Your Plan, Your Way
-                </h2>
-                <p className="text-gray-600 text-sm md:text-base">
-                    Flexible options designed to fit your unique financial journey.
-                </p>
-            </div>
+            <Contentheader
+              title="Your Plan, Your Way"
+              description="Flexible options designed to fit your unique financial journey."
+            />
 
             {/* Breakdown Blocks */}
-            <div className="flex flex-col gap-6  mx-auto">
+            <div className="flex flex-col gap-6  mx-auto mt-12">
                 {data?.content?.map((item, index) => (
                     <BreakdownBlock key={index} item={item} />
                 ))}
@@ -62,6 +58,7 @@ const BreakdownBlock: React.FC<{ item: BreakdownItem }> = ({ item }) => {
 };
 
 import { motion, AnimatePresence } from 'framer-motion';
+import Contentheader from "../../../shared/Components/Contentheader.tsx";
 
 const EligibilityScale: React.FC<{ min: number; max: number }> = ({ min, max }) => {
     const [isLeftHovered, setIsLeftHovered] = React.useState(false);

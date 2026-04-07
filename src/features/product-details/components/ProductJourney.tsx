@@ -1,5 +1,6 @@
 import React from 'react';
 import type { ProductJourneySection } from '../types';
+import Contentheader from "../../../shared/Components/Contentheader.tsx";
 
 interface ProductJourneyProps {
     data: ProductJourneySection;
@@ -12,9 +13,11 @@ const ProductJourney: React.FC<ProductJourneyProps> = ({ data }) => {
         <div className='bg-white'>
             <div className="w-full max-w-[1514px] mx-auto mb-16 px-4 bg-white py-16">
                 {/* Header */}
-                <div className="text-center mb-8">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-2">PRODUCT JOURNEY</h2>
-                    <p className="text-gray-600 text-sm">Simple Steps to secure your policy</p>
+                <div className="mb-8">
+                    <Contentheader
+                      title="PRODUCT JOURNEY"
+                      description="Simple Steps to secure your policy"
+                    />
                 </div>
 
                 {/* Timeline Container */}

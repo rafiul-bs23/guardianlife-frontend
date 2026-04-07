@@ -19,7 +19,7 @@ const ProductSupport: React.FC<ProductSupportProps> = ({ documents, learnMore })
     };
 
     return (
-        <section className="w-full max-w-[1514px] mx-auto px-4 py-16 md:px-8 border-t border-gray-100 mt-8">
+        <section className="w-full max-w-[1248px] mx-auto px-4 py-16 md:px-8 border-t border-gray-100 mt-8">
             <div className="flex flex-col lg:flex-row gap-16">
 
                 {/* Product Documents Section */}

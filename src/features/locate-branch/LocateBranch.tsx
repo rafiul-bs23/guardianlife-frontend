@@ -24,10 +24,10 @@ const LocateBranch = () => {
             <section className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
                 {/* Section Title */}
                 <div className="mb-6">
-                    <h2 className="text-2xl font-bold text-gray-800 uppercase tracking-tight">
+                    <h2 className="text-[36px] font-bold text-gray-800 uppercase tracking-tight">
                         {t('page.title')}
                     </h2>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-[32px] text-gray-500 mt-1">
                         {t('page.description')}
                     </p>
                 </div>

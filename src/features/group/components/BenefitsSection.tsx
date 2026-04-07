@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import type { BenefitItem } from "../types";
 import { MOCK_BENEFITS_DATA } from "../api/mockData";
+import Contentheader from "../../../shared/Components/Contentheader.tsx";
 
 /* ─── Inline check icon ─── */
 const CheckIcon = () => (
@@ -55,17 +56,13 @@ const BenefitsSection = () => {
       <div className="max-w-[1600px] mx-auto px-6 lg:px-10">
 
         {/* Heading */}
-        <div className="text-center mb-10 lg:mb-14">
-          <h2 className="font-extrabold text-[20px] lg:text-[26px] uppercase leading-[1.3] tracking-[0.01em] text-gray-900">
-            {t('group:benefits_section.header.title')}
-          </h2>
-          <p className="mt-3 text-[14px] lg:text-[15px] text-gray-500 font-normal">
-            {t('group:benefits_section.header.description')}
-          </p>
-        </div>
+        <Contentheader
+          title={t('group:benefits_section.header.title')}
+          description={t('group:benefits_section.header.description')}
+        />
 
         {/* Two-column layout */}
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start mt-10 lg:mt-14">
 
           {/* Left — benefit items */}
           <div className="w-full lg:w-1/2 flex flex-col">
