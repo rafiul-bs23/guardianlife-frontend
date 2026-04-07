@@ -18,11 +18,19 @@ const ProductDetails = () => {
 
 
   const { data: headerData, isLoading: isHeaderLoading } = useHeader(`product-${product_code}`);
-  const { data } = useProduct(product_code as string);
+  const { data, isLoading: isProductLoading } = useProduct(product_code as string);
+
+  if (isHeaderLoading || isProductLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#EB6925]"></div>
+      </div>
+    );
+  }
 
   return (
     <>
-      {!isHeaderLoading && headerData && <ProductHeader data={headerData} planNumbers={data?.plan_numbers} />}
+      {headerData && <ProductHeader data={headerData} planNumbers={data?.plan_numbers} />}
       <section>
         {data?.quick_product_section && <QuickProductView data={data.quick_product_section} />}
         {data?.product_journey_section && <ProductJourney data={data.product_journey_section} />}

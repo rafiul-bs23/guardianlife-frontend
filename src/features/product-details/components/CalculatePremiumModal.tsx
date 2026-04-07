@@ -181,7 +181,6 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
         plan_no: selectedPlan?.plan_no || "03"
       });
 
-      console.log('API Response:', data);
 
       if (data && data.status && data.data) {
         const { payment_mode, term: apiTerms, min_sumass, max_sumass } = data.data;
@@ -235,7 +234,6 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
             term: Number(term)
           };
           const response = await getSupplementaryInfo(payload);
-          console.log('Supplementary API Response:', response);
 
           if (response && response.status && response.data) {
             const hiData = response.data.find((item: SupplementaryInfoItem) => item.supplementary_name === 'HI');

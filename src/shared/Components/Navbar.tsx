@@ -161,7 +161,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
                         <img
                             src="/assets/images/shared/logo.png"
                             alt="Guardian Logo"
-                            className={`transition-all duration-300 ${isScrolled ? 'w-[70px] md:w-[130px]' : 'w-[100px] md:w-[180px]'} object-contain mb-2 px-4 group-hover:scale-110`}
+                            className={`transition-all duration-300 ${isScrolled ? 'w-[70px] md:w-[155px]' : 'w-[100px] md:w-[180px]'} object-contain mb-2 px-4 group-hover:scale-110`}
                         />
                     </div>
                 </Link>
