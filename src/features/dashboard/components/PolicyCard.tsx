@@ -49,18 +49,22 @@ const PolicyCard: React.FC<PolicyCardProps> = ({ policy, onClick }) => {
   const gradientClass = getBorderGradient(policy.policyStatus);
   const statusColor = getStatusColor(policy.policyStatus);
 
-  const displayPlanName = policy.planName && policy.planName.length > 20
-    ? policy.planName.substring(0, 18).trim() + '...'
+  const rawTitle = policy.segment === 'GROUP' && policy.organizationName
+    ? policy.organizationName
     : policy.planName;
 
+  const displayPlanName = rawTitle && rawTitle.length > 22
+    ? rawTitle.substring(0, 20).trim() + '...'
+    : rawTitle;
+
   return (
-    <div 
+    <div
       className={`w-full h-full bg-gradient-to-r ${gradientClass} p-[1.5px] rounded-2xl shadow-sm cursor-pointer hover:shadow-md transition-shadow flex flex-col`}
       onClick={onClick}
     >
       <div className="bg-white rounded-2xl px-5 py-4 w-full h-full flex flex-col">
         <div className="flex justify-between items-start mb-2">
-          <h3 className="text-[17px] font-semibold text-gray-900 leading-tight pr-4" title={policy.planName}>
+          <h3 className="text-[17px] font-semibold text-gray-900 leading-tight pr-4" title={rawTitle || ''}>
             {displayPlanName}
           </h3>
           <span className={`text-[11px] font-medium uppercase tracking-wider ${statusColor} border-l-[1.5px] border-gray-300 pl-2 whitespace-nowrap pt-1`}>
