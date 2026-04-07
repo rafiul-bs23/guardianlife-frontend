@@ -56,11 +56,11 @@ const PolicyList: React.FC<PolicyListProps> = ({ policies = [] }) => {
 
       <div 
         ref={scrollRef}
-        className="flex gap-5 overflow-x-auto no-scrollbar pb-8 px-1 scroll-smooth snap-x snap-mandatory"
+        className="flex gap-5 overflow-x-auto no-scrollbar pb-8 px-1 scroll-smooth snap-x snap-mandatory items-stretch"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {policies.map((policy) => (
-          <div key={policy.policyNumber} className="min-w-[320px] md:min-w-[360px] snap-start">
+          <div key={policy.policyNumber} className="min-w-[320px] md:min-w-[360px] snap-start flex">
             <PolicyCard 
               policy={policy} 
               onClick={() => setSelectedPolicy(policy)} 

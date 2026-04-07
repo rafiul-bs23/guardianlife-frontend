@@ -45,13 +45,13 @@ const AppPromotion = () => {
   const [bottomRef, isBottomVisible] = useScrollReveal(0.2);
 
   return (
-    <div className="bg-gray-50 py-16 px-8 overflow-hidden">
+    <div className="bg-gray-50 py-16 px-8 overflow-hidden flex flex-col">
       <motion.div
         ref={topRef}
         initial={{ opacity: 0, y: -100 }}
         animate={isTopVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: -100 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="mx-auto"
+        className="mx-auto order-2 md:order-1 mt-10 md:mt-0"
       >
         {/* Header Section */}
         <div className="text-center mb-8">
@@ -75,9 +75,9 @@ const AppPromotion = () => {
         initial={{ opacity: 0, y: 100 }}
         animate={isBottomVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="mx-auto"
+        className="mx-auto order-1 md:order-2 w-full"
       >
-        <div className="relative mt-8 flex justify-center px-4 md:px-0">
+        <div className="relative mt-0 md:mt-8 flex justify-center px-4 md:px-0">
           <div
             className="overflow-hidden mx-auto w-full max-w-6xl relative"
             style={{
@@ -90,8 +90,6 @@ const AppPromotion = () => {
               alt="Guardian Life App"
               className="w-full h-auto aspect-[16/10] md:aspect-auto md:max-h-[450px] object-cover"
             />
-
-            {/* Top-right circle icon (optional) */}
 
           </div>
         </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { motion } from 'framer-motion';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 
 import { X, ChevronDown } from 'lucide-react';
@@ -11,6 +12,7 @@ import { getAuthToken } from '../utils/authUtils';
 
 interface NavbarProps {
     transparent?: boolean;
+    animateIn?: boolean;
 }
 
 const TEXT_SIZES = {
@@ -109,7 +111,7 @@ const NavItem: React.FC<{
     );
 };
 
-const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
+const Navbar: React.FC<NavbarProps> = ({ transparent = false, animateIn = false }) => {
     const [isOpened, setIsOpened] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -138,9 +140,21 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
             ? 'bg-white/80 backdrop-blur-md shadow-lg'
             : 'bg-white';
 
+    const NavElement = animateIn ? motion.nav : 'nav';
+    const animateProps = animateIn
+        ? {
+            initial: { y: -100, opacity: 0 } as const,
+            animate: { y: 0, opacity: 1 } as const,
+            transition: { duration: 0.5, ease: 'easeOut' as const },
+        }
+        : {};
+
     return (
         <>
-            <nav className={`w-full fixed top-0 left-0 ${navBackground} px-4 md:px-10 lg:px-20 ${isScrolled ? 'md:h-20 h-16' : 'md:h-28 h-20'} flex items-center justify-between z-[9999] transition-all duration-300`}>
+            <NavElement
+                {...animateProps}
+                className={`w-full fixed top-0 left-0 ${navBackground} px-4 md:px-10 lg:px-20 ${isScrolled ? 'md:h-20 h-16' : 'md:h-28 h-16'} flex items-center justify-between z-[9999] ${animateIn ? 'transition-[background-color,height,box-shadow] duration-300' : 'transition-all duration-300'}`}
+            >
 
                 <div className={`flex items-center ${GAPS.NAVBAR_LEFT_ITEMS}`}>
                     {/* Hamburger Menu Icon */}
@@ -157,11 +171,11 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
 
                 {/* Centered Logo in Orange Container */}
                 <Link to="/">
-                    <div className={`absolute left-1/2 -translate-x-1/2 top-0 ${isScrolled ? 'md:h-16 h-12 w-24 md:w-56' : 'md:h-28 h-20 w-32 md:w-64'} bg-primary rounded-b-[35px] flex items-center justify-center shadow-[0_10px_30px_rgba(235,105,37,0.3)] transition-all hover:h-30 group`}>
+                    <div className={`absolute left-1/2 -translate-x-1/2 top-0 ${isScrolled ? 'md:h-16 h-12 w-28 md:w-56' : 'md:h-28 h-12 w-32 md:w-64'} bg-primary  md:rounded-b-[35px] rounded-b-[16px] flex items-center justify-center shadow-[0_10px_30px_rgba(235,105,37,0.3)] transition-all hover:h-30 group`}>
                         <img
                             src="/assets/images/shared/logo.png"
                             alt="Guardian Logo"
-                            className={`transition-all duration-300 ${isScrolled ? 'w-[70px] md:w-[155px]' : 'w-[100px] md:w-[180px]'} object-contain mb-2 px-4 group-hover:scale-110`}
+                            className={`transition-all duration-300 ${isScrolled ? 'w-[110px] md:w-[155px]' : 'w-[120px] md:w-[180px]'} object-contain mb-0 md:mb-2 px-4 group-hover:scale-110`}
                         />
                     </div>
                 </Link>
@@ -169,15 +183,16 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
                 {/* Right Side Actions */}
                 <div className={`flex items-center ${GAPS.NAVBAR_RIGHT_ACTIONS}`}>
 
-                    <LanguageToggle scrolled={!transparent || isScrolled} />
+                    {/* <LanguageToggle scrolled={!transparent || isScrolled} /> */}
                     <Button
                         label={isLoggedIn ? "Dashboard" : "Login"}
                         variant='base'
                         to={isLoggedIn ? "/dashboard" : "/login"}
-                        className="!w-[80px] md:!w-[130px] h-[40px] md:h-[45px] text-[13px] md:text-[16px]"
+                        className="!w-[80px] md:!w-[130px] h-[40px] md:h-[45px]"
+                        labelClass="!text-[12px] md:!text-[18px]"
                     />
                 </div>
-            </nav>
+            </NavElement>
 
             {/* Navigation Drawer Menu */}
             {typeof document !== 'undefined' && createPortal(
@@ -195,19 +210,37 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
                         className={`absolute top-0 left-0 h-full w-full md:w-[450px] bg-white/95 backdrop-blur-xl shadow-2xl transition-transform duration-500 ease-out border-r border-white/20 flex flex-col ${isOpened ? 'translate-x-0' : '-translate-x-full'}`}
                     >
                         {/* Drawer Header */}
-                        <div className={`flex items-center justify-between p-8 border-b border-gray-100 ${GAPS.DRAWER_HEADER}`}>
-                            <div className={`flex items-center ${GAPS.DRAWER_HEADER}`}>
-                                <div className="w-32 h-12 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20">
-                                    <img src="/assets/images/shared/logo.png" alt="Logo" className="w-28 h-6 object-contain" />
+                        <div className="pt-8 px-8 pb-3">
+                            <div className={`flex items-center justify-between border-b-[1.5px] border-primary pb-4 ${GAPS.DRAWER_HEADER}`}>
+                                {/* Guardian Logo with Masking */}
+                                <div
+                                    className="w-[120px] h-[30px] bg-primary"
+                                    style={{
+                                        maskImage: 'url(/assets/images/shared/logo.png)',
+                                        maskSize: 'contain',
+                                        maskRepeat: 'no-repeat',
+                                        maskPosition: 'left center',
+                                        WebkitMaskImage: 'url(/assets/images/shared/logo.png)',
+                                        WebkitMaskSize: 'contain',
+                                        WebkitMaskRepeat: 'no-repeat',
+                                        WebkitMaskPosition: 'left center'
+                                    }}
+                                    aria-label="Guardian Logo"
+                                    role="img"
+                                />
+
+                                {/* Right Side: Language Toggle & Close Button */}
+                                <div className="flex items-center gap-4 lg:gap-6">
+                                    <LanguageToggle variant="switch" />
+                                    <button
+                                        onClick={toggleDrawer}
+                                        className="text-primary hover:bg-orange-50 rounded transition-all group pr-1"
+                                        aria-label="Close Menu"
+                                    >
+                                        <X size={28} strokeWidth={3} className="transition-transform group-hover:rotate-90" />
+                                    </button>
                                 </div>
                             </div>
-                            <button
-                                onClick={toggleDrawer}
-                                className="p-3 rounded-full bg-gray-100 hover:bg-primary hover:text-white transition-all group shadow-sm"
-                                aria-label="Close Menu"
-                            >
-                                <X size={24} className="transition-transform group-hover:rotate-90" />
-                            </button>
                         </div>
 
                         {/* Navigation Items */}

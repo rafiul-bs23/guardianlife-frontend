@@ -49,15 +49,19 @@ const PolicyCard: React.FC<PolicyCardProps> = ({ policy, onClick }) => {
   const gradientClass = getBorderGradient(policy.policyStatus);
   const statusColor = getStatusColor(policy.policyStatus);
 
+  const displayPlanName = policy.planName && policy.planName.length > 20
+    ? policy.planName.substring(0, 18).trim() + '...'
+    : policy.planName;
+
   return (
     <div 
-      className={`w-full bg-gradient-to-r ${gradientClass} p-[1.5px] rounded-2xl shadow-sm cursor-pointer hover:shadow-md transition-shadow`}
+      className={`w-full h-full bg-gradient-to-r ${gradientClass} p-[1.5px] rounded-2xl shadow-sm cursor-pointer hover:shadow-md transition-shadow flex flex-col`}
       onClick={onClick}
     >
-      <div className="bg-white rounded-2xl px-5 py-4 w-full h-full">
+      <div className="bg-white rounded-2xl px-5 py-4 w-full h-full flex flex-col">
         <div className="flex justify-between items-start mb-2">
-          <h3 className="text-[17px] font-semibold text-gray-900 leading-tight pr-4">
-            {policy.planName}
+          <h3 className="text-[17px] font-semibold text-gray-900 leading-tight pr-4" title={policy.planName}>
+            {displayPlanName}
           </h3>
           <span className={`text-[11px] font-medium uppercase tracking-wider ${statusColor} border-l-[1.5px] border-gray-300 pl-2 whitespace-nowrap pt-1`}>
             {policy.policyStatus}
@@ -73,14 +77,16 @@ const PolicyCard: React.FC<PolicyCardProps> = ({ policy, onClick }) => {
           </div>
         </div>
 
-        <div className="w-full h-[1px] bg-gray-100 mb-3" />
+        <div className="mt-auto">
+          <div className="w-full h-[1px] bg-gray-100 mb-3" />
 
-        <div className="flex justify-start items-center">
-          {policy.isShowPremiumAmount && (
-            <span className="text-gray-800 text-[15px]">
-              Premium {formatCurrency(policy.premiumAmount)}
-            </span>
-          )}
+          <div className="flex justify-start items-center min-h-[22px]">
+            {policy.isShowPremiumAmount && (
+              <span className="text-gray-800 text-[15px]">
+                Premium {formatCurrency(policy.premiumAmount)}
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </div>

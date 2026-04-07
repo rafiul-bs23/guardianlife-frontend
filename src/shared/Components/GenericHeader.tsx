@@ -110,7 +110,7 @@ const GenericHeader: React.FC<GenericHeaderProps> = ({
     if (isImmersive) {
         return (
             <>
-                <Navbar transparent />
+                <Navbar transparent animateIn />
                 <section
                     className={`relative w-full min-h-[600px] flex flex-col ${className} ${!data?.background_video_url ? 'bg-primary' : ''} overflow-hidden`}
                     style={!data?.background_video_url ? bgStyles : {}}

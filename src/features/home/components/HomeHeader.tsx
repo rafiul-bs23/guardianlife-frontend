@@ -22,9 +22,9 @@ const MetricBadge: React.FC<MetricBadgeProps> = ({ icon, value, label, className
     };
 
     const valueSizeClasses = {
-        sm: "text-[22px] md:text-[28px] lg:text-[34px]",
-        md: "text-[26px] md:text-[32px] lg:text-[42px]",
-        lg: "text-[32px] md:text-[40px] lg:text-[40px]"
+        sm: "text-[22px] md:text-[24px] lg:text-[26px]",
+        md: "text-[24px] md:text-[26px] lg:text-[28px]",
+        lg: "text-[24px] md:text-[26px] lg:text-[28px]"
     };
 
     const labelSizeClasses = {
@@ -100,7 +100,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                             className="absolute top-[20%]  left-[1%]"
                         >
                             <MetricBadge
-                                icon={<ShieldCheck className="w-3.5 h-3.5 md:w-4 md:h-4 lg:w-5 lg:h-5 text-black" strokeWidth={2} />}
+                                icon={<ShieldCheck className="w-3.5 h-3.5 md:w-4 md:h-4 lg:w-5 lg:h-5 text-primary" strokeWidth={2} />}
                                 value="98%"
                                 label={t('header.pay_claim_ratio')}
                                 size="lg"
@@ -115,7 +115,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                             className="absolute bottom-[30%] left-[10%] md:left-[6%]"
                         >
                             <MetricBadge
-                                icon={<Wallet className="w-4 h-4 md:w-4 md:h-4 lg:w-5 lg:h-5 text-black" strokeWidth={2.5} />}
+                                icon={<Wallet className="w-4 h-4 md:w-4 md:h-4 lg:w-5 lg:h-5 text-primary" strokeWidth={2.5} />}
                                 value="1.2 Cr"
                                 label={t('header.live_coverage')}
                                 size="md"
@@ -150,7 +150,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                                     />
                                 ))}
                                 <MetricBadge
-                                    icon={<Zap className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-black fill-black" strokeWidth={2} />}
+                                    icon={<Zap className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-primary fill-transparent" strokeWidth={2} />}
                                     value={t('header.quick_buy')}
                                     label=""
                                     size="lg"
@@ -167,7 +167,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
                             className="absolute bottom-[30%] right-[1%] "
                         >
                             <MetricBadge
-                                icon={<ShieldAlert className="w-3 h-3 md:w-3.5 md:h-3.5 lg:w-4 lg:h-4 text-black" strokeWidth={2.5} />}
+                                icon={<ShieldAlert className="w-3 h-3 md:w-3.5 md:h-3.5 lg:w-4 lg:h-4 text-primary" strokeWidth={2.5} />}
                                 value="3 Days"
                                 label={t('header.claim_settlement')}
                                 size="sm"
@@ -178,9 +178,10 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ data }) => {
 
                 {/* Large Bottom Text */}
                 <div className="absolute bottom-24 md:bottom-20 lg:bottom-24 w-full text-center px-4 z-30 ">
-                    <h1 className="text-2xl md:text-5xl lg:text-[70px] xl:text-[90px] font-black tracking-tighter leading-none [text-wrap:balance]">
+                    <h1 className="text-[min(6.5vw,125px)] font-bold tracking-[-0.02em] leading-[0.8] text-center whitespace-nowrap">
                         <motion.span
-                            className="text-primary block flex flex-wrap justify-center "
+                            className="text-primary block flex flex-nowrap justify-center "
+
                             initial="hidden"
                             animate="visible"
                             variants={{
