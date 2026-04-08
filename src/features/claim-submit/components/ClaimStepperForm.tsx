@@ -162,6 +162,9 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
     const file = e.target.files?.[0];
     if (!file || !fileSettings) return;
 
+    // Clear previous errors
+    setApiErrors([]);
+
     // Validate size
     const fileSizeMB = file.size / (1024 * 1024);
     const minSizeMB = fileSettings.minFileSize / 1024;
@@ -182,21 +185,26 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
 
     setIsUploading(true);
     try {
-      const reader = new FileReader();
-      reader.onloadend = async () => {
-        const base64Data = (reader.result as string).split(',')[1];
-        const res = await uploadFile({
-          service: fileSettings.feature,
-          fileName: file.name,
-          extension: extension,
-          base64Data: base64Data
-        });
+      const base64Data = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const base64 = (reader.result as string).split(',')[1];
+          resolve(base64);
+        };
+        reader.onerror = () => reject(new Error('Failed to read file'));
+        reader.readAsDataURL(file);
+      });
 
-        const currentDocs = watch('claimDocuments') || [];
-        setValue('claimDocuments', [...currentDocs, res.id]);
-        setUploadedFiles(prev => [...prev, { id: res.id, name: file.name }]);
-      };
-      reader.readAsDataURL(file);
+      const res = await uploadFile({
+        service: fileSettings.feature,
+        fileName: file.name,
+        extension: extension,
+        base64Data: base64Data
+      });
+
+      const currentDocs = watch('claimDocuments') || [];
+      setValue('claimDocuments', [...currentDocs, res.id]);
+      setUploadedFiles(prev => [...prev, { id: res.id, name: file.name }]);
     } catch (err) {
       setApiErrors(parseApiError(err));
     } finally {
