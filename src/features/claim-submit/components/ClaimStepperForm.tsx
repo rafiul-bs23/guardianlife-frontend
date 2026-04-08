@@ -250,6 +250,8 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
       setStep(1);
       setMemberInfo(null);
       setApiErrors([]);
+      setSubmissionStatus('idle');
+      setUploadedFiles([]);
       reset();
     }
   }, [isOpen, policy?.policyNumber, type, setValue, reset]);
