@@ -5,6 +5,7 @@ import { fetchDashboardDataApi } from './api';
 import { submitLogout } from '../login/api';
 import ClaimsList from './components/ClaimsList';
 import PolicyList from './components/PolicyList';
+import AddPolicyModal from './components/AddPolicyModal';
 import type { DashboardApiResponse } from './types';
 import Button from '../../shared/Components/Button';
 import { getUserData, clearAuthData } from '../../shared/utils/authUtils';
@@ -17,6 +18,7 @@ const Dashboard = () => {
   const [showClaimsMenu, setShowClaimsMenu] = useState(false);
   const [activeTab, setActiveTab] = useState<'policies' | 'claims'>('policies');
   const [isLoading, setIsLoading] = useState(true);
+  const [isAddPolicyModalOpen, setIsAddPolicyModalOpen] = useState(false);
 
 
   useEffect(() => {
@@ -155,7 +157,10 @@ const Dashboard = () => {
                   {/* Content Area */}
                   <div className="pt-4 min-h-[400px]">
                     {activeTab === 'policies' ? (
-                      <PolicyList policies={dashboardData.policies} />
+                      <PolicyList 
+                        policies={dashboardData.policies} 
+                        onAddPolicy={() => setIsAddPolicyModalOpen(true)}
+                      />
                     ) : (
                       <ClaimsList claims={dashboardData.claims} />
                     )}
@@ -168,6 +173,11 @@ const Dashboard = () => {
           )}
         </div>
       </div>
+      
+      <AddPolicyModal 
+        isOpen={isAddPolicyModalOpen} 
+        onClose={() => setIsAddPolicyModalOpen(false)} 
+      />
     </div>
   );
 };

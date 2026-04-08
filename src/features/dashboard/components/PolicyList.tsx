@@ -6,9 +6,10 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface PolicyListProps {
   policies?: Policy[];
+  onAddPolicy?: () => void;
 }
 
-const PolicyList: React.FC<PolicyListProps> = ({ policies = [] }) => {
+const PolicyList: React.FC<PolicyListProps> = ({ policies = [], onAddPolicy }) => {
   const [selectedPolicy, setSelectedPolicy] = useState<Policy | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -36,22 +37,14 @@ const PolicyList: React.FC<PolicyListProps> = ({ policies = [] }) => {
         <h3 className="text-[22px] font-bold text-gray-800">
           Policies <span className="text-[#f37021]/80 ml-1">({policies.length})</span>
         </h3>
-        <div className="flex gap-2">
+        {onAddPolicy && (
           <button
-            onClick={() => scroll('left')}
-            className="p-2.5 rounded-full bg-white border border-gray-200 shadow-sm hover:border-[#f37021] hover:text-[#f37021] transition-all"
-            aria-label="Previous"
+            onClick={onAddPolicy}
+            className="bg-[#F37021] hover:bg-[#F36021] text-white px-5 py-2 rounded-xl font-bold flex items-center gap-2 shadow-lg transition-all duration-300 hover:scale-[1.05] active:scale-[0.95]"
           >
-            <ChevronLeft size={20} />
+            <span className="text-xl leading-none">+</span> Add Policy
           </button>
-          <button
-            onClick={() => scroll('right')}
-            className="p-2.5 rounded-full bg-white border border-gray-200 shadow-sm hover:border-[#f37021] hover:text-[#f37021] transition-all"
-            aria-label="Next"
-          >
-            <ChevronRight size={20} />
-          </button>
-        </div>
+        )}
       </div>
 
       <div 
@@ -67,6 +60,24 @@ const PolicyList: React.FC<PolicyListProps> = ({ policies = [] }) => {
             />
           </div>
         ))}
+      </div>
+
+      {/* Navigation Arrows at Bottom */}
+      <div className="flex justify-end gap-3 mt-4">
+        <button
+          onClick={() => scroll('left')}
+          className="p-3 rounded-full bg-white border border-gray-200 shadow-md hover:border-[#f37021] hover:text-[#f37021] transition-all active:scale-90"
+          aria-label="Previous"
+        >
+          <ChevronLeft size={22} />
+        </button>
+        <button
+          onClick={() => scroll('right')}
+          className="p-3 rounded-full bg-white border border-gray-200 shadow-md hover:border-[#f37021] hover:text-[#f37021] transition-all active:scale-90"
+          aria-label="Next"
+        >
+          <ChevronRight size={22} />
+        </button>
       </div>
 
       <PolicyDetailsModal 
