@@ -563,7 +563,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
           {step === 2 && (
             <div className="space-y-4 animate-fadeIn">
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Area</label>
+                <label className="block text-sm text-gray-400 mb-2">Area<span className="text-red-500">*</span></label>
                 <div className="relative">
                   <div
                     className={`w-full bg-[#1b1c23] border ${formErrors.area ? 'border-red-500' : 'border-gray-700'} rounded-lg p-3 text-white cursor-pointer flex justify-between items-center transition-all`}
@@ -618,7 +618,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
               </div>
 
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Hospital</label>
+                <label className="block text-sm text-gray-400 mb-2">Hospital<span className="text-red-500">*</span></label>
                 <div className="relative">
                   <div
                     className={`w-full bg-[#1b1c23] border ${formErrors.hospitalId ? 'border-red-500' : 'border-gray-700'} rounded-lg p-3 text-white cursor-pointer flex justify-between items-center`}
@@ -756,7 +756,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                     <h3 className="text-white text-lg font-medium mb-2">Upload a file</h3>
                     <p className="text-sm text-gray-500 max-w-[250px] mx-auto">
                       {fileSettings
-                        ? `Upload ${fileSettings.fileExtensions}. Size per file ${fileSettings.minFileSize / 1024}MB to ${fileSettings.maxFileSize / 1024}MB.`
+                        ? `Upload ${fileSettings.fileExtensions}. Max size ${fileSettings.maxFileSize / 1024}MB.`
                         : 'Loading requirements...'}
                     </p>
                   </>
