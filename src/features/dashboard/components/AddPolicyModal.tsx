@@ -109,7 +109,11 @@ const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose, refres
   const isStep1Valid = policyNumber.trim() !== '' && dob.trim() !== '';
   const isOtpComplete = otp.every((digit) => digit !== '');
 
-  if (!isOpen) return null;
+  const maskPhoneNumber = (phone: string | null) => {
+    if (!phone) return 'XXXX***XXX';
+    if (phone.length <= 6) return phone;
+    return `${phone.slice(0, 3)}***${phone.slice(-3)}`;
+  };
 
   const modalContent = (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
@@ -224,7 +228,7 @@ const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose, refres
                 <div className="mb-8">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">Verify Mobile Number</h3>
                   <p className="text-gray-500 leading-relaxed">
-                    Enter the verification code sent to your phone number <span className="font-semibold text-gray-800">{contactNumber || 'XXXX***XXX'}</span>
+                    Enter the verification code sent to your phone number <span className="font-semibold text-gray-800">{maskPhoneNumber(contactNumber)}</span>
                   </p>
                 </div>
 
