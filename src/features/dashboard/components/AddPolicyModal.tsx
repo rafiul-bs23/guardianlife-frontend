@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Calendar, ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { X, Calendar, ArrowLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Button from '../../../shared/Components/Button';
 
@@ -164,11 +164,8 @@ const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose }) => {
                     <Button
                       type="submit"
                       disabled={!isStep1Valid}
-                      className={`w-full py-4 text-lg font-bold rounded-2xl transition-all duration-300 ${
-                        isStep1Valid 
-                        ? 'bg-[#F37021] text-white shadow-xl shadow-[#F37021]/20 hover:scale-[1.02] active:scale-[0.98]' 
-                        : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                      }`}
+                      className="w-full"
+                      variant="base"
                     >
                       Continue
                     </Button>
@@ -216,11 +213,8 @@ const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose }) => {
                     <Button
                       type="submit"
                       disabled={!isOtpComplete}
-                      className={`w-full py-4 text-lg font-bold rounded-2xl transition-all duration-300 ${
-                        isOtpComplete 
-                        ? 'bg-[#F37021] text-white shadow-xl shadow-[#F37021]/20 hover:scale-[1.02] active:scale-[0.98]' 
-                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                      }`}
+                      className="w-full"
+                      variant="base"
                     >
                       Continue
                     </Button>
@@ -249,14 +243,14 @@ const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose }) => {
                 </form>
 
                 {/* Footer Message */}
-                <motion.div 
-                  initial={{ y: 50, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  className="mt-12 -mx-6 -mb-6 bg-indigo-900 py-4 px-6 flex items-center justify-center gap-3 text-white font-medium"
-                >
-                  <CheckCircle2 size={18} />
-                  <span>OTP Sent Successfully</span>
-                </motion.div>
+                {/*<motion.div */}
+                {/*  initial={{ y: 50, opacity: 0 }}*/}
+                {/*  animate={{ y: 0, opacity: 1 }}*/}
+                {/*  className="mt-12 -mx-6 -mb-6 bg-indigo-900 py-4 px-6 flex items-center justify-center gap-3 text-white font-medium"*/}
+                {/*>*/}
+                {/*  <CheckCircle2 size={18} />*/}
+                {/*  <span>OTP Sent Successfully</span>*/}
+                {/*</motion.div>*/}
               </motion.div>
             )}
           </AnimatePresence>
