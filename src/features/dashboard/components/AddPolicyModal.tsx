@@ -1,15 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Calendar, ArrowLeft } from 'lucide-react';
+import { X, Calendar, ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Button from '../../../shared/Components/Button';
+import { useAddPolicy } from '../hooks/useAddPolicy';
 
 interface AddPolicyModalProps {
   isOpen: boolean;
   onClose: () => void;
+  refresh?: () => void;
 }
 
-const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose }) => {
+const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose, refresh }) => {
+  const { 
+    isLoading, 
+    error, 
+    contactNumber, 
+    isSuccess, 
+    partialSuccessMsg, 
+    validatePolicy, 
+    verifyOtp, 
+    reset: resetApi 
+  } = useAddPolicy();
+
   const [step, setStep] = useState<1 | 2>(1);
   const [policyNumber, setPolicyNumber] = useState('');
   const [dob, setDob] = useState('');
@@ -29,6 +42,7 @@ const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose }) => {
       setDob('');
       setOtp(['', '', '', '', '', '']);
       setTimer(119);
+      resetApi();
     }
     return () => {
       document.body.style.overflow = '';
@@ -72,15 +86,24 @@ const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleContinueToOtp = (e: React.FormEvent) => {
+  const handleContinueToOtp = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStep(2);
+    const result = await validatePolicy(policyNumber, dob);
+    if (result.success) {
+      setStep(2);
+    }
   };
 
-  const handleVerifyOtp = (e: React.FormEvent) => {
+  const handleVerifyOtp = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Verifying OTP:', otp.join(''));
-    // Verification logic will be added here
+    const result = await verifyOtp(contactNumber || '', otp.join(''));
+    if (result.success) {
+      if (!result.isPartial && !result.message) {
+        // Full success
+        refresh?.();
+        onClose();
+      }
+    }
   };
 
   const isStep1Valid = policyNumber.trim() !== '' && dob.trim() !== '';
@@ -142,10 +165,16 @@ const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose }) => {
                         placeholder="Enter new policy number"
                         value={policyNumber}
                         onChange={(e) => setPolicyNumber(e.target.value)}
-                        className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl text-gray-800 placeholder:text-gray-300 outline-none focus:border-[#F37021] focus:ring-4 focus:ring-[#F37021]/10 transition-all duration-300"
+                        className={`w-full px-5 py-4 bg-gray-50 border rounded-2xl text-gray-800 placeholder:text-gray-300 outline-none focus:ring-4 focus:ring-[#F37021]/10 transition-all duration-300 ${error && step === 1 ? 'border-red-500' : 'border-gray-200 focus:border-[#F37021]'}`}
                         required
+                        disabled={isLoading}
                       />
                     </div>
+                    {error && step === 1 && (
+                      <p className="mt-1.5 text-xs text-red-500 font-medium ml-1 animate-in fade-in slide-in-from-top-1">
+                        {error}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -157,8 +186,9 @@ const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose }) => {
                         type="date"
                         value={dob}
                         onChange={(e) => setDob(e.target.value)}
-                        className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl text-gray-800 placeholder:text-gray-300 outline-none focus:border-[#F37021] focus:ring-4 focus:ring-[#F37021]/10 transition-all duration-300 appearance-none pr-12"
+                        className={`w-full px-5 py-4 bg-gray-50 border rounded-2xl text-gray-800 placeholder:text-gray-300 outline-none focus:ring-4 focus:ring-[#F37021]/10 transition-all duration-300 appearance-none pr-12 ${error && step === 1 ? 'border-red-500' : 'border-gray-200 focus:border-[#F37021]'}`}
                         required
+                        disabled={isLoading}
                       />
                       <Calendar className="absolute right-5 top-1/2 -translate-y-1/2 text-[#F28C28] pointer-events-none group-focus-within:scale-110 transition-transform duration-300" size={20} />
                     </div>
@@ -168,11 +198,16 @@ const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose }) => {
                   <div className="pt-6">
                     <Button
                       type="submit"
-                      disabled={!isStep1Valid}
-                      className="w-full"
+                      disabled={!isStep1Valid || isLoading}
+                      className="w-full relative"
                       variant="base"
                     >
-                      Continue
+                      {isLoading ? (
+                        <div className="flex items-center gap-2">
+                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          <span>Validating...</span>
+                        </div>
+                      ) : 'Continue'}
                     </Button>
                   </div>
                 </form>
@@ -189,7 +224,7 @@ const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose }) => {
                 <div className="mb-8">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">Verify Mobile Number</h3>
                   <p className="text-gray-500 leading-relaxed">
-                    Enter the verification code sent to your phone number <span className="font-semibold text-gray-800">016***024</span>
+                    Enter the verification code sent to your phone number <span className="font-semibold text-gray-800">{contactNumber || 'XXXX***XXX'}</span>
                   </p>
                 </div>
 
@@ -209,19 +244,30 @@ const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose }) => {
                           digit !== '' 
                           ? 'border-[#F37021] text-[#F37021] bg-white shadow-md' 
                           : 'border-gray-200 text-gray-800 focus:border-[#F37021] focus:ring-4 focus:ring-[#F37021]/10'
-                        }`}
+                        } ${error && step === 2 ? 'border-red-400' : ''}`}
+                        disabled={isLoading}
                       />
                     ))}
                   </div>
+                  {error && step === 2 && (
+                    <p className="mt-[-24px] text-xs text-red-500 font-medium text-center animate-in fade-in slide-in-from-top-1">
+                      {error}
+                    </p>
+                  )}
 
                   <div className="space-y-6">
                     <Button
                       type="submit"
-                      disabled={!isOtpComplete}
-                      className="w-full"
+                      disabled={!isOtpComplete || isLoading}
+                      className="w-full relative"
                       variant="base"
                     >
-                      Continue
+                      {isLoading ? (
+                        <div className="flex items-center gap-2">
+                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          <span>Verifying...</span>
+                        </div>
+                      ) : 'Continue'}
                     </Button>
 
                     <div className="flex items-center justify-center gap-2 text-[15px]">
@@ -247,15 +293,17 @@ const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose }) => {
                   </div>
                 </form>
 
-                {/* Footer Message */}
-                {/*<motion.div */}
-                {/*  initial={{ y: 50, opacity: 0 }}*/}
-                {/*  animate={{ y: 0, opacity: 1 }}*/}
-                {/*  className="mt-12 -mx-6 -mb-6 bg-indigo-900 py-4 px-6 flex items-center justify-center gap-3 text-white font-medium"*/}
-                {/*>*/}
-                {/*  <CheckCircle2 size={18} />*/}
-                {/*  <span>OTP Sent Successfully</span>*/}
-                {/*</motion.div>*/}
+                {/* Success/Partial Success Message */}
+                {(isSuccess || partialSuccessMsg) && (
+                  <motion.div 
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    className={`mt-12 -mx-6 -mb-6 py-4 px-6 flex items-center justify-center gap-3 text-white font-medium ${partialSuccessMsg ? 'bg-orange-600' : 'bg-[#006A4E]'}`}
+                  >
+                    <CheckCircle2 size={18} />
+                    <span>{partialSuccessMsg || 'Policy Added Successfully'}</span>
+                  </motion.div>
+                )}
               </motion.div>
             )}
           </AnimatePresence>

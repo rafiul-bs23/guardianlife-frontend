@@ -21,24 +21,24 @@ const Dashboard = () => {
   const [isAddPolicyModalOpen, setIsAddPolicyModalOpen] = useState(false);
 
 
+  const fetchDashboardData = async () => {
+    try {
+      setIsLoading(true);
+      const responseData = await fetchDashboardDataApi();
+      console.log('Dashboard API Response:', responseData);
+      setDashboardData(responseData);
+    } catch (error) {
+      console.error('Error fetching dashboard API:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     const userData = getUserData();
     if (userData) {
       setUser(userData);
     }
-
-    const fetchDashboardData = async () => {
-      try {
-        setIsLoading(true);
-        const responseData = await fetchDashboardDataApi();
-        console.log('Dashboard API Response:', responseData);
-        setDashboardData(responseData);
-      } catch (error) {
-        console.error('Error fetching dashboard API:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
 
     fetchDashboardData();
   }, []);
@@ -177,6 +177,7 @@ const Dashboard = () => {
       <AddPolicyModal 
         isOpen={isAddPolicyModalOpen} 
         onClose={() => setIsAddPolicyModalOpen(false)} 
+        refresh={fetchDashboardData}
       />
     </div>
   );
