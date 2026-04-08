@@ -89,23 +89,6 @@ const ClaimsList: React.FC<ClaimsListProps> = ({ claims = [] }) => {
             See All ({claims.length})
           </button>
         </div>
-
-        {inProgressClaims.length > 0 && (
-          <div className="flex gap-2">
-            <button
-              onClick={() => scroll('left')}
-              className="p-2.5 rounded-full bg-white border border-gray-200 shadow-sm hover:border-[#f37021] hover:text-[#f37021] transition-all"
-            >
-              <ChevronLeft size={20} />
-            </button>
-            <button
-              onClick={() => scroll('right')}
-              className="p-2.5 rounded-full bg-white border border-gray-200 shadow-sm hover:border-[#f37021] hover:text-[#f37021] transition-all"
-            >
-              <ChevronRight size={20} />
-            </button>
-          </div>
-        )}
       </div>
 
       {inProgressClaims.length > 0 ? (
@@ -127,6 +110,26 @@ const ClaimsList: React.FC<ClaimsListProps> = ({ claims = [] }) => {
         <div className="bg-blue-50/50 p-10 rounded-3xl border border-blue-100 text-center mb-8">
            <p className="text-blue-700 font-medium text-lg">No active "In Progress" claims right now.</p>
            <p className="text-blue-500 text-sm mt-1">Check "See All" for your full claim history.</p>
+        </div>
+      )}
+
+      {/* Navigation Arrows at Bottom */}
+      {inProgressClaims.length > 0 && (
+        <div className="flex justify-end gap-3 mt-4">
+          <button
+            onClick={() => scroll('left')}
+            className="p-3 rounded-full bg-white border border-gray-200 shadow-md hover:border-[#f37021] hover:text-[#f37021] transition-all active:scale-90"
+            aria-label="Previous"
+          >
+            <ChevronLeft size={22} />
+          </button>
+          <button
+            onClick={() => scroll('right')}
+            className="p-3 rounded-full bg-white border border-gray-200 shadow-md hover:border-[#f37021] hover:text-[#f37021] transition-all active:scale-90"
+            aria-label="Next"
+          >
+            <ChevronRight size={22} />
+          </button>
         </div>
       )}
 

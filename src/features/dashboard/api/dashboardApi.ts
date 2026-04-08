@@ -25,3 +25,20 @@ export const fetchClaimDetailsApi = async (intimationNo: string, channelId: numb
   });
   return response.data;
 };
+
+export const validatePolicyMappingApi = async (policyNumber: string, dateOfBirth: string) => {
+  const response = await axiosClient.post(`${DASHBOARD_BASE_URL}/policy/mapping-validation`, {
+    policyNumber,
+    dateOfBirth
+  });
+  return response.data;
+};
+
+export const withOtpMappingApi = async (phoneNumber: string, otp: string, email: string | null = null) => {
+  const response = await axiosClient.post(`${DASHBOARD_BASE_URL}/policy/mapping/with-otp`, {
+    phoneNumber,
+    email,
+    otp
+  });
+  return response.data;
+};
