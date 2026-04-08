@@ -23,7 +23,12 @@ const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose }) => {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
-      setStep(1); // Reset step on close
+      // Reset state on close
+      setStep(1);
+      setPolicyNumber('');
+      setDob('');
+      setOtp(['', '', '', '', '', '']);
+      setTimer(119);
     }
     return () => {
       document.body.style.overflow = '';
