@@ -115,6 +115,8 @@ const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose, refres
     return `${phone.slice(0, 3)}***${phone.slice(-3)}`;
   };
 
+  if (!isOpen) return null;
+
   const modalContent = (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
       <motion.div 
