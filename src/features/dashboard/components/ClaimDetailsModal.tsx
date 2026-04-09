@@ -144,41 +144,51 @@ const ClaimDetailsModal: React.FC<ClaimDetailsModalProps> = ({ isOpen, onClose, 
              ) : claimData ? (
                <div className="duration-300">
                  {activeTab === 'Tracking' && (
-                    <div className="relative pl-6 mt-6">
-                       {/* Line connecting tracking nodes */}
-                       <div className="absolute left-[35px] top-6 bottom-8 w-0.5 z-0" style={{ background: 'linear-gradient(to bottom, #15803d 40%, rgba(181, 141, 61, 0.4) 60%, #e5e7eb) ' }}></div>
+                     <div className="relative px-4 sm:px-8 mt-4 pt-2">
+                        {claimData.tracking?.map((track: any, idx: number) => {
+                           const isCompleted = track.date !== null;
+                           const isCurrent = !isCompleted && idx > 0 && claimData.tracking[idx-1]?.date !== null;
+                           const isLast = idx === claimData.tracking.length - 1;
 
-                       {claimData.tracking?.map((track: any, idx: number) => {
-                          const isCompleted = track.date !== null;
-                          const isCurrent = !isCompleted && idx > 0 && claimData.tracking[idx-1]?.date !== null;
+                           return (
+                             <div key={idx} className="relative flex gap-4 sm:gap-6 group">
+                                {/* Timeline line segment */}
+                                {!isLast && (
+                                   <div 
+                                     className={`absolute left-[19px] top-[30px] bottom-[-10px] w-[2px] z-0 transition-colors duration-300 ${isCompleted ? 'bg-green-600' : 'bg-gray-200'}`}
+                                   ></div>
+                                )}
 
-                          return (
-                            <div key={idx} className="relative flex gap-8 mb-8 group z-10">
-                               <div className="absolute left-[-1px] top-1 bg-white rounded-full p-1">
-                                  {isCompleted ? (
-                                    <div className="w-8 h-8 rounded-full border-2 border-green-700 bg-green-700 flex items-center justify-center">
-                                      <Check className="w-5 h-5 text-white" strokeWidth={3} />
-                                    </div>
-                                  ) : isCurrent ? (
-                                    <div className="w-6 h-6 m-1 rounded-full border-[3.5px] border-[#B58D3D] bg-white"></div>
-                                  ) : (
-                                    <div className="w-6 h-6 m-1 rounded-full border-[2px] border-gray-200 bg-gray-50"></div>
-                                  )}
-                               </div>
-                               <div className="pl-14 pt-1">
-                                  <h4 className={`text-[19px] font-bold ${isCompleted || isCurrent ? 'text-gray-900' : 'text-gray-400'}`}>
-                                     {track.title}
-                                  </h4>
-                                  {(track.date || track.status) && (
-                                     <div className="text-[17px] text-gray-500 mt-1">
-                                        {track.date ? formatDate(track.date) : (track.status || '-')}
-                                     </div>
-                                  )}
-                               </div>
-                            </div>
-                          );
-                       })}
-                    </div>
+                                {/* Icon Column */}
+                                <div className="relative z-10 flex flex-col items-center w-[40px] pt-[2px]">
+                                   <div className="bg-white rounded-full flex flex-col items-center justify-center">
+                                     {isCompleted ? (
+                                       <div className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center shadow-md ring-[6px] ring-white">
+                                         <Check className="w-5 h-5 text-white" strokeWidth={3} />
+                                       </div>
+                                     ) : isCurrent ? (
+                                       <div className="w-[22px] h-[22px] rounded-full border-[4px] border-[#F28C28] bg-white ring-[8px] ring-white shadow-sm mt-1.5"></div>
+                                     ) : (
+                                       <div className="w-4 h-4 rounded-full border-[2px] border-gray-300 bg-white ring-[10px] ring-white mt-3"></div>
+                                     )}
+                                   </div>
+                                </div>
+
+                                {/* Content */}
+                                <div className="flex-1 pb-10">
+                                   <h4 className={`text-[17px] sm:text-[18px] font-bold ${isCompleted || isCurrent ? 'text-gray-900' : 'text-gray-400'}`}>
+                                      {track.title}
+                                   </h4>
+                                   {(track.date || track.status) && (
+                                      <div className={`text-[14px] sm:text-[15px] mt-1 tracking-wide ${isCurrent ? 'text-[#F28C28] font-bold uppercase' : 'text-gray-500'}`}>
+                                         {track.date ? formatDate(track.date) : (track.status || 'PENDING')}
+                                      </div>
+                                   )}
+                                </div>
+                             </div>
+                           );
+                        })}
+                     </div>
                  )}
                  {activeTab === 'Settlement' && (
                     <div className="text-center text-gray-500 py-10">

@@ -40,6 +40,18 @@ const Dashboard = () => {
       setUser(userData);
     }
 
+    const fetchDashboardData = async () => {
+      try {
+        setIsLoading(true);
+        const responseData = await fetchDashboardDataApi();
+        setDashboardData(responseData);
+      } catch (error) {
+        console.error('Error fetching dashboard API:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     fetchDashboardData();
   }, []);
 

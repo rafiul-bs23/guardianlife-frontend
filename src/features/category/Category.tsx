@@ -56,17 +56,15 @@ const Category = () => {
     isLoading: isDigitalLoading
   } = useCategoryProducts('digital', null, activeSubcategory);
 
-  if (isHeaderLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#EB6925]"></div>
-      </div>
-    );
-  }
-
   return (
     <div className="overflow-hidden">
-      {headerData && <CategoryHeader data={headerData} onExploreClick={() => handleTabClick(0)} />}
+      {isHeaderLoading ? (
+        <div className="flex items-center justify-center min-h-[400px] lg:min-h-[600px] w-full">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#EB6925]"></div>
+        </div>
+      ) : (
+        headerData && <CategoryHeader data={headerData} onExploreClick={() => handleTabClick(0)} />
+      )}
       <div className="px-4" id="tabs" ref={tabsRef}>
         <div className="flex gap-3 flex-wrap justify-center mt-[14px]">
           {TABS.map((tab, index) => (

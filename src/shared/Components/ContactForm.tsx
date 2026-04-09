@@ -1,8 +1,10 @@
+import { motion } from 'framer-motion';
 import { useTranslation } from "react-i18next";
 import { ArrowRight } from 'lucide-react';
 import Button from './Button';
 import type { FormData } from '../hooks/useContactForm';
 import { useContactForm } from '../hooks/useContactForm';
+import { useIsMobile } from '../hooks/useMediaQuery';
 
 interface ContactFormProps {
     channel: string;
@@ -24,6 +26,7 @@ const ContactForm = ({
     initialValues,
 }: ContactFormProps) => {
     const { t } = useTranslation('shared');
+    const isMobile = useIsMobile();
     const { formData, errors, is_loading, success, error, handleChange, handleFileChange, handleSubmit, reset } =
         useContactForm(channel, type, initialValues);
 
@@ -258,11 +261,17 @@ const ContactForm = ({
     if (variant === 'card') {
         return (
             <section className="py-20 bg-[#F6DECE]/10">
-                <div className="max-w-[1000px] mx-auto px-4">
+                <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: isMobile ? 0.1 : 0.15 }}
+                    transition={{ duration: 0.7, ease: 'easeOut' }}
+                    className="max-w-[1000px] mx-auto px-4"
+                >
                     <div className="bg-[#F6DECE] rounded-[48px] p-8 lg:p-16 shadow-sm border border-orange-50/50">
                         {formBody}
                     </div>
-                </div>
+                </motion.div>
             </section>
         );
     }

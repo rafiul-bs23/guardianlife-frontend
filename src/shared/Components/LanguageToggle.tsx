@@ -4,9 +4,10 @@ import { Globe } from 'lucide-react';
 
 interface LanguageToggleProps {
     scrolled?: boolean;
+    variant?: 'default' | 'switch';
 }
 
-const LanguageToggle: React.FC<LanguageToggleProps> = ({ scrolled = false }) => {
+const LanguageToggle: React.FC<LanguageToggleProps> = ({ scrolled = false, variant = 'default' }) => {
     const { i18n, t } = useTranslation();
 
     const toggleLanguage = () => {
@@ -14,7 +15,25 @@ const LanguageToggle: React.FC<LanguageToggleProps> = ({ scrolled = false }) => 
         i18n.changeLanguage(newLang);
     };
 
-    const currentLangLabel = i18n.language === 'en' ? 'BN' : 'EN';
+    const isEn = i18n.language === 'en';
+    const currentLangLabel = isEn ? 'BN' : 'EN';
+
+    if (variant === 'switch') {
+        return (
+            <div 
+                onClick={toggleLanguage}
+                className="flex items-center cursor-pointer border border-orange-200 rounded-[20px] p-0.5 bg-white"
+                title={t('common:toggle_language')}
+            >
+                <div className={`px-3 py-1 rounded-[20px] text-[12px] font-bold tracking-widest transition-all duration-300 ${isEn ? 'bg-primary text-white' : 'text-orange-400 hover:text-primary'}`}>
+                    EN
+                </div>
+                <div className={`px-3 py-1 rounded-[20px] text-[12px] font-bold tracking-widest transition-all duration-300 ${!isEn ? 'bg-primary text-white' : 'text-orange-400 hover:text-primary'}`}>
+                    BN
+                </div>
+            </div>
+        );
+    }
 
     const colorClasses = scrolled
         ? 'border-primary text-primary hover:bg-primary/10'

@@ -1,10 +1,13 @@
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 import OutPatientCard from "./OutPatientCard";
 import { MOCK_OUTPATIENT_DATA } from "../api/mockData";
 import type { OutPatientCard as OutPatientCardType } from "../types";
+import { useIsMobile } from "../../../shared/hooks/useMediaQuery";
 
 export const OutPatientCardsSection = () => {
     const { t } = useTranslation();
+    const isMobile = useIsMobile();
 
     const localizedCards = t('group:outpatient_section.cards', { returnObjects: true });
     const cards = Array.isArray(localizedCards) ? (localizedCards as OutPatientCardType[]) : [];
@@ -16,14 +19,21 @@ export const OutPatientCardsSection = () => {
                     {cards.map((card, index) => {
                         const asset = MOCK_OUTPATIENT_DATA[index];
                         return (
-                            <div key={asset.product_code} className="flex justify-center w-full lg:w-1/2 max-w-[643px]">
+                            <motion.div
+                                key={asset.product_code}
+                                initial={{ opacity: 0, y: 50 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, amount: isMobile ? 0.1 : 0.2 }}
+                                transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.15 }}
+                                className="flex justify-center w-full lg:w-1/2 max-w-[643px]"
+                            >
                                 <OutPatientCard
                                     thumbnail_url={asset.thumbnail_url}
                                     title={card.title}
                                     description={card.description}
                                     points={card.points}
                                 />
-                            </div>
+                            </motion.div>
                         );
                     })}
                 </div>

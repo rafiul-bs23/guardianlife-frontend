@@ -26,7 +26,7 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ dynamicData }) =>
     }, [localError]);
 
     const { calculate, data: calcData, isLoading: isCalculating, error: calcError, reset: resetCalc } = usePremiumCalculation();
-    console.log({ dynamicData });
+
     const handleCalculate = async () => {
         const premium = dynamicData.mode === 'Monthly';
         const payload = {
@@ -41,7 +41,6 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ dynamicData }) =>
             validity: null
         };
         const result = await calculate(payload);
-        console.log({ result });
         if (result) {
             setShowDetails(true);
             setLocalError(null);

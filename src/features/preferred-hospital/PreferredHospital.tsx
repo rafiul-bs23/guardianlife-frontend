@@ -30,7 +30,7 @@ const PreferredHospital = () => {
 
             <section className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
                 {/* Section Title */}
-                <div className="mb-6">
+                <div className="mb-6 w-full flex flex-col items-center">
                     <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-primary">
                         {t('page.title')}
                     </h2>
