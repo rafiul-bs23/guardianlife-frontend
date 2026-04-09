@@ -25,4 +25,13 @@ i18n
         },
     });
 
+i18n.on('languageChanged', (lng) => {
+    document.documentElement.lang = lng;
+    if (lng === 'bn') {
+        document.body.classList.add('lang-bn');
+    } else {
+        document.body.classList.remove('lang-bn');
+    }
+});
+
 export default i18n;
