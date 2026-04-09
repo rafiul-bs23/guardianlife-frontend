@@ -42,15 +42,15 @@ export const useAddPolicy = () => {
 
       // According to user, if it's not a 400/500 error, we check isPartialSuccess
       if (data && data.errors === undefined) {
-        const isPartial = !!data.isPartialSuccess;
         const message = data.message || null;
         
-        if (isPartial && message) {
+        if (message) {
           setPartialSuccessMsg(message);
-        } else if (!isPartial && message === null) {
+          return { success: true, isPartial: true, message };
+        } else {
           setIsSuccess(true);
+          return { success: true, isPartial: false, message: null };
         }
-        return { success: true, isPartial, message };
       } else {
         const errorDesc = data?.errors?.[0]?.description || 'Invalid OTP';
         setError(errorDesc);
