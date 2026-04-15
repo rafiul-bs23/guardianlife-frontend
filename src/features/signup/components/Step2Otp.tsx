@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ArrowLeft } from 'lucide-react';
 
 interface Step2OtpProps {
@@ -9,10 +9,12 @@ interface Step2OtpProps {
   onSubmit: () => void;
   onBack: () => void;
   onResend: () => void;
+  error?: string | null;
 }
 
-const Step2Otp = ({ identity, otp, setOtp, loading, onSubmit, onBack, onResend }: Step2OtpProps) => {
-  const [timer, setTimer] = useState(117); // 01:57 matches screenshot roughly
+const Step2Otp = ({ identity, otp, setOtp, loading, onSubmit, onBack, onResend, error }: Step2OtpProps) => {
+  const [timer, setTimer] = useState(119); // 01:59 = 119 seconds
+  const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -21,25 +23,48 @@ const Step2Otp = ({ identity, otp, setOtp, loading, onSubmit, onBack, onResend }
     return () => clearInterval(interval);
   }, []);
 
-  const formatTime = (seconds: number) => {
+  const formatTimer = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
   const handleResend = () => {
-    setTimer(117);
+    setTimer(119);
+    setOtp('');
     onResend();
+    otpRefs.current[0]?.focus();
   };
 
-  const inputBase =
-    'w-12 h-12 text-center text-xl font-bold rounded-xl border border-gray-200 bg-gray-50 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/10';
+  const handleOtpChange = (index: number, value: string) => {
+    if (value.length > 1) value = value.slice(-1);
+    if (!/^\d?$/.test(value)) return;
+
+    const otpArray = otp.split('');
+    // Fill up to 6 characters
+    while (otpArray.length < 6) otpArray.push('');
+    
+    otpArray[index] = value;
+    const newOtp = otpArray.join('').slice(0, 6);
+    setOtp(newOtp);
+
+    // Auto-focus next input
+    if (value !== '' && index < 5) {
+      otpRefs.current[index + 1]?.focus();
+    }
+  };
+
+  const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Backspace' && (!otp[index] || otp[index] === '') && index > 0) {
+      otpRefs.current[index - 1]?.focus();
+    }
+  };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between border-b pb-2">
+    <div className="space-y-8">
+      <div className="flex items-center justify-between border-b border-gray-100 pb-3">
         <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">Verification</span>
-        <span className="text-xs font-bold text-gray-400 capitalize">Step 2/4</span>
+        <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">Step 2/4</span>
       </div>
 
       <div>
@@ -49,64 +74,71 @@ const Step2Otp = ({ identity, otp, setOtp, loading, onSubmit, onBack, onResend }
         </p>
       </div>
 
-      <div className="space-y-6">
-        <div className="flex justify-between gap-2">
-          {[...Array(6)].map((_, i) => (
-            <input
-              key={i}
-              type="text"
-              maxLength={1}
-              value={otp[i] || ''}
-              onChange={(e) => {
-                const val = e.target.value;
-                if (/^\d?$/.test(val)) {
-                  const newOtp = otp.split('');
-                  newOtp[i] = val;
-                  setOtp(newOtp.join(''));
-                  if (val && e.target.nextElementSibling) {
-                    (e.target.nextElementSibling as HTMLInputElement).focus();
-                  }
-                }
-              }}
-              onKeyDown={(e) => {
-                if (e.key === 'Backspace' && !otp[i] && (e.currentTarget.previousElementSibling)) {
-                  (e.currentTarget.previousElementSibling as HTMLInputElement).focus();
-                }
-              }}
-              className={inputBase}
-            />
-          ))}
+      <div className="space-y-10">
+        <div className="flex justify-between gap-2 sm:gap-3">
+          {[...Array(6)].map((_, index) => {
+            const digit = otp[index] || '';
+            return (
+              <input
+                key={index}
+                ref={(el) => { otpRefs.current[index] = el; }}
+                type="text"
+                inputMode="numeric"
+                maxLength={1}
+                value={digit}
+                onChange={(e) => handleOtpChange(index, e.target.value)}
+                onKeyDown={(e) => handleKeyDown(index, e)}
+                className={`w-12 h-14 sm:w-14 sm:h-16 text-center text-2xl font-bold bg-gray-50 border-2 rounded-xl outline-none transition-all duration-300 ${
+                  digit !== '' 
+                  ? 'border-[#F37021] text-[#F37021] bg-white shadow-md' 
+                  : 'border-gray-200 text-gray-800 focus:border-[#F37021] focus:ring-4 focus:ring-[#F37021]/10'
+                } ${error ? 'border-red-400' : ''}`}
+                disabled={loading}
+              />
+            );
+          })}
         </div>
 
-        <button
-          onClick={onSubmit}
-          disabled={loading || otp.length < 6}
-          className="w-full flex items-center justify-center gap-2.5 bg-primary hover:bg-primary/90 active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-base rounded-xl py-4 shadow-md shadow-primary/30 transition-all duration-200"
-        >
-          {loading ? 'Validating...' : 'Continue'}
-        </button>
-
-        <div className="flex flex-col items-center gap-4 pt-2">
-          <p className="text-sm text-gray-500">
-            Didn't get OTP?{' '}
-            {timer > 0 ? (
-              <span className="text-gray-400">Resend Code {formatTime(timer)}</span>
-            ) : (
-              <button
-                onClick={handleResend}
-                className="text-primary font-bold hover:underline"
-              >
-                Resend Code
-              </button>
-            )}
-          </p>
+        <div className="space-y-6">
           <button
-            onClick={onBack}
-            className="flex items-center gap-1 text-xs font-semibold text-gray-400 hover:text-primary uppercase tracking-wider"
+            onClick={onSubmit}
+            disabled={loading || otp.length < 6}
+            className="w-full flex items-center justify-center gap-2.5 bg-primary hover:bg-primary/90 active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-base rounded-xl py-4 shadow-md shadow-primary/30 transition-all duration-200"
           >
-            <ArrowLeft size={14} />
-            <span>Go Back</span>
+            {loading ? (
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <span>Verifying...</span>
+              </div>
+            ) : 'Continue'}
           </button>
+
+          <div className="flex items-center justify-center gap-2 text-[15px]">
+            <span className="text-gray-500">Didn't get OTP?</span>
+            <button 
+              type="button"
+              disabled={timer > 0}
+              onClick={handleResend}
+              className={`font-bold transition-colors ${
+                timer > 0 ? 'text-gray-300 cursor-not-allowed' : 'text-[#F37021] hover:text-[#e46519]'
+              }`}
+            >
+              Resend Code
+            </button>
+            <span className="text-gray-600 font-mono bg-gray-100 px-2 py-0.5 rounded-md text-sm">
+              {formatTimer(timer)}
+            </span>
+          </div>
+
+          <div className="flex justify-center">
+            <button
+              onClick={onBack}
+              className="flex items-center gap-1 text-xs font-semibold text-gray-400 hover:text-primary uppercase tracking-wider transition-colors"
+            >
+              <ArrowLeft size={14} />
+              <span>Go Back</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
