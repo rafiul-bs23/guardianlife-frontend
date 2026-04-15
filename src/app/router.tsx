@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../shared/layout/MainLayout";
 import Login from "../features/login/Login";
+import Signup from "../features/signup/Signup";
 import Home from "../features/home/Home";
 import Dashboard from "../features/dashboard/Dashboard";
 import ClaimSubmit from "../features/claim-submit/ClaimSubmit";
@@ -72,6 +73,10 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
   },
   {
     path: "/",

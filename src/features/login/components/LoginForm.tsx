@@ -1,5 +1,6 @@
 import { Eye, EyeOff, Mail, Phone, Lock, AlertCircle, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { useLogin } from '../hooks/useLogin';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -143,6 +144,18 @@ const LoginForm = () => {
             <span>Sign In</span>
           )}
         </button>
+
+        <div className="flex justify-center pt-4">
+          <p className="text-sm text-gray-500">
+            Don't have an account?{' '}
+            <Link
+              to="/signup"
+              className="text-primary font-bold hover:underline transition-colors"
+            >
+              Sign Up
+            </Link>
+          </p>
+        </div>
       </form>
 
       {/* Footer note */}
