@@ -1,3 +1,4 @@
+@import "./theme.css";
 @font-face {
   font-family: 'Kalpurush';
   font-display: swap;
@@ -5,9 +6,6 @@
   font-weight: 100 900;
   src: url('/fonts/Kalpurush.ttf') format('truetype');
 }
-
-@import "./theme.css";
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
