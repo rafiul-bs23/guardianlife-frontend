@@ -105,12 +105,12 @@ const LoginForm = () => {
 
         {/* Forgot password */}
         <div className="flex justify-end">
-          <button
-            type="button"
+          <Link
+            to="/forgot-password"
             className="text-xs font-semibold text-primary hover:text-primary/70 transition-colors"
           >
             Forgot password?
-          </button>
+          </Link>
         </div>
 
         {/* Error message */}
