@@ -31,7 +31,7 @@ const Login = () => {
 
         {/* Logo */}
         <div>
-          <div className="inline-flex items-center justify-center bg-white rounded-2xl px-6 py-3 shadow-lg">
+          <div className="inline-flex items-center justify-center rounded-2xl px-6 py-3 shadow-lg">
             <img
               src="/assets/images/shared/logo.png"
               alt="Guardian Life Insurance"
@@ -42,7 +42,7 @@ const Login = () => {
 
         {/* Centre copy */}
         <div className="relative z-10 space-y-6">
-          <div className="w-12 h-1 bg-white/50 rounded-full" />
+          {/*<div className="w-12 h-1 bg-white/50 rounded-full" />*/}
           <h2 className="text-4xl xl:text-5xl font-bold text-white leading-tight">
             Protecting What<br />Matters Most
           </h2>
@@ -51,17 +51,17 @@ const Login = () => {
           </p>
 
           {/* Trust badges */}
-          <div className="flex flex-wrap gap-4 pt-4">
-            {['25+ Years of Trust', 'ISO Certified', '1M+ Policyholders'].map((badge) => (
-              <span
-                key={badge}
-                className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white text-xs font-semibold px-4 py-2 rounded-full"
-              >
-                <span className="w-1.5 h-1.5 bg-white rounded-full" />
-                {badge}
-              </span>
-            ))}
-          </div>
+          {/*<div className="flex flex-wrap gap-4 pt-4">*/}
+          {/*  {['25+ Years of Trust', 'ISO Certified', '1M+ Policyholders'].map((badge) => (*/}
+          {/*    <span*/}
+          {/*      key={badge}*/}
+          {/*      className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white text-xs font-semibold px-4 py-2 rounded-full"*/}
+          {/*    >*/}
+          {/*      <span className="w-1.5 h-1.5 bg-white rounded-full" />*/}
+          {/*      {badge}*/}
+          {/*    </span>*/}
+          {/*  ))}*/}
+          {/*</div>*/}
         </div>
 
         {/* Bottom tagline */}

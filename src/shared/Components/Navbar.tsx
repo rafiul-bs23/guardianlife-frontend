@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 
-import { X, ChevronDown, LogOut } from 'lucide-react';
+import { X, ChevronDown } from 'lucide-react';
 import { MENU_DATA } from '../constants/menuData';
 import type { MenuItem } from '../types/menu';
 import Button from './Button';
