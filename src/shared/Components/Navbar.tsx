@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 
-import { X, ChevronDown } from 'lucide-react';
+import { X, ChevronDown, LogOut } from 'lucide-react';
 import { MENU_DATA } from '../constants/menuData';
 import type { MenuItem } from '../types/menu';
 import Button from './Button';
 import LanguageToggle from './LanguageToggle';
-import { getAuthToken } from '../utils/authUtils';
+import { getAuthToken, clearAuthData } from '../utils/authUtils';
+import { submitLogout } from '../../features/login/api';
 
 interface NavbarProps {
     transparent?: boolean;
@@ -115,6 +116,8 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false, animateIn = false 
     const [isOpened, setIsOpened] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         setIsLoggedIn(!!getAuthToken());
@@ -129,6 +132,20 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false, animateIn = false 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    const handleLogout = async () => {
+        try {
+            await submitLogout();
+        } catch (error) {
+            console.error('Logout API failed', error);
+        } finally {
+            clearAuthData();
+            setIsLoggedIn(false);
+            navigate('/login');
+        }
+    };
+
+    const isDashboardPage = location.pathname.startsWith('/dashboard');
 
     const HamburgerColor = (transparent && !isScrolled) ? 'bg-white' : 'bg-primary';
 
@@ -184,13 +201,23 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false, animateIn = false 
                 <div className={`flex items-center ${GAPS.NAVBAR_RIGHT_ACTIONS}`}>
 
                     {/* <LanguageToggle scrolled={!transparent || isScrolled} /> */}
-                    <Button
-                        label={isLoggedIn ? "Dashboard" : "Login"}
-                        variant='base'
-                        to={isLoggedIn ? "/dashboard" : "/login"}
-                        className="!w-[80px] md:!w-[130px] h-[40px] md:h-[45px]"
-                        labelClass="!text-[12px] md:!text-[18px]"
-                    />
+                    {isLoggedIn && isDashboardPage ? (
+                        <Button
+                            label="Logout"
+                            variant="base"
+                            onClick={handleLogout}
+                            className="!w-[80px] md:!w-[130px] h-[40px] md:h-[45px] !bg-red-500 hover:!bg-red-600"
+                            labelClass="!text-[12px] md:!text-[18px]"
+                        />
+                    ) : (
+                        <Button
+                            label={isLoggedIn ? "Dashboard" : "Login"}
+                            variant='base'
+                            to={isLoggedIn ? "/dashboard" : "/login"}
+                            className="!w-[80px] md:!w-[130px] h-[40px] md:h-[45px]"
+                            labelClass="!text-[12px] md:!text-[18px]"
+                        />
+                    )}
                 </div>
             </NavElement>
 
