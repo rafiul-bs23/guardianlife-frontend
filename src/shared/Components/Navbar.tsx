@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 
-import { X, ChevronDown } from 'lucide-react';
+import { X, ChevronDown, LogOut } from 'lucide-react';
 import { MENU_DATA } from '../constants/menuData';
 import type { MenuItem } from '../types/menu';
 import Button from './Button';
@@ -206,8 +206,9 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false, animateIn = false 
                             label="Logout"
                             variant="base"
                             onClick={handleLogout}
-                            className="!w-[80px] md:!w-[130px] h-[40px] md:h-[45px] !bg-red-500 hover:!bg-red-600"
+                            className="h-[40px] md:h-[45px] !bg-red-500 hover:!bg-red-600"
                             labelClass="!text-[12px] md:!text-[18px]"
+                            leadingIcon={LogOut}
                         />
                     ) : (
                         <Button
