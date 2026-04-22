@@ -68,7 +68,7 @@
         "placeholders": {
             "full_name": "Enter Name Here",
             "email": "name@company.com",
-            "phone_number": "+88 (017) 000-0000",
+            "phone_number": "01XXXXXXXXX",
             "applying_position": "Enter Position Here",
             "upload_cv": "Selection CV (PDF, DOC, DOCX)",
             "message": "Your message..."
@@ -91,7 +91,7 @@
             "phone_required": "Phone number is required.",
             "phone_start_prefix": "Phone number must start with +880.",
             "phone_length": "Phone number must be 14 characters long.",
-            "phone_invalid": "Please enter a valid Bangladeshi phone number.",
+            "phone_invalid": "Please enter a valid phone number (e.g., 017XXXXXXXX or +88017XXXXXXXX).",
             "applying_position_required": "Applying position is required.",
             "cv_required": "Please upload your CV.",
             "message_required": "Message is required.",

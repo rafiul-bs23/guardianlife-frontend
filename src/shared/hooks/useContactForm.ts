@@ -75,13 +75,10 @@ export const useContactForm = (
             errors.email = t('contact_form.validation.email_invalid');
         }
 
-        if (!formData.phoneNumber.trim()) {
+        const phoneNumber = formData.phoneNumber.trim();
+        if (!phoneNumber) {
             errors.phoneNumber = t('contact_form.validation.phone_required');
-        } else if (!formData.phoneNumber.trim().startsWith('+880')) {
-            errors.phoneNumber = t('contact_form.validation.phone_start_prefix');
-        } else if (formData.phoneNumber.trim().length !== 14) {
-            errors.phoneNumber = t('contact_form.validation.phone_length');
-        } else if (!/^\+8801[3-9]\d{8}$/.test(formData.phoneNumber.trim())) {
+        } else if (!/^(\+8801|01)[3-9]\d{8}$/.test(phoneNumber)) {
             errors.phoneNumber = t('contact_form.validation.phone_invalid');
         }
 
@@ -140,7 +137,11 @@ export const useContactForm = (
 
             payload.append('full_name', formData.fullName.trim());
             payload.append('email', formData.email.trim());
-            payload.append('phone', formData.phoneNumber.trim());
+            let phone = formData.phoneNumber.trim();
+            if (phone.startsWith('0')) {
+                phone = '+88' + phone;
+            }
+            payload.append('phone', phone);
             payload.append('type', type);
             payload.append('message', formData.message.trim());
             type !== 'job' && payload.append('channel', channel);
