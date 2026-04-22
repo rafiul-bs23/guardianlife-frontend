@@ -144,7 +144,11 @@ export const useContactForm = (
             payload.append('phone', phone);
             payload.append('type', type);
             payload.append('message', formData.message.trim());
-            type !== 'job' && payload.append('channel', channel);
+            if (type !== 'job') {
+                const allowedChannels = ['micro', 'group', 'digital', 'banca', 'retail'];
+                const channelValue = allowedChannels.includes(channel) ? channel : '';
+                payload.append('channel', channelValue);
+            }
             type === 'job' && payload.append('applying_position', formData.applyingPosition.trim());
 
             if (formData.cv) {
