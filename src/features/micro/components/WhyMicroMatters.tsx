@@ -17,7 +17,7 @@ const WhyMicroMatters: React.FC<WhyMicroMattersProps> = ({ data }) => {
     const benefits = t('why_micro_matters.benefits', { returnObjects: true }) as WhyMicroMattersData['benefits'];
 
     return (
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-white overflow-hidden">
             <div className="max-w-[1400px] mx-auto px-4">
                 {/* Header Section */}
                 <motion.div
