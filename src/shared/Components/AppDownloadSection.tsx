@@ -55,7 +55,7 @@ const AppDownloadSection: React.FC = () => {
                         viewport={vp}
                         transition={{ duration: 0.7, ease: 'easeOut', delay: 0.35 }}
                     >
-                        <AppStoreButtons className='flex flex-col sm:flex-row gap-6' />
+                        <AppStoreButtons className='flex flex-col sm:flex-row items-center gap-6' />
                     </motion.div>
                 </div>
             </div>

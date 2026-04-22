@@ -96,19 +96,19 @@ const CashlessNetwork: React.FC = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={vp}
                             transition={{ duration: 0.5, ease: 'easeOut', delay: 0.6 }}
-                            className="pt-4 flex flex-wrap gap-4"
+                            className="pt-4 flex flex-col sm:flex-row items-center sm:items-start gap-4"
                         >
                             <Button
                                 label={t('cashless_network.buttons.cashless')}
                                 variant="solid-orange"
-                                className="rounded-full "
+                                className="w-full sm:w-fit rounded-full "
                                 labelClass="text-sm font-bold"
                                 href='https://acps.myguardianbd.com/claim/online/gop/request/'
                             />
                             <Button
                                 label={t('cashless_network.buttons.hospital_list')}
                                 variant="outline-orange"
-                                className="rounded-full"
+                                className="w-full sm:w-fit rounded-full"
                                 labelClass="text-sm font-bold"
                                 to='/preferred-hospital'
                             />
