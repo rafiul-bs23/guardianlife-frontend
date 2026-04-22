@@ -96,7 +96,7 @@ const CashlessNetwork: React.FC = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={vp}
                             transition={{ duration: 0.5, ease: 'easeOut', delay: 0.6 }}
-                            className="pt-4 flex gap-4"
+                            className="pt-4 flex flex-wrap gap-4"
                         >
                             <Button
                                 label={t('cashless_network.buttons.cashless')}

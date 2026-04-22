@@ -82,12 +82,12 @@ const Button: React.FC<BaseButtonProps> = ({
         <>
             {LeadingIcon && (
               typeof LeadingIcon === 'string'
-                ? <img src={LeadingIcon} className={`w-6 h-6 mr-2 ${iconClass}`} alt="" />
-                : <LeadingIcon className={`w-6 h-6 mr-2 ${iconClass}`} />
+                ? <img src={LeadingIcon} className={`w-6 h-6 mr-2 shrink-0 ${iconClass}`} alt="" />
+                : <LeadingIcon className={`w-6 h-6 mr-2 shrink-0 ${iconClass}`} />
             )}
-            <span className={`tracking-tight leading-none text-lg font-semibold ${labelClass}`}>{label}</span>
+            <span className={`tracking-tight leading-tight text-lg font-semibold ${labelClass}`}>{label}</span>
             {styles.iconCircle && (
-                <div className={`ml-8 w-11 h-11 rounded-full flex items-center justify-center transition-colors ${styles.iconCircle}`}>
+                <div className={`ml-8 w-11 h-11 rounded-full flex items-center justify-center transition-colors shrink-0 ${styles.iconCircle}`}>
                     <Icon className={`w-6 h-6 ${iconClass}`} />
                 </div>
             )}
