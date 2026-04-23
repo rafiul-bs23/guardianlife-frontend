@@ -9,11 +9,12 @@ interface PremiumDetailsModalProps {
     isOpen: boolean;
     data: any;
     pdabLabel: string;
+    planName: string;
     onClose: () => void;
     onCheckAgain: () => void;
 }
 
-const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, data, pdabLabel, onClose, onCheckAgain }) => {
+const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, data, pdabLabel, planName, onClose, onCheckAgain }) => {
     const [isDownloading, setIsDownloading] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showToast, setShowToast] = useState(false);
@@ -128,7 +129,7 @@ const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, data,
 
                 <div className="mb-6">
                     <p className="text-sm font-semibold text-gray-900 mb-1">Calculate</p>
-                    <h2 className="text-2xl sm:text-[28px] font-black text-gray-900 uppercase tracking-tight">GUARDIAN 3 STAGE PLAN</h2>
+                    <h2 className="text-2xl sm:text-[28px] font-black text-gray-900 uppercase tracking-tight">{planName}</h2>
                     <div className="h-0.5 bg-[#F37021] w-full mt-4"></div>
                 </div>
 
