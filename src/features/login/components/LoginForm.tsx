@@ -42,7 +42,7 @@ const LoginForm = () => {
     >
       {/* Heading */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-brand-dark tracking-tight">Welcome Back</h1>
+        <h1 className="text-3xl font-bold text-brand-dark tracking-tight">Sign In</h1>
         <p className="mt-2 text-sm text-gray-500">
           Sign in to manage your policies and benefits
         </p>
