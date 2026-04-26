@@ -76,6 +76,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
   const watchClaimTypeId = watch('claimTypeId');
   const watchArea = watch('area');
   const watchHospitalId = watch('hospitalId');
+  const watchClaimDocuments = watch('claimDocuments');
 
   const getFormattedDate = (daysOffset = 0) => {
     const date = new Date();
@@ -204,7 +205,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
       });
 
       const res = await uploadFile({
-        service: fileSettings.feature,
+        service: fileSettings.feature === 'HIClaim' ? 'HiClaim' : fileSettings.feature,
         fileName: file.name,
         extension: extension,
         base64Data: base64Data
@@ -774,7 +775,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                     </svg>
-                    <h3 className="text-white text-lg font-medium mb-2">Upload a file</h3>
+                    <h3 className="text-white text-lg font-medium mb-2">Upload a file{isClaimSubmission && <span className="text-red-500 ml-1">*</span>}</h3>
                     <p className="text-sm text-gray-500 max-w-[250px] mx-auto">
                       {fileSettings
                         ? `Upload ${fileSettings.fileExtensions}. Max size ${fileSettings.maxFileSize / 1024}MB.`
@@ -817,9 +818,9 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
         <div className="p-6 border-t border-gray-800">
           <button
             type="button"
-            disabled={isSubmitting}
+            disabled={isSubmitting || (step === 3 && isClaimSubmission && (!watchClaimDocuments || watchClaimDocuments.length === 0))}
             onClick={step === 3 ? handleSubmit(onFinalSubmit) : nextStep}
-            className={`w-full py-4 ${isSubmitting ? 'bg-gray-700 cursor-not-allowed' : 'bg-[#F37021] hover:bg-[#d6601b]'} text-white font-medium rounded-xl transition-colors text-lg flex items-center justify-center`}
+            className={`w-full py-4 ${isSubmitting || (step === 3 && isClaimSubmission && (!watchClaimDocuments || watchClaimDocuments.length === 0)) ? 'bg-gray-700 cursor-not-allowed' : 'bg-[#F37021] hover:bg-[#d6601b]'} text-white font-medium rounded-xl transition-colors text-lg flex items-center justify-center`}
           >
             {isSubmitting ? (
               <>
