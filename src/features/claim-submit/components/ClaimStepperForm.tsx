@@ -95,6 +95,14 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
   const selectedPatient = memberInfo?.members.find(m => String(m.id) === String(watchMemberId)) || null;
   const selectedClaimType = selectedPatient?.claimTypes.find(ct => String(ct.id) === String(watchClaimTypeId)) || null;
 
+  const isClaimSubmission = type !== 'cashless-payment';
+  const isIPD = selectedClaimType?.name === 'IPD';
+  const isOPD = selectedClaimType?.name === 'OPD';
+
+  const isAreaRequired = !isClaimSubmission || (!(isIPD || isOPD));
+  const isHospitalRequired = !isClaimSubmission || (!(isIPD || isOPD));
+  const isPhysicianRequired = isClaimSubmission && !isIPD;
+
   useEffect(() => {
     if (step === 2 && areas.length === 0) {
       const getAreas = async () => {
@@ -272,9 +280,12 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
         }
       }
     } else if (step === 2) {
-      fieldsToValidate = ['area', 'hospitalId'];
-      if (type !== 'cashless-payment') {
-        fieldsToValidate.push('physicianName', 'claimedAmount');
+      if (isAreaRequired) fieldsToValidate.push('area');
+      if (isHospitalRequired) fieldsToValidate.push('hospitalId');
+      
+      if (isClaimSubmission) {
+        if (isPhysicianRequired) fieldsToValidate.push('physicianName');
+        fieldsToValidate.push('claimedAmount');
       }
     }
 
@@ -573,7 +584,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
           {step === 2 && (
             <div className="space-y-4 animate-fadeIn">
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Area<span className="text-red-500">*</span></label>
+                <label className="block text-sm text-gray-400 mb-2">Area{isAreaRequired && <span className="text-red-500">*</span>}</label>
                 <div className="relative">
                   <div
                     className={`w-full bg-[#1b1c23] border ${formErrors.area ? 'border-red-500' : 'border-gray-700'} rounded-lg p-3 text-white cursor-pointer flex justify-between items-center transition-all`}
@@ -623,12 +634,12 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                     </div>
                   )}
                   {/* Invisible input for rhf registration */}
-                  <input type="hidden" {...register('area', { required: true })} />
+                  <input type="hidden" {...register('area', { required: isAreaRequired })} />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Hospital<span className="text-red-500">*</span></label>
+                <label className="block text-sm text-gray-400 mb-2">Hospital{isHospitalRequired && <span className="text-red-500">*</span>}</label>
                 <div className="relative">
                   <div
                     className={`w-full bg-[#1b1c23] border ${formErrors.hospitalId ? 'border-red-500' : 'border-gray-700'} rounded-lg p-3 text-white cursor-pointer flex justify-between items-center`}
@@ -676,7 +687,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                     </div>
                   )}
                   {/* Invisible input for rhf registration */}
-                  <input type="hidden" {...register('hospitalId', { required: true })} />
+                  <input type="hidden" {...register('hospitalId', { required: isHospitalRequired })} />
                 </div>
                 {!watchArea && <p className="mt-1 text-xs text-amber-500/80">Please select an area first</p>}
               </div>
@@ -704,11 +715,11 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
               ) : (
                 <>
                   <div>
-                    <label className="block text-sm text-gray-400 mb-2">Physician/Doctor Name <span className="text-red-500">*</span></label>
+                    <label className="block text-sm text-gray-400 mb-2">Physician/Doctor Name {isPhysicianRequired && <span className="text-red-500">*</span>}</label>
                     <input
                       type="text"
                       placeholder="Enter Physician/Doctor Name"
-                      {...register('physicianName', { required: true })}
+                      {...register('physicianName', { required: isPhysicianRequired })}
                       className={`w-full bg-transparent border ${formErrors.physicianName ? 'border-red-500' : 'border-gray-700'} rounded-lg p-3 text-white focus:outline-none focus:border-[#F37021]`}
                     />
                   </div>
