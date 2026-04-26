@@ -4,6 +4,7 @@ import type { ProductInformationData, PremiumViewItem } from '../types';
 import Button from '../../../shared/Components/Button';
 import { usePopup } from '../../../shared/context/PopupContext';
 import { usePremiumCalculation } from '../hooks/usePremiumCalculation';
+import Contentheader from "../../../shared/Components/Contentheader.tsx";
 
 interface ProductCalculatorProps {
     dynamicData: ProductInformationData;
@@ -187,12 +188,13 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ dynamicData }) =>
                             exit={{ opacity: 0, y: 20 }}
                             transition={{ duration: 0.5, ease: "easeOut" }}
                         >
-                            <div className="text-center mb-10">
-                                <h2 className="text-3xl font-bold text-gray-900 mb-2 uppercase tracking-tight">DETAILS OF THE PRODUCT</h2>
-                                <p className="text-gray-500 text-[13px] font-medium italic">
-                                    calculated value based on selected term and coverage
-                                </p>
+                            <div className="mb-10">
+                                <Contentheader
+                                  title="DETAILS OF THE PRODUCT"
+                                  description="calculated value based on selected term and coverage"
+                                />
                             </div>
+
 
                             <div className="bg-white rounded-[24px] p-10 shadow-sm border border-gray-100 mb-8">
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-4">

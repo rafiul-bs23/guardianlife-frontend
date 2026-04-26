@@ -32,7 +32,7 @@ const Step1Identity = ({ identity, setIdentity, loading, onSubmit, onBack }: Ste
       {/* Heading */}
       <div>
         <h1 className="text-3xl font-bold text-brand-dark tracking-tight">Sign Up</h1>
-        <p className="mt-2 text-sm text-gray-500">
+        <p className="mt-2 text-sm text-gray-500 pb-4">
           Enter mobile number or email to continue
         </p>
       </div>

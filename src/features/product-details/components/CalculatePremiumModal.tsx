@@ -751,6 +751,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
         isOpen={isDetailsModalOpen}
         data={calculationData}
         pdabLabel={diabEnabled ? "DIAB" : "PDAB"}
+        planName={selectedPlan?.name || ""}
         onClose={() => {
           setIsDetailsModalOpen(false);
           handleClose(); // Close both modals

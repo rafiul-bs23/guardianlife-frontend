@@ -18,6 +18,7 @@ interface BaseButtonProps {
     labelClass?: string;
     iconClass?: string;
     children?: React.ReactNode;
+    leadingIcon?: React.FC<{ className?: string }> | string;
 }
 
 const Button: React.FC<BaseButtonProps> = ({
@@ -33,7 +34,8 @@ const Button: React.FC<BaseButtonProps> = ({
     disabled = false,
     labelClass = '',
     iconClass = '',
-    children
+    children,
+    leadingIcon: LeadingIcon,
 }) => {
     const getVariantStyles = () => {
         switch (variant) {
@@ -78,9 +80,14 @@ const Button: React.FC<BaseButtonProps> = ({
 
     const content = (
         <>
-            <span className={`tracking-tight leading-none text-lg font-semibold ${labelClass}`}>{label}</span>
+            {LeadingIcon && (
+              typeof LeadingIcon === 'string'
+                ? <img src={LeadingIcon} className={`w-6 h-6 mr-2 shrink-0 ${iconClass}`} alt="" />
+                : <LeadingIcon className={`w-6 h-6 mr-2 shrink-0 ${iconClass}`} />
+            )}
+            <span className={`tracking-tight leading-tight text-lg font-semibold ${labelClass}`}>{label}</span>
             {styles.iconCircle && (
-                <div className={`ml-8 w-11 h-11 rounded-full flex items-center justify-center transition-colors ${styles.iconCircle}`}>
+                <div className={`ml-8 w-11 h-11 rounded-full flex items-center justify-center transition-colors shrink-0 ${styles.iconCircle}`}>
                     <Icon className={`w-6 h-6 ${iconClass}`} />
                 </div>
             )}

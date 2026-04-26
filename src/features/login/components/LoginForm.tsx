@@ -42,7 +42,7 @@ const LoginForm = () => {
     >
       {/* Heading */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-brand-dark tracking-tight">Welcome Back</h1>
+        <h1 className="text-3xl font-bold text-brand-dark tracking-tight">Sign In</h1>
         <p className="mt-2 text-sm text-gray-500">
           Sign in to manage your policies and benefits
         </p>
@@ -97,8 +97,8 @@ const LoginForm = () => {
               className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary transition-colors"
             >
               {showPassword
-                ? <EyeOff className="w-5 h-5" />
-                : <Eye className="w-5 h-5" />}
+                ? <Eye className="w-5 h-5" />
+                : <EyeOff className="w-5 h-5" />}
             </button>
           </div>
         </div>

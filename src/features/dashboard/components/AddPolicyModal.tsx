@@ -90,6 +90,7 @@ const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose, refres
     e.preventDefault();
     const result = await validatePolicy(policyNumber, dob);
     if (result.success) {
+      setTimer(119); // Reset timer when moving to OTP step
       setStep(2);
     }
   };
@@ -103,6 +104,15 @@ const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose, refres
         refresh?.();
         onClose();
       }
+    }
+  };
+
+  const handleResendOtp = async () => {
+    const result = await validatePolicy(policyNumber, dob);
+    if (result.success) {
+      setTimer(119);
+      setOtp(['', '', '', '', '', '']);
+      otpRefs.current[0]?.focus();
     }
   };
 
@@ -130,7 +140,10 @@ const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose, refres
           <div className="flex items-center gap-3">
             {step === 2 && (
               <button 
-                onClick={() => setStep(1)}
+                onClick={() => {
+                  setStep(1);
+                  setTimer(119); // Also reset when going back
+                }}
                 className="p-1 hover:bg-gray-100 rounded-full transition-colors"
                 aria-label="Go back"
               >
@@ -280,17 +293,13 @@ const AddPolicyModal: React.FC<AddPolicyModalProps> = ({ isOpen, onClose, refres
                       <span className="text-gray-500">Didn't get OTP?</span>
                       <button 
                         type="button"
-                        disabled={timer > 0}
-                        onClick={() => {
-                          setTimer(119);
-                          setOtp(['', '', '', '', '', '']);
-                          otpRefs.current[0]?.focus();
-                        }}
+                        disabled={timer > 0 || isLoading}
+                        onClick={handleResendOtp}
                         className={`font-bold transition-colors ${
-                          timer > 0 ? 'text-gray-300 cursor-not-allowed' : 'text-[#F37021] hover:text-[#e46519]'
+                          (timer > 0 || isLoading) ? 'text-gray-300 cursor-not-allowed' : 'text-[#F37021] hover:text-[#e46519]'
                         }`}
                       >
-                        Resend Code
+                        {isLoading && step === 2 && !isOtpComplete ? 'Sending...' : 'Resend Code'}
                       </button>
                       <span className="text-gray-600 font-mono bg-gray-100 px-2 py-0.5 rounded-md text-sm">
                         {formatTimer(timer)}

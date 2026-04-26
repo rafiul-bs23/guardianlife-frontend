@@ -46,8 +46,13 @@ export const useSignup = () => {
     try {
       await sendOtp(request);
       setCurrentStep('OTP');
-    } catch {
-      setError('Failed to send OTP. Please try again.');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      if (err.response?.status === 409) {
+        setError(err.response.data.detail || 'User already exists');
+      } else {
+        setError('Failed to send OTP. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -71,8 +76,9 @@ export const useSignup = () => {
       const response = await validateOtp(request);
       setSecurityKey(response.securityKey);
       setCurrentStep('INFO');
-    } catch {
-      setError('Invalid OTP. Please check and try again.');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      setError(err.response?.data?.detail || 'Invalid OTP. Please check and try again.');
     } finally {
       setLoading(false);
     }
@@ -111,8 +117,9 @@ export const useSignup = () => {
       await signUp(request);
       // Success! Maybe redirect to login with a success message
       navigate('/login', { state: { message: 'Signup successful! Please log in.' } });
-    } catch {
-      setError('Signup failed. Please check your details and try again.');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      setError(err.response?.data?.detail || 'Signup failed. Please check your details and try again.');
     } finally {
       setLoading(false);
     }

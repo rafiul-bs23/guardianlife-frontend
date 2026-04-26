@@ -27,7 +27,7 @@ const WhyMicroinsurance: React.FC<WhyMicroinsuranceProps> = ({ data }) => {
     const outcomes = t('why_guardian_micro.outcomes', { returnObjects: true }) as WhyMicroinsuranceData['outcomes'];
 
     return (
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-white overflow-hidden">
             <div className="max-w-[1400px] mx-auto px-4">
                 {/* Header Section */}
                 <motion.div

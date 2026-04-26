@@ -2,13 +2,12 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../shared/Components/Navbar';
 import { fetchDashboardDataApi } from './api';
-import { submitLogout } from '../login/api';
 import ClaimsList from './components/ClaimsList';
 import PolicyList from './components/PolicyList';
 import AddPolicyModal from './components/AddPolicyModal';
 import type { DashboardApiResponse } from './types';
 import Button from '../../shared/Components/Button';
-import { getUserData, clearAuthData } from '../../shared/utils/authUtils';
+import { getUserData } from '../../shared/utils/authUtils';
 
 
 const Dashboard = () => {
@@ -55,17 +54,6 @@ const Dashboard = () => {
     fetchDashboardData();
   }, []);
 
-  const handleLogout = async () => {
-    try {
-      await submitLogout();
-    } catch (error) {
-      console.error('Logout API failed', error);
-    } finally {
-      clearAuthData();
-      navigate('/login');
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
@@ -105,13 +93,6 @@ const Dashboard = () => {
                   </div>
                 )}
               </div>
-              <Button
-                onClick={handleLogout}
-                variant='base'
-                className="bg-red-500 hover:bg-red-600 rounded-md font-medium transition-colors"
-              >
-                Logout
-              </Button>
             </div>
 
           </div>

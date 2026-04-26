@@ -68,7 +68,7 @@ const Footer: React.FC = () => {
           </p>
           <div className="flex items-center gap-4">
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/company/guardian-life-insurance-limited/"
               target="_blank"
               rel="noopener noreferrer"
               className="w-8 h-8 bg-white/20 rounded flex items-center justify-center hover:bg-white/30 transition-colors"
@@ -80,7 +80,7 @@ const Footer: React.FC = () => {
               </svg>
             </a>
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/guardian_life_insurance_ltd/"
               target="_blank"
               rel="noopener noreferrer"
               className="w-8 h-8 bg-white/20 rounded flex items-center justify-center hover:bg-white/30 transition-colors"
@@ -92,7 +92,7 @@ const Footer: React.FC = () => {
               </svg>
             </a>
             <a
-              href="https://facebook.com"
+              href="https://www.facebook.com/GLIL.bd"
               target="_blank"
               rel="noopener noreferrer"
               className="w-8 h-8 bg-white/20 rounded flex items-center justify-center hover:bg-white/30 transition-colors"
@@ -104,7 +104,7 @@ const Footer: React.FC = () => {
               </svg>
             </a>
             <a
-              href="https://youtube.com"
+              href="https://www.youtube.com/@guardianlifeinsurancebd"
               target="_blank"
               rel="noopener noreferrer"
               className="w-8 h-8 bg-white/20 rounded flex items-center justify-center hover:bg-white/30 transition-colors"

@@ -99,7 +99,7 @@ const ContactForm = ({
 
                 {/* Email */}
                 <div className="space-y-2">
-                    <label className={labelBase}>{t('contact_form.labels.email')}</label>
+                    <label className={`${labelBase} flex gap-1`}>{t('contact_form.labels.email')}<span className="text-red-500">*</span></label>
                     <input
                         type="email"
                         name="email"
@@ -209,7 +209,9 @@ const ContactForm = ({
 
                 {/* Message */}
                 <div className="space-y-2">
-                    <label className={labelBase}>{t('contact_form.labels.message')}</label>
+                    <label className={`${labelBase} flex gap-1`}>
+                        {t('contact_form.labels.message')}
+                        <span className="text-red-500">*</span></label>
                     <textarea
                         rows={variant === 'card' ? 6 : 4}
                         name="message"
