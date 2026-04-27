@@ -31,6 +31,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [displayDob, setDisplayDob] = useState('');
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('Male');
+  const [planId, setPlanId] = useState<string | number>('03');
 
   const [availableModes, setAvailableModes] = useState<PaymentMode[]>([]);
   const [mode, setMode] = useState<PaymentMode | null>(null);
@@ -227,7 +228,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
 
       if (data && data.status && data.data) {
-        const { payment_mode, term: apiTerms, min_sumass, max_sumass } = data.data;
+        const { id, payment_mode, term: apiTerms, min_sumass, max_sumass } = data.data;
+        if (id) setPlanId(id);
 
         // Update modes
         if (payment_mode && Array.isArray(payment_mode)) {
@@ -271,7 +273,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
       const handler = setTimeout(async () => {
         try {
           const payload = {
-            plan_id: "03",
+            plan_id: planId.toString(),
             gender: gender.toLowerCase(),
             sum_assured: sumAssuredValue.toString(),
             age: Number(age),
