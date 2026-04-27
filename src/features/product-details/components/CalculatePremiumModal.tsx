@@ -68,6 +68,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [spouseDobError, setSpouseDobError] = useState('');
   const [nameError, setNameError] = useState('');
   const [phoneError, setPhoneError] = useState('');
+  const [childrenError, setChildrenError] = useState('');
   const [formError, setFormError] = useState('');
   const [isAgeLoading, setIsAgeLoading] = useState(false);
   const ageTimeoutRef = useRef<any>(null);
@@ -383,6 +384,26 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
     const selectedHiBeneficiary = hiBeneficiaries.find(b => b.name === hiBeneficiary);
     const selectedMaternityPlan = hiMaternityPlans.find(m => m.name === maternityPlan);
+
+    setSpouseDobError('');
+    setChildrenError('');
+
+    if (hiEnabled) {
+      if (['couple', 'family'].includes(hiBeneficiary.toLowerCase()) && !spouseDob) {
+        setSpouseDobError("Spouse Date of Birth is required");
+        return;
+      }
+      if (['family', 'children'].includes(hiBeneficiary.toLowerCase())) {
+        if (!childrenCount) {
+          setChildrenError("Number of Children is required");
+          return;
+        }
+        if (Number(childrenCount) < 1) {
+          setChildrenError("Number of Children must be at least 1");
+          return;
+        }
+      }
+    }
 
     const payload = {
       date_of_birth: dob,
@@ -726,7 +747,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                         {['couple', 'family'].includes(hiBeneficiary.toLowerCase()) && (
                           <>
                             <div>
-                              <label className="block text-sm font-medium text-gray-700 mb-2">Spouse Date Of Birth</label>
+                              <label className="block text-sm font-medium text-gray-700 mb-2">Spouse Date Of Birth <span className="text-red-500">*</span></label>
                               <div className={`relative flex items-center border ${spouseDobError ? 'border-red-500' : 'border-gray-300'} rounded-md focus-within:ring-1 focus-within:ring-[#F37021] focus-within:border-[#F37021] bg-white overflow-hidden`}>
                                 <input
                                   type="text"
@@ -763,8 +784,19 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                         )}
                         {['family', 'children'].includes(hiBeneficiary.toLowerCase()) && (
                           <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Number of Children</label>
-                            <input type="number" placeholder="Enter Number of Children" value={childrenCount} onChange={e => setChildrenCount(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Number of Children <span className="text-red-500">*</span></label>
+                            <input 
+                              type="number" 
+                              placeholder="Enter Number of Children" 
+                              value={childrenCount} 
+                              onChange={e => {
+                                const val = e.target.value;
+                                setChildrenCount(val);
+                                if (val && Number(val) >= 1) setChildrenError('');
+                              }} 
+                              className={`w-full border ${childrenError ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-[#F37021] focus:border-[#F37021]'} rounded-md px-4 py-2.5 outline-none focus:ring-1`} 
+                            />
+                            {childrenError && <p className="mt-1 text-xs text-red-500 font-medium">{childrenError}</p>}
                           </div>
                         )}
                       </div>
