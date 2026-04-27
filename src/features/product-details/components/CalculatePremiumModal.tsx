@@ -322,6 +322,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   };
 
   const handleSumAssuredChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormError('');
     // Basic number formatter for BDT
     const rawValue = e.target.value.replace(/[^0-9]/g, '');
     if (rawValue) {
@@ -355,6 +356,18 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   );
 
   const handleCheckPremium = async () => {
+    setFormError('');
+    if (!isValidSumAssured) {
+      if (sumAssuredValue < minSumAss) {
+        setFormError(`Minimum Sum Assured is ${new Intl.NumberFormat('en-IN').format(minSumAss)}`);
+      } else if (sumAssuredValue > maxSumAss) {
+        setFormError(`Maximum Sum Assured is ${new Intl.NumberFormat('en-IN').format(maxSumAss)}`);
+      } else {
+        setFormError("Please enter a valid Sum Assured");
+      }
+      return;
+    }
+
     const selectedHiBeneficiary = hiBeneficiaries.find(b => b.name === hiBeneficiary);
     const selectedMaternityPlan = hiMaternityPlans.find(m => m.name === maternityPlan);
 
@@ -410,7 +423,12 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
       }
     } catch (err) {
       console.error("Calculation Error:", err);
-      setFormError("An error occurred while calculating premium");
+      if (axios.isAxiosError(err) && err.response?.data) {
+        const axiosData = err.response.data as { message?: string };
+        setFormError(axiosData.message || "An error occurred while calculating premium");
+      } else {
+        setFormError("An error occurred while calculating premium");
+      }
     } finally {
       setIsCalculating(false);
     }
