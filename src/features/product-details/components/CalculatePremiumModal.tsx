@@ -65,6 +65,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
   const [dobError, setDobError] = useState('');
   const [spouseDobError, setSpouseDobError] = useState('');
+  const [nameError, setNameError] = useState('');
   const [formError, setFormError] = useState('');
   const [isAgeLoading, setIsAgeLoading] = useState(false);
   const ageTimeoutRef = useRef<any>(null);
@@ -188,20 +189,21 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
   const handleProcess = async () => {
     setFormError('');
+    setNameError('');
+    setDobError('');
     if (!name.trim()) {
-      setFormError("Please enter your name");
+      setNameError("Please enter your name");
       return;
     }
     if (!dob) {
-      setFormError("Please enter a valid Date of Birth");
+      setDobError("Please enter a valid Date of Birth");
       return;
     }
     if (dobError) {
-      setFormError(dobError);
       return;
     }
     if (!age || Number(age) < 18) {
-      setFormError("Age must be at least 18 years");
+      setDobError("Age must be at least 18 years");
       return;
     }
 
@@ -457,7 +459,17 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Name <span className="text-red-500">*</span></label>
-                <input type="text" placeholder="Your Name" value={name} onChange={e => setName(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+                <input 
+                  type="text" 
+                  placeholder="Your Name" 
+                  value={name} 
+                  onChange={e => {
+                    setName(e.target.value);
+                    if (e.target.value.trim()) setNameError('');
+                  }} 
+                  className={`w-full border ${nameError ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-[#F37021] focus:border-[#F37021]'} rounded-md px-4 py-2.5 outline-none focus:ring-1`} 
+                />
+                {nameError && <p className="mt-1 text-xs text-red-500 font-medium">{nameError}</p>}
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
@@ -473,7 +485,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Date of Birth <span className="text-red-500">*</span></label>
-                <div className="relative flex items-center border border-gray-300 rounded-md focus-within:ring-1 focus-within:ring-[#F37021] focus-within:border-[#F37021] bg-white overflow-hidden">
+                <div className={`relative flex items-center border ${dobError ? 'border-red-500' : 'border-gray-300'} rounded-md focus-within:ring-1 focus-within:ring-[#F37021] focus-within:border-[#F37021] bg-white overflow-hidden`}>
                   <input
                     type="text"
                     placeholder="DD/MM/YYYY"
@@ -674,7 +686,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                           <>
                             <div>
                               <label className="block text-sm font-medium text-gray-700 mb-2">Spouse Date Of Birth</label>
-                              <div className="relative flex items-center border border-gray-300 rounded-md focus-within:ring-1 focus-within:ring-[#F37021] focus-within:border-[#F37021] bg-white overflow-hidden">
+                              <div className={`relative flex items-center border ${spouseDobError ? 'border-red-500' : 'border-gray-300'} rounded-md focus-within:ring-1 focus-within:ring-[#F37021] focus-within:border-[#F37021] bg-white overflow-hidden`}>
                                 <input
                                   type="text"
                                   placeholder="DD/MM/YYYY"
