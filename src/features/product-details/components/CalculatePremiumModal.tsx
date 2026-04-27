@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Info, Check, Calendar } from 'lucide-react';
 import { getPlanInformation, getSupplementaryInfo, calculatePremium, getCalculatedAge } from '../api';
@@ -67,6 +67,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [spouseDobError, setSpouseDobError] = useState('');
   const [formError, setFormError] = useState('');
   const [isAgeLoading, setIsAgeLoading] = useState(false);
+  const ageTimeoutRef = useRef<any>(null);
 
 
 
@@ -96,28 +97,34 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
     setErrorState: React.Dispatch<React.SetStateAction<string>>
   ) => {
     if (!date) return;
-    try {
-      setIsAgeLoading(true);
-      setErrorState('');
-      const response = await getCalculatedAge({ date_of_birth: date });
-      if (response.status && response.data) {
-        setAgeState(response.data.age.toString());
-        setErrorState('');
-      } else {
+
+    if (ageTimeoutRef.current) clearTimeout(ageTimeoutRef.current);
+
+    setIsAgeLoading(true);
+    setErrorState('');
+
+    ageTimeoutRef.current = setTimeout(async () => {
+      try {
+        const response = await getCalculatedAge({ date_of_birth: date });
+        if (response.status && response.data) {
+          setAgeState(response.data.age.toString());
+          setErrorState('');
+        } else {
+          setAgeState('');
+          setErrorState(response.message || 'Error calculating age');
+        }
+      } catch (error) {
         setAgeState('');
-        setErrorState(response.message || 'Error calculating age');
+        if (axios.isAxiosError(error) && error.response?.data) {
+          const axiosData = error.response.data as { message?: string };
+          setErrorState(axiosData.message || 'Error calculating age');
+        } else {
+          setErrorState('Error calculating age');
+        }
+      } finally {
+        setIsAgeLoading(false);
       }
-    } catch (error) {
-      setAgeState('');
-      if (axios.isAxiosError(error) && error.response?.data) {
-        const axiosData = error.response.data as { message?: string };
-        setErrorState(axiosData.message || 'Error calculating age');
-      } else {
-        setErrorState('Error calculating age');
-      }
-    } finally {
-      setIsAgeLoading(false);
-    }
+    }, 2000);
   };
 
   const handleNativeDobChange = (
