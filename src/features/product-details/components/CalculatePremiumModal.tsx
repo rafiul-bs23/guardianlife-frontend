@@ -66,6 +66,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [dobError, setDobError] = useState('');
   const [spouseDobError, setSpouseDobError] = useState('');
   const [nameError, setNameError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
   const [formError, setFormError] = useState('');
   const [isAgeLoading, setIsAgeLoading] = useState(false);
   const ageTimeoutRef = useRef<any>(null);
@@ -191,8 +192,18 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
     setFormError('');
     setNameError('');
     setDobError('');
+    setPhoneError('');
     if (!name.trim()) {
       setNameError("Please enter your name");
+      return;
+    }
+    if (!phone.trim()) {
+      setPhoneError("Please enter your phone number");
+      return;
+    }
+    const phoneRegex = /^01\d{9}$/;
+    if (!phoneRegex.test(phone.trim())) {
+      setPhoneError("Phone number must be 11 digits and start with 01");
       return;
     }
     if (!dob) {
@@ -490,8 +501,18 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                 {nameError && <p className="mt-1 text-xs text-red-500 font-medium">{nameError}</p>}
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
-                <input type="tel" placeholder="01XXXXXXXXX" value={phone} onChange={e => setPhone(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+                <label className="block text-sm font-medium text-gray-700 mb-2">Phone <span className="text-red-500">*</span></label>
+                <input 
+                  type="tel" 
+                  placeholder="01XXXXXXXXX" 
+                  value={phone} 
+                  onChange={e => {
+                    setPhone(e.target.value);
+                    if (e.target.value.trim()) setPhoneError('');
+                  }} 
+                  className={`w-full border ${phoneError ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-[#F37021] focus:border-[#F37021]'} rounded-md px-4 py-2.5 outline-none focus:ring-1`} 
+                />
+                {phoneError && <p className="mt-1 text-xs text-red-500 font-medium">{phoneError}</p>}
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
