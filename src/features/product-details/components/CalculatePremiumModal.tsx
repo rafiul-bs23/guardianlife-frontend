@@ -837,7 +837,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
                 {/* Footer / Results Button */}
                 <div className="mt-8 flex flex-col items-center gap-4 border-t border-gray-100 pt-8">
-                  {formError && <p className="text-sm text-red-500 font-bold uppercase tracking-tight">{formError}</p>}
+                  {formError && <p className="text-sm text-red-500 font-bold tracking-tight">{formError}</p>}
                   <Button
                     label={isCalculating ? "Calculating..." : "Check Premium"}
                     onClick={isCalculating ? undefined : handleCheckPremium}
