@@ -103,7 +103,7 @@
             "phone_required": "B Phone number is required.",
             "phone_start_prefix": "B Phone number must start with +880.",
             "phone_length": "B Phone number must be 14 characters long.",
-            "phone_invalid": "দয়া করে একটি সঠিক ফোন নম্বর লিখুন (যেমন: 017XXXXXXXX বা +88017XXXXXXXX)।",
+            "phone_invalid": "দয়া করে একটি সঠিক ফোন নম্বর লিখুন।",
             "applying_position_required": "B Applying position is required.",
             "cv_required": "B Please upload your CV.",
             "message_required": "B Message is required.",

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Info, Check, Calendar } from 'lucide-react';
-import { getPlanInformation, getSupplementaryInfo, calculatePremium } from '../api';
+import { getPlanInformation, getSupplementaryInfo, calculatePremium, getCalculatedAge } from '../api';
 import PremiumDetailsModal from './PremiumDetailsModal';
 import Button from "../../../shared/Components/Button.tsx";
 import type { PlanNumber, PaymentMode, HiBeneficiary, HiMaternityPlan, HiHealthPlans, CiPercentage, TermOption, CalculationResult, SupplementaryInfoItem } from "../types.ts";
@@ -63,6 +63,11 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [calculationData, setCalculationData] = useState<CalculationResult | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
 
+  const [dobError, setDobError] = useState('');
+  const [spouseDobError, setSpouseDobError] = useState('');
+  const [formError, setFormError] = useState('');
+  const [isAgeLoading, setIsAgeLoading] = useState(false);
+
 
 
   // Body scroll lock
@@ -85,23 +90,34 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const sumAssuredValue = parseFloat(sumAssured.replace(/,/g, '')) || 0;
   const isValidSumAssured = sumAssuredValue >= minSumAss && sumAssuredValue <= maxSumAss;
 
-  const calculateCeilAge = (dateString: string) => {
-    if (!dateString) return '';
-    const dobDate = new Date(dateString);
-    const now = new Date();
-    if (isNaN(dobDate.getTime()) || now < dobDate) return '';
-
-    let years = now.getFullYear() - dobDate.getFullYear();
-
-    // Check if we are past the birthday this year
-    if (
-      now.getMonth() > dobDate.getMonth() ||
-      (now.getMonth() === dobDate.getMonth() && now.getDate() > dobDate.getDate())
-    ) {
-      years++;
+  const fetchAge = async (
+    date: string,
+    setAgeState: React.Dispatch<React.SetStateAction<string>>,
+    setErrorState: React.Dispatch<React.SetStateAction<string>>
+  ) => {
+    if (!date) return;
+    try {
+      setIsAgeLoading(true);
+      setErrorState('');
+      const response = await getCalculatedAge({ date_of_birth: date });
+      if (response.status && response.data) {
+        setAgeState(response.data.age.toString());
+        setErrorState('');
+      } else {
+        setAgeState('');
+        setErrorState(response.message || 'Error calculating age');
+      }
+    } catch (error) {
+      setAgeState('');
+      if (axios.isAxiosError(error) && error.response?.data) {
+        const axiosData = error.response.data as { message?: string };
+        setErrorState(axiosData.message || 'Error calculating age');
+      } else {
+        setErrorState('Error calculating age');
+      }
+    } finally {
+      setIsAgeLoading(false);
     }
-
-    return years.toString();
   };
 
   const handleNativeDobChange = (
@@ -117,10 +133,12 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
       if (parts.length === 3) {
         setDisplay(`${parts[2]}/${parts[1]}/${parts[0]}`);
       }
-      setAgeState(calculateCeilAge(val));
+      fetchAge(val, setAgeState, setAgeState === setAge ? setDobError : setSpouseDobError);
     } else {
       setDisplay('');
       setAgeState('');
+      if (setAgeState === setAge) setDobError('');
+      else setSpouseDobError('');
     }
   };
 
@@ -151,26 +169,32 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
       const y = parseInt(parts[2], 10);
       if (d > 0 && d <= 31 && m > 0 && m <= 12 && y > 1900) {
         setDate(isoDate);
-        setAgeState(calculateCeilAge(isoDate));
+        fetchAge(isoDate, setAgeState, setAgeState === setAge ? setDobError : setSpouseDobError);
       }
     } else {
       setDate('');
       setAgeState('');
+      if (setAgeState === setAge) setDobError('');
+      else setSpouseDobError('');
     }
   };
 
   const handleProcess = async () => {
+    setFormError('');
     if (!name.trim()) {
-      alert("Please enter your name");
+      setFormError("Please enter your name");
       return;
     }
     if (!dob) {
-      // Just a simple validation prompt or alert.
-      alert("Please enter a valid Date of Birth");
+      setFormError("Please enter a valid Date of Birth");
+      return;
+    }
+    if (dobError) {
+      setFormError(dobError);
       return;
     }
     if (!age || Number(age) < 18) {
-      alert("Age must be at least 18 years");
+      setFormError("Age must be at least 18 years");
       return;
     }
 
@@ -208,14 +232,14 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
         setIsProcessed(true);
       } else {
-        alert(data?.message || "Failed to fetch plan information");
+        setFormError(data?.message || "Failed to fetch plan information");
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError<{ message: string }>;
-        alert(axiosError.response?.data?.message || axiosError.message || "An error occurred while fetching data");
+        setFormError(axiosError.response?.data?.message || axiosError.message || "An error occurred while fetching data");
       } else {
-        alert("An unexpected error occurred");
+        setFormError("An unexpected error occurred");
       }
     } finally {
       setIsLoading(false);
@@ -373,11 +397,11 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
         setCalculationData({ ...data.data, docPayload });
         setIsDetailsModalOpen(true);
       } else {
-        alert(data?.message || "Failed to calculate premium");
+        setFormError(data?.message || "Failed to calculate premium");
       }
     } catch (err) {
       console.error("Calculation Error:", err);
-      alert("An error occurred while calculating premium");
+      setFormError("An error occurred while calculating premium");
     } finally {
       setIsCalculating(false);
     }
@@ -461,10 +485,18 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                     />
                   </div>
                 </div>
+                {dobError && <p className="mt-1 text-xs text-red-500 font-medium">{dobError}</p>}
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
-                <input type="text" placeholder="0" value={age} disabled className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-gray-50 text-gray-500 cursor-not-allowed outline-none" />
+                <div className="relative">
+                  <input type="text" placeholder="0" value={age} disabled className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-gray-50 text-gray-500 cursor-not-allowed outline-none" />
+                  {isAgeLoading && (
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <div className="w-4 h-4 border-2 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                  )}
+                </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Gender <span className="text-red-500">*</span></label>
@@ -477,7 +509,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
             {/* Process Button */}
             {!isProcessed && (
-              <div className="flex justify-center pt-4">
+              <div className="flex flex-col items-center gap-4 pt-4">
+                {formError && <p className="text-sm text-red-500 font-bold uppercase tracking-tight">{formError}</p>}
                 <Button
                   label={isLoading ? "Processing..." : "Process"}
                   onClick={isLoading ? undefined : handleProcess}
@@ -653,10 +686,18 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                                   />
                                 </div>
                               </div>
+                              {spouseDobError && <p className="mt-1 text-xs text-red-500 font-medium">{spouseDobError}</p>}
                             </div>
                             <div>
                               <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
-                              <input type="text" placeholder="0" value={spouseAge} disabled className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-gray-50 text-gray-500 cursor-not-allowed outline-none" />
+                              <div className="relative">
+                                <input type="text" placeholder="0" value={spouseAge} disabled className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-gray-50 text-gray-500 cursor-not-allowed outline-none" />
+                                {isAgeLoading && (
+                                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                                    <div className="w-4 h-4 border-2 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+                                  </div>
+                                )}
+                              </div>
                             </div>
                           </>
                         )}
@@ -735,7 +776,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                 </div>
 
                 {/* Footer / Results Button */}
-                <div className="mt-8 flex justify-center border-t border-gray-100 pt-8">
+                <div className="mt-8 flex flex-col items-center gap-4 border-t border-gray-100 pt-8">
+                  {formError && <p className="text-sm text-red-500 font-bold uppercase tracking-tight">{formError}</p>}
                   <Button
                     label={isCalculating ? "Calculating..." : "Check Premium"}
                     onClick={isCalculating ? undefined : handleCheckPremium}
