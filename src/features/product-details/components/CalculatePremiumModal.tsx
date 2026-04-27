@@ -4,16 +4,17 @@ import { X, Info, Check, Calendar } from 'lucide-react';
 import { getPlanInformation, getSupplementaryInfo, calculatePremium, getCalculatedAge } from '../api';
 import PremiumDetailsModal from './PremiumDetailsModal';
 import Button from "../../../shared/Components/Button.tsx";
-import type { PlanNumber, PaymentMode, HiBeneficiary, HiMaternityPlan, HiHealthPlans, CiPercentage, TermOption, CalculationResult, SupplementaryInfoItem } from "../types.ts";
+import type { PlanNumber, PaymentMode, HiBeneficiary, HiMaternityPlan, HiHealthPlans, CiPercentage, TermOption, CalculationResult, SupplementaryInfoItem, SupplementaryBenefitsSection } from "../types.ts";
 import axios, { AxiosError } from 'axios';
 
 interface CalculatePremiumModalProps {
   isOpen: boolean;
   onClose: () => void;
   planNumbers?: PlanNumber[];
+  supplementaryBenefits?: SupplementaryBenefitsSection;
 }
 
-const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, onClose, planNumbers }) => {
+const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, onClose, planNumbers, supplementaryBenefits }) => {
   const [selectedPlan, setSelectedPlan] = useState<PlanNumber | null>(null);
 
   useEffect(() => {
@@ -837,35 +838,39 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                   )}
                 </div>
 
-                <div className="border-t border-gray-100 pt-6 flex items-center justify-between">
-                  <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
-                    Permanent Disability Accidental Benefit (PDAB)
-                    <Info size={14} className="text-gray-400" />
-                  </h3>
-                  <button
-                    onClick={() => handleToggle(setPdabEnabled, pdabEnabled, true, false)}
-                    className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${pdabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isValidSumAssured ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-                  >
-                    <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${pdabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
-                      {pdabEnabled && <Check size={10} className="text-[#F37021]" />}
-                    </div>
-                  </button>
-                </div>
+                {supplementaryBenefits?.content?.some(item => item.title === 'PDAB') && (
+                  <div className="border-t border-gray-100 pt-6 flex items-center justify-between">
+                    <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
+                      Permanent Disability Accidental Benefit (PDAB)
+                      <Info size={14} className="text-gray-400" />
+                    </h3>
+                    <button
+                      onClick={() => handleToggle(setPdabEnabled, pdabEnabled, true, false)}
+                      className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${pdabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isValidSumAssured ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                    >
+                      <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${pdabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
+                        {pdabEnabled && <Check size={10} className="text-[#F37021]" />}
+                      </div>
+                    </button>
+                  </div>
+                )}
 
-                <div className="pt-2 flex items-center justify-between pb-6">
-                  <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
-                    Double Indemnity Accidental Benefit (DIAB)
-                    <Info size={14} className="text-gray-400" />
-                  </h3>
-                  <button
-                    onClick={() => handleToggle(setDiabEnabled, diabEnabled, false, true)}
-                    className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${diabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isValidSumAssured ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-                  >
-                    <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${diabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
-                      {diabEnabled && <Check size={10} className="text-[#F37021]" />}
-                    </div>
-                  </button>
-                </div>
+                {supplementaryBenefits?.content?.some(item => item.title === 'DIAB') && (
+                  <div className="pt-2 flex items-center justify-between pb-6">
+                    <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
+                      Double Indemnity Accidental Benefit (DIAB)
+                      <Info size={14} className="text-gray-400" />
+                    </h3>
+                    <button
+                      onClick={() => handleToggle(setDiabEnabled, diabEnabled, false, true)}
+                      className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${diabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isValidSumAssured ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                    >
+                      <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${diabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
+                        {diabEnabled && <Check size={10} className="text-[#F37021]" />}
+                      </div>
+                    </button>
+                  </div>
+                )}
 
                 {/* Footer / Results Button */}
                 <div className="mt-8 flex flex-col items-center gap-4 border-t border-gray-100 pt-8">

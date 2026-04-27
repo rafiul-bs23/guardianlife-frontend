@@ -4,14 +4,15 @@ import GenericHeader from '../../../shared/Components/GenericHeader';
 import Button from '../../../shared/Components/Button';
 import CalculatePremiumModal from './CalculatePremiumModal';
 import { openReveChat } from '../../../shared/utils/revechat';
-import type {PlanNumber} from "../types.ts";
+import type {PlanNumber, SupplementaryBenefitsSection} from "../types.ts";
 
 interface ProductHeaderProps {
     data: HeaderData;
     planNumbers?: PlanNumber[];
+    supplementaryBenefits?: SupplementaryBenefitsSection;
 }
 
-const ProductHeader: React.FC<ProductHeaderProps> = ({ data, planNumbers }) => {
+const ProductHeader: React.FC<ProductHeaderProps> = ({ data, planNumbers, supplementaryBenefits }) => {
     const [isCalculateModalOpen, setIsCalculateModalOpen] = useState(false);
 
     const actions = (
@@ -36,6 +37,7 @@ const ProductHeader: React.FC<ProductHeaderProps> = ({ data, planNumbers }) => {
                 isOpen={isCalculateModalOpen}
                 onClose={() => setIsCalculateModalOpen(false)}
                 planNumbers={planNumbers}
+                supplementaryBenefits={supplementaryBenefits}
             />
         </>
     );

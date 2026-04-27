@@ -28,7 +28,7 @@ const ProductDetails = () => {
 
   return (
     <>
-      {headerData && <ProductHeader data={headerData} planNumbers={data?.plan_numbers} />}
+      {headerData && <ProductHeader data={headerData} planNumbers={data?.plan_numbers} supplementaryBenefits={data?.supplementary_benefits_section} />}
       <section>
         {data?.quick_product_section && <QuickProductView data={data.quick_product_section} />}
         {data?.product_journey_section && <ProductJourney data={data.product_journey_section} />}
