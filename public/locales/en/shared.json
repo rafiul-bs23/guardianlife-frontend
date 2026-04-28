@@ -45,9 +45,21 @@
     "why_choose_quick_buy": {
         "title": "Why Choose Quick Buy?",
         "features": [
-            { "id": 1, "title": "Instant Approval", "description": "Get covered in minutes" },
-            { "id": 2, "title": "Digital Process", "description": "100% paperless" },
-            { "id": 3, "title": "Immediate Coverage", "description": "Protection starts now" }
+            {
+                "id": 1,
+                "title": "Instant Approval",
+                "description": "Get covered in minutes"
+            },
+            {
+                "id": 2,
+                "title": "Digital Process",
+                "description": "100% paperless"
+            },
+            {
+                "id": 3,
+                "title": "Immediate Coverage",
+                "description": "Protection starts now"
+            }
         ]
     },
     "contact_form": {
@@ -91,7 +103,7 @@
             "phone_required": "Phone number is required.",
             "phone_start_prefix": "Phone number must start with +880.",
             "phone_length": "Phone number must be 14 characters long.",
-            "phone_invalid": "Please enter a valid phone number (e.g., 017XXXXXXXX or +88017XXXXXXXX).",
+            "phone_invalid": "Please enter a valid phone number.",
             "applying_position_required": "Applying position is required.",
             "cv_required": "Please upload your CV.",
             "message_required": "Message is required.",

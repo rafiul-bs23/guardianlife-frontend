@@ -36,4 +36,9 @@ export const createProposal = async (payload: any) => {
   const { data } = await axiosClient.post('/proposals/create', payload);
   return data;
 };
+
+export const getCalculatedAge = async (payload: { date_of_birth: string }) => {
+  const { data } = await axiosClient.post('/calculators/age', payload);
+  return data;
+};
 

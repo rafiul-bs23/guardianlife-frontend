@@ -7,6 +7,7 @@ import { CheckCircle } from 'lucide-react';
 
 interface PremiumDetailsModalProps {
     isOpen: boolean;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: any;
     pdabLabel: string;
     planName: string;
@@ -176,7 +177,7 @@ const PremiumDetailsModal: React.FC<PremiumDetailsModalProps> = ({ isOpen, data,
 
                     <div className="flex justify-between items-center pt-2 pb-3 font-bold text-gray-900 text-base sm:text-lg">
                         <span>Total Premium</span>
-                        <span>৳{new Intl.NumberFormat('en-IN').format(data?.total_annual_premium || 0)}</span>
+                        <span>৳{new Intl.NumberFormat('en-IN').format(data?.total_premium || 0)}</span>
                     </div>
                     <div className="flex justify-between items-center font-bold text-gray-900 text-base sm:text-lg">
                         <span>Sum Assured</span>

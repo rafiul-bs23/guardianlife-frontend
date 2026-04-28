@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Info, Check, Calendar } from 'lucide-react';
-import { getPlanInformation, getSupplementaryInfo, calculatePremium } from '../api';
+import { getPlanInformation, getSupplementaryInfo, calculatePremium, getCalculatedAge } from '../api';
 import PremiumDetailsModal from './PremiumDetailsModal';
 import Button from "../../../shared/Components/Button.tsx";
-import type { PlanNumber, PaymentMode, HiBeneficiary, HiMaternityPlan, HiHealthPlans, CiPercentage, TermOption, CalculationResult, SupplementaryInfoItem } from "../types.ts";
+import type { PlanNumber, PaymentMode, HiBeneficiary, HiMaternityPlan, HiHealthPlans, CiPercentage, TermOption, CalculationResult, SupplementaryInfoItem, SupplementaryBenefitsSection } from "../types.ts";
 import axios, { AxiosError } from 'axios';
 
 interface CalculatePremiumModalProps {
   isOpen: boolean;
   onClose: () => void;
   planNumbers?: PlanNumber[];
+  supplementaryBenefits?: SupplementaryBenefitsSection;
 }
 
-const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, onClose, planNumbers }) => {
+const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, onClose, planNumbers, supplementaryBenefits }) => {
   const [selectedPlan, setSelectedPlan] = useState<PlanNumber | null>(null);
 
   useEffect(() => {
@@ -31,6 +32,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [displayDob, setDisplayDob] = useState('');
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('Male');
+  const [planId, setPlanId] = useState<string | number>('03');
 
   const [availableModes, setAvailableModes] = useState<PaymentMode[]>([]);
   const [mode, setMode] = useState<PaymentMode | null>(null);
@@ -63,6 +65,15 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const [calculationData, setCalculationData] = useState<CalculationResult | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
 
+  const [dobError, setDobError] = useState('');
+  const [spouseDobError, setSpouseDobError] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+  const [childrenError, setChildrenError] = useState('');
+  const [formError, setFormError] = useState('');
+  const [isAgeLoading, setIsAgeLoading] = useState(false);
+  const ageTimeoutRef = useRef<any>(null);
+
 
 
   // Body scroll lock
@@ -85,23 +96,40 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   const sumAssuredValue = parseFloat(sumAssured.replace(/,/g, '')) || 0;
   const isValidSumAssured = sumAssuredValue >= minSumAss && sumAssuredValue <= maxSumAss;
 
-  const calculateCeilAge = (dateString: string) => {
-    if (!dateString) return '';
-    const dobDate = new Date(dateString);
-    const now = new Date();
-    if (isNaN(dobDate.getTime()) || now < dobDate) return '';
+  const fetchAge = async (
+    date: string,
+    setAgeState: React.Dispatch<React.SetStateAction<string>>,
+    setErrorState: React.Dispatch<React.SetStateAction<string>>
+  ) => {
+    if (!date) return;
 
-    let years = now.getFullYear() - dobDate.getFullYear();
+    if (ageTimeoutRef.current) clearTimeout(ageTimeoutRef.current);
 
-    // Check if we are past the birthday this year
-    if (
-      now.getMonth() > dobDate.getMonth() ||
-      (now.getMonth() === dobDate.getMonth() && now.getDate() > dobDate.getDate())
-    ) {
-      years++;
-    }
+    setIsAgeLoading(true);
+    setErrorState('');
 
-    return years.toString();
+    ageTimeoutRef.current = setTimeout(async () => {
+      try {
+        const response = await getCalculatedAge({ date_of_birth: date });
+        if (response.status && response.data) {
+          setAgeState(response.data.age.toString());
+          setErrorState('');
+        } else {
+          setAgeState('');
+          setErrorState(response.message || 'Error calculating age');
+        }
+      } catch (error) {
+        setAgeState('');
+        if (axios.isAxiosError(error) && error.response?.data) {
+          const axiosData = error.response.data as { message?: string };
+          setErrorState(axiosData.message || 'Error calculating age');
+        } else {
+          setErrorState('Error calculating age');
+        }
+      } finally {
+        setIsAgeLoading(false);
+      }
+    }, 2000);
   };
 
   const handleNativeDobChange = (
@@ -117,10 +145,12 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
       if (parts.length === 3) {
         setDisplay(`${parts[2]}/${parts[1]}/${parts[0]}`);
       }
-      setAgeState(calculateCeilAge(val));
+      fetchAge(val, setAgeState, setAgeState === setAge ? setDobError : setSpouseDobError);
     } else {
       setDisplay('');
       setAgeState('');
+      if (setAgeState === setAge) setDobError('');
+      else setSpouseDobError('');
     }
   };
 
@@ -151,26 +181,43 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
       const y = parseInt(parts[2], 10);
       if (d > 0 && d <= 31 && m > 0 && m <= 12 && y > 1900) {
         setDate(isoDate);
-        setAgeState(calculateCeilAge(isoDate));
+        fetchAge(isoDate, setAgeState, setAgeState === setAge ? setDobError : setSpouseDobError);
       }
     } else {
       setDate('');
       setAgeState('');
+      if (setAgeState === setAge) setDobError('');
+      else setSpouseDobError('');
     }
   };
 
   const handleProcess = async () => {
+    setFormError('');
+    setNameError('');
+    setDobError('');
+    setPhoneError('');
     if (!name.trim()) {
-      alert("Please enter your name");
+      setNameError("Please enter your name");
+      return;
+    }
+    if (!phone.trim()) {
+      setPhoneError("Please enter your phone number");
+      return;
+    }
+    const phoneRegex = /^01\d{9}$/;
+    if (!phoneRegex.test(phone.trim())) {
+      setPhoneError("Phone number must be 11 digits and start with 01");
       return;
     }
     if (!dob) {
-      // Just a simple validation prompt or alert.
-      alert("Please enter a valid Date of Birth");
+      setDobError("Please enter a valid Date of Birth");
+      return;
+    }
+    if (dobError) {
       return;
     }
     if (!age || Number(age) < 18) {
-      alert("Age must be at least 18 years");
+      setDobError("Age must be at least 18 years");
       return;
     }
 
@@ -183,7 +230,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
 
       if (data && data.status && data.data) {
-        const { payment_mode, term: apiTerms, min_sumass, max_sumass } = data.data;
+        const { id, payment_mode, term: apiTerms, min_sumass, max_sumass } = data.data;
+        if (id) setPlanId(id);
 
         // Update modes
         if (payment_mode && Array.isArray(payment_mode)) {
@@ -208,14 +256,14 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
         setIsProcessed(true);
       } else {
-        alert(data?.message || "Failed to fetch plan information");
+        setFormError(data?.message || "Failed to fetch plan information");
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError<{ message: string }>;
-        alert(axiosError.response?.data?.message || axiosError.message || "An error occurred while fetching data");
+        setFormError(axiosError.response?.data?.message || axiosError.message || "An error occurred while fetching data");
       } else {
-        alert("An unexpected error occurred");
+        setFormError("An unexpected error occurred");
       }
     } finally {
       setIsLoading(false);
@@ -227,7 +275,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
       const handler = setTimeout(async () => {
         try {
           const payload = {
-            plan_id: "03",
+            plan_id: planId.toString(),
             gender: gender.toLowerCase(),
             sum_assured: sumAssuredValue.toString(),
             age: Number(age),
@@ -289,6 +337,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   };
 
   const handleSumAssuredChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormError('');
     // Basic number formatter for BDT
     const rawValue = e.target.value.replace(/[^0-9]/g, '');
     if (rawValue) {
@@ -322,8 +371,40 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
   );
 
   const handleCheckPremium = async () => {
+    setFormError('');
+    if (!isValidSumAssured) {
+      if (sumAssuredValue < minSumAss) {
+        setFormError(`Minimum Sum Assured is ${new Intl.NumberFormat('en-IN').format(minSumAss)}`);
+      } else if (sumAssuredValue > maxSumAss) {
+        setFormError(`Maximum Sum Assured is ${new Intl.NumberFormat('en-IN').format(maxSumAss)}`);
+      } else {
+        setFormError("Please enter a valid Sum Assured");
+      }
+      return;
+    }
+
     const selectedHiBeneficiary = hiBeneficiaries.find(b => b.name === hiBeneficiary);
     const selectedMaternityPlan = hiMaternityPlans.find(m => m.name === maternityPlan);
+
+    setSpouseDobError('');
+    setChildrenError('');
+
+    if (hiEnabled) {
+      if (['couple', 'family'].includes(hiBeneficiary.toLowerCase()) && !spouseDob) {
+        setSpouseDobError("Spouse Date of Birth is required");
+        return;
+      }
+      if (['family', 'children'].includes(hiBeneficiary.toLowerCase())) {
+        if (!childrenCount) {
+          setChildrenError("Number of Children is required");
+          return;
+        }
+        if (Number(childrenCount) < 1) {
+          setChildrenError("Number of Children must be at least 1");
+          return;
+        }
+      }
+    }
 
     const payload = {
       date_of_birth: dob,
@@ -373,11 +454,16 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
         setCalculationData({ ...data.data, docPayload });
         setIsDetailsModalOpen(true);
       } else {
-        alert(data?.message || "Failed to calculate premium");
+        setFormError(data?.message || "Failed to calculate premium");
       }
     } catch (err) {
       console.error("Calculation Error:", err);
-      alert("An error occurred while calculating premium");
+      if (axios.isAxiosError(err) && err.response?.data) {
+        const axiosData = err.response.data as { message?: string };
+        setFormError(axiosData.message || "An error occurred while calculating premium");
+      } else {
+        setFormError("An error occurred while calculating premium");
+      }
     } finally {
       setIsCalculating(false);
     }
@@ -426,11 +512,31 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Name <span className="text-red-500">*</span></label>
-                <input type="text" placeholder="Your Name" value={name} onChange={e => setName(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+                <input 
+                  type="text" 
+                  placeholder="Your Name" 
+                  value={name} 
+                  onChange={e => {
+                    setName(e.target.value);
+                    if (e.target.value.trim()) setNameError('');
+                  }} 
+                  className={`w-full border ${nameError ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-[#F37021] focus:border-[#F37021]'} rounded-md px-4 py-2.5 outline-none focus:ring-1`} 
+                />
+                {nameError && <p className="mt-1 text-xs text-red-500 font-medium">{nameError}</p>}
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
-                <input type="tel" placeholder="01XXXXXXXXX" value={phone} onChange={e => setPhone(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+                <label className="block text-sm font-medium text-gray-700 mb-2">Phone <span className="text-red-500">*</span></label>
+                <input 
+                  type="tel" 
+                  placeholder="01XXXXXXXXX" 
+                  value={phone} 
+                  onChange={e => {
+                    setPhone(e.target.value);
+                    if (e.target.value.trim()) setPhoneError('');
+                  }} 
+                  className={`w-full border ${phoneError ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-[#F37021] focus:border-[#F37021]'} rounded-md px-4 py-2.5 outline-none focus:ring-1`} 
+                />
+                {phoneError && <p className="mt-1 text-xs text-red-500 font-medium">{phoneError}</p>}
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
@@ -442,7 +548,7 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Date of Birth <span className="text-red-500">*</span></label>
-                <div className="relative flex items-center border border-gray-300 rounded-md focus-within:ring-1 focus-within:ring-[#F37021] focus-within:border-[#F37021] bg-white overflow-hidden">
+                <div className={`relative flex items-center border ${dobError ? 'border-red-500' : 'border-gray-300'} rounded-md focus-within:ring-1 focus-within:ring-[#F37021] focus-within:border-[#F37021] bg-white overflow-hidden`}>
                   <input
                     type="text"
                     placeholder="DD/MM/YYYY"
@@ -461,10 +567,18 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                     />
                   </div>
                 </div>
+                {dobError && <p className="mt-1 text-xs text-red-500 font-medium">{dobError}</p>}
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
-                <input type="text" placeholder="0" value={age} disabled className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-gray-50 text-gray-500 cursor-not-allowed outline-none" />
+                <div className="relative">
+                  <input type="text" placeholder="0" value={age} disabled className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-gray-50 text-gray-500 cursor-not-allowed outline-none" />
+                  {isAgeLoading && (
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <div className="w-4 h-4 border-2 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                  )}
+                </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Gender <span className="text-red-500">*</span></label>
@@ -477,7 +591,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
 
             {/* Process Button */}
             {!isProcessed && (
-              <div className="flex justify-center pt-4">
+              <div className="flex flex-col items-center gap-4 pt-4">
+                {formError && <p className="text-sm text-red-500 font-bold uppercase tracking-tight">{formError}</p>}
                 <Button
                   label={isLoading ? "Processing..." : "Process"}
                   onClick={isLoading ? undefined : handleProcess}
@@ -633,8 +748,8 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                         {['couple', 'family'].includes(hiBeneficiary.toLowerCase()) && (
                           <>
                             <div>
-                              <label className="block text-sm font-medium text-gray-700 mb-2">Spouse Date Of Birth</label>
-                              <div className="relative flex items-center border border-gray-300 rounded-md focus-within:ring-1 focus-within:ring-[#F37021] focus-within:border-[#F37021] bg-white overflow-hidden">
+                              <label className="block text-sm font-medium text-gray-700 mb-2">Spouse Date Of Birth <span className="text-red-500">*</span></label>
+                              <div className={`relative flex items-center border ${spouseDobError ? 'border-red-500' : 'border-gray-300'} rounded-md focus-within:ring-1 focus-within:ring-[#F37021] focus-within:border-[#F37021] bg-white overflow-hidden`}>
                                 <input
                                   type="text"
                                   placeholder="DD/MM/YYYY"
@@ -653,17 +768,36 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                                   />
                                 </div>
                               </div>
+                              {spouseDobError && <p className="mt-1 text-xs text-red-500 font-medium">{spouseDobError}</p>}
                             </div>
                             <div>
                               <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
-                              <input type="text" placeholder="0" value={spouseAge} disabled className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-gray-50 text-gray-500 cursor-not-allowed outline-none" />
+                              <div className="relative">
+                                <input type="text" placeholder="0" value={spouseAge} disabled className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-gray-50 text-gray-500 cursor-not-allowed outline-none" />
+                                {isAgeLoading && (
+                                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                                    <div className="w-4 h-4 border-2 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+                                  </div>
+                                )}
+                              </div>
                             </div>
                           </>
                         )}
                         {['family', 'children'].includes(hiBeneficiary.toLowerCase()) && (
                           <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Number of Children</label>
-                            <input type="number" placeholder="Enter Number of Children" value={childrenCount} onChange={e => setChildrenCount(e.target.value)} className="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:ring-1 focus:ring-[#F37021] focus:border-[#F37021] outline-none" />
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Number of Children <span className="text-red-500">*</span></label>
+                            <input 
+                              type="number" 
+                              placeholder="Enter Number of Children" 
+                              value={childrenCount} 
+                              onChange={e => {
+                                const val = e.target.value;
+                                setChildrenCount(val);
+                                if (val && Number(val) >= 1) setChildrenError('');
+                              }} 
+                              className={`w-full border ${childrenError ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-[#F37021] focus:border-[#F37021]'} rounded-md px-4 py-2.5 outline-none focus:ring-1`} 
+                            />
+                            {childrenError && <p className="mt-1 text-xs text-red-500 font-medium">{childrenError}</p>}
                           </div>
                         )}
                       </div>
@@ -704,38 +838,43 @@ const CalculatePremiumModal: React.FC<CalculatePremiumModalProps> = ({ isOpen, o
                   )}
                 </div>
 
-                <div className="border-t border-gray-100 pt-6 flex items-center justify-between">
-                  <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
-                    Permanent Disability Accidental Benefit (PDAB)
-                    <Info size={14} className="text-gray-400" />
-                  </h3>
-                  <button
-                    onClick={() => handleToggle(setPdabEnabled, pdabEnabled, true, false)}
-                    className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${pdabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isValidSumAssured ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-                  >
-                    <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${pdabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
-                      {pdabEnabled && <Check size={10} className="text-[#F37021]" />}
-                    </div>
-                  </button>
-                </div>
+                {supplementaryBenefits?.content?.some(item => item.title === 'PDAB') && (
+                  <div className="border-t border-gray-100 pt-6 flex items-center justify-between">
+                    <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
+                      Permanent Disability Accidental Benefit (PDAB)
+                      <Info size={14} className="text-gray-400" />
+                    </h3>
+                    <button
+                      onClick={() => handleToggle(setPdabEnabled, pdabEnabled, true, false)}
+                      className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${pdabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isValidSumAssured ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                    >
+                      <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${pdabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
+                        {pdabEnabled && <Check size={10} className="text-[#F37021]" />}
+                      </div>
+                    </button>
+                  </div>
+                )}
 
-                <div className="pt-2 flex items-center justify-between pb-6">
-                  <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
-                    Double Indemnity Accidental Benefit (DIAB)
-                    <Info size={14} className="text-gray-400" />
-                  </h3>
-                  <button
-                    onClick={() => handleToggle(setDiabEnabled, diabEnabled, false, true)}
-                    className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${diabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isValidSumAssured ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-                  >
-                    <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${diabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
-                      {diabEnabled && <Check size={10} className="text-[#F37021]" />}
-                    </div>
-                  </button>
-                </div>
+                {supplementaryBenefits?.content?.some(item => item.title === 'DIAB') && (
+                  <div className="pt-2 flex items-center justify-between pb-6">
+                    <h3 className="text-sm font-semibold text-gray-800 flex items-center gap-2">
+                      Double Indemnity Accidental Benefit (DIAB)
+                      <Info size={14} className="text-gray-400" />
+                    </h3>
+                    <button
+                      onClick={() => handleToggle(setDiabEnabled, diabEnabled, false, true)}
+                      className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 ease-in-out ${diabEnabled ? 'bg-[#F37021]' : 'bg-gray-300'} ${!isValidSumAssured ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                    >
+                      <div className={`w-4 h-4 bg-white rounded-full flex items-center justify-center transform transition-transform duration-200 ease-in-out ${diabEnabled ? 'translate-x-6' : 'translate-x-0'}`}>
+                        {diabEnabled && <Check size={10} className="text-[#F37021]" />}
+                      </div>
+                    </button>
+                  </div>
+                )}
 
                 {/* Footer / Results Button */}
-                <div className="mt-8 flex justify-center border-t border-gray-100 pt-8">
+                <div className="mt-8 flex flex-col items-center gap-4 border-t border-gray-100 pt-8">
+                  {formError && <p className="text-sm text-red-500 font-bold tracking-tight">{formError}</p>}
                   <Button
                     label={isCalculating ? "Calculating..." : "Check Premium"}
                     onClick={isCalculating ? undefined : handleCheckPremium}

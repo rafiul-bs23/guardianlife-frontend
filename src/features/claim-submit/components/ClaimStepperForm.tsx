@@ -76,6 +76,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
   const watchClaimTypeId = watch('claimTypeId');
   const watchArea = watch('area');
   const watchHospitalId = watch('hospitalId');
+  const watchClaimDocuments = watch('claimDocuments');
 
   const getFormattedDate = (daysOffset = 0) => {
     const date = new Date();
@@ -94,6 +95,14 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
 
   const selectedPatient = memberInfo?.members.find(m => String(m.id) === String(watchMemberId)) || null;
   const selectedClaimType = selectedPatient?.claimTypes.find(ct => String(ct.id) === String(watchClaimTypeId)) || null;
+
+  const isClaimSubmission = type !== 'cashless-payment';
+  const isIPD = selectedClaimType?.name === 'IPD';
+  const isOPD = selectedClaimType?.name === 'OPD';
+
+  const isAreaRequired = !isClaimSubmission || (!(isIPD || isOPD));
+  const isHospitalRequired = !isClaimSubmission || (!(isIPD || isOPD));
+  const isPhysicianRequired = isClaimSubmission && !isIPD;
 
   useEffect(() => {
     if (step === 2 && areas.length === 0) {
@@ -196,7 +205,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
       });
 
       const res = await uploadFile({
-        service: fileSettings.feature,
+        service: fileSettings.feature === 'HIClaim' ? 'HiClaim' : fileSettings.feature,
         fileName: file.name,
         extension: extension,
         base64Data: base64Data
@@ -272,9 +281,12 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
         }
       }
     } else if (step === 2) {
-      fieldsToValidate = ['area', 'hospitalId'];
-      if (type !== 'cashless-payment') {
-        fieldsToValidate.push('physicianName', 'claimedAmount');
+      if (isAreaRequired) fieldsToValidate.push('area');
+      if (isHospitalRequired) fieldsToValidate.push('hospitalId');
+      
+      if (isClaimSubmission) {
+        if (isPhysicianRequired) fieldsToValidate.push('physicianName');
+        fieldsToValidate.push('claimedAmount');
       }
     }
 
@@ -573,7 +585,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
           {step === 2 && (
             <div className="space-y-4 animate-fadeIn">
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Area<span className="text-red-500">*</span></label>
+                <label className="block text-sm text-gray-400 mb-2">Area{isAreaRequired && <span className="text-red-500">*</span>}</label>
                 <div className="relative">
                   <div
                     className={`w-full bg-[#1b1c23] border ${formErrors.area ? 'border-red-500' : 'border-gray-700'} rounded-lg p-3 text-white cursor-pointer flex justify-between items-center transition-all`}
@@ -623,12 +635,12 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                     </div>
                   )}
                   {/* Invisible input for rhf registration */}
-                  <input type="hidden" {...register('area', { required: true })} />
+                  <input type="hidden" {...register('area', { required: isAreaRequired })} />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Hospital<span className="text-red-500">*</span></label>
+                <label className="block text-sm text-gray-400 mb-2">Hospital{isHospitalRequired && <span className="text-red-500">*</span>}</label>
                 <div className="relative">
                   <div
                     className={`w-full bg-[#1b1c23] border ${formErrors.hospitalId ? 'border-red-500' : 'border-gray-700'} rounded-lg p-3 text-white cursor-pointer flex justify-between items-center`}
@@ -676,7 +688,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                     </div>
                   )}
                   {/* Invisible input for rhf registration */}
-                  <input type="hidden" {...register('hospitalId', { required: true })} />
+                  <input type="hidden" {...register('hospitalId', { required: isHospitalRequired })} />
                 </div>
                 {!watchArea && <p className="mt-1 text-xs text-amber-500/80">Please select an area first</p>}
               </div>
@@ -704,11 +716,11 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
               ) : (
                 <>
                   <div>
-                    <label className="block text-sm text-gray-400 mb-2">Physician/Doctor Name <span className="text-red-500">*</span></label>
+                    <label className="block text-sm text-gray-400 mb-2">Physician/Doctor Name {isPhysicianRequired && <span className="text-red-500">*</span>}</label>
                     <input
                       type="text"
                       placeholder="Enter Physician/Doctor Name"
-                      {...register('physicianName', { required: true })}
+                      {...register('physicianName', { required: isPhysicianRequired })}
                       className={`w-full bg-transparent border ${formErrors.physicianName ? 'border-red-500' : 'border-gray-700'} rounded-lg p-3 text-white focus:outline-none focus:border-[#F37021]`}
                     />
                   </div>
@@ -763,7 +775,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                     </svg>
-                    <h3 className="text-white text-lg font-medium mb-2">Upload a file</h3>
+                    <h3 className="text-white text-lg font-medium mb-2">Upload a file{isClaimSubmission && <span className="text-red-500 ml-1">*</span>}</h3>
                     <p className="text-sm text-gray-500 max-w-[250px] mx-auto">
                       {fileSettings
                         ? `Upload ${fileSettings.fileExtensions}. Max size ${fileSettings.maxFileSize / 1024}MB.`
@@ -806,9 +818,9 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
         <div className="p-6 border-t border-gray-800">
           <button
             type="button"
-            disabled={isSubmitting}
+            disabled={isSubmitting || (step === 3 && isClaimSubmission && (!watchClaimDocuments || watchClaimDocuments.length === 0))}
             onClick={step === 3 ? handleSubmit(onFinalSubmit) : nextStep}
-            className={`w-full py-4 ${isSubmitting ? 'bg-gray-700 cursor-not-allowed' : 'bg-[#F37021] hover:bg-[#d6601b]'} text-white font-medium rounded-xl transition-colors text-lg flex items-center justify-center`}
+            className={`w-full py-4 ${isSubmitting || (step === 3 && isClaimSubmission && (!watchClaimDocuments || watchClaimDocuments.length === 0)) ? 'bg-gray-700 cursor-not-allowed' : 'bg-[#F37021] hover:bg-[#d6601b]'} text-white font-medium rounded-xl transition-colors text-lg flex items-center justify-center`}
           >
             {isSubmitting ? (
               <>
