@@ -59,12 +59,12 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <Navbar />
-      <div className="container mx-auto px-4 py-32 min-h-[60vh]">
-        <div className="bg-white shadow drop-shadow-sm rounded-lg p-8 max-w-5xl mx-auto">
+      <div className="container mx-auto px-4 pt-24 pb-12 min-h-[60vh] max-w-5xl">
+        <div className="w-full">
           {user ? (
-            <div>
+            <div className="pt-8">
               <div className="mb-6">
                 <p className="text-gray-600 text-xl mb-1">{getGreeting()}</p>
                 <h2 className="text-3xl font-bold text-gray-900">{user.full_name || 'User'}</h2>
@@ -79,8 +79,8 @@ const Dashboard = () => {
                 <div className="mt-8 space-y-12">
                   {/* Policies Section */}
                   <div className="w-full">
-                    <PolicyList 
-                      policies={dashboardData.policies} 
+                    <PolicyList
+                      policies={dashboardData.policies}
                       onAddPolicy={() => setIsAddPolicyModalOpen(true)}
                     />
                   </div>
@@ -89,7 +89,7 @@ const Dashboard = () => {
                   <div className="w-full">
                     <ClaimsList claims={dashboardData.claims} />
                   </div>
-                  
+
                   {/* Bottom Buttons */}
                   <div className="flex flex-col sm:flex-row justify-center gap-6 pt-8 pb-4">
                     <button
@@ -119,10 +119,10 @@ const Dashboard = () => {
           )}
         </div>
       </div>
-      
-      <AddPolicyModal 
-        isOpen={isAddPolicyModalOpen} 
-        onClose={() => setIsAddPolicyModalOpen(false)} 
+
+      <AddPolicyModal
+        isOpen={isAddPolicyModalOpen}
+        onClose={() => setIsAddPolicyModalOpen(false)}
         refresh={fetchDashboardData}
       />
     </div>
