@@ -33,16 +33,16 @@ const PolicyList: React.FC<PolicyListProps> = ({ policies = [], onAddPolicy }) =
 
   return (
     <div className="w-full relative group">
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="text-[22px] font-bold text-gray-800">
-          Policies <span className="text-[#f37021]/80 ml-1">({policies.length})</span>
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-lg text-gray-700">
+          My Policy ({policies.length})
         </h3>
         {onAddPolicy && (
           <button
             onClick={onAddPolicy}
-            className="bg-[#F37021] hover:bg-[#F36021] text-white px-5 py-2 rounded-xl font-bold flex items-center gap-2 shadow-lg transition-all duration-300 hover:scale-[1.05] active:scale-[0.95]"
+            className="border border-[#F37021] hover:bg-orange-50 text-gray-700 px-4 py-1.5 rounded-full font-medium flex items-center gap-2 transition-colors duration-300"
           >
-            <span className="text-xl leading-none">+</span> Add Policy
+            <span className="text-[#F37021] text-xl leading-none font-semibold">+</span> Add Policy
           </button>
         )}
       </div>
@@ -62,21 +62,14 @@ const PolicyList: React.FC<PolicyListProps> = ({ policies = [], onAddPolicy }) =
         ))}
       </div>
 
-      {/* Navigation Arrows at Bottom */}
-      <div className="flex justify-end gap-3 mt-4">
-        <button
-          onClick={() => scroll('left')}
-          className="p-3 rounded-full bg-white border border-gray-200 shadow-md hover:border-[#f37021] hover:text-[#f37021] transition-all active:scale-90"
-          aria-label="Previous"
-        >
-          <ChevronLeft size={22} />
-        </button>
+      {/* Navigation Arrows Overlay */}
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10 hidden md:block">
         <button
           onClick={() => scroll('right')}
-          className="p-3 rounded-full bg-white border border-gray-200 shadow-md hover:border-[#f37021] hover:text-[#f37021] transition-all active:scale-90"
+          className="text-[#F37021] hover:scale-110 transition-transform active:scale-95 drop-shadow-md"
           aria-label="Next"
         >
-          <ChevronRight size={22} />
+          <ChevronRight size={48} strokeWidth={2} />
         </button>
       </div>
 

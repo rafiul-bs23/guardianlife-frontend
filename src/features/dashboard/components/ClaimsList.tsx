@@ -77,18 +77,10 @@ const ClaimsList: React.FC<ClaimsListProps> = ({ claims = [] }) => {
 
   return (
     <div className="w-full relative">
-      <div className="flex justify-between items-center mb-6">
-        <div className="flex items-center gap-4">
-          <h3 className="text-[22px] font-bold text-gray-800">
-            Claims <span className="text-[#f37021]/80 ml-1">({inProgressClaims.length})</span>
-          </h3>
-          <button 
-            onClick={() => setShowAllModal(true)}
-            className="px-4 py-1.5 rounded-full bg-orange-50 text-[#f37021] text-sm font-bold border border-orange-100 hover:bg-orange-100 transition-colors shadow-sm"
-          >
-            See All ({claims.length})
-          </button>
-        </div>
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-lg text-gray-700">
+          Claims ({claims.length})
+        </h3>
       </div>
 
       {inProgressClaims.length > 0 ? (
@@ -113,22 +105,15 @@ const ClaimsList: React.FC<ClaimsListProps> = ({ claims = [] }) => {
         </div>
       )}
 
-      {/* Navigation Arrows at Bottom */}
+      {/* Navigation Arrows Overlay */}
       {inProgressClaims.length > 0 && (
-        <div className="flex justify-end gap-3 mt-4">
-          <button
-            onClick={() => scroll('left')}
-            className="p-3 rounded-full bg-white border border-gray-200 shadow-md hover:border-[#f37021] hover:text-[#f37021] transition-all active:scale-90"
-            aria-label="Previous"
-          >
-            <ChevronLeft size={22} />
-          </button>
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10 hidden md:block">
           <button
             onClick={() => scroll('right')}
-            className="p-3 rounded-full bg-white border border-gray-200 shadow-md hover:border-[#f37021] hover:text-[#f37021] transition-all active:scale-90"
+            className="text-[#F37021] hover:scale-110 transition-transform active:scale-95 drop-shadow-md"
             aria-label="Next"
           >
-            <ChevronRight size={22} />
+            <ChevronRight size={48} strokeWidth={2} />
           </button>
         </div>
       )}
