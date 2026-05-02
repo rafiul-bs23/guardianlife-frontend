@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
 import type { Claim } from '../types';
 import ClaimCard from './ClaimCard';
 import ClaimDetailsModal from './ClaimDetailsModal';
@@ -13,6 +13,8 @@ const ClaimsList: React.FC<ClaimsListProps> = ({ claims = [] }) => {
   const [selectedClaim, setSelectedClaim] = useState<Claim | null>(null);
   const [showAllModal, setShowAllModal] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
   const inProgressClaims = useMemo(() => {
     return claims.filter((claim) => 
@@ -20,6 +22,20 @@ const ClaimsList: React.FC<ClaimsListProps> = ({ claims = [] }) => {
       claim.actualClaimStatus?.toLowerCase().includes('in progress')
     );
   }, [claims]);
+
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 20);
+      setCanScrollRight(Math.ceil(scrollLeft) < scrollWidth - clientWidth - 2);
+    }
+  };
+
+  useEffect(() => {
+    handleScroll();
+    window.addEventListener('resize', handleScroll);
+    return () => window.removeEventListener('resize', handleScroll);
+  }, [inProgressClaims]);
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
@@ -84,37 +100,53 @@ const ClaimsList: React.FC<ClaimsListProps> = ({ claims = [] }) => {
       </div>
 
       {inProgressClaims.length > 0 ? (
-        <div 
-          ref={scrollRef}
-          className="flex gap-5 overflow-x-auto no-scrollbar pb-8 px-1 scroll-smooth snap-x snap-mandatory"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          {inProgressClaims.map((claim) => (
-            <div key={claim.intimationNo} className="min-w-[320px] md:min-w-[360px] snap-start">
-              <ClaimCard 
-                claim={claim} 
-                onClick={() => setSelectedClaim(claim)}
-              />
+        <div className="relative">
+          {/* Left Blur + Arrow */}
+          {canScrollLeft && (
+            <div className="absolute left-0 top-0 bottom-8 w-24 bg-gradient-to-r from-white via-white/90 to-transparent z-10 hidden md:flex items-center justify-start pointer-events-none">
+              <button
+                onClick={() => scroll('left')}
+                className="text-[#F37021] hover:scale-110 transition-transform active:scale-95 drop-shadow-md pointer-events-auto"
+                aria-label="Previous"
+              >
+                <ChevronLeft size={48} strokeWidth={2} />
+              </button>
             </div>
-          ))}
+          )}
+
+          {/* Right Blur + Arrow */}
+          {canScrollRight && (
+            <div className="absolute right-0 top-0 bottom-8 w-24 bg-gradient-to-l from-white via-white/90 to-transparent z-10 hidden md:flex items-center justify-end pointer-events-none">
+              <button
+                onClick={() => scroll('right')}
+                className="text-[#F37021] hover:scale-110 transition-transform active:scale-95 drop-shadow-md pointer-events-auto"
+                aria-label="Next"
+              >
+                <ChevronRight size={48} strokeWidth={2} />
+              </button>
+            </div>
+          )}
+
+          <div 
+            ref={scrollRef}
+            onScroll={handleScroll}
+            className="flex gap-5 overflow-x-auto no-scrollbar pb-8 px-1 scroll-smooth snap-x snap-mandatory"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {inProgressClaims.map((claim) => (
+              <div key={claim.intimationNo} className="min-w-[320px] md:min-w-[360px] snap-start">
+                <ClaimCard 
+                  claim={claim} 
+                  onClick={() => setSelectedClaim(claim)}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       ) : (
         <div className="bg-blue-50/50 p-10 rounded-3xl border border-blue-100 text-center mb-8">
            <p className="text-blue-700 font-medium text-lg">No active "In Progress" claims right now.</p>
            <p className="text-blue-500 text-sm mt-1">Check "See All" for your full claim history.</p>
-        </div>
-      )}
-
-      {/* Navigation Arrows Overlay */}
-      {inProgressClaims.length > 0 && (
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10 hidden md:block">
-          <button
-            onClick={() => scroll('right')}
-            className="text-[#F37021] hover:scale-110 transition-transform active:scale-95 drop-shadow-md"
-            aria-label="Next"
-          >
-            <ChevronRight size={48} strokeWidth={2} />
-          </button>
         </div>
       )}
 
