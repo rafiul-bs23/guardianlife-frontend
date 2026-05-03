@@ -206,7 +206,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false, animateIn = false 
                             label="Logout"
                             variant="base"
                             onClick={handleLogout}
-                            className="h-[40px] md:h-[45px] !bg-red-500 hover:!bg-red-600"
+                            className="h-[40px] md:h-[45px]"
                             labelClass="!text-[12px] md:!text-[18px]"
                             // leadingIcon={LogOut}
                         />
