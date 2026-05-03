@@ -168,67 +168,67 @@ export const MENU_DATA: MenuItem[] = [
 
             },
 
+        ]
+
+    },
+
+    {
+
+        label: "QuickBuy",
+
+        children: [
+
             {
 
-                label: "QuickBuy",
+                label: "Term Life Insurance",
 
                 children: [
 
-                    {
+                    { label: "Easylife Special", path: "/products/easylife-special" },
 
-                        label: "Term Life Insurance",
-
-                        children: [
-
-                            { label: "Easylife Special", path: "/products/easylife-special" },
-
-                            { label: "Easylife Plus Special", path: "/products/easylife-plus-special" },
-
-                        ]
-
-                    },
-
-                    {
-
-                        label: "Savings Plan",
-
-                        children: [
-
-                            { label: "Easylife MSP", path: "/products/easylife-msp" },
-
-                        ]
-
-                    },
-
-                    {
-
-                        label: "Women's Savings Plan",
-
-                        children: [
-
-                            { label: "JAYA", path: "/products/jaya" },
-
-                        ]
-
-                    },
-
-                    {
-
-                        label: "Special Insurance Plans",
-
-                        children: [
-
-                            { label: "Cancer Care", path: "/products/cancer-care-plan" },
-
-                            { label: "Guardian Accident Care", path: "/products/accident-care" },
-
-                        ]
-
-                    }
+                    { label: "Easylife Plus Special", path: "/products/easylife-plus-special" },
 
                 ]
 
             },
+
+            {
+
+                label: "Savings Plan",
+
+                children: [
+
+                    { label: "Easylife MSP", path: "/products/easylife-msp" },
+
+                ]
+
+            },
+
+            {
+
+                label: "Women's Savings Plan",
+
+                children: [
+
+                    { label: "JAYA", path: "/products/jaya" },
+
+                ]
+
+            },
+
+            {
+
+                label: "Special Insurance Plans",
+
+                children: [
+
+                    { label: "Cancer Care", path: "/products/cancer-care-plan" },
+
+                    { label: "Guardian Accident Care", path: "/products/accident-care" },
+
+                ]
+
+            }
 
         ]
 
