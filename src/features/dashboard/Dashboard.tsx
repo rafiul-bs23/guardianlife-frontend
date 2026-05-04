@@ -86,9 +86,11 @@ const Dashboard = () => {
                   </div>
 
                   {/* Claims Section */}
-                  <div className="w-full">
-                    <ClaimsList claims={dashboardData.claims} />
-                  </div>
+                  {dashboardData.claims && dashboardData.claims.length > 0 && (
+                    <div className="w-full">
+                      <ClaimsList claims={dashboardData.claims} />
+                    </div>
+                  )}
 
                   {/* Bottom Buttons */}
                   <div className="flex flex-col sm:flex-row justify-center gap-6 pt-8 pb-4">
