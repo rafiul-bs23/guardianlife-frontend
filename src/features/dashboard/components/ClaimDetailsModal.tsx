@@ -3,6 +3,8 @@ import { createPortal } from 'react-dom';
 import { X, Check } from 'lucide-react';
 import type { Claim } from '../types';
 import { useClaimDetails } from '../hooks/useClaimDetails';
+import { uploadFile, fetchFileSettings } from '../../claim-submit/api/claimSubmitApi';
+import type { FileSettingsResponse } from '../../claim-submit/types';
 
 interface ClaimDetailsModalProps {
   isOpen: boolean;
@@ -33,6 +35,106 @@ const formatCurrency = (amount?: number | string | null) => {
 const ClaimDetailsModal: React.FC<ClaimDetailsModalProps> = ({ isOpen, onClose, claim }) => {
   const { claimData, isLoading, error, fetchDetails, reset } = useClaimDetails();
   const [activeTab, setActiveTab] = useState('Tracking');
+
+  const [fileSettings, setFileSettings] = useState<FileSettingsResponse | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState<{ id: number; name: string }[]>([]);
+  const [apiErrors, setApiErrors] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+  const status = claimData?.claimStatus || claim?.claimStatus;
+  const isDocumentsRequired = status === 'DOCUMENTS REQUIRED';
+
+  useEffect(() => {
+    if (activeTab === 'Documents' && isDocumentsRequired && !fileSettings) {
+      const getFileSettings = async () => {
+        try {
+          const res = await fetchFileSettings(3);
+          setFileSettings(res);
+        } catch (err) {
+          console.error(err);
+        }
+      };
+      getFileSettings();
+    }
+  }, [activeTab, isDocumentsRequired, fileSettings]);
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (!files.length || !fileSettings) return;
+
+    setApiErrors([]);
+    setIsUploading(true);
+
+    const newUploadedFiles = [...uploadedFiles];
+    const newErrors: string[] = [];
+
+    for (const file of files) {
+      const fileSizeMB = file.size / (1024 * 1024);
+      const minSizeMB = fileSettings.minFileSize / 1024;
+      const maxSizeMB = fileSettings.maxFileSize / 1024;
+
+      if (fileSizeMB < minSizeMB || fileSizeMB > maxSizeMB) {
+        newErrors.push(`File ${file.name} size must be between ${minSizeMB}MB and ${maxSizeMB}MB`);
+        continue;
+      }
+
+      const extension = '.' + file.name.split('.').pop()?.toLowerCase();
+      const allowedExtensions = fileSettings.fileExtensions.toLowerCase();
+      if (!allowedExtensions.includes(extension)) {
+        newErrors.push(`Invalid file type for ${file.name}. Allowed: ${fileSettings.fileExtensions}`);
+        continue;
+      }
+
+      try {
+        const base64Data = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const base64 = (reader.result as string).split(',')[1];
+            resolve(base64);
+          };
+          reader.onerror = () => reject(new Error('Failed to read file'));
+          reader.readAsDataURL(file);
+        });
+
+        const res = await uploadFile({
+          service: 'HiClaim',
+          fileName: file.name,
+          extension: extension,
+          base64Data: base64Data
+        });
+
+        newUploadedFiles.push({ id: res.id, name: file.name });
+      } catch (err: any) {
+        newErrors.push(`Failed to upload ${file.name}: ${err?.response?.data?.message || err.message}`);
+      }
+    }
+
+    setUploadedFiles(newUploadedFiles);
+    if (newErrors.length > 0) setApiErrors(newErrors);
+    setIsUploading(false);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const removeFile = (id: number) => {
+    setUploadedFiles(prev => prev.filter(f => f.id !== id));
+  };
+
+  const onSubmitDocuments = async () => {
+    if (uploadedFiles.length === 0) return;
+    setIsSubmitting(true);
+    setApiErrors([]);
+    try {
+      console.log('Submitted document IDs:', uploadedFiles.map(f => f.id));
+      alert('Documents submitted successfully!');
+      setUploadedFiles([]);
+    } catch (err: any) {
+      setApiErrors([err?.response?.data?.message || err.message]);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     if (isOpen && claim?.intimationNo && claim?.channelId !== undefined) {
@@ -197,6 +299,83 @@ const ClaimDetailsModal: React.FC<ClaimDetailsModalProps> = ({ isOpen, onClose, 
                  )}
                  {activeTab === 'Documents' && (
                     <div className="space-y-4 pt-4">
+                      {isDocumentsRequired && (
+                        <div className="mb-6 space-y-4">
+                          <h4 className="font-semibold text-gray-800">Submit Required Documents</h4>
+                          
+                          {apiErrors.length > 0 && (
+                            <div className="p-3 bg-red-50 text-red-600 text-sm rounded-xl border border-red-100 space-y-1">
+                              {apiErrors.map((err, i) => (
+                                <p key={i}>• {err}</p>
+                              ))}
+                            </div>
+                          )}
+
+                          <input
+                            type="file"
+                            multiple
+                            ref={fileInputRef}
+                            className="hidden"
+                            onChange={handleFileChange}
+                            accept={fileSettings?.fileExtensions?.replace(/,/g, ', ')}
+                          />
+
+                          <div
+                            className={`border-2 border-dashed ${isUploading ? 'border-[#F28C28] bg-orange-50' : 'border-gray-300 bg-gray-50'} rounded-xl p-6 hover:bg-gray-100 transition-colors cursor-pointer text-center flex flex-col items-center justify-center`}
+                            onClick={() => !isUploading && fileInputRef.current?.click()}
+                          >
+                            {isUploading ? (
+                              <div className="flex flex-col items-center">
+                                <div className="w-8 h-8 border-4 border-t-[#F28C28] border-gray-200 rounded-full animate-spin mb-3" />
+                                <p className="text-gray-600 font-medium">Uploading...</p>
+                              </div>
+                            ) : (
+                              <>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                                </svg>
+                                <h3 className="text-gray-700 font-medium mb-1">Click to upload multiple files</h3>
+                                <p className="text-xs text-gray-500">
+                                  {fileSettings
+                                    ? `Allowed: ${fileSettings.fileExtensions}. Max size: ${fileSettings.maxFileSize / 1024}MB.`
+                                    : 'Loading requirements...'}
+                                </p>
+                              </>
+                            )}
+                          </div>
+
+                          {uploadedFiles.length > 0 && (
+                            <div className="space-y-2 mt-4">
+                              <h5 className="text-sm font-medium text-gray-600">Ready to Submit ({uploadedFiles.length})</h5>
+                              {uploadedFiles.map((file) => (
+                                <div key={file.id} className="flex items-center justify-between p-2.5 bg-gray-50 rounded-lg border border-gray-200">
+                                  <span className="text-sm text-gray-700 truncate mr-2">{file.name}</span>
+                                  <button
+                                    type="button"
+                                    onClick={() => removeFile(file.id)}
+                                    className="text-red-500 p-1 hover:bg-red-50 rounded-md"
+                                  >
+                                    <X size={16} />
+                                  </button>
+                                </div>
+                              ))}
+                              
+                              <div className="pt-2">
+                                <button
+                                  onClick={onSubmitDocuments}
+                                  disabled={isSubmitting}
+                                  className="w-full bg-[#F28C28] text-white py-2.5 rounded-xl font-medium hover:bg-orange-600 transition-colors disabled:opacity-50"
+                                >
+                                  {isSubmitting ? 'Submitting...' : 'Submit Documents'}
+                                </button>
+                              </div>
+                            </div>
+                          )}
+                          <hr className="my-6 border-gray-100" />
+                        </div>
+                      )}
+
+                      <h4 className="font-semibold text-gray-800">Existing Documents</h4>
                       {claimData.documents && claimData.documents.length > 0 ? (
                         claimData.documents.map((doc: any, idx: number) => (
                            <div key={idx} className="flex justify-between items-center bg-gray-50 px-5 py-2 rounded-2xl border border-gray-100">
