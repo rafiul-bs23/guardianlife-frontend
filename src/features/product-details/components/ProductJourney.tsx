@@ -35,7 +35,7 @@ const ProductJourney: React.FC<ProductJourneyProps> = ({ data }) => {
                     const containerPaddingBottom = maxBottomLevel === 2 ? 'pb-60' : (maxBottomLevel === 1 ? 'pb-36' : 'pb-20');
 
                     return (
-                        <div className={`relative w-full max-w-5xl mx-auto ${containerPaddingTop} ${containerPaddingBottom}`}>
+                        <div className={`relative w-full max-w-5xl overflow-scroll mx-auto ${containerPaddingTop} ${containerPaddingBottom}`}>
 
                             {/* Main Horizontal Line */}
                             <div className="absolute top-1/2 left-0 w-full h-1.5 bg-[#2A2B68] -translate-y-1/2 rounded-full"></div>
