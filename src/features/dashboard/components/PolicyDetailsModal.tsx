@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 import type { Policy } from '../types';
 import { usePolicyInformation } from '../hooks/usePolicyInformation';
+import { fetchPolicyClaimsApi } from '../api/dashboardApi';
 
 interface PolicyDetailsModalProps {
   isOpen: boolean;
@@ -35,6 +36,9 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
   console.log(policyData);
 
   const [activeTab, setActiveTab] = useState('Basic Info');
+  const [claims, setClaims] = useState<any[] | null>(null);
+  const [isLoadingClaims, setIsLoadingClaims] = useState(false);
+  const [claimsError, setClaimsError] = useState<string | null>(null);
 
   useEffect(() => {
     if (isOpen && policy?.policyNumber) {
@@ -42,8 +46,28 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
     } else {
       reset();
       setActiveTab('Basic Info');
+      setClaims(null);
+      setClaimsError(null);
     }
   }, [isOpen, policy, fetchInformation, reset]);
+
+  useEffect(() => {
+    if (activeTab === 'Claims' && isOpen && policy?.policyNumber && claims === null && !isLoadingClaims) {
+      const fetchClaims = async () => {
+        setIsLoadingClaims(true);
+        setClaimsError(null);
+        try {
+          const res = await fetchPolicyClaimsApi(policy.policyNumber);
+          setClaims(res);
+        } catch (err: any) {
+          setClaimsError(err?.response?.data?.message || err.message || 'Failed to fetch claims');
+        } finally {
+          setIsLoadingClaims(false);
+        }
+      };
+      fetchClaims();
+    }
+  }, [activeTab, isOpen, policy, claims, isLoadingClaims]);
 
   // Body scroll lock
   useEffect(() => {
@@ -295,7 +319,57 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
                     )}
                   </div>
                 )}
-                {['Claims', 'Premiums', 'Transactions', 'Loans'].includes(activeTab) && (
+                {activeTab === 'Claims' && (
+                  <div className="space-y-4">
+                    {isLoadingClaims ? (
+                      <div className="flex justify-center items-center py-12">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#F28C28]"></div>
+                      </div>
+                    ) : claimsError ? (
+                      <div className="text-center text-red-500 py-8">{claimsError}</div>
+                    ) : claims && claims.length > 0 ? (
+                      <div className="space-y-4">
+                        <h4 className="font-semibold text-gray-800 text-[18px]">Claim Details</h4>
+                        {claims.map((claim: any, idx: number) => {
+                          const isSettled = claim.claimStatus?.toUpperCase() === 'SETTLED';
+                          return (
+                            <div key={idx} className="bg-white border border-gray-100 rounded-[14px] p-5 shadow-[0_2px_8px_rgb(0,0,0,0.04)] relative overflow-hidden">
+                              <div className="grid grid-cols-2 gap-y-5 gap-x-4">
+                                <div>
+                                  <div className="text-gray-400 text-sm mb-1.5">Intimation No</div>
+                                  <div className="text-[15px] font-medium text-gray-800">{claim.intimationNo || '-'}</div>
+                                </div>
+                                <div className="relative">
+                                  <div className="text-gray-400 text-sm mb-1.5">Claim Amount</div>
+                                  <div className="text-[15px] font-medium text-gray-800">{formatCurrency(claim.dueClaim)}</div>
+                                  <div className="absolute top-1.5 right-0">
+                                    <div className={`w-2.5 h-2.5 rounded-full ring-4 ${isSettled ? 'bg-[#00603b] ring-[#d0ebd6]' : 'bg-[#e21b4d] ring-[#fbe2e8]'}`}></div>
+                                  </div>
+                                </div>
+                                <div>
+                                  <div className="text-gray-400 text-sm mb-1.5">Claim Date</div>
+                                  <div className="text-[15px] font-medium text-gray-800">{formatDate(claim.claimDate)}</div>
+                                </div>
+                                <div>
+                                  <div className="text-gray-400 text-sm mb-1.5">Status</div>
+                                  <div className="text-[15px] font-medium text-gray-800 uppercase">{claim.claimStatus || '-'}</div>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <div className="text-center text-gray-500 py-10 flex flex-col items-center">
+                        <div className="bg-orange-50 rounded-full w-16 h-16 flex items-center justify-center mb-4 text-[#F28C28]">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /><polyline points="10 9 9 9 8 9" /></svg>
+                        </div>
+                        <p className="text-gray-600 font-medium mb-1">No Claims Available</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+                {['Premiums', 'Transactions', 'Loans'].includes(activeTab) && (
                   <div className="text-center text-gray-500 py-10 flex flex-col items-center">
                     <div className="bg-orange-50 rounded-full w-16 h-16 flex items-center justify-center mb-4 text-[#F28C28]">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /><polyline points="10 9 9 9 8 9" /></svg>

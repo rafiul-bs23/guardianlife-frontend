@@ -42,3 +42,13 @@ export const withOtpMappingApi = async (phoneNumber: string, otp: string, email:
   });
   return response.data;
 };
+
+export const fetchPolicyClaimsApi = async (policyNumber: string) => {
+  const response = await axiosClient.get(`${DASHBOARD_BASE_URL}/claim/list`, {
+    params: {
+      PolicyNumber: policyNumber
+    }
+  });
+  return response.data;
+};
+
