@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { X, Check } from 'lucide-react';
 import type { Claim } from '../types';
 import { useClaimDetails } from '../hooks/useClaimDetails';
-import { uploadFile, fetchFileSettings } from '../../claim-submit/api/claimSubmitApi';
+import { uploadFile, fetchFileSettings, submitClaimDocuments } from '../../claim-submit/api/claimSubmitApi';
 import type { FileSettingsResponse } from '../../claim-submit/types';
 
 interface ClaimDetailsModalProps {
@@ -123,12 +123,28 @@ const ClaimDetailsModal: React.FC<ClaimDetailsModalProps> = ({ isOpen, onClose, 
 
   const onSubmitDocuments = async () => {
     if (uploadedFiles.length === 0) return;
+
+    const intimationNo = claimData?.intimationNo || claim?.intimationNo;
+    const channelId = claimData?.channelId ?? claim?.channelId;
+
+    if (!intimationNo || channelId === undefined) {
+      setApiErrors(['Missing claim information required for submission']);
+      return;
+    }
+
     setIsSubmitting(true);
     setApiErrors([]);
     try {
-      console.log('Submitted document IDs:', uploadedFiles.map(f => f.id));
+      await submitClaimDocuments({
+        channelId: Number(channelId),
+        intimationNo: String(intimationNo),
+        documents: uploadedFiles.map(f => f.id)
+      });
       alert('Documents submitted successfully!');
       setUploadedFiles([]);
+      
+      // Refresh claim details after submission
+      fetchDetails(intimationNo, channelId);
     } catch (err: any) {
       setApiErrors([err?.response?.data?.message || err.message]);
     } finally {
