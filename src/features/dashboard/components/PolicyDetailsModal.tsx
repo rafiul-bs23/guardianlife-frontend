@@ -254,7 +254,7 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
           </div>
 
           {/* Tabs */}
-          <div className="overflow-x-auto hide-scrollbar mb-6 pb-1">
+          <div className="overflow-x-auto mb-6 pb-1">
             <div className="flex gap-2 min-w-max">
               {tabs.map((tab) => (
                 <button
