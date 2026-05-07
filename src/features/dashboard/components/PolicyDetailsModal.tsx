@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 import type { Policy } from '../types';
 import { usePolicyInformation } from '../hooks/usePolicyInformation';
-import { fetchPolicyClaimsApi } from '../api/dashboardApi';
+import { fetchPolicyClaimsApi, fetchPolicyLoansApi } from '../api/dashboardApi';
 
 interface PolicyDetailsModalProps {
   isOpen: boolean;
@@ -41,6 +41,11 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
   const [isLoadingClaims, setIsLoadingClaims] = useState(false);
   const [claimsError, setClaimsError] = useState<string | null>(null);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [loans, setLoans] = useState<any[] | null>(null);
+  const [isLoadingLoans, setIsLoadingLoans] = useState(false);
+  const [loansError, setLoansError] = useState<string | null>(null);
+
   useEffect(() => {
     if (isOpen && policy?.policyNumber) {
       fetchInformation(policy.policyNumber);
@@ -49,6 +54,8 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
       setActiveTab('Basic Info');
       setClaims(null);
       setClaimsError(null);
+      setLoans(null);
+      setLoansError(null);
     }
   }, [isOpen, policy, fetchInformation, reset]);
 
@@ -71,6 +78,27 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
       fetchClaims();
     }
   }, [activeTab, isOpen, policy, claims, isLoadingClaims]);
+
+  // Fetch loans when Loans tab is active
+  useEffect(() => {
+    if (activeTab === 'Loans' && isOpen && policy?.policyNumber && loans === null && !isLoadingLoans) {
+      const fetchLoans = async () => {
+        setIsLoadingLoans(true);
+        setLoansError(null);
+        try {
+          const res = await fetchPolicyLoansApi(policy.policyNumber);
+          setLoans(res);
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (err: any) {
+          setLoansError(err?.response?.data?.errors?.[0]?.description || err.message || 'Failed to fetch loans');
+          setLoans([]);
+        } finally {
+          setIsLoadingLoans(false);
+        }
+      };
+      fetchLoans();
+    }
+  }, [activeTab, isOpen, policy, loans, isLoadingLoans]);
 
   // Body scroll lock
   useEffect(() => {
@@ -374,7 +402,58 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
                     )}
                   </div>
                 )}
-                {['Premiums', 'Transactions', 'Loans'].includes(activeTab) && (
+                {activeTab === 'Loans' && (
+                  <div className="space-y-4">
+                    {isLoadingLoans ? (
+                      <div className="flex justify-center items-center py-12">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#F28C28]"></div>
+                      </div>
+                    ) : loansError ? (
+                      <div className="text-center text-red-500 py-8">{loansError}</div>
+                    ) : loans && loans.length > 0 ? (
+                      <div className="space-y-4">
+                        <h4 className="font-semibold text-gray-800 text-[18px]">Loan Details</h4>
+                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                        {loans.map((loan: any, idx: number) => {
+                          const isActive = loan.loanStatus?.toUpperCase() === 'ACTIVE';
+                          return (
+                            <div key={idx} className="bg-white border border-gray-100 rounded-[14px] p-5 shadow-[0_2px_8px_rgb(0,0,0,0.04)] relative overflow-hidden">
+                              <div className="grid grid-cols-2 gap-y-5 gap-x-4">
+                                <div>
+                                  <div className="text-gray-400 text-sm mb-1.5">Loan No</div>
+                                  <div className="text-[15px] font-medium text-gray-800">{loan.loanNo || '-'}</div>
+                                </div>
+                                <div className="relative">
+                                  <div className="text-gray-400 text-sm mb-1.5">Loan Amount</div>
+                                  <div className="text-[15px] font-medium text-gray-800">{formatCurrency(loan.loanAmount)}</div>
+                                  <div className="absolute top-1.5 right-0">
+                                    <div className={`w-2.5 h-2.5 rounded-full ring-4 ${isActive ? 'bg-[#1d6fcf] ring-[#d0e4f7]' : 'bg-[#00603b] ring-[#d0ebd6]'}`}></div>
+                                  </div>
+                                </div>
+                                <div>
+                                  <div className="text-gray-400 text-sm mb-1.5">Loan Date</div>
+                                  <div className="text-[15px] font-medium text-gray-800">{formatDate(loan.loanDate)}</div>
+                                </div>
+                                <div>
+                                  <div className="text-gray-400 text-sm mb-1.5">Due Principal</div>
+                                  <div className="text-[15px] font-medium text-gray-800">{formatCurrency(loan.duePrincipal)}</div>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <div className="text-center text-gray-500 py-10 flex flex-col items-center">
+                        <div className="bg-orange-50 rounded-full w-16 h-16 flex items-center justify-center mb-4 text-[#F28C28]">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /><polyline points="10 9 9 9 8 9" /></svg>
+                        </div>
+                        <p className="text-gray-600 font-medium mb-1">No Loans Available</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+                {['Premiums', 'Transactions'].includes(activeTab) && (
                   <div className="text-center text-gray-500 py-10 flex flex-col items-center">
                     <div className="bg-orange-50 rounded-full w-16 h-16 flex items-center justify-center mb-4 text-[#F28C28]">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /><polyline points="10 9 9 9 8 9" /></svg>

@@ -52,3 +52,10 @@ export const fetchPolicyClaimsApi = async (policyNumber: string) => {
   return response.data;
 };
 
+export const fetchPolicyLoansApi = async (policyNumber: string) => {
+  const response = await axiosClient.post(`${DASHBOARD_BASE_URL}/policy/loan/list`, {
+    policyNo: policyNumber
+  });
+  return response.data;
+};
+
