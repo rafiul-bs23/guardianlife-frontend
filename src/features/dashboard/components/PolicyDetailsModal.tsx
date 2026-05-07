@@ -36,6 +36,7 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
   console.log(policyData);
 
   const [activeTab, setActiveTab] = useState('Basic Info');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [claims, setClaims] = useState<any[] | null>(null);
   const [isLoadingClaims, setIsLoadingClaims] = useState(false);
   const [claimsError, setClaimsError] = useState<string | null>(null);
@@ -59,8 +60,10 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
         try {
           const res = await fetchPolicyClaimsApi(policy.policyNumber);
           setClaims(res);
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
-          setClaimsError(err?.response?.data?.message || err.message || 'Failed to fetch claims');
+          setClaimsError(err?.response?.data?.errors?.[0]?.description || err.message || 'Failed to fetch claims');
+          setClaims([]);
         } finally {
           setIsLoadingClaims(false);
         }
@@ -272,6 +275,7 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
                 {activeTab === 'Nominee' && (
                   <div className="space-y-4">
                     {policyData.nominees && policyData.nominees.length > 0 ? (
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       policyData.nominees.map((nominee: any, idx: number) => (
                         <div key={idx} className="border border-gray-100 rounded-xl p-6 bg-gray-50/50 hover:bg-gray-50 transition-colors">
                           <div className="space-y-5">
@@ -308,6 +312,7 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
                 {activeTab === 'Supplementary' && (
                   <div className="space-y-4">
                     {policyData.supplementary && policyData.supplementary.length > 0 ? (
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       policyData.supplementary.map((sup: any, idx: number) => (
                         <div key={idx} className="flex justify-between items-center bg-gray-50 p-5 rounded-xl border border-gray-100">
                           <span className="text-[17px] text-gray-700 font-medium">{sup.name || 'Supplementary Benefit'}</span>
