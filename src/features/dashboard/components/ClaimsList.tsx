@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import type { Claim } from '../types';
 import ClaimCard from './ClaimCard';
 import ClaimDetailsModal from './ClaimDetailsModal';
@@ -16,13 +16,6 @@ const ClaimsList: React.FC<ClaimsListProps> = ({ claims = [] }) => {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const inProgressClaims = useMemo(() => {
-    return claims.filter((claim) => 
-      claim.claimStatus.toLowerCase().includes('in progress') || 
-      claim.actualClaimStatus?.toLowerCase().includes('in progress')
-    );
-  }, [claims]);
-
   const handleScroll = () => {
     if (scrollRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
@@ -35,7 +28,7 @@ const ClaimsList: React.FC<ClaimsListProps> = ({ claims = [] }) => {
     handleScroll();
     window.addEventListener('resize', handleScroll);
     return () => window.removeEventListener('resize', handleScroll);
-  }, [inProgressClaims]);
+  }, [claims]);
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
@@ -84,11 +77,7 @@ const ClaimsList: React.FC<ClaimsListProps> = ({ claims = [] }) => {
   };
 
   if (!claims || claims.length === 0) {
-    return (
-      <div className="text-center py-12 bg-white rounded-2xl border-2 border-dashed border-gray-100">
-        <p className="text-gray-400 font-medium">No claims found.</p>
-      </div>
-    );
+    return null;
   }
 
   return (
@@ -99,8 +88,7 @@ const ClaimsList: React.FC<ClaimsListProps> = ({ claims = [] }) => {
         </h3>
       </div>
 
-      {inProgressClaims.length > 0 ? (
-        <div className="relative">
+            <div className="relative">
           {/* Left Blur + Arrow */}
           {canScrollLeft && (
             <div className="absolute left-0 top-0 bottom-8 w-24 bg-gradient-to-r from-white via-white/90 to-transparent z-10 hidden md:flex items-center justify-start pointer-events-none">
@@ -133,7 +121,7 @@ const ClaimsList: React.FC<ClaimsListProps> = ({ claims = [] }) => {
             className="flex gap-5 overflow-x-auto no-scrollbar pb-8 px-1 scroll-smooth snap-x snap-mandatory"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
-            {inProgressClaims.map((claim) => (
+            {claims.map((claim) => (
               <div key={claim.intimationNo} className="min-w-[320px] md:min-w-[360px] snap-start">
                 <ClaimCard 
                   claim={claim} 
@@ -143,12 +131,6 @@ const ClaimsList: React.FC<ClaimsListProps> = ({ claims = [] }) => {
             ))}
           </div>
         </div>
-      ) : (
-        <div className="bg-blue-50/50 p-10 rounded-3xl border border-blue-100 text-center mb-8">
-           <p className="text-blue-700 font-medium text-lg">No active "In Progress" claims right now.</p>
-           <p className="text-blue-500 text-sm mt-1">Check "See All" for your full claim history.</p>
-        </div>
-      )}
 
       <ClaimDetailsModal
         isOpen={!!selectedClaim}

@@ -75,20 +75,22 @@ const Dashboard = () => {
                 <div className="mt-8 py-10 text-center">
                   <p className="text-gray-500 font-medium">Loading...</p>
                 </div>
-              ) : dashboardData && (
+              ) : (
                 <div className="mt-8 space-y-12">
                   {/* Policies Section */}
                   <div className="w-full">
                     <PolicyList
-                      policies={dashboardData.policies}
+                      policies={dashboardData?.policies}
                       onAddPolicy={() => setIsAddPolicyModalOpen(true)}
                     />
                   </div>
 
                   {/* Claims Section */}
-                  <div className="w-full">
-                    <ClaimsList claims={dashboardData.claims} />
-                  </div>
+                  {dashboardData?.claims && dashboardData.claims.length > 0 && (
+                    <div className="w-full">
+                      <ClaimsList claims={dashboardData.claims} />
+                    </div>
+                  )}
 
                   {/* Bottom Buttons */}
                   <div className="flex flex-col sm:flex-row justify-center gap-6 pt-8 pb-4">

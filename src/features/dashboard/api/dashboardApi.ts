@@ -42,3 +42,37 @@ export const withOtpMappingApi = async (phoneNumber: string, otp: string, email:
   });
   return response.data;
 };
+
+export const fetchPolicyClaimsApi = async (policyNumber: string) => {
+  const response = await axiosClient.get(`${DASHBOARD_BASE_URL}/claim/list`, {
+    params: {
+      PolicyNumber: policyNumber
+    }
+  });
+  return response.data;
+};
+
+export const fetchPolicyLoansApi = async (policyNumber: string) => {
+  const response = await axiosClient.post(`${DASHBOARD_BASE_URL}/policy/loan/list`, {
+    policyNo: policyNumber
+  });
+  return response.data;
+};
+
+export const fetchPolicyPremiumsApi = async (policyNo: string, pageNumber: number = 1, pageSize: number = 50) => {
+  const response = await axiosClient.post(`${DASHBOARD_BASE_URL}/policy/premium-details`, {
+    policyNo,
+    pageNumber,
+    pageSize
+  });
+  return response.data;
+};
+
+export const fetchPolicyTransactionsApi = async (policyNo: string, pageNumber: number = 1, pageSize: number = 50) => {
+  const response = await axiosClient.post(`${DASHBOARD_BASE_URL}/policy/transaction-details`, {
+    policyNo,
+    pageNumber,
+    pageSize
+  });
+  return response.data;
+};

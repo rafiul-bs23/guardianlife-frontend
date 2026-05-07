@@ -40,7 +40,7 @@ export const mockClaimData = {
     claim_status: {},
     customer_stories: {
         video_thumbnail: "assets/images/productDetails/videoOvarlay.png",
-        video_url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        video_url: "https://www.youtube.com/watch?v=gTjbTJTzfrM"
     }
 };
 

@@ -45,3 +45,8 @@ export const submitGopClaim = async (payload: GopSubmitRequest): Promise<any> =>
   const response = await axiosClient.post(`${CLAIMS_BASE_URL}/claim/gop-submission`, payload);
   return response.data;
 };
+
+export const submitClaimDocuments = async (payload: { channelId: number; intimationNo: string; documents: number[] }): Promise<any> => {
+  const response = await axiosClient.post(`${CLAIMS_BASE_URL}/claim/document/submit`, payload);
+  return response.data;
+};

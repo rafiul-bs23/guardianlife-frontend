@@ -258,7 +258,7 @@ export const BOOST_YOUR_COVERAGE = {
             { "name": "Gold+", "limit_per_year": 400000 },
             { "name": "Platinum", "limit_per_year": 500000 }
         ],
-        "brochure_pdf": "https://example.com/brochures/health-insurance.pdf"
+        "brochure_pdf": "https://drive.google.com/file/d/19q3WUR49YUMm5XjNqwrV__Mj9HO9-Lii/view?usp=sharing"
     },
     "ci": {
         "title": "Critical Illness Plan",

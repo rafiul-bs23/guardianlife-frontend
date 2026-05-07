@@ -286,6 +286,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
       
       if (isClaimSubmission) {
         if (isPhysicianRequired) fieldsToValidate.push('physicianName');
+        if (selectedClaimType?.name === 'MATERNITY' || isIPD) fieldsToValidate.push('cabinNo');
         fieldsToValidate.push('claimedAmount');
       }
     }
@@ -725,7 +726,7 @@ const ClaimStepperForm: React.FC<ClaimStepperFormProps> = ({ isOpen, onClose, po
                     />
                   </div>
 
-                  {selectedClaimType?.name === 'MATERNITY' && (
+                  {(selectedClaimType?.name === 'MATERNITY' || isIPD) && (
                     <div>
                       <label className="block text-sm text-gray-400 mb-2">Bed/Cabin Number <span className="text-red-500">*</span></label>
                       <input
