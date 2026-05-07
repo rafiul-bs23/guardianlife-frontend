@@ -59,3 +59,20 @@ export const fetchPolicyLoansApi = async (policyNumber: string) => {
   return response.data;
 };
 
+export const fetchPolicyPremiumsApi = async (policyNo: string, pageNumber: number = 1, pageSize: number = 50) => {
+  const response = await axiosClient.post(`${DASHBOARD_BASE_URL}/policy/premium-details`, {
+    policyNo,
+    pageNumber,
+    pageSize
+  });
+  return response.data;
+};
+
+export const fetchPolicyTransactionsApi = async (policyNo: string, pageNumber: number = 1, pageSize: number = 50) => {
+  const response = await axiosClient.post(`${DASHBOARD_BASE_URL}/policy/transaction-details`, {
+    policyNo,
+    pageNumber,
+    pageSize
+  });
+  return response.data;
+};
