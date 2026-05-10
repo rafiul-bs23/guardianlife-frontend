@@ -55,6 +55,7 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
   const [transactions, setTransactions] = useState<any[] | null>(null);
   const [isLoadingTransactions, setIsLoadingTransactions] = useState(false);
   const [transactionsError, setTransactionsError] = useState<string | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [selectedPremium, setSelectedPremium] = useState<any | null>(null);
 
   useEffect(() => {
