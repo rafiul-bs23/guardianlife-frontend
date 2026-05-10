@@ -55,6 +55,8 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
   const [transactions, setTransactions] = useState<any[] | null>(null);
   const [isLoadingTransactions, setIsLoadingTransactions] = useState(false);
   const [transactionsError, setTransactionsError] = useState<string | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [selectedPremium, setSelectedPremium] = useState<any | null>(null);
 
   useEffect(() => {
     if (isOpen && policy?.policyNumber) {
@@ -70,6 +72,7 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
       setPremiumsError(null);
       setTransactions(null);
       setTransactionsError(null);
+      setSelectedPremium(null);
     }
   }, [isOpen, policy, fetchInformation, reset]);
 
@@ -521,7 +524,11 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
                       <div className="space-y-4">
                         <h4 className="font-semibold text-gray-800 text-[18px]">Premium Payments</h4>
                         {premiums.map((premium: any, idx: number) => (
-                          <div key={idx} className="bg-white border border-gray-100 rounded-[14px] p-5 shadow-[0_2px_8px_rgb(0,0,0,0.04)]">
+                          <div
+                            key={idx}
+                            className="bg-white border border-gray-100 rounded-[14px] p-5 shadow-[0_2px_8px_rgb(0,0,0,0.04)] cursor-pointer hover:bg-gray-50 transition-all active:scale-[0.98]"
+                            onClick={() => setSelectedPremium(premium)}
+                          >
                             <div className="flex justify-between items-start">
                               <div className="space-y-2">
                                 <div className="text-gray-500 text-[15px]">Receipt No <span className="text-gray-800 font-medium ml-1">{premium.receiptNo || '-'}</span></div>
@@ -603,6 +610,66 @@ const PolicyDetailsModal: React.FC<PolicyDetailsModalProps> = ({ isOpen, onClose
           scrollbar-width: none; /* Firefox */
         }
       `}</style>
+
+      {/* Premium Details Sub-Modal */}
+      {selectedPremium && (
+        <div className="fixed inset-0 z-[100001] flex justify-center items-center bg-black/40 backdrop-blur-[2px] p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden relative animate-in zoom-in-95 duration-200">
+            <div className="p-7">
+              <div className="flex justify-between items-center mb-8">
+                <h3 className="text-xl font-bold text-gray-900">Premium Details</h3>
+                <button
+                  onClick={() => setSelectedPremium(null)}
+                  className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                >
+                  <X size={20} className="text-gray-500" />
+                </button>
+              </div>
+
+              <div className="space-y-7">
+                <div>
+                  <div className="text-gray-400 text-sm mb-1.5 font-medium">Receipt No</div>
+                  <div className="text-[17px] text-gray-900 tracking-tight">{selectedPremium.receiptNo || '-'}</div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-8">
+                  <div>
+                    <div className="text-gray-400 text-sm mb-1.5 font-medium">Receive Date</div>
+                    <div className="text-[17px] text-gray-900">{formatDate(selectedPremium.receiptDate)}</div>
+                  </div>
+                  <div>
+                    <div className="text-gray-400 text-sm mb-1.5 font-medium">Due Date</div>
+                    <div className="text-[17px] text-gray-900">{formatDate(selectedPremium.dueDate)}</div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-8">
+                  <div>
+                    <div className="text-gray-400 text-sm mb-1.5 font-medium">Collection Amount</div>
+                    <div className="text-[17px] text-gray-900">{formatCurrency(selectedPremium.collectionAmount)}</div>
+                  </div>
+                  <div>
+                    <div className="text-gray-400 text-sm mb-1.5 font-medium">No Of Claim Discount</div>
+                    <div className="text-[17px] text-gray-900">{selectedPremium.noClaimDiscount || '-'}</div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-8">
+                  <div>
+                    <div className="text-gray-400 text-sm mb-1.5 font-medium">Total Late Fee</div>
+                    <div className="text-[17px] text-gray-900">{formatCurrency(selectedPremium.totalLateFee)}</div>
+                  </div>
+                  <div>
+                    <div className="text-gray-400 text-sm mb-1.5 font-medium">Total Premium</div>
+                    <div className="text-[17px] text-gray-900">{formatCurrency(selectedPremium.totalPremium)}</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 
