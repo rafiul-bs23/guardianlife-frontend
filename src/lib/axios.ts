@@ -9,7 +9,7 @@ import type {
 } from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
-const AUTH_BASE_URL = import.meta.env.VITE_AUTH_API_URL || 'https://gliapp-stg.myguardianbd.com/auth-gate/api/access';
+const AUTH_BASE_URL = import.meta.env.VITE_AUTH_API_URL;
 const AUTH_REFRESH_URL = `${AUTH_BASE_URL}/refresh-token`;
 
 const axiosClient: AxiosInstance = axios.create({
