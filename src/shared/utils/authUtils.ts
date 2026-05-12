@@ -1,13 +1,14 @@
 
+import Cookies from 'js-cookie';
+
 export const AUTH_KEYS = {
   TOKEN: 'token',
   REFRESH_TOKEN: 'refreshToken',
-  REFRESH_TOKEN_EXPIRY: 'refreshTokenExpiryTime',
   USER: 'user',
 };
 
-export const getAuthToken = () => localStorage.getItem(AUTH_KEYS.TOKEN);
-export const getRefreshToken = () => localStorage.getItem(AUTH_KEYS.REFRESH_TOKEN);
+export const getAuthToken = () => Cookies.get(AUTH_KEYS.TOKEN);
+export const getRefreshToken = () => Cookies.get(AUTH_KEYS.REFRESH_TOKEN);
 
 export const saveAuthData = (data: {
   token: string;
@@ -15,18 +16,25 @@ export const saveAuthData = (data: {
   refreshTokenExpiryTime: string;
   user?: any;
 }) => {
-  localStorage.setItem(AUTH_KEYS.TOKEN, data.token);
-  localStorage.setItem(AUTH_KEYS.REFRESH_TOKEN, data.refreshToken);
-  localStorage.setItem(AUTH_KEYS.REFRESH_TOKEN_EXPIRY, data.refreshTokenExpiryTime);
+  // Use refreshTokenExpiryTime for cookie expiration if valid
+  const expiry = new Date(data.refreshTokenExpiryTime);
+  const cookieOptions: Cookies.CookieAttributes = {
+    secure: true,
+    sameSite: 'lax',
+    expires: isNaN(expiry.getTime()) ? undefined : expiry,
+  };
+
+  Cookies.set(AUTH_KEYS.TOKEN, data.token, cookieOptions);
+  Cookies.set(AUTH_KEYS.REFRESH_TOKEN, data.refreshToken, cookieOptions);
+
   if (data.user) {
     localStorage.setItem(AUTH_KEYS.USER, JSON.stringify(data.user));
   }
 };
 
 export const clearAuthData = () => {
-  localStorage.removeItem(AUTH_KEYS.TOKEN);
-  localStorage.removeItem(AUTH_KEYS.REFRESH_TOKEN);
-  localStorage.removeItem(AUTH_KEYS.REFRESH_TOKEN_EXPIRY);
+  Cookies.remove(AUTH_KEYS.TOKEN);
+  Cookies.remove(AUTH_KEYS.REFRESH_TOKEN);
   localStorage.removeItem(AUTH_KEYS.USER);
 };
 
